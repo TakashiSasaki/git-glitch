@@ -11,6 +11,22 @@
     
     <!-- import the webpage's javascript file -->
     <script src="/script.js" defer></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyB-ewVL2KK1odHdDKgNg9GbywQGQQPdBJc",
+        authDomain: "fir-realtimedatabasesamp-11e1f.firebaseapp.com",
+        databaseURL: "https://fir-realtimedatabasesamp-11e1f.firebaseio.com",
+        projectId: "fir-realtimedatabasesamp-11e1f",
+        storageBucket: "fir-realtimedatabasesamp-11e1f.appspot.com",
+        messagingSenderId: "784350157671"
+      };
+      firebase.initializeApp(config);
+    </script>
+  
   </head>  
   <body>
     <h1>Hi there!</h1>
