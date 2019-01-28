@@ -1,38 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <title>hoge-firebase</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    
-    <!-- import the webpage's javascript file -->
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js" defer></script>
     <script src="/script.js" defer></script>
     <script src="/pwa.js" defer></script>
-
-
-    <script>
-    </script>
-  
   </head>  
   <body>
-    <h1>Hi there!</h1>
-    <input id="email">
-    <input id="password" type="password">
-    <button onclick="onLoginButtonClick()">
-      Login
-    </button>
-    <p>
-      I'm your cool new webpage. Made with <a href="https://glitch.com">Glitch</a>!
-    </p>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
+    <div>
+      <label for="key">key</label><input id="key">
+    </div>
+    <div>
+      <label for="value">value</label><input id="value">      
+    </div>
+    <button>save</button>
+    <div>
+      <label for="email">email</label><input id="email">
+    </div>
+    <div>
+      <label for="password">password</label><input id="password" type="password">
+    </div>
+    <div>
+      <label for="provider_id">Provider ID</label>
+      <input id="provider_id" readonly="1">
+    </div>
+    <div>
+      <label for="log">Log</label>
+      <textarea id="log" readonly="1"></textarea>
+    </div>
+    <div>
+      <label for="user_id">User ID</label>
+      <input id="user_id" readonly="1">
+    </div>
+    <div>
+      <button>Create User</button>
+      <button>
+        Login
+      </button>
+      <button>
+        Logout
+      </button>
+      <button>
+        Delete User
+      </button>
+    </div>
   </body>
 </html>
