@@ -9,6 +9,10 @@ var config = {
   storageBucket: "fir-realtimedatabasesamp-11e1f.appspot.com",
   messagingSenderId: "784350157671"
 };
+//firebaseオブジェクトは index.html の script タグ
+//<script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+//で読み込まれていることを前提としているので、
+//このファイル script.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
 firebase.auth().onAuthStateChanged(function(user) {
