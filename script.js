@@ -1,3 +1,16 @@
+// Firebaseへの接続に必要なAPIキーその他の情報
+// Firebaseコンソールから取得する
+// Androidアプリケーションでは google-services.json に相当する
+var config = {
+  apiKey: "AIzaSyB-ewVL2KK1odHdDKgNg9GbywQGQQPdBJc",
+  authDomain: "fir-realtimedatabasesamp-11e1f.firebaseapp.com",
+  databaseURL: "https://fir-realtimedatabasesamp-11e1f.firebaseio.com",
+  projectId: "fir-realtimedatabasesamp-11e1f",
+  storageBucket: "fir-realtimedatabasesamp-11e1f.appspot.com",
+  messagingSenderId: "784350157671"
+};
+firebase.initializeApp(config);
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
