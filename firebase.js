@@ -15,6 +15,10 @@ var config = {
 //このファイル script.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
+firebase.database.ref("message").on('value', function(){
+});
+
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     updateAuthState(user);
