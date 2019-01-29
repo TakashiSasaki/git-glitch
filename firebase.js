@@ -15,7 +15,10 @@ var config = {
 //このファイル script.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
-firebase.database.ref("message").on('value', function(){
+firebase.database().ref("message").on('value', function(data_snapshot){
+  console.log(data_snapshot);
+  document.getElementById("key").value = "message";
+  document.getElementById("value").value = data_snapshot.val();
 });
 
 
