@@ -16,8 +16,7 @@ function onCreateUserClick(button){
     updateAuthState(x.user);
   }).catch(function(error) {
     var errorCode = error.code;
-    var errorMessage = error.message;
-    document.getElementById("log").value =errorMesasge;
+    document.getElementById("log").value = error.message;
     console.log(error);
   });  
 }
