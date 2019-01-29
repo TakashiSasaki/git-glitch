@@ -11,7 +11,10 @@ function onCreateUserClick(button){
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   firebase.auth().createUserWithEmailAndPassword(email, password)
-    .catch(function(error) {
+  .then(function(x){
+    document.getElementById("log").value = JSON.stringify(x);
+    updateAuthState(x.user);
+  }).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
     document.getElementById("log").value =errorMesasge;
@@ -23,20 +26,20 @@ function onLoginClick(button){
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch(function(error) {
-    // Handle Errors here.
+  .then(function(x){
+    document.getElementById("log").value = JSON.stringify(x);
+    updateAuthState(x.user);
+  }).catch(function(error) {
     var errorCode = error.code;
-    var errorMessage = error.message;
-    if (errorCode === 'auth/wrong-password') {
-      alert('Wrong password.');
-    } else {
-      alert(errorMessage);
-    }
-    console.log(error);
+    document.getElementById("log").value = error.message;
   });
 }
 
 function onLogoutClick(button){
+  firebase.auth().signOut().then(function(x){
+    document.getElementById("log").value = JSON.stringify(x);    
+    updateAuthState(x.user);
+  });
 }
 
 function onDeleteUserClick(button){

@@ -17,6 +17,14 @@ firebase.initializeApp(config);
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    updateAuthState(user);
+  } else {
+    document.getElementById("log").value 
+      = "You are going to logout, bye.";
+  }
+});
+
+function updateAuthState(user){
     var emailVerified = user.emailVerified;
     var photoURL = user.photoURL;
     var isAnonymous = user.isAnonymous;    
@@ -24,8 +32,4 @@ firebase.auth().onAuthStateChanged(function(user) {
     document.getElementById("email").value = user.email;
     document.getElementById("user_id").value = user.uid;
     document.getElementById("provider_data").value = JSON.stringify(user.providerData);
-  } else {
-    document.getElementById("log").value 
-      = "You are going to logout, bye.";
-  }
-});
+}
