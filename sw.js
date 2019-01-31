@@ -48,6 +48,7 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('fetch', function(event) {
   console.log("'fetch' event is fired.");
   event.respondWith(
+    //リクエストされたものがキャッシュの中にあればレスポンス返す
     caches.match(event.request)
       .then(function(response) {
         if (response) {
