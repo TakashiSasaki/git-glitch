@@ -4,7 +4,7 @@
 //あるキャッシュ名でキャッシュされた情報はブラウザ側に存在する限り二度と読み込まれない。
 //キャッシュする情報が変わるたびに CACHE_NAME も変える。
 //バージョン番号をつけて管理するのも良い方法の一つである。
-var CACHE_NAME = 'hoge-firebase-0.0.2';
+var CACHE_NAME = 'hoge-firebase-0.0.5';
 var urlsToCache = [
   '/',
   '/index.html',
@@ -28,13 +28,17 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
+  console.log("'activate' event is fired.");
   event.waitUntil(
+    //現在キャッシュされているもののキャッシュ名の一覧を得て古いものは破棄
     caches.keys().then(function(cacheNames) {
       return Promise.all(cacheNames.map(function(cacheName) {
-        if ([CACHE_NAME].indexOf(cacheName) === -1) return caches.delete(cacheName);
+        if ([CACHE_NAME].indexOf(cacheName) === -1) {
+          console.log(CACHE_NAME + " should be deleted.");
+          return caches.delete(cacheName);
+        }
       }));
-    })
+    }).catch(function(e){console.log(e);})
   );
-  
 });
 
