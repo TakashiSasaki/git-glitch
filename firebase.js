@@ -1,3 +1,19 @@
+// Firebaseへの接続に必要なAPIキーその他の情報は
+// Firebaseコンソールから取得する
+// Androidアプリケーションでは google-services.json に相当する
+// apiKeyが露出しているのは仕方ない。
+// いわゆるクライアントシークレットが露出しているわけではない。
+// ".read":true, ".write":true みたいな設定しちゃだめ。
+
+var config = {
+  apiKey: "AIzaSyB-ewVL2KK1odHdDKgNg9GbywQGQQPdBJc",
+  authDomain: "fir-realtimedatabasesamp-11e1f.firebaseapp.com",
+  databaseURL: "https://fir-realtimedatabasesamp-11e1f.firebaseio.com",
+  projectId: "fir-realtimedatabasesamp-11e1f",
+  storageBucket: "fir-realtimedatabasesamp-11e1f.appspot.com",
+  messagingSenderId: "784350157671"
+};
+
 //firebaseオブジェクトは index.html の script タグ
 //<script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
 //で読み込まれていることを前提としているので、
