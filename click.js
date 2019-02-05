@@ -37,7 +37,7 @@ function onLoginClick(button){
 function onLogoutClick(button){
   firebase.auth().signOut().then(function(x){
     document.getElementById("log").value = JSON.stringify(x);
-    updateAuthState(x.user);
+    if(x) updateAuthState(x.user);
   });
 }
 

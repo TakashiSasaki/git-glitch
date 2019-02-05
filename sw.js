@@ -4,7 +4,7 @@
 //あるキャッシュ名でキャッシュされた情報はブラウザ側に存在する限り二度と読み込まれない。
 //キャッシュする情報が変わるたびに CACHE_NAME も変える。
 //バージョン番号をつけて管理するのも良い方法の一つである。
-var CACHE_NAME = 'hoge-firebase-0.1.6';
+var CACHE_NAME = 'hoge-firebase-0.1.7';
 var urlsToCache = [
   '/',
   '/manifest.json',
