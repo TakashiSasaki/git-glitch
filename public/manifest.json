@@ -1,15 +1,15 @@
 {
   "lang": "ja",
-  "short_name": "hoge-firebase",
-  "name": "hoge-firebase",
+  "short_name": "gtd-workflow",
+  "name": "gtd-workflow",
   "icons": [
     {
-      "src": "https://cdn.glitch.com/37e8e580-3ec3-44e7-965c-d30db0705ed0%2Ffirebase.png?1548901744853",
+      "src": "https://cdn.glitch.com/project-avatar/08001c19-cb37-4a3d-ac27-c61fa8c59b14.png?1551570704970",
       "type": "image/png",
-      "sizes": "360x360"
+      "sizes": "200x200"
     }
   ],
-  "start_url": "https://hoge-firebase.glitch.me/",
+  "start_url": "https://gtd-workflow.glitch.me/",
   "display": "standalone",
   "theme_color": "#2196F3",
   "background_color": "#2196F3",
