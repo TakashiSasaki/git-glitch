@@ -6,18 +6,18 @@
 // ".read":true, ".write":true みたいな設定しちゃだめ。
 
 var config = {
-  apiKey: "AIzaSyB-ewVL2KK1odHdDKgNg9GbywQGQQPdBJc",
-  authDomain: "fir-realtimedatabasesamp-11e1f.firebaseapp.com",
-  databaseURL: "https://fir-realtimedatabasesamp-11e1f.firebaseio.com",
-  projectId: "fir-realtimedatabasesamp-11e1f",
-  storageBucket: "fir-realtimedatabasesamp-11e1f.appspot.com",
-  messagingSenderId: "784350157671"
+  apiKey: "AIzaSyA3HkRw5Sd8QexcQKea1fMCKE8pDxcS514",
+  authDomain: "dashboard-52fd5.firebaseapp.com",
+  databaseURL: "https://dashboard-52fd5.firebaseio.com",
+  projectId: "dashboard-52fd5",
+  storageBucket: "dashboard-52fd5.appspot.com",
+  messagingSenderId: "920406529480"
 };
 
 //firebaseオブジェクトは index.html の script タグ
 //<script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
 //で読み込まれていることを前提としているので、
-//このファイル script.js はそれよりも後に読み込むこと。
+//このファイル firebase.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
 firebase.database().ref("message").on('value', function(data_snapshot){
