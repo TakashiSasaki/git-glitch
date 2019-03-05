@@ -14,6 +14,7 @@ window.addEventListener('load', function() {
     console.log("service worker has been registered.");
     
     navigator.serviceWorker.ready.then(function(registration){
+      
       console.log('getting subscription ... ');
       return registration.pushManager.subscribe({
         userVisibleOnly: true
@@ -28,7 +29,7 @@ window.addEventListener('load', function() {
       localStorage.setItem("p256dh", p256dh);
       console.log("subscription.p256dh : " + p256dh);
     }).catch(function(e){
-      console.log(e);
+      console.log(e.message);
     });
   } else {
     console.log("This browser does not support service worker.");
