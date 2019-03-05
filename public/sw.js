@@ -86,7 +86,7 @@ self.addEventListener("push", function(event) {
     })
     .then(function(res) {
       return self.registration.showNotification(res.title, {
-        icon: '/icon.png',
+        icon: res.icon,
         body: res.body
       })
     })
