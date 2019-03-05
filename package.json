@@ -5,7 +5,8 @@
   "description" : "gtd-workflow",
   "dependencies": {
     "firebase-tools": "^6.4.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "web-push": "^3.3.3"
   },
   "scripts": {
     "start-webpage": "ws --port 3000 --log.format combined --directory . --blacklist '/.env' '/.data' '/.git'",

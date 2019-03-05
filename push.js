@@ -2,8 +2,17 @@
 // by @OMOIKANESAN
 
 'use strict';
-const processs = require("process");
-console.log(process.env.GCM_SERVER_KEY);
+const fs = require("fs");
+fs.readFile("./.env",'utf8',function(err, text){
+  var x = text.match("SUBSCRIPTION_ENDPOINT=(.*)");
+  if(x) SUBSCRIPTION_ENDPOINT = x;
+  var x = text.match("SUBSCRIPTION_AUTH=(.*)");
+  if(x) SUBSCRIPTION_AUTH = x;
+  var x = text.match("SUBSCRIPTION_P256DH=(.*)");
+  if(x) SUBSCRIPTION_P256DH = x;
+  var x = text.match("GCM_SERVER_KEY=(.*)");
+  if(x) GCM_SERVER_KEY = x;
+});
 const push = require('web-push');
 
 const GCM_API_KEY = '**Firebase で調べた API キー**';
