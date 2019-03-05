@@ -67,7 +67,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener("push", function(event) {
-  console.log(event);
+  console.log(event.data.text());
   event.waitUntil(
     self.registration.pushManager.getSubscription()
       .then(function(subscription) {
@@ -89,7 +89,7 @@ self.addEventListener("push", function(event) {
     .then(function(res) {
       return self.registration.showNotification(res.title, {
         icon: res.icon,
-        body: res.body
+        body: event.data.text()
       })
     })
   )
