@@ -9,21 +9,18 @@
 
 window.addEventListener('load', function() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register("/sw.js")
-      .then(function(registration) {
-        console.log('サービスワーカー登録開始');
-        return registration.pushManager.getSubscription().then(function(subscription) {
-          if (subscription) {
-            return subscription
-          }
-          return registration.pushManager.subscribe({
-            userVisibleOnly: true
-          })
-        })
-      }).then(function(subscription) {
-        console.log("pushManager endpoint:", subscription.endpoint) 
-      }).catch(function(error) {
-        console.warn("serviceWorker error:", error)
-      })
+    navigator.serviceWorker.register("/sw.js");
+    navigator.serviceworker.ready.then(function(registration){
+      console.log('サービスワーカー登録開始');
+      return registration.pushManager.subscribe({userVisibleOnly: true});
+    }).then(function(subscription){
+      console.log("GCM endpoint : " + subscription.endpoint);
+    }).catch(function(e){
+      console.log(e);
+    });
+  } else {
+    console.log("This browser does not support service worker.");
+    return;
   }
-});
+  
+});//addEventListener
