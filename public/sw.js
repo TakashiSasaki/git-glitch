@@ -67,13 +67,15 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener("push", function(event) {
+  console.log(event);
   event.waitUntil(
     self.registration.pushManager.getSubscription()
       .then(function(subscription) {
         if (subscription) {
-          return subscription.endpoint
+          return subscription.endpoint;
+        } else {
+          throw new Error('user has not subscribed')
         }
-        throw new Error('User not subscribed')
     })
     .then(function(res) {
       return fetch('/notification.json')
