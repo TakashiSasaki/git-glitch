@@ -3,7 +3,7 @@
 
 'use strict';
 const processs = require("process");
-console.log(process.env["GCM_SERVER_KEY"]);
+console.log(process.env.GCM_SERVER_KEY);
 const push = require('web-push');
 
 const GCM_API_KEY = '**Firebase で調べた API キー**';
