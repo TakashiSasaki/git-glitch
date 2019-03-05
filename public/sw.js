@@ -4,7 +4,9 @@
 //あるキャッシュ名でキャッシュされた情報はブラウザ側に存在する限り二度と読み込まれない。
 //キャッシュする情報が変わるたびに CACHE_NAME も変える。
 //バージョン番号をつけて管理するのも良い方法の一つである。
-var CACHE_NAME = 'gtd-workflow-0.0.1';
+var CACHE_NAME = 'gtd-workflow-0.0.2';
+var DEBUG = true;
+
 var urlsToCache = [
   '/',
   '/manifest.json',
@@ -44,10 +46,11 @@ self.addEventListener('activate', function(event) {
   );
 });
 
-
-
 self.addEventListener('fetch', function(event) {
   console.log("'fetch' event is fired.");
+  if(DEBUG == true) {
+    return fetch(event.request);
+  };
   event.respondWith(
     //リクエストされたものがキャッシュの中にあればレスポンス返す
     caches.match(event.request)
@@ -62,3 +65,30 @@ self.addEventListener('fetch', function(event) {
     })
   );
 });
+
+self.addEventListener("push", function(event) {
+  event.waitUntil(
+    self.registration.pushManager.getSubscription()
+      .then(function(subscription) {
+        if (subscription) {
+          return subscription.endpoint
+        }
+        throw new Error('User not subscribed')
+    })
+    .then(function(res) {
+      return fetch('/notification.json')
+    })
+    .then(function(res) {
+      if (res.status === 200) {
+        return res.json()
+      }
+      throw new Error('notification api response error')
+    })
+    .then(function(res) {
+      return self.registration.showNotification(res.title, {
+        icon: '/icon.png',
+        body: res.body
+      })
+    })
+  )
+})
