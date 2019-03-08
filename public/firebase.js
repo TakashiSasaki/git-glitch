@@ -20,13 +20,13 @@ var config = {
 //このファイル firebase.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
-function onFirebaseDatabaseWriteByUserAccount(button){
-  var x = clipboard_ref.set(clipboard_textarea.value);
-  console.log(x);
-}
-function onFirebaseDatabaseWriteByServiceAccount(button){
-  google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
-}
+// function onFirebaseDatabaseWriteByUserAccount(button){
+//   var x = clipboard_ref.set(clipboard_textarea.value);
+//   console.log(x);
+// }
+// function onFirebaseDatabaseWriteByServiceAccount(button){
+//   google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
+// }
 
 function onFirebaseHtmlLoaded(){
   var provider = new firebase.auth.GoogleAuthProvider();
@@ -95,7 +95,9 @@ function onFirebaseHtmlLoaded(){
     console.log(x);
   });
   
-
-
+  document.getElementById("buttonFirebaseDatabaseWriteByServiceAccount").addEventListener("click", function(){
+    if(typeof google === "object") {
+      google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
+    }
+  });
 }//onFirebaseHtmlLoaded
-
