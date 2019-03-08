@@ -60,10 +60,11 @@
         xhr.onreadystatechange = function(){
           if(xhr.readyState == 4 && xhr.status == 200){
             document.getElementById("accordion").insertAdjacentHTML("beforeend", xhr.response);  
-            onFirebaseHtmlLoaded();
+            setTimeout(onFirebaseHtmlLoaded, 10000);
           }//if
         }//onreadystatechange
       },Math.random()*100);
+      
     </script>
   </body>
 </html>

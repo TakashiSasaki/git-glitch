@@ -20,8 +20,6 @@ var config = {
 //このファイル firebase.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
-
-
 function onFirebaseDatabaseWriteByUserAccount(button){
   var x = clipboard_ref.set(clipboard_textarea.value);
   console.log(x);
@@ -70,7 +68,7 @@ function onFirebaseHtmlLoaded(){
     document.getElementById("firebase-error-credential").value = error.credential;
   });
   
-  if(google) {
+  if(typeof google === "object") {
     google.script.run.withSuccessHandler(function(x){
       document.getElementById("firebase-service-account-access-type").value = x.access_type;
       document.getElementById("firebase-service-account-email").value = x.email;
