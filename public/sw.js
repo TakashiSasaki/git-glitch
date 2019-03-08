@@ -4,14 +4,14 @@
 //あるキャッシュ名でキャッシュされた情報はブラウザ側に存在する限り二度と読み込まれない。
 //キャッシュする情報が変わるたびに CACHE_NAME も変える。
 //バージョン番号をつけて管理するのも良い方法の一つである。
-var CACHE_NAME = 'gtd-workflow-0.0.2';
-var DEBUG = true;
+var CACHE_NAME = 'gtd-workflow-0.0.7';
+var DEBUG = false;
 
 var urlsToCache = [
   '/',
   '/manifest.json',
   '/index.html',
-  '/click.js',
+  '/firebase.html',
   '/firebase.js',
   '/pwa.js',
   '/style.css',
