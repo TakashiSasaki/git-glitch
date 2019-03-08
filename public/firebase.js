@@ -35,18 +35,18 @@ function onFirebaseHtmlLoaded(){
     if(user){
       document.getElementById("firebase-user-email-verified").value = user.emailVerified;
       document.getElementById("firebase-user-is-anonymous").value = user.isAnonymous;
-      document.getElementById("firebase-user-photo-url").value = user.photoURL;
+      document.getElementById("firebase-user-photo-url").setAttribute("src", user.photoURL);
       document.getElementById("firebase-user-email").value = user.email
       localStorage.setItem("firebase-user-email", user.email);
       document.getElementById("firebase-user-uid").value = user.uid
       localStorage.setItem("firebase-user-uid", user.uid);
       console.log(JSON.stringify(user.providerData));
       document.getElementById("firebase-user-display-name").value = user.displayName;
+      document.getElementById("firebase-userdata-uid-path").innerText = "/userdata/" + user.uid + "/clipboard";
     } else {
-      document.getElementById("firebase-auth-token").value = "";
       document.getElementById("firebase-user-email-verified").value = "";
       document.getElementById("firebase-user-is-anonymous").value = "";
-      document.getElementById("firebase-user-photo-url").value = "";
+      document.getElementById("firebase-user-photo-url").setAttribute("src", "");
       document.getElementById("firebase-user-email").value = "";
       document.getElementById("firebase-user-uid").value = "";
       document.getElementById("firebase-user-display-name").value = "";
@@ -77,11 +77,10 @@ function onFirebaseHtmlLoaded(){
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      document.getElementById("firebase-auth-token").value = token;
+      console.log(result.credential.accessToken);
       document.getElementById("firebase-auth-log").value = JSON.stringify(result.user);
     }).catch(function(error) {
-      console.log(error);
+      document.getElementById("firebase-auth-log").value = JSON.stringify(error);
     });
   });
   

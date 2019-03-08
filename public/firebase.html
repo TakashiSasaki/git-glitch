@@ -10,10 +10,9 @@
     <button id="buttonLogout">logout</button>
   </fieldset>
   <label>User ID</label><input id="firebase-user-uid" placeholder="user ID" readonly="1">
-  <label>Auth Token</label><input id="firebase-auth-token" placeholder="auth token" readonly="1">
   <label>Verified</label><input id="firebase-user-email-verified" placeholder="user email verified" readonly="1">
-  <input id="firebase-user-photo-url" placeholder="user photo URL" readonly="1">
-  <label>Anonymous</label>input id="firebase-user-is-anonymous" placeholder="user is anonymous" readonly="1">
+  <img id="firebase-user-photo-url">
+  <label>Anonymous</label><input id="firebase-user-is-anonymous" placeholder="user is anonymous" readonly="1">
   <label>Display Name</label><input id="firebase-user-display-name" placeholder="userdisplay name" readonly="1">
   <textarea id="firebase-auth-log"></textarea>
 </div>
@@ -31,6 +30,7 @@
 <input type="radio" id="firebase-database" name="accordion">
 <label for="firebase-database">Firebase Database</label>
 <div class="container">
+  <span id="firebase-userdata-uid-path"></span>
   <textarea placeholder="clipbaord"></textarea>
   <input placeholder="last updated" readonly/>
   <button id="buttonFirebaseDatabaseWriteByServiceAccount">write by service account, only for Google Apps Script</button>
