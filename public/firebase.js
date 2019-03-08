@@ -45,3 +45,41 @@ function updateAuthState(user){
     document.getElementById("user_id").value = user.uid;
     document.getElementById("provider_data").value = JSON.stringify(user.providerData);
 }
+
+var provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  document.getElementById("firebase-auth-token").value = token;
+  // The signed-in user info.
+  var user = result.user;
+  document.getElementById("firebase-auth-user").value = JSON.stringify(user);
+  // ...
+}).catch(function(error) {
+  document.getElementById("firebase-error-code").value = error.code;
+  document.getElementById("firebase-error-message").value = error.message;
+  document.getElementById("firebase-error-email").value = error.email;
+  document.getElementById("firebase-error-credential").value = error.credential;
+});
+
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){
+    document.getElementById("firebase-user-email-verified").value = user.emailVerified;
+    document.getElementById("firebase-user-is-anonymous").value = user.isAnonymous;
+    document.getElementById("firebase-user-photo-url").value = user.photoURL;
+    document.getElementById("firebase-user-email").value = user.email
+    localStorage.setItem("firebase-user-email", user.email);
+    document.getElementById("firebase-user-uid").value = user.uid
+    localStorage.setItem("firebase-user-uid", user.uid);
+    document.getElementById("firebase-user-provider-data").value = JSON.stringify(user.providerData);
+    document.getElementById("firebase-user-display-name").value = user.displayName;
+  } else {
+    document.getElementById("firebase-user-email-verified").value = "";
+    document.getElementById("firebase-user-is-anonymous").value = "";
+    document.getElementById("firebase-user-photo-url").value = "";
+    document.getElementById("firebase-user-email").value = "";
+    document.getElementById("firebase-user-uid").value = "";
+    document.getElementById("firebase-user-provider-data").value = "";
+    document.getElementById("firebase-user-display-name").value = "";
+  }
+});
