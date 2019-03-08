@@ -20,66 +20,74 @@ var config = {
 //このファイル firebase.js はそれよりも後に読み込むこと。
 firebase.initializeApp(config);
 
-firebase.database().ref("message").on('value', function(data_snapshot){
-  console.log(data_snapshot);
-  document.getElementById("key").value = "message";
-  document.getElementById("value").value = data_snapshot.val();
-});
 
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    updateAuthState(user);
-  } else {
-    document.getElementById("log").value 
-      = "You are going to logout, bye.";
-  }
-});
-
-function updateAuthState(user){
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var isAnonymous = user.isAnonymous;    
-    document.getElementById("log").value = "Welcome " + user.displayName;
-    document.getElementById("email").value = user.email;
-    document.getElementById("user_id").value = user.uid;
-    document.getElementById("provider_data").value = JSON.stringify(user.providerData);
+function onFirebaseDatabaseWriteByUserAccount(button){
+  var x = clipboard_ref.set(clipboard_textarea.value);
+  console.log(x);
+}
+function onFirebaseDatabaseWriteByServiceAccount(button){
+  google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
 }
 
-var provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  var token = result.credential.accessToken;
-  document.getElementById("firebase-auth-token").value = token;
-  // The signed-in user info.
-  var user = result.user;
-  document.getElementById("firebase-auth-user").value = JSON.stringify(user);
-  // ...
-}).catch(function(error) {
-  document.getElementById("firebase-error-code").value = error.code;
-  document.getElementById("firebase-error-message").value = error.message;
-  document.getElementById("firebase-error-email").value = error.email;
-  document.getElementById("firebase-error-credential").value = error.credential;
-});
+function onFirebaseHtmlLoaded(){
+  var provider = new firebase.auth.GoogleAuthProvider();
+  
+  firebase.auth().onAuthStateChanged(function(user){
+    if(user){
+      document.getElementById("firebase-user-email-verified").value = user.emailVerified;
+      document.getElementById("firebase-user-is-anonymous").value = user.isAnonymous;
+      document.getElementById("firebase-user-photo-url").value = user.photoURL;
+      document.getElementById("firebase-user-email").value = user.email
+      localStorage.setItem("firebase-user-email", user.email);
+      document.getElementById("firebase-user-uid").value = user.uid
+      localStorage.setItem("firebase-user-uid", user.uid);
+      document.getElementById("firebase-user-provider-data").value = JSON.stringify(user.providerData);
+      document.getElementById("firebase-user-display-name").value = user.displayName;
+    } else {
+      document.getElementById("firebase-user-email-verified").value = "";
+      document.getElementById("firebase-user-is-anonymous").value = "";
+      document.getElementById("firebase-user-photo-url").value = "";
+      document.getElementById("firebase-user-email").value = "";
+      document.getElementById("firebase-user-uid").value = "";
+      document.getElementById("firebase-user-provider-data").value = "";
+      document.getElementById("firebase-user-display-name").value = "";
+    }
+  });
 
-firebase.auth().onAuthStateChanged(function(user){
-  if(user){
-    document.getElementById("firebase-user-email-verified").value = user.emailVerified;
-    document.getElementById("firebase-user-is-anonymous").value = user.isAnonymous;
-    document.getElementById("firebase-user-photo-url").value = user.photoURL;
-    document.getElementById("firebase-user-email").value = user.email
-    localStorage.setItem("firebase-user-email", user.email);
-    document.getElementById("firebase-user-uid").value = user.uid
-    localStorage.setItem("firebase-user-uid", user.uid);
-    document.getElementById("firebase-user-provider-data").value = JSON.stringify(user.providerData);
-    document.getElementById("firebase-user-display-name").value = user.displayName;
-  } else {
-    document.getElementById("firebase-user-email-verified").value = "";
-    document.getElementById("firebase-user-is-anonymous").value = "";
-    document.getElementById("firebase-user-photo-url").value = "";
-    document.getElementById("firebase-user-email").value = "";
-    document.getElementById("firebase-user-uid").value = "";
-    document.getElementById("firebase-user-provider-data").value = "";
-    document.getElementById("firebase-user-display-name").value = "";
-  }
-});
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    document.getElementById("firebase-auth-token").value = token;
+    // The signed-in user info.
+    var user = result.user;
+    document.getElementById("firebase-auth-user").value = JSON.stringify(user);
+    // ...
+  }).catch(function(error) {
+    document.getElementById("firebase-error-code").value = error.code;
+    document.getElementById("firebase-error-message").value = error.message;
+    document.getElementById("firebase-error-email").value = error.email;
+    document.getElementById("firebase-error-credential").value = error.credential;
+  });
+  
+  if(google) {
+    google.script.run.withSuccessHandler(function(x){
+      document.getElementById("firebase-service-account-access-type").value = x.access_type;
+      document.getElementById("firebase-service-account-email").value = x.email;
+      document.getElementById("firebase-service-account-scope").value = x.scope;
+      document.getElementById("firebase-service-account-expires-in").value = x.expires_in;
+    }).initServiceAccount();
+  }//google
+  
+  var clipboard_path = "/userdata/" + localStorage.getItem("firebase-user-uid") + "/clipboard";
+  var clipboard_ref = firebase.database().ref(clipboard_path);
+  var clipboard_textarea = document.getElementById("firebase-database").nextElementSibling.nextElementSibling.getElementsByTagName("textarea")[0];
+  var clipboard_input = clipboard_textarea.nextElementSibling;
+  clipboard_ref.on("value", function(data_snapshot){
+    var now = new Date();
+    clipboard_input.value = now;
+    clipboard_textarea.value = data_snapshot.val();
+  });
+
+}//onFirebaseHtmlLoaded
+

@@ -60,7 +60,7 @@
         xhr.onreadystatechange = function(){
           if(xhr.readyState == 4 && xhr.status == 200){
             document.getElementById("accordion").insertAdjacentHTML("beforeend", xhr.response);  
-            updateServiceAccount();
+            onFirebaseHtmlLoaded();
           }//if
         }//onreadystatechange
       },Math.random()*100);

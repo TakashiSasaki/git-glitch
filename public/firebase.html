@@ -28,14 +28,7 @@
     <input id="firebase-service-account-expires-in" placeholder="service accont expores in" readonly>
 </div>
 <script>
-function onFirebaseHtmlLoaded(){
-  google.script.run.withSuccessHandler(function(x){
-    document.getElementById("firebase-service-account-access-type").value = x.access_type;
-    document.getElementById("firebase-service-account-email").value = x.email;
-    document.getElementById("firebase-service-account-scope").value = x.scope;
-    document.getElementById("firebase-service-account-expires-in").value = x.expires_in;
-  }).initServiceAccount();
-}
+
 </script>
 
 <input type="radio" id="firebase-database" name="accordion">
@@ -47,20 +40,5 @@ function onFirebaseHtmlLoaded(){
   <button onclick="onFirebaseDatabaseWriteByUserAccount(this);">write by user account</button>
 </div>
 <script>
-  var clipboard_path = "/userdata/" + localStorage.getItem("firebase-user-uid") + "/clipboard";
-  var clipboard_ref = firebase.database().ref(clipboard_path);
-  var clipboard_textarea = document.getElementById("firebase-database").nextElementSibling.nextElementSibling.getElementsByTagName("textarea")[0];
-  var clipboard_input = clipboard_textarea.nextElementSibling;
-  clipboard_ref.on("value", function(data_snapshot){
-    var now = new Date();
-    clipboard_input.value = now;
-    clipboard_textarea.value = data_snapshot.val();
-  });
-  function onFirebaseDatabaseWriteByUserAccount(button){
-    var x = clipboard_ref.set(clipboard_textarea.value);
-    console.log(x);
-  }
-  function onFirebaseDatabaseWriteByServiceAccount(button){
-    google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
-  }
+
 </script>
