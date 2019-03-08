@@ -6,5 +6,4 @@ function onBookmarkHtmlLoaded(){
   if(typeof ref.val === "undefined") {
     ref.set([{url:"", "icon":"", "title": "", "lastUsed":""}]);
   }
-  for(ref.val.length 
 }
