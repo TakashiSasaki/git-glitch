@@ -89,6 +89,13 @@ function onFirebaseHtmlLoaded(){
     clipboard_input.value = now;
     clipboard_textarea.value = data_snapshot.val();
   });
+  
+  document.getElementById("buttonFirebaseDatabaseWriteByUserAccount").addEventListener("click", function(){
+    var x = clipboard_ref.set(clipboard_textarea.value);
+    console.log(x);
+  });
+  
+
 
 }//onFirebaseHtmlLoaded
 
