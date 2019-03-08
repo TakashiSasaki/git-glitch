@@ -3,5 +3,8 @@ function onBookmarkHtmlLoaded(){
   console.log(uid);
   var ref = firebase.database().ref("/userdata/" + uid + "/bookmarks");
   console.log(ref.val);
-  ref.set([]);
+  if(typeof ref.val === "undefined") {
+    ref.set([{url:"", "icon":"", "title": "", "lastUsed":""}]);
+  }
+  for(ref.val.length 
 }
