@@ -1,0 +1,102 @@
+<input type="radio" id="firebase-debug" name="accordion">
+<label for="firebase-debug">Firebase Authentication</label>
+<div class="card">
+     <input id="firebase-auth-token" placeholder="auth token" readonly="1">
+     <input id="firebase-auth-user" placeholder="auth user" readonly="1">
+     <input id="firebase-auth-error-code" placeholder="auth error code" readonly="1">
+     <input id="firebase-auth-error-message" placeholder="auth error message" readonly="1">
+     <input id="firebase-auth-error-email" placeholder="auth error email" readonly="1">
+     <input id="firebase-auth-error-credential" placeholder="auth error credential" readonly="1">
+     <input id="firebase-user-email" placeholder="user email" readonly="1">
+     <input id="firebase-user-uid" placeholder="user ID" readonly="1">
+     <input id="firebase-user-provider-data" placeholder="user provider data" readonly="1">   
+     <input id="firebase-user-email-verified" placeholder="user email verified" readonly="1">
+     <input id="firebase-user-photo-url" placeholder="user photo URL" readonly="1">
+     <input id="firebase-user-is-anonymous" placeholder="user is anonymous" readonly="1">
+     <input id="firebase-user-display-name" placeholder="userdisplay name" readonly="1">
+</div>
+<script>
+var provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  document.getElementById("firebase-auth-token").value = token;
+  // The signed-in user info.
+  var user = result.user;
+  document.getElementById("firebase-auth-user").value = JSON.stringify(user);
+  // ...
+}).catch(function(error) {
+  document.getElementById("firebase-error-code").value = error.code;
+  document.getElementById("firebase-error-message").value = error.message;
+  document.getElementById("firebase-error-email").value = error.email;
+  document.getElementById("firebase-error-credential").value = error.credential;
+});
+
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){
+    document.getElementById("firebase-user-email-verified").value = user.emailVerified;
+    document.getElementById("firebase-user-is-anonymous").value = user.isAnonymous;
+    document.getElementById("firebase-user-photo-url").value = user.photoURL;
+    document.getElementById("firebase-user-email").value = user.email
+    localStorage.setItem("firebase-user-email", user.email);
+    document.getElementById("firebase-user-uid").value = user.uid
+    localStorage.setItem("firebase-user-uid", user.uid);
+    document.getElementById("firebase-user-provider-data").value = JSON.stringify(user.providerData);
+    document.getElementById("firebase-user-display-name").value = user.displayName;
+  } else {
+    document.getElementById("firebase-user-email-verified").value = "";
+    document.getElementById("firebase-user-is-anonymous").value = "";
+    document.getElementById("firebase-user-photo-url").value = "";
+    document.getElementById("firebase-user-email").value = "";
+    document.getElementById("firebase-user-uid").value = "";
+    document.getElementById("firebase-user-provider-data").value = "";
+    document.getElementById("firebase-user-display-name").value = "";
+  }
+});
+</script>
+
+<input type="radio" id="firebase-service-account" name="accordion">
+<label for="firebase-service-account">Firebase Service Account</label>
+<div class="card">
+    <input id="firebase-service-account-access-type" placeholder="service account access type" readonly>
+    <input id="firebase-service-account-email" placeholder="service account email" readonly>
+    <input id="firebase-service-account-scope" placeholder="service account scope" readonly>
+    <input id="firebase-service-account-expires-in" placeholder="service accont expores in" readonly>
+</div>
+<script>
+setTimeout(function(){
+  google.script.run.withSuccessHandler(function(x){
+    document.getElementById("firebase-service-account-access-type").value = x.access_type;
+    document.getElementById("firebase-service-account-email").value = x.email;
+    document.getElementById("firebase-service-account-scope").value = x.scope;
+    document.getElementById("firebase-service-account-expires-in").value = x.expires_in;
+  }).initServiceAccount();
+}, Math.random() * 100);
+</script>
+
+<input type="radio" id="firebase-database" name="accordion">
+<label for="firebase-database">Firebase Database</label>
+<div class="card">
+  <textarea placeholder="clipbaord"></textarea>
+  <input placeholder="last updated" readonly/>
+  <button onclick="onFirebaseDatabaseWriteByServiceAccount(this);">write by service account, only for Google APps Script</button>
+  <button onclick="onFirebaseDatabaseWriteByUserAccount(this);">write by user account</button>
+</div>
+<script>
+  var clipboard_path = "/userdata/" + localStorage.getItem("firebase-user-uid") + "/clipboard";
+  var clipboard_ref = firebase.database().ref(clipboard_path);
+  var clipboard_textarea = document.getElementById("firebase-database").nextElementSibling.nextElementSibling.getElementsByTagName("textarea")[0];
+  var clipboard_input = clipboard_textarea.nextElementSibling;
+  clipboard_ref.on("value", function(data_snapshot){
+    var now = new Date();
+    clipboard_input.value = now;
+    clipboard_textarea.value = data_snapshot.val();
+  });
+  function onFirebaseDatabaseWriteByUserAccount(button){
+    var x = clipboard_ref.set(clipboard_textarea.value);
+    console.log(x);
+  }
+  function onFirebaseDatabaseWriteByServiceAccount(button){
+    google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
+  }
+</script>
