@@ -29,7 +29,6 @@ firebase.initializeApp(config);
 // }
 
 function onFirebaseHtmlLoaded(){
-  var provider = new firebase.auth.GoogleAuthProvider();
   
   firebase.auth().onAuthStateChanged(function(user){
     console.log("onAuthStateChanged");
@@ -41,7 +40,7 @@ function onFirebaseHtmlLoaded(){
       localStorage.setItem("firebase-user-email", user.email);
       document.getElementById("firebase-user-uid").value = user.uid
       localStorage.setItem("firebase-user-uid", user.uid);
-      document.getElementById("firebase-user-provider-data").value = JSON.stringify(user.providerData);
+      console.log(JSON.stringify(user.providerData));
       document.getElementById("firebase-user-display-name").value = user.displayName;
     } else {
       document.getElementById("firebase-auth-token").value = "";
@@ -50,24 +49,10 @@ function onFirebaseHtmlLoaded(){
       document.getElementById("firebase-user-photo-url").value = "";
       document.getElementById("firebase-user-email").value = "";
       document.getElementById("firebase-user-uid").value = "";
-      document.getElementById("firebase-user-provider-data").value = "";
       document.getElementById("firebase-user-display-name").value = "";
     }
   });
 
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    console.log("signInWithPopup succeeded.");
-    var token = result.credential.accessToken;
-    document.getElementById("firebase-auth-token").value = token;
-    // The signed-in user info.
-    var user = result.user;
-    //document.getElementById("firebase-auth-user").value = JSON.stringify(user);
-    // ...
-  }).catch(function(error) {
-    console.log("signInWithPopup failed.");
-    console.log(error);
-  });
   
   if(typeof google === "object") {
     google.script.run.withSuccessHandler(function(x){
@@ -86,6 +71,18 @@ function onFirebaseHtmlLoaded(){
     var now = new Date();
     clipboard_input.value = now;
     clipboard_textarea.value = data_snapshot.val();
+  });
+  
+  document.getElementById("sign-in-by-google").addEventListener("click", function(){
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      document.getElementById("firebase-auth-token").value = token;
+      document.getElementById("firebase-auth-log").value = JSON.stringify(result.user);
+    }).catch(function(error) {
+      console.log(error);
+    });
   });
   
   document.getElementById("buttonFirebaseDatabaseWriteByUserAccount").addEventListener("click", function(){
