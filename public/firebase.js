@@ -100,4 +100,33 @@ function onFirebaseHtmlLoaded(){
       google.script.run.onFirebaseDatabaseWriteByServiceAccount(clipboard_path, clipboard_textarea.value);
     }
   });
+  
+  document.getElementById("buttonCreateUser").addEventListener("click", function(){
+    var email = document.getElementById("firebase-user-email").value;
+    var password = document.getElementById("firebase-user-password").value;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(function(x){
+        document.getElementById("firebase-auth-log").value = x;
+      }).catch(function(error) {
+        document.getElementById("firebase-auth-log").value = error;
+      });  
+  });
+
+  document.getElementById("buttonLogin").addEventListener("click", function(){
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function(x){
+      document.getElementById("firebase-auth-log").value = x;      
+    }).catch(function(error) {
+      document.getElementById("firebase-auth-log").value = error;
+    });
+  });  
+
+  document.getElementById("buttonLogout").addEventListener("click", function(){
+    firebase.auth().signOut().then(function(x){
+      document.getElementById("firebase-auth-log").value = x;
+    });
+  });
+
 }//onFirebaseHtmlLoaded
