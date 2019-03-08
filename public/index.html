@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css"/>
     <script src="/pwa.js"></script>
     <link rel="stylesheet" href="/style.css">
-    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js" async></script>
-    <script src="/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js" ></script>
+    <script src="/firebase.js" ></script>
+    <script src="/bookmark.js" ></script>
+    <script src="/filereader.js" ></script>
   </head>  
   <body>
     <a href="https://console.firebase.google.com/project/dashboard-52fd5/overview?hl=ja" target="_blank">Firebase console</a>
@@ -33,7 +35,7 @@
           }//onreadystatechange
         },Math.random()*100);
       }
-      addToAccordion("/bookmarks.html", onBookmarksHtmlLoaded);
+      addToAccordion("/bookmark.html", onBookmarkHtmlLoaded);
       addToAccordion("/filereader.html", onFileReaderHtmlLoaded);
       addToAccordion("/firebase.html", onFirebaseHtmlLoaded);
     </script>
