@@ -55,6 +55,7 @@ function onFirebaseHtmlLoaded(){
 
   firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
+    console.log("signInWithPopup succeeded.");
     var token = result.credential.accessToken;
     document.getElementById("firebase-auth-token").value = token;
     // The signed-in user info.
@@ -62,10 +63,12 @@ function onFirebaseHtmlLoaded(){
     document.getElementById("firebase-auth-user").value = JSON.stringify(user);
     // ...
   }).catch(function(error) {
-    document.getElementById("firebase-error-code").value = error.code;
-    document.getElementById("firebase-error-message").value = error.message;
-    document.getElementById("firebase-error-email").value = error.email;
-    document.getElementById("firebase-error-credential").value = error.credential;
+    console.log("signInWithPopup failed.");
+    console.log(error);
+    document.getElementById("firebase-auth-error-code").value = error.code;
+    document.getElementById("firebase-auth-error-message").value = error.message;
+    document.getElementById("firebase-auth-error-email").value = error.email;
+    document.getElementById("firebase-auth-error-credential").value = error.credential;
   });
   
   if(typeof google === "object") {
