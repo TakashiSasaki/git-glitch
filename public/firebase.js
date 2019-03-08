@@ -32,6 +32,7 @@ function onFirebaseHtmlLoaded(){
   var provider = new firebase.auth.GoogleAuthProvider();
   
   firebase.auth().onAuthStateChanged(function(user){
+    console.log("onAuthStateChanged");
     if(user){
       document.getElementById("firebase-user-email-verified").value = user.emailVerified;
       document.getElementById("firebase-user-is-anonymous").value = user.isAnonymous;
@@ -103,7 +104,9 @@ function onFirebaseHtmlLoaded(){
   
   document.getElementById("buttonCreateUser").addEventListener("click", function(){
     var email = document.getElementById("firebase-user-email").value;
+    console.log(email);
     var password = document.getElementById("firebase-user-password").value;
+    console.log(password);
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function(x){
         document.getElementById("firebase-auth-log").value = x;
@@ -113,8 +116,8 @@ function onFirebaseHtmlLoaded(){
   });
 
   document.getElementById("buttonLogin").addEventListener("click", function(){
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
+    var email = document.getElementById("firebase-user-email").value;
+    var password = document.getElementById("firebase-user-password").value;
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(x){
       document.getElementById("firebase-auth-log").value = x;      
@@ -125,7 +128,11 @@ function onFirebaseHtmlLoaded(){
 
   document.getElementById("buttonLogout").addEventListener("click", function(){
     firebase.auth().signOut().then(function(x){
+      console.log(x);
       document.getElementById("firebase-auth-log").value = x;
+    }).catch(function(error){
+      console.log(error);
+      document.getElementById("firebase-auth-log").value = error;
     });
   });
 
