@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css"/>
     <script src="/pwa.js"></script>
     <link rel="stylesheet" href="/style.css">
-    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js" async></script>
     <script src="/firebase.js"></script>
   </head>  
   <body>
@@ -33,8 +33,9 @@
           }//onreadystatechange
         },Math.random()*100);
       }
+      addToAccordion("/bookmarks.html", onBookmarksHtmlLoaded);
+      addToAccordion("/filereader.html", onFileReaderHtmlLoaded);
       addToAccordion("/firebase.html", onFirebaseHtmlLoaded);
-      addToAccordion("/filereader.html", );
     </script>
   </body>
 </html>
