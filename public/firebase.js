@@ -44,6 +44,7 @@ function onFirebaseHtmlLoaded(){
       document.getElementById("firebase-user-provider-data").value = JSON.stringify(user.providerData);
       document.getElementById("firebase-user-display-name").value = user.displayName;
     } else {
+      document.getElementById("firebase-auth-token").value = "";
       document.getElementById("firebase-user-email-verified").value = "";
       document.getElementById("firebase-user-is-anonymous").value = "";
       document.getElementById("firebase-user-photo-url").value = "";
@@ -61,7 +62,7 @@ function onFirebaseHtmlLoaded(){
     document.getElementById("firebase-auth-token").value = token;
     // The signed-in user info.
     var user = result.user;
-    document.getElementById("firebase-auth-user").value = JSON.stringify(user);
+    //document.getElementById("firebase-auth-user").value = JSON.stringify(user);
     // ...
   }).catch(function(error) {
     console.log("signInWithPopup failed.");
