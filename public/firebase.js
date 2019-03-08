@@ -67,10 +67,6 @@ function onFirebaseHtmlLoaded(){
   }).catch(function(error) {
     console.log("signInWithPopup failed.");
     console.log(error);
-    document.getElementById("firebase-auth-error-code").value = error.code;
-    document.getElementById("firebase-auth-error-message").value = error.message;
-    document.getElementById("firebase-auth-error-email").value = error.email;
-    document.getElementById("firebase-auth-error-credential").value = error.credential;
   });
   
   if(typeof google === "object") {
