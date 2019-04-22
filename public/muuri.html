@@ -55,12 +55,16 @@
           const unsubscribe = firebase.auth().onAuthStateChanged((user)=> {
             unsubscribe();
             if(user) {
+              // サインイン済み
               user.getIdToken().then((idToken) => {
+                // サインイン済みでトークンが取れた
                 resolve(idToken);
               }, (error)=>{
+                // サインイン済みだけどトークンが取れなかった
                 resolve(null);
               });
             } else {
+              // サインインしていない状態
               resolve(null);
             }
           });
