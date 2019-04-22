@@ -38,15 +38,36 @@
       firebase.initializeApp(config);
       var provider = new firebase.auth.GoogleAuthProvider();
       console.log("currentUser = " +　firebase.auth().currentUser);
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          console.log("accessToken = " + result.credential.accessToken);
-          console.log("currentUser = " + firebase.auth().currentUser);
-          //document.getElementById("firebase-auth-log").value = JSON.stringify(result.user);
-      }).catch(function(error) {
-          console.log(JSON.stringify(error));
-          //document.getElementById("firebase-auth-log").value = JSON.stringify(error);
-      });
+      function signIn(){
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            console.log("accessToken = " + result.credential.accessToken);
+            console.log("currentUser = " + firebase.auth().currentUser);
+            //document.getElementById("firebase-auth-log").value = JSON.stringify(result.user);
+        }).catch(function(error) {
+            console.log(JSON.stringify(error));
+            //document.getElementById("firebase-auth-log").value = JSON.stringify(error);
+        });
+      }
+      
+      const getIdToken = ()=> {
+        return new Promise((resolve, reject) => {
+          const unsubscribe = firebase.auth().onAuthStateChanged((user)=> {
+            unsubscribe();
+            if(user) {
+              user.getIdToken().then((idToken) => {
+                resolve(idToken);
+              }, (error)=>{
+                resolve(null);
+              });
+            } else {
+              resolve(null);
+            }
+          });
+        });
+      };
+      
+      getIdToken((idToken) => {console.log(idToken);});
     </script>
     <script>
       var textarea = document.getElementsByTagName("textarea")[0];
