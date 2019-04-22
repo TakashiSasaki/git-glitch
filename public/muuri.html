@@ -36,12 +36,19 @@
     <textarea>aaa</textarea>
     <script>
       firebase.initializeApp(config);
-      firebase.auth().onAuthStateChanged((user)=>{
-        console.log("User : " + user);
+      
+      var user;      
+      firebase.auth().onAuthStateChanged((x)=>{
+        user = x;
+        console.log("User : " + x);
         if(user) {
-          console.log("idToken : " + user.getIdToken());
+          idToken = x.getIdToken();
+          console.log("idToken : " + x.getIdToken());
         }
       });
+      
+      
+      
       var provider = new firebase.auth.GoogleAuthProvider();
       console.log("currentUser = " +　firebase.auth().currentUser);
       function signIn(){
