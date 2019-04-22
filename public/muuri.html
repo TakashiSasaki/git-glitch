@@ -19,9 +19,11 @@
       </div>
       
     </div>
+    <textarea></textarea>
     <script>
       var grid = new Muuri(".muuri" , {dragEnabled: true});
-      console.log("fired Muuri");
+      var textarea = document.getElementsByTagName("textarea")[0];
+      textarea.value += "new Muuri\n";
     </script>
   </html>
 </html>

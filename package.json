@@ -4,10 +4,10 @@
   "main": "server.js",
   "description" : "gtd-workflow",
   "dependencies": {
-    "firebase-tools": "^6.4.0",
+    "firebase-tools": "^6.70",
     "express": "^4.16.4",
     "web-push": "^3.3.3",
-    "sqlite3": "*"
+    "sqlite3": "^4.0.6
   },
   "scripts": {
     "start-webpage": "ws --port 3000 --log.format combined --directory . --blacklist '/.env' '/.data' '/.git'",
