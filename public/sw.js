@@ -5,7 +5,6 @@
 //キャッシュする情報が変わるたびに CACHE_NAME も変える。
 //バージョン番号をつけて管理するのも良い方法の一つである。
 var CACHE_NAME = 'gtd-workflow-0.0.13';
-var DEBUG = true;
 
 var urlsToCache = [
   //'/',
@@ -51,9 +50,6 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', function(event) {
   console.log("'fetch' event is fired.");
-  if(DEBUG == true) {
-    return fetch(event.request);
-  };
   event.respondWith(
     //リクエストされたものがキャッシュの中にあればレスポンス返す
     caches.match(event.request)
