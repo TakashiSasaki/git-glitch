@@ -13,3 +13,7 @@ h1 {
 textarea {
   width: 99%;
 }
+
+.grid{
+  position: relateive;
+}
