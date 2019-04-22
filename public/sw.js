@@ -9,12 +9,12 @@ var DEBUG = true;
 
 var urlsToCache = [
   //'/',
-  '/manifest.json',
+  //'/manifest.json',
   //'/index.html',
-  '/firebase.html',
-  '/firebase.js',
-  '/pwa.js',
-  '/style.css',
+  //'/firebase.html',
+  //'/firebase.js',
+  //'/pwa.js',
+  //'/style.css',
   /*'https://www.gstatic.com/firebasejs/5.8.0/firebase.js'*/
 ];
 
