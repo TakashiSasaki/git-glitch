@@ -13,7 +13,7 @@ var urlsToCache = [
   //'/index.html',
   //'/firebase.html',
   //'/firebase.js',
-  //'/pwa.js',
+  '/pwa.js',
   //'/style.css',
   //'https://www.gstatic.com/firebasejs/5.8.0/firebase.js',
   "/firebase-5.8.0.js",

@@ -42,7 +42,8 @@
           console.log(result.credential.accessToken);
           //document.getElementById("firebase-auth-log").value = JSON.stringify(result.user);
       }).catch(function(error) {
-          document.getElementById("firebase-auth-log").value = JSON.stringify(error);
+          console.log(JSON.stringify(error));
+          //document.getElementById("firebase-auth-log").value = JSON.stringify(error);
       });
     </script>
     <script>
