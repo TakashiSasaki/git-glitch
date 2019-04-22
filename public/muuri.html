@@ -36,6 +36,12 @@
     <textarea>aaa</textarea>
     <script>
       firebase.initializeApp(config);
+      firebase.auth().onAuthStateChanged((user)=>{
+        console.log("User : " + user);
+        if(user) {
+          console.log("idToken : " + user.getIdToken());
+        }
+      });
       var provider = new firebase.auth.GoogleAuthProvider();
       console.log("currentUser = " +　firebase.auth().currentUser);
       function signIn(){
@@ -49,10 +55,6 @@
             //document.getElementById("firebase-auth-log").value = JSON.stringify(error);
         });
       }
-      
-
-      
-      getIdToken((idToken) => {console.log(idToken);});
     </script>
     <script>
       var textarea = document.getElementsByTagName("textarea")[0];
