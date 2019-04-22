@@ -93,3 +93,27 @@ self.addEventListener("push", function(event) {
     })
   )
 })
+
+// firebaseのトークンを取得して resolve する Promise
+// 例外が発生した時は reject が呼ばれる
+const getIdToken = ()=> {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user)=> {
+      unsubscribe();
+      if(user) {
+        // サインイン済み
+        user.getIdToken().then((idToken) => {
+          // サインイン済みでトークンが取れた
+          resolve(idToken);
+        }, (error)=>{
+          // サインイン済みだけどトークンが取れなかった
+          resolve(null);
+        });
+      } else {
+        // サインインしていない状態
+        resolve(null);
+      }
+    });
+  });
+};
+
