@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/style.css" type="text/css">
   </head>
   <html>
-    <div class="itemgroup">
+    <div class="grid">
       <div class="item">
         <div class="item-content">
               aaab
@@ -17,9 +17,6 @@
               bbba
         </div>
       </div>
-      
-    </div>
-    <div class="itemgroup">
       <div class="item">
         <div class="item-content">
               123
@@ -31,14 +28,13 @@
         </div>
       </div>
     </div>
-    <textarea></textarea>
+    <textarea>aaa</textarea>
     <script>
-      var grid = new Muuri(".itemgroup" , {dragEnabled: true});
+      var textarea = document.getElementsByTagName("textarea")[0];
+      var grid = new Muuri(".grid" , {dragEnabled: true});
       grid.on("layoutEnd", function(x){
         textarea.value += x;
       });
-      var textarea = document.getElementsByTagName("textarea")[0];
-      textarea.value += "new Muuri\n";
     </script>
   </html>
 </html>
