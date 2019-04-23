@@ -42,8 +42,6 @@
         xhr.responseType = "document";
         xhr.send();
         xhr.onload = ()=>{
-          console.log("onload");
-          console.log(xhr.responseXML);
           callback(xhr.responseXML);
           var div = xhr.responseXML.getElementsByTagName("div")[0];
           muuriContainer.add(div);
