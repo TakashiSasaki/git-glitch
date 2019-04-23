@@ -35,9 +35,13 @@
     </div>
     <textarea>aaa</textarea>
     <script>
-      var divFirebaseSignIn = 
-      
-      firebase.initializeApp(config);
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/firebase-signin-button.html");
+      xhr.responseType = "document";
+      xhr.send();
+      xhr.onload = ()=>{
+        console.log(xhr.responseXML);
+      };
       
       var user;      
       firebase.auth().onAuthStateChanged((x)=>{
