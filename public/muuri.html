@@ -13,24 +13,24 @@
   </head>
   <html>
     <div class="grid">
-      <div class="item">
+      <div class="item" id="div1">
         <div class="item-content">
-              aaab
+              div1
         </div>
       </div>
-      <div class="item">
+      <div class="item" id="div2">
         <div class="item-content">
-              bbba
+              div2
         </div>
       </div>
-      <div class="item">
+      <div class="item" id="div3">
         <div class="item-content">
-              123
+              div3
         </div>
       </div>
-      <div class="item">
+      <div class="item" id="div4">
         <div class="item-content">
-              456
+              div4
         </div>
       </div>
     </div>
@@ -54,15 +54,14 @@
             if(element.id) {
               var k = "muuriOrder:"+element.id;
               var v = window.localStorage.getItem(k);
-              console.log(");
+              console.log("sort order for " + k + " is " + v);
               return parseFloat(v);
             }//if
-            return 0;
+            return 100;
           }//default
         }
       });
-      grid.sort("default");
-      grid.on("dragReleaseEnd", function(item, event){
+      grid.on("dragEnd", function(item, event){
         var items = grid.getItems();
         for(i in items){
           var element = items[i].getElement();
@@ -74,6 +73,9 @@
         }
         //textarea.value += x;
       });
+
+      grid.refreshSortData();
+      grid.sort("default");
       
       loadDocument("/firebase-signin-button.html", (d)=>{
         firebase.auth().onAuthStateChanged((x)=>{
@@ -89,6 +91,8 @@
             });
           }//if
         });
+        grid.refreshSortData();
+        grid.sort("default");
       });
     </script>
     <script>
