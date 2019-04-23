@@ -46,7 +46,14 @@
     </script>
     <script>
       var textarea = document.getElementsByTagName("textarea")[0];
-      var grid = new Muuri(".grid" , {dragEnabled: true});
+      var grid = new Muuri(".grid" , {
+        dragEnabled: true, 
+        dragSortInterval: 70,
+        sortData: {
+          default: (item, element) => {
+          }
+        }
+      });
       grid.on("layoutEnd", function(x){
         textarea.value += x;
       });
