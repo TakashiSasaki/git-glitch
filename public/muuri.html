@@ -8,6 +8,7 @@
     <!--<script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js" ></script>-->
     <script src="/firebase-5.8.0.js" ></script>
     <script src="/firebase-config.js"></script>
+    <script src="/firebase-app.js"></script>
     <link rel="stylesheet" href="/style.css" type="text/css">
   </head>
   <html>
@@ -35,13 +36,23 @@
     </div>
     <textarea>aaa</textarea>
     <script>
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/firebase-signin-button.html");
-      xhr.responseType = "document";
-      xhr.send();
-      xhr.onload = ()=>{
-        console.log(xhr.responseXML);
-      };
+      var textarea = document.getElementsByTagName("textarea")[0];
+      var grid = new Muuri(".grid" , {dragEnabled: true});
+      grid.on("layoutEnd", function(x){
+        textarea.value += x;
+      });
+    </script>
+    <script>
+      function addItem(muuriContainer, url){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/firebase-signin-button.html");
+        xhr.responseType = "document";
+        xhr.send();
+        xhr.onload = ()=>{
+          var div = xhr.responseXML.getElementsByTagName("div")[0];
+          grid.add(div);
+        };
+      }
       
       var user;      
       firebase.auth().onAuthStateChanged((x)=>{
@@ -54,13 +65,6 @@
       });
       
       console.log("currentUser = " +　firebase.auth().currentUser);
-    </script>
-    <script>
-      var textarea = document.getElementsByTagName("textarea")[0];
-      var grid = new Muuri(".grid" , {dragEnabled: true});
-      grid.on("layoutEnd", function(x){
-        textarea.value += x;
-      });
     </script>
     
   </html>
