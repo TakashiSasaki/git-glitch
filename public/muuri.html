@@ -41,16 +41,19 @@
       grid.on("layoutEnd", function(x){
         textarea.value += x;
       });
+      addGridItem(grid, "/firebase-signin-button.html", ()=>{
+        
+      });
     </script>
     <script>
-      function addItem(muuriContainer, url){
+      function addGridItem(muuriContainer, url, callback){
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/firebase-signin-button.html");
+        xhr.open("GET", url);
         xhr.responseType = "document";
         xhr.send();
         xhr.onload = ()=>{
           var div = xhr.responseXML.getElementsByTagName("div")[0];
-          grid.add(div);
+          muuriContainer.add(div);
         };
       }
       
