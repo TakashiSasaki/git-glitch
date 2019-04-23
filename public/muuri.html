@@ -34,7 +34,6 @@
         </div>
       </div>
     </div>
-    <textarea>aaa</textarea>
     <script>
       function loadDocument(url, callback){
         var xhr = new XMLHttpRequest();
@@ -45,7 +44,6 @@
       }//loadDocument
     </script>
     <script>
-      var textarea = document.getElementsByTagName("textarea")[0];
       var grid = new Muuri(".grid" , {
         dragEnabled: true, 
         dragSortInterval: 70,
@@ -71,14 +69,12 @@
             console.log("setting " + k + " to " + i);
           }
         }
-        //textarea.value += x;
       });
 
       loadDocument("/firebase-signin-button.html", (d)=>{
+        grid.add(d.getElementsByTagName("div")[0]);
+        grid.sort("default");
         firebase.auth().onAuthStateChanged((x)=>{
-          grid.add(d.getElementsByTagName("div")[0]);
-          //grid.refreshSortData();
-          grid.sort("default");
           if(x){
             document.getElementById("displayName").value = x.displayName;
             document.getElementById("email").value = x.email;
@@ -87,6 +83,10 @@
             },(error)=>{
               d.getElementById("idToken").value = error;
             });
+          } else {
+            document.getElementById("idToken").value = "NOT LOGGED IN";
+            document.getElementById("displayName").value = "NOT LOGGED IN";
+            document.getElementById("email").value = "NOT LOGGED IN";            
           }//if
         });//onAuthStateChanged
       });//loadDocument
