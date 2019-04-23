@@ -101,7 +101,11 @@
       });//loadDocument
       
       loadDocument("/hello.html", (d)=>{
+        var ref = firebase.database().ref("appConfig/helloMessage");
+        ref.on("value", (snapshot)=>{
+        });
         grid.add(d.getElementsByTagName("div")[0]);
+        grid.refreshItems();
         grid.layout();
       });
     </script>
