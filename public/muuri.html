@@ -85,12 +85,15 @@
               d.getElementById("idToken").value = error;
             });
             img.setAttribute("src", firebase.auth().currentUser.photoURL);
+            document.getElementById("uid").value = firebase.auth().currentUser.uid;
+            grid.layout();
           } else {
             img.setAttribute("src", "https://tnckb94959.i.lithium.com/skins/images/3AB578B02FD7B257A7B52D5E05139FE9/atlassian_community/images/icon_anonymous_profile.png");
             document.getElementById("uid").value = "NOT LOGGED IN";
             document.getElementById("idToken").value = "NOT LOGGED IN";
             document.getElementById("displayName").value = "NOT LOGGED IN";
             document.getElementById("email").value = "NOT LOGGED IN";            
+            grid.layout();
           }//if
         });//onAuthStateChanged
       });//loadDocument
