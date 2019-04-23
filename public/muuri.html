@@ -36,7 +36,7 @@
     </div>
     <textarea>aaa</textarea>
     <script>
-      function loadDocument(muuriContainer, url, callback){
+      function loadDocument(url, callback){
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.responseType = "document";
@@ -50,27 +50,23 @@
       grid.on("layoutEnd", function(x){
         textarea.value += x;
       });
-      addGridItem(grid, "/firebase-signin-button.html", (d)=>{
+      
+      loadDocument("/firebase-signin-button.html", (d)=>{
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
-            d.getElementById("idToken").innerHTML = x.getIdToken();
-          }
-          var div = xhr.responseXML.getElementsByTagName("div")[0];
-          muuriContainer.add(div);
+            x.getIdToken().then((idToken)=>{
+              d.getElementById("idToken").innerHTML = idToken;
+              grid.add(d.getElementsByTagName("div")[0]);
+            },(error)=>{
+              d.getElementById("idToken").innerHTML = error;
+              grid.add(d.getElementsByTagName("div")[0]);              
+            });
+          }//if
         });
+        firebase.auth().currentUser;
       });
     </script>
     <script>
-      
-      var user;      
-      firebase.auth().onAuthStateChanged((x)=>{
-        user = x;
-        console.log("User : " + x);
-        if(user) {
-          idToken = x.getIdToken();
-          console.log("idToken : " + x.getIdToken());
-        }
-      });
       
       console.log("currentUser = " +　firebase.auth().currentUser);
     </script>
