@@ -52,16 +52,24 @@
         sortData: {
           default: (item, element) => {
             if(element.id) {
-              return window.localStorage.getItem(element.id);
+              var k = "muuriOrder:"+element.id;
+              var v = window.localStorage.getItem(k);
+              console.log(");
+              return parseFloat(v);
             }//if
+            return 0;
           }//default
         }
       });
-      grid.on("layoutEnd", function(items){
+      grid.sort("default");
+      grid.on("dragReleaseEnd", function(item, event){
+        var items = grid.getItems();
         for(i in items){
           var element = items[i].getElement();
           if(element.id) {
-            console.log(element.id);
+            var k = "muuriOrder:"+element.id;
+            window.localStorage.setItem(k, i);
+            console.log("setting " + k + " to " + i);
           }
         }
         //textarea.value += x;
