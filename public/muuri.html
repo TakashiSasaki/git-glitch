@@ -55,10 +55,10 @@
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
             x.getIdToken().then((idToken)=>{
-              d.getElementById("idToken").innerHTML = idToken;
+              d.getElementById("idToken").value = idToken;
               grid.add(d.getElementsByTagName("div")[0]);
             },(error)=>{
-              d.getElementById("idToken").innerHTML = error;
+              d.getElementById("idToken").value = error;
               grid.add(d.getElementsByTagName("div")[0]);              
             });
           }//if
