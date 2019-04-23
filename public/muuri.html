@@ -51,11 +51,20 @@
         dragSortInterval: 70,
         sortData: {
           default: (item, element) => {
-          }
+            if(element.id) {
+              return window.localStorage.getItem(element.id);
+            }//if
+          }//default
         }
       });
-      grid.on("layoutEnd", function(x){
-        textarea.value += x;
+      grid.on("layoutEnd", function(items){
+        for(i in items){
+          var element = items[i].getElement();
+          if(element.id) {
+            console.log(element.id);
+          }
+        }
+        //textarea.value += x;
       });
       
       loadDocument("/firebase-signin-button.html", (d)=>{
