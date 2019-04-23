@@ -76,23 +76,20 @@
 
       loadDocument("/firebase-signin-button.html", (d)=>{
         firebase.auth().onAuthStateChanged((x)=>{
+          grid.add(d.getElementsByTagName("div")[0]);
+          //grid.refreshSortData();
+          grid.sort("default");
           if(x){
-            d.getElementById("displayName").value = x.displayName;
-            d.getElementById("email").value = x.email;
+            document.getElementById("displayName").value = x.displayName;
+            document.getElementById("email").value = x.email;
             x.getIdToken().then((idToken)=>{
-              d.getElementById("idToken").value = idToken;
-              grid.add(d.getElementsByTagName("div")[0]);
-              grid.refreshSortData();
-              grid.sort("default");
+              document.getElementById("idToken").value = idToken;
             },(error)=>{
               d.getElementById("idToken").value = error;
-              grid.add(d.getElementsByTagName("div")[0]);              
-              grid.refreshSortData();
-              grid.sort("default");
             });
           }//if
-        });
-      });
+        });//onAuthStateChanged
+      });//loadDocument
     </script>
   </html>
 </html>
