@@ -122,6 +122,10 @@
         });
       });
       
+      loadDocument("/userData.html", (d)=>{
+        firebase.database().ref("userData/" + firebase.auth().currentUser.uid()
+      });
+      
     </script>
   </html>
 </html>
