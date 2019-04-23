@@ -9,6 +9,7 @@
     <script src="/firebase-5.8.0.js" ></script>
     <script src="/firebase-config.js"></script>
     <script src="/firebase-app.js"></script>
+    <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css"/>
     <link rel="stylesheet" href="/style.css" type="text/css">
   </head>
   <html>
@@ -39,8 +40,8 @@
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.responseType = "document";
-        xhr.send();
         xhr.onload = ()=>{callback(xhr.responseXML)};
+        xhr.send();
       }//loadDocument
     </script>
     <script>
@@ -101,11 +102,17 @@
       });//loadDocument
       
       loadDocument("/hello.html", (d)=>{
-        var ref = firebase.database().ref("appConfig/helloMessage");
         grid.add(d.getElementsByTagName("div")[0]);
-        ref.on("value", (snapshot)=>{
+        firebase.database().ref("appConfig/helloMessage").on("value", (snapshot)=>{
           var v = snapshot.val();
-          document.getElementById("helloMessage").innerText = v;
+          document.getElementById("helloTitle").innerHTML = v;
+          document.getElementById("helloMessage").innerHTML = v;
+          //grid.refreshItems();
+          //grid.layout();
+        });
+        firebase.database().ref("appConfig/helloTitle").on("value", (snapshot)=>{
+          var v = snapshot.val();
+          document.getElementById("helloTitle").innerHTML = v;
           grid.refreshItems();
           grid.layout();
         });
