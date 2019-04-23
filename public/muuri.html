@@ -110,8 +110,8 @@
           var v = snapshot.val();
           document.getElementById("helloTitle").innerHTML = v;
           document.getElementById("helloMessage").innerHTML = v;
-          //grid.refreshItems();
-          //grid.layout();
+          grid.refreshItems();
+          grid.layout();
         });
         firebase.database().ref("appConfig/helloTitle").on("value", (snapshot)=>{
           var v = snapshot.val();
