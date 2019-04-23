@@ -36,26 +36,36 @@
     </div>
     <textarea>aaa</textarea>
     <script>
-      var textarea = document.getElementsByTagName("textarea")[0];
-      var grid = new Muuri(".grid" , {dragEnabled: true});
-      grid.on("layoutEnd", function(x){
-        textarea.value += x;
-      });
-      addGridItem(grid, "/firebase-signin-button.html", ()=>{
-        
-      });
-    </script>
-    <script>
       function addGridItem(muuriContainer, url, callback){
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.responseType = "document";
         xhr.send();
         xhr.onload = ()=>{
+          console.log("onload");
+          console.log(xhr.responseXML);
+          callback(xhr.responseXML);
           var div = xhr.responseXML.getElementsByTagName("div")[0];
           muuriContainer.add(div);
         };
       }
+    </script>
+    <script>
+      var textarea = document.getElementsByTagName("textarea")[0];
+      var grid = new Muuri(".grid" , {dragEnabled: true});
+      grid.on("layoutEnd", function(x){
+        textarea.value += x;
+      });
+      addGridItem(grid, "/firebase-signin-button.html", (d)=>{
+        firebase.auth().onAuthStateChanged((x)=>{
+          if(x){
+            console.log(d);
+            d.getElementById("idToken").innerHTML = x.getIdToken();
+          }
+        });
+      });
+    </script>
+    <script>
       
       var user;      
       firebase.auth().onAuthStateChanged((x)=>{
