@@ -54,6 +54,8 @@
       loadDocument("/firebase-signin-button.html", (d)=>{
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
+            d.getElementById("displayName").value = x.displayName;
+            d.getElementById("email").value = x.email;
             x.getIdToken().then((idToken)=>{
               d.getElementById("idToken").value = idToken;
               grid.add(d.getElementsByTagName("div")[0]);
@@ -63,7 +65,6 @@
             });
           }//if
         });
-        firebase.auth().currentUser;
       });
     </script>
     <script>
