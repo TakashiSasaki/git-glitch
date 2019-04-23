@@ -123,8 +123,13 @@
       });
       
       loadDocument("/userData.html", (d)=>{
-        firebase.database().ref("userData/" + firebase.auth().currentUser.uid()
       });
+      
+      loadDocument("/localStorage.html", (d)=>{
+        window
+      });
+      
+      console.log(Object.keys(localStorage));
       
     </script>
   </html>
