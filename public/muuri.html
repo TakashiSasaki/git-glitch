@@ -36,17 +36,13 @@
     </div>
     <textarea>aaa</textarea>
     <script>
-      function addGridItem(muuriContainer, url, callback){
+      function loadDocument(muuriContainer, url, callback){
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.responseType = "document";
         xhr.send();
-        xhr.onload = ()=>{
-          callback(xhr.responseXML);
-          var div = xhr.responseXML.getElementsByTagName("div")[0];
-          muuriContainer.add(div);
-        };
-      }
+        xhr.onload = ()=>{callback(xhr.responseXML)};
+      }//loadDocument
     </script>
     <script>
       var textarea = document.getElementsByTagName("textarea")[0];
@@ -57,9 +53,10 @@
       addGridItem(grid, "/firebase-signin-button.html", (d)=>{
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
-            console.log(d);
             d.getElementById("idToken").innerHTML = x.getIdToken();
           }
+          var div = xhr.responseXML.getElementsByTagName("div")[0];
+          muuriContainer.add(div);
         });
       });
     </script>
