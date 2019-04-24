@@ -127,13 +127,13 @@
       });
       
       loadDocument("/localStorage.html", (d)=>{
-        grid.add(d.querySelector("form[0]"));
-        var form = document.getElementById("localStorage");
+        var item = grid.add(d.querySelector("body :first-child"))[0].getElement();
         window.addEventListener("setItem", (event)=>{
-          form.getElementsByName("lastModified")[0].value = new Date();
-          form.getElementsByName("key")[0].value = event.key;
-          form.getElementsByName("oldValue")[0].value = event.oldValue;
-          form.getElementsByName("newValue")[0].value = event.newValue;
+          var input = item.querySelector('input[name="lastModified"]').value = new Date();
+          console.log(input);
+          item.getElementsByName("key")[0].value = event.key;
+          item.getElementsByName("oldValue")[0].value = event.oldValue;
+          item.getElementsByName("newValue")[0].value = event.newValue;
         });
         window.localStorage.setItem("random", Math.random());
       });
