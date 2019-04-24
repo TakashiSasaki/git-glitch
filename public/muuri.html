@@ -52,6 +52,7 @@
         xhr.responseType = "document";
         xhr.onload = ()=>{
           var documentFragment = xhr.responseXML.querySelector("body :first-child");
+          documentFragment.classList.add("item");
           var itemElement = grid.add(documentFragment)[0].getElement();
           if(callback){
             callback(itemElement);
@@ -149,6 +150,7 @@
       });
       
       loadDocument("/item/admin.html");
+      loadDocument("/item/memopad.html");
       
     </script>
   </html>
