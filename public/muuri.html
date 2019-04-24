@@ -41,6 +41,11 @@
       </div>
     </div>
     <script>
+      if (location.protocol != 'https:') {
+       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
+    <script>
       function loadDocument(url, callback){
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
@@ -83,7 +88,7 @@
         }
       });
 
-      loadDocument("/firebase-signin-button.html", (itemElement)=>{
+      loadDocument("/item/firebase-signin-button.html", (itemElement)=>{
         grid.sort("default");
         var img = document.querySelector("img");
         var displayName = itemElement.querySelector("[name='displayName']");
@@ -130,10 +135,10 @@
         });
       });
       
-      loadDocument("/userData.html", (itemElement)=>{
+      loadDocument("/item/userData.html", (itemElement)=>{
       });
       
-      loadDocument("/localStorage.html", (itemElement)=>{
+      loadDocument("/item/localStorage.html", (itemElement)=>{
         window.addEventListener("setItem", (event)=>{
           itemElement.querySelector('[name="lastModified"]').value = new Date();
           itemElement.querySelector("[name='key']").value = event.key;
