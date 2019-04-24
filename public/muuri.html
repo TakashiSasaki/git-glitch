@@ -45,7 +45,11 @@
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.responseType = "document";
-        xhr.onload = ()=>{callback(xhr.responseXML)};
+        xhr.onload = ()=>{
+          var documentFragment = xhr.responseXML.querySelector("body :first-child");
+          var itemElement = grid.add(documentFragment)[0].getElement();
+          callback(itemElement);
+        };
         xhr.send();
       }//loadDocument
     </script>
@@ -77,41 +81,43 @@
         }
       });
 
-      loadDocument("/firebase-signin-button.html", (d)=>{
-        grid.add(d.getElementsByTagName("div")[0]);
+      loadDocument("/firebase-signin-button.html", (itemElement)=>{
         grid.sort("default");
         var img = document.getElementById("firebase-signin-button").getElementsByTagName("img")[0];
+        var displayName = itemElement.querySelector("#displayName");
+        var email = itemElement.querySelector("#email");
+        var uid = itemElement.querySelector("#uid");
+        var idToken = itemElement.querySelector("#idToken");
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
-            document.getElementById("displayName").value = x.displayName;
-            document.getElementById("email").value = x.email;
-            x.getIdToken().then((idToken)=>{
-              document.getElementById("idToken").value = idToken;
+            displayName.value = x.displayName;
+            email.value = x.email;
+            x.getIdToken().then((y)=>{
+              idToken.value = y;
             },(error)=>{
-              d.getElementById("idToken").value = error;
+              idToken.value = error;
             });
             img.setAttribute("src", firebase.auth().currentUser.photoURL);
-            document.getElementById("uid").value = firebase.auth().currentUser.uid;
+            uid.value = firebase.auth().currentUser.uid;
             grid.refreshItems();
             grid.layout();
           } else {
             img.setAttribute("src", "https://tnckb94959.i.lithium.com/skins/images/3AB578B02FD7B257A7B52D5E05139FE9/atlassian_community/images/icon_anonymous_profile.png");
-            document.getElementById("uid").value = "NOT LOGGED IN";
-            document.getElementById("idToken").value = "NOT LOGGED IN";
-            document.getElementById("displayName").value = "NOT LOGGED IN";
-            document.getElementById("email").value = "NOT LOGGED IN";            
+            uid.value = "NOT LOGGED IN";
+            idToken.value = "NOT LOGGED IN";
+            displayName.value = "NOT LOGGED IN";
+            email.value = "NOT LOGGED IN";            
             grid.refreshItems();
             grid.layout();
           }//if
         });//onAuthStateChanged
       });//loadDocument
       
-      loadDocument("/hello.html", (d)=>{
-        grid.add(d.getElementsByTagName("div")[0]);
+      loadDocument("/hello.html", (itemElement)=>{
         firebase.database().ref("appConfig/helloMessage").on("value", (snapshot)=>{
           var v = snapshot.val();
-          document.getElementById("helloTitle").innerHTML = v;
-          document.getElementById("helloMessage").innerHTML = v;
+          itemElement.querySelector("#helloTitle").innerHTML = v;
+          itemElement.querySelector("#helloMessage").innerHTML = v;
           grid.refreshItems();
           grid.layout();
         });
@@ -129,11 +135,10 @@
       loadDocument("/localStorage.html", (d)=>{
         var item = grid.add(d.querySelector("body :first-child"))[0].getElement();
         window.addEventListener("setItem", (event)=>{
-          var input = item.querySelector('input[name="lastModified"]').value = new Date();
-          console.log(input);
-          item.getElementsByName("key")[0].value = event.key;
-          item.getElementsByName("oldValue")[0].value = event.oldValue;
-          item.getElementsByName("newValue")[0].value = event.newValue;
+          item.querySelector('input[name="lastModified"]').value = new Date();
+          item.querySelector("input[name='key']").value = event.key;
+          item.querySelector("input[name='oldValue']").value = event.oldValue;
+          item.querySelector("input[name='newValue']").value = event.newValue;
         });
         window.localStorage.setItem("random", Math.random());
       });
