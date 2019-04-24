@@ -84,10 +84,10 @@
       loadDocument("/firebase-signin-button.html", (itemElement)=>{
         grid.sort("default");
         var img = document.getElementById("firebase-signin-button").getElementsByTagName("img")[0];
-        var displayName = itemElement.querySelector("#displayName");
-        var email = itemElement.querySelector("#email");
-        var uid = itemElement.querySelector("#uid");
-        var idToken = itemElement.querySelector("#idToken");
+        var displayName = itemElement.querySelector("[name='displayName']");
+        var email = itemElement.querySelector("[name='email']");
+        var uid = itemElement.querySelector("[name='uid']");
+        var idToken = itemElement.querySelector("[name='idToken']");
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
             displayName.value = x.displayName;
@@ -116,31 +116,29 @@
       loadDocument("/hello.html", (itemElement)=>{
         firebase.database().ref("appConfig/helloMessage").on("value", (snapshot)=>{
           var v = snapshot.val();
-          itemElement.querySelector("#helloTitle").innerHTML = v;
-          itemElement.querySelector("#helloMessage").innerHTML = v;
+          itemElement.querySelector("[name='helloMessage']").innerHTML = v;
           grid.refreshItems();
           grid.layout();
         });
         firebase.database().ref("appConfig/helloTitle").on("value", (snapshot)=>{
           var v = snapshot.val();
-          document.getElementById("helloTitle").innerHTML = v;
+          itemElement.querySelector("[name='helloTitle']").innerHTML = v;
           grid.refreshItems();
           grid.layout();
         });
       });
       
-      loadDocument("/userData.html", (d)=>{
+      loadDocument("/userData.html", (itemElement)=>{
       });
       
-      loadDocument("/localStorage.html", (d)=>{
-        var item = grid.add(d.querySelector("body :first-child"))[0].getElement();
+      loadDocument("/localStorage.html", (itemElement)=>{
         window.addEventListener("setItem", (event)=>{
-          item.querySelector('input[name="lastModified"]').value = new Date();
-          item.querySelector("input[name='key']").value = event.key;
-          item.querySelector("input[name='oldValue']").value = event.oldValue;
-          item.querySelector("input[name='newValue']").value = event.newValue;
+          itemElement.querySelector('[name="lastModified"]').value = new Date();
+          itemElement.querySelector("[name='key']").value = event.key;
+          itemElement.querySelector("[name='oldValue']").value = event.oldValue;
+          itemElement.querySelector("[name='newValue']").value = event.newValue;
         });
-        window.localStorage.setItem("random", Math.random());
+        //window.localStorage.setItem("random", Math.random());
       });
       
       
