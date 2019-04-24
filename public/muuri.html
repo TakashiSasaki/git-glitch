@@ -126,7 +126,13 @@
       });
       
       loadDocument("/localStorage.html", (d)=>{
-        window
+        grid.add(d.getElementsByTagName("div")[0]);
+        console.log("setting storage event handler");
+        window.addEventListener("storage", (event)=>{
+          console.log("storage event");
+          console.log(event);
+        });
+        window.localStorage.setItem("random", Math.random());
       });
       
       console.log(Object.keys(localStorage));
