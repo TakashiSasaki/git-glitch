@@ -127,9 +127,13 @@
       });
       
       loadDocument("/localStorage.html", (d)=>{
-        grid.add(d.getElementsByTagName("div")[0]);
+        grid.add(d.querySelector("form[0]"));
+        var form = document.getElementById("localStorage");
         window.addEventListener("setItem", (event)=>{
-          d.getElementByName("last");
+          form.getElementsByName("lastModified")[0].value = new Date();
+          form.getElementsByName("key")[0].value = event.key;
+          form.getElementsByName("oldValue")[0].value = event.oldValue;
+          form.getElementsByName("newValue")[0].value = event.newValue;
         });
         window.localStorage.setItem("random", Math.random());
       });
