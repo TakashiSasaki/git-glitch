@@ -1,4 +1,6 @@
 <div id="memopad">
+  <div class="item-content">
+    
   <h1>
     memo pad
   </h1>
@@ -6,5 +8,6 @@
     <textarea onchange="window.localStorage.setItem('memopad', this.value);"
               onfocus="this.value=window.localStorage.getItem('memopad');"
               ></textarea>    
+  </div>
   </div>
 </div>
