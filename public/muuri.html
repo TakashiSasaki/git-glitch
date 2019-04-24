@@ -48,7 +48,9 @@
         xhr.onload = ()=>{
           var documentFragment = xhr.responseXML.querySelector("body :first-child");
           var itemElement = grid.add(documentFragment)[0].getElement();
-          callback(itemElement);
+          if(callback){
+            callback(itemElement);
+          }
         };
         xhr.send();
       }//loadDocument
@@ -113,7 +115,7 @@
         });//onAuthStateChanged
       });//loadDocument
       
-      loadDocument("/hello.html", (itemElement)=>{
+      loadDocument("/item/hello.html", (itemElement)=>{
         firebase.database().ref("appConfig/helloMessage").on("value", (snapshot)=>{
           var v = snapshot.val();
           itemElement.querySelector("[name='helloMessage']").innerHTML = v;
@@ -141,6 +143,7 @@
         //window.localStorage.setItem("random", Math.random());
       });
       
+      loadDocument("/item/admin.html");
       
     </script>
   </html>
