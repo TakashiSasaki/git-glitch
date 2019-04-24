@@ -1,7 +1,8 @@
-<div id="clipboard">
+<div id="memopad">
   <h1>
     memo pad
   </h1>
-  <textarea onchange="alert(1)">
-  </textarea>
+  <textarea onchange="window.localStorage.setItem('memopad', this.value);"
+            onfocus="this.value=window.localStorage.getItem('memopad');"
+            ></textarea>
 </div>
