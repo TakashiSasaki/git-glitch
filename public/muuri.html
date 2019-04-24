@@ -83,7 +83,7 @@
 
       loadDocument("/firebase-signin-button.html", (itemElement)=>{
         grid.sort("default");
-        var img = document.getElementById("firebase-signin-button").getElementsByTagName("img")[0];
+        var img = document.querySelector("img");
         var displayName = itemElement.querySelector("[name='displayName']");
         var email = itemElement.querySelector("[name='email']");
         var uid = itemElement.querySelector("[name='uid']");
