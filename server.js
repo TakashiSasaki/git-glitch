@@ -28,6 +28,10 @@ app.get("/dreams", (request, response) => {
   response.json(dreams);
 });
 
+app.get("/.well-known/microsoft-identity-association", (request, response)=>{
+  response.sendFile(__dirname + "/public/.well-known/microsoft-identity-association.json")
+});
+
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
