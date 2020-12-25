@@ -56,7 +56,7 @@
       </tr>
     </table>
 
-        <h1>document.location</h1>
+    <h1>document.location</h1>
     <table id="documentLocation">
       <tr>
         <th>キー</th>
@@ -104,7 +104,7 @@
           port: window.location.port,
           pathname: window.location.pathname,
           search: window.location.search,
-          haash: window.location.hash,
+          hash: window.location.hash,
           username: window.location.username,
           password: window.location.password,
           origin: window.location.origin
@@ -127,11 +127,21 @@
           port: document.location.port,
           pathname: document.location.pathname,
           search: document.location.search,
-          haash: document.location.hash,
+          hash: document.location.hash,
           username: document.location.username,
           password: document.location.password,
           origin: document.location.origin
         };
+        for (x in documentLocation) {
+          const td1 = document.createElement("td");
+          td1.innerText = x;
+          const td2 = document.createElement("td");
+          td2.innerText = JSON.stringify(documentLocation[x]);
+          const tr = document.createElement("tr");
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          document.querySelector("table#documentLocation").appendChild(tr);
+        }
       }, 100);
 
       document.querySelector("input").addEventListener("keyup", x => {
