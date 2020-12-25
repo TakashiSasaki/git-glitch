@@ -3,6 +3,7 @@
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+const fs = require("fs");
 const express = require("express");
 const app = express();
 
@@ -24,12 +25,11 @@ app.get("/index", (request, response) => {
 
 app.get("/", (req, res) =>{
   res.set("Content-Type", "text/html");
-  res.send(JSON.stringify({"baseUrl" : req.baseUrl,
-                          "ip" : req.ip,
-                          "ips" : req.ips,
-                          "hostname" : req.hostname,
-                          "connection.remoteAddress" : req.connection.remoteAddress,
-                          "headers": req.headers}));
+  var text = fs.readFileSync(__dirname + "/views/index.html").toString();
+  const o = {};
+  o.headers = req.headers;
+  text.replace("JSONJSONJSON", JSON.stringify(o));
+  res.send(text);
 });
 
 // send the default array of dreams to the webpage
