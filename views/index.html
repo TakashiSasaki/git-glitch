@@ -36,10 +36,26 @@
       JSONJSONJSON
     </div>
     <h1>HTTP request headers</h1>
-    <p>クライアントから送られたHTTPリクエストのヘッダ。Node.jsのExpressのリクエストオブジェクトに含まれていたものを表示している。</p>
+    <p>
+      クライアントから送られたHTTPリクエストのヘッダ。Node.jsのExpressのリクエストオブジェクトに含まれていたものを表示している。
+    </p>
 
     <table id="headers">
-    <tr><th>ヘッダ</th><th>値（JSON.stringifyしたもの）</th></tr></table>
+      <tr>
+        <th>ヘッダ</th>
+        <th>値（JSON.stringifyしたもの）</th>
+      </tr>
+    </table>
+
+    <hr />
+    <p>
+      任意の文字列を入力するとアンカータグが生成されます。
+      リファラの挙動を調べるために使ってください。
+    </p>
+    <div>
+      <label>URL<input id="url"/></label>
+      <a>https://request-mirror.glitch.me/</a>
+    </div>
 
     <script>
       setTimeout(x => {
@@ -56,6 +72,11 @@
           document.querySelector("table#headers").appendChild(tr);
         }
       }, 100);
+
+      document.querySelector("input").addEventListener("keyup", x => {
+        document.querySelector("a").setAttribute("href", x.srcElement.value);
+        document.querySelector("a").innerText = x.srcElement.value;
+      });
     </script>
   </body>
 </html>
