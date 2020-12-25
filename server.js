@@ -18,8 +18,16 @@ const dreams = [
 app.use(express.static("public"));
 
 // https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
+app.get("/index", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
+});
+
+app.get("/", (req, res) =>{
+  res.set("Content-Type", "text/plain");
+  res.send(JSON.stringify({"baseUrl" : req.baseUrl,
+                          "ip" : req.ip,
+                          "ips" : req.ips,
+                          "hostname" : req.hostname}));
 });
 
 // send the default array of dreams to the webpage
