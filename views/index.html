@@ -29,6 +29,9 @@
       td {
         border: solid;
       }
+      .red {
+        background-color: #ffffee;
+      }
     </style>
   </head>
   <body>
@@ -54,8 +57,16 @@
     </p>
     <div>
       <label>URL<input id="url"/></label>
-      <a href="https://request-mirror.glitch.me/">https://request-mirror.glitch.me/</a>
+      <div>
+        <a href="https://request-mirror.glitch.me/"
+          >https://request-mirror.glitch.me/</a
+        >
+      </div>
     </div>
+    
+    <p>
+      任意のクッキーを設定することができます。
+    </p>
 
     <script>
       setTimeout(x => {
@@ -67,6 +78,10 @@
           const td2 = document.createElement("td");
           td2.innerText = JSON.stringify(o.headers[x]);
           const tr = document.createElement("tr");
+          if (x === "referer" || x === "x-forwarded-for") {
+            td1.classList.add("red");
+            td2.classList.add("red");
+          }
           tr.appendChild(td1);
           tr.appendChild(td2);
           document.querySelector("table#headers").appendChild(tr);
