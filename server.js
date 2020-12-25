@@ -23,11 +23,13 @@ app.get("/index", (request, response) => {
 });
 
 app.get("/", (req, res) =>{
-  res.set("Content-Type", "text/plain");
+  res.set("Content-Type", "text/html");
   res.send(JSON.stringify({"baseUrl" : req.baseUrl,
                           "ip" : req.ip,
                           "ips" : req.ips,
-                          "hostname" : req.hostname}));
+                          "hostname" : req.hostname,
+                          "connection.remoteAddress" : req.connection.remoteAddress,
+                          "headers": req.headers}));
 });
 
 // send the default array of dreams to the webpage
