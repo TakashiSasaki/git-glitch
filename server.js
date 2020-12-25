@@ -11,12 +11,13 @@ const app = express();
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
 
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
   res.set("Content-Type", "text/html");
-  var text = fs.readFileSync(__dirname + "/pubilc/index.html").toString();
+  var text = fs.readFileSync("pubilc/index.html").toString();
   const o = {};
   o.headers = req.headers;
-  res.send(text.replace(/JSONJSONJSON/g, JSON.stringify(o)));
+  //.res.send(text.replace(/JSONJSONJSON/g, JSON.stringify(o)));
+  res.send("hello");
 });
 
 // listen for requests :)
