@@ -29,7 +29,7 @@ app.get("/", (req, res) =>{
   const o = {};
   o.headers = req.headers;
   text.replace(/JSON/g, "j");
-  res.send(text);
+  res.send("a");
 });
 
 // send the default array of dreams to the webpage
