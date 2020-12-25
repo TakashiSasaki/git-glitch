@@ -38,16 +38,19 @@
     </div>
     <h1>HTTP Request Mirror</h1>
     <p>
-      クライアントから送られたHTTPリクエストのヘッダ。Node.jsのExpressのリクエストオブジェクトに含まれていたものを表示している。
+      HTTP request headers received at the client side by Node.js Express web
+      server "x-forwarded-for" and "referer" are highlighted if they exist.
     </p>
 
     <table id="headers">
       <tr>
-        <th>ヘッダ</th>
-        <th>値（JSON.stringifyしたもの）</th>
+        <th>header name</th>
+        <th>JSON stringified header value</th>
       </tr>
     </table>
 
+  </body>
+</html>
     <h1>window.location</h1>
     <table id="windowLocation">
       <tr>
