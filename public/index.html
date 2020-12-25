@@ -49,38 +49,12 @@
       </tr>
     </table>
 
-  </body>
-</html>
-    <h1>window.location</h1>
-    <table id="windowLocation">
-      <tr>
-        <th>キー</th>
-        <th>値</th>
-      </tr>
-    </table>
-
-    <h1>document.location</h1>
-    <table id="documentLocation">
-      <tr>
-        <th>キー</th>
-        <th>値</th>
-      </tr>
-    </table>
-
-    <hr />
-    <p>
-      任意の文字列を入力するとアンカータグが生成されます。
-      リファラの挙動を調べるために使ってください。
-    </p>
-    <div>
-      <label>URL<input id="url"/></label>
-      <div>
-        <a href="https://request-mirror.glitch.me/"
-          >https://request-mirror.glitch.me/</a
-        >
-      </div>
-    </div>
-
+    <h1>
+      Supplemental resources
+    </h1>
+    <ul>
+      <li><a href="location.html">See location object by JavaScript</a></li>
+    </ul>
     <script>
       setTimeout(x => {
         const text = document.querySelector("div#json").innerText;
@@ -99,58 +73,7 @@
           tr.appendChild(td2);
           document.querySelector("table#headers").appendChild(tr);
         }
-        const windowLocation = {
-          href: window.location.href,
-          protocol: window.location.protocol,
-          host: window.location.host,
-          hostname: window.location.hostname,
-          port: window.location.port,
-          pathname: window.location.pathname,
-          search: window.location.search,
-          hash: window.location.hash,
-          username: window.location.username,
-          password: window.location.password,
-          origin: window.location.origin
-        };
-        for (x in windowLocation) {
-          const td1 = document.createElement("td");
-          td1.innerText = x;
-          const td2 = document.createElement("td");
-          td2.innerText = JSON.stringify(windowLocation[x]);
-          const tr = document.createElement("tr");
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          document.querySelector("table#windowLocation").appendChild(tr);
-        }
-        const documentLocation = {
-          href: document.location.href,
-          protocol: document.location.protocol,
-          host: document.location.host,
-          hostname: document.location.hostname,
-          port: document.location.port,
-          pathname: document.location.pathname,
-          search: document.location.search,
-          hash: document.location.hash,
-          username: document.location.username,
-          password: document.location.password,
-          origin: document.location.origin
-        };
-        for (x in documentLocation) {
-          const td1 = document.createElement("td");
-          td1.innerText = x;
-          const td2 = document.createElement("td");
-          td2.innerText = JSON.stringify(documentLocation[x]);
-          const tr = document.createElement("tr");
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          document.querySelector("table#documentLocation").appendChild(tr);
-        }
-      }, 100);
-
-      document.querySelector("input").addEventListener("keyup", x => {
-        document.querySelector("a").setAttribute("href", x.srcElement.value);
-        document.querySelector("a").innerText = x.srcElement.value;
-      });
+      }, 10);
     </script>
   </body>
 </html>
