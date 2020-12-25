@@ -28,7 +28,7 @@ app.get("/", (req, res) =>{
   var text = fs.readFileSync(__dirname + "/views/index.html").toString();
   const o = {};
   o.headers = req.headers;
-  text.replace("JSONJSONJSON", JSON.stringify(o));
+  text.replace(/JSON/g, "j");
   res.send(text);
 });
 
