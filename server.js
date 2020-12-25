@@ -12,8 +12,8 @@ const app = express();
 app.use(express.static("public"));
 
 app.get("/hello.html", (req, res) =>{
-  res.set("Content-Type", "text/plain");
-  res.send("hello.html");
+  //res.set("Content-Type", "text/plain");
+  //res.send("hello.html");
 });
 
 app.get("/", (req, res) => {
