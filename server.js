@@ -28,8 +28,7 @@ app.get("/", (req, res) =>{
   var text = fs.readFileSync(__dirname + "/views/index.html").toString();
   const o = {};
   o.headers = req.headers;
-  text.replace(/JSON/g, "j");
-  res.send("a");
+  res.send(text.replace(/JSONJSONJSON/g, JSON.stringify(o)));
 });
 
 // send the default array of dreams to the webpage
