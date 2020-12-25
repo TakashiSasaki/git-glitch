@@ -20,36 +20,41 @@
 
     <script src="/script.js" defer></script>
     <style>
-      div#json {display: block}
+      div#json {
+        display: none;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        border: solid;
+      }
     </style>
   </head>
   <body>
     <div id="json">
       JSONJSONJSON
     </div>
-    <header>
-      <h1>A Dream of the Future</h1>
-    </header>
-    <table>
-      
-    </table>
-    <main>
-      <h2>Oh hi,</h2>
+    <h1>HTTP request headers</h1>
+    <p>クライアントから送られたHTTPリクエストのヘッダ。Node.jsのExpressのリクエストオブジェクトに含まれていたものを表示している。</p>
 
-      <p>Tell me your hopes and dreams:</p>
+    <table id="headers">
+    <tr><th>ヘッダ</th><th>値（JSON.stringifyしたもの）</th></tr></table>
 
-      <section class="dreams">
-        <ul id="dreams">
-          <em></em>
-        </ul>
-      </section>
-    </main>
-
-    <footer></footer>
     <script>
-      setTimeout(x=>{
-        document.querySelector("div#json").innerText
-        
+      setTimeout(x => {
+        const text = document.querySelector("div#json").innerText;
+        const o = JSON.parse(text);
+        for (x in o.headers) {
+          const td1 = document.createElement("td");
+          td1.innerText = x;
+          const td2 = document.createElement("td");
+          td2.innerText = JSON.stringify(o.headers[x]);
+          const tr = document.createElement("tr");
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          document.querySelector("table#headers").appendChild(tr);
+        }
       }, 100);
     </script>
   </body>
