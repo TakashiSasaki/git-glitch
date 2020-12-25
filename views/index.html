@@ -48,6 +48,22 @@
       </tr>
     </table>
 
+    <h1>window.location</h1>
+    <table id="windowLocation">
+      <tr>
+        <th>キー</th>
+        <th>値</th>
+      </tr>
+    </table>
+
+        <h1>document.location</h1>
+    <table id="documentLocation">
+      <tr>
+        <th>キー</th>
+        <th>値</th>
+      </tr>
+    </table>
+
     <hr />
     <p>
       任意の文字列を入力するとアンカータグが生成されます。
@@ -80,6 +96,42 @@
           tr.appendChild(td2);
           document.querySelector("table#headers").appendChild(tr);
         }
+        const windowLocation = {
+          href: window.location.href,
+          protocol: window.location.protocol,
+          host: window.location.host,
+          hostname: window.location.hostname,
+          port: window.location.port,
+          pathname: window.location.pathname,
+          search: window.location.search,
+          haash: window.location.hash,
+          username: window.location.username,
+          password: window.location.password,
+          origin: window.location.origin
+        };
+        for (x in windowLocation) {
+          const td1 = document.createElement("td");
+          td1.innerText = x;
+          const td2 = document.createElement("td");
+          td2.innerText = JSON.stringify(windowLocation[x]);
+          const tr = document.createElement("tr");
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          document.querySelector("table#windowLocation").appendChild(tr);
+        }
+        const documentLocation = {
+          href: document.location.href,
+          protocol: document.location.protocol,
+          host: document.location.host,
+          hostname: document.location.hostname,
+          port: document.location.port,
+          pathname: document.location.pathname,
+          search: document.location.search,
+          haash: document.location.hash,
+          username: document.location.username,
+          password: document.location.password,
+          origin: document.location.origin
+        };
       }, 100);
 
       document.querySelector("input").addEventListener("keyup", x => {
