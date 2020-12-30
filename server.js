@@ -16,13 +16,13 @@ app.get("/hello.html", (req, res) =>{
   //res.send("hello.html");
 });
 
-app.get("/", (req, res) => {
+app.get("/reflector.html", (req, res) => {
   res.set("Content-Type", "text/html");
-  var text = fs.readFileSync("pubilc/index.html").toString();
+  var text = fs.readFileSync("view/reflector.html").toString();
   const o = {};
   o.headers = req.headers;
-  //res.send(text.replace(/TO_BE_REPLACED_BY_JSON/g, JSON.stringify(o)));
-  res.send(text.replace(/TO_BE_REPLACED_BY_JSON/g, "REPLACED"));
+  res.send(text.replace(/TO_BE_REPLACED_BY_JSON/g, JSON.stringify(o)));
+  //res.send(text.replace(/TO_BE_REPLACED_BY_JSON/g, "REPLACED"));
 });
 
 // listen for requests :)
