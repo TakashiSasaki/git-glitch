@@ -16,9 +16,9 @@ app.get("/hello.html", (req, res) =>{
   //res.send("hello.html");
 });
 
-app.get("/reflector.html", (req, res) => {
+app.get("/header.html", (req, res) => {
   res.set("Content-Type", "text/html");
-  var text = fs.readFileSync("view/reflector.html").toString();
+  var text = fs.readFileSync("view/header.html").toString();
   const o = {};
   o.headers = req.headers;
   res.send(text.replace(/TO_BE_REPLACED_BY_JSON/g, JSON.stringify(o)));
