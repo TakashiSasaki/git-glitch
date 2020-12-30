@@ -1,0 +1,77 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A cool thing made with Glitch" />
+
+    <title>http-request-reflector</title>
+
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+
+    <style>
+      div#json {
+        display: block;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        border: solid;
+      }
+      .red {
+        background-color: #ffffee;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="json">TO_BE_REPLACED_BY_JSON</div>
+    <h1>HTTP Request Reflector</h1>
+    <p>
+      HTTP request headers received at the client side by Node.js Express web
+      server "x-forwarded-for" and "referer" are highlighted if they exist.
+    </p>
+
+    <table id="headers">
+      <tr>
+        <th>header name</th>
+        <th>JSON stringified header value</th>
+      </tr>
+    </table>
+
+    <h1>
+      Supplemental resources
+    </h1>
+    <ul>
+      <li><a href="location.html">See location object by JavaScript</a></li>
+    </ul>
+    <script>
+      setTimeout(x => {
+        const text = document.querySelector("div#json").innerText;
+        const o = JSON.parse(text);
+        for (x in o.headers) {
+          const td1 = document.createElement("td");
+          td1.innerText = x;
+          const td2 = document.createElement("td");
+          td2.innerText = JSON.stringify(o.headers[x]);
+          const tr = document.createElement("tr");
+          if (x === "referer" || x === "x-forwarded-for") {
+            td1.classList.add("red");
+            td2.classList.add("red");
+          }
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          document.querySelector("table#headers").appendChild(tr);
+        }
+      }, 10);
+    </script>
+  </body>
+</html>
