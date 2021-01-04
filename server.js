@@ -29,6 +29,7 @@ app.get("/dreams", (request, response) => {
   response.json(dreams);
 });
 
+// It doesn't work because of subdomain.
 app.get("/.well-known/microsoft-identity-association", (request, response)=>{
   //response.writeHead(200, {'Content-Type': 'application/json' });
   response.setHeader("Content-Type", "application/json");
@@ -37,6 +38,7 @@ app.get("/.well-known/microsoft-identity-association", (request, response)=>{
   response.send(text)
 });
 
+// It doesn't work because of subdomain.
 app.get("/.well-known/microsoft-identity-association.json", (request, response)=>{
   response.setHeader("Content-Type", "application/json");
   const text = fs.readFileSync("public/microsoft-identity-association.json").toString();
