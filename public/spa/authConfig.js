@@ -5,7 +5,7 @@ const msalConfig = {
     auth: {
         clientId: "908a2d13-cbf0-48a4-b5d1-3413ff8ebe60",
         authority: "https://login.microsoftonline.com/common",
-        redirectUri: "http://https://outlook-web-app-folder-list.glitch.me/spa/",
+        redirectUri: "https://outlook-web-app-folder-list.glitch.me/spa/",
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -44,5 +44,5 @@ const loginRequest = {
 // Add here the scopes to request when obtaining an access token for MS Graph API
 const tokenRequest = {
     scopes: ["User.Read", "Mail.Read"],
-    forceRefresh: false // Set this to "true" to skip a cached token and go to the server to get a new token
+    forceRefresh: true // Set this to "true" to skip a cached token and go to the server to get a new token
 };
