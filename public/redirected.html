@@ -38,18 +38,28 @@
           paramsObject["session_state"];
 
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://login.microsoftonline.com/common/oauth2/v2.0/token", true);
+        xhr.open(
+          "POST",
+          "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+          true
+        );
         xhr.setRequestHeader("Content-Type", "application/json");
-        var x = {
-          code: paramsObject["code"],
-          client_id: "908a2d13-cbf0-48a4-b5d1-3413ff8ebe60",
-        }
-        xhr.onReadyStateChange = function(e){
-          alert(e);
-          if(this.readyState == 4){
-            alert(JSON.parse(xhr.reaponse));
+        xhr.onreadystatechange = function(e) {
+          if (this.readyState == "4") {
+            if (this.status === 200) {
+              alert(JSON.parse(this.response));
+            } else {
+              alert(this.response);
+            }
           }
-        });
+        };
+        xhr.send(
+          JSON.stringify({
+            grant_type: "authorization_code",
+            code: paramsObject["code"],
+            client_id: "908a2d13-cbf0-48a4-b5d1-3413ff8ebe60"
+          })
+        );
       }, 10);
     </script>
   </body>
