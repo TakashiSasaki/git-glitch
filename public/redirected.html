@@ -6,12 +6,21 @@
         width: 99%;
         height: 11.1em;
       }
+      input {
+        max-width: 99%;
+        width: 99%;
+      }
     </style>
   </head>
   <body>
     <textarea id="location"></textarea>
-    <input id="code">
-    <input id="session_state">
+    <div>
+      <label>Authentication Code<input id="code"/></label>
+    </div>
+    <div>
+      <label>Session State<input id="session_state"/></label>
+    </div>
+    <a href=""></a>
     <script>
       setTimeout(x => {
         document.querySelector("#location").value = location.href;
@@ -25,7 +34,9 @@
         }
         console.log(paramsObject);
         document.querySelector("#code").value = paramsObject["code"];
-        document.querySelector("#session_state").value = paramsObject["session_state"];
+        document.querySelector("#session_state").value =
+          paramsObject["session_state"];
+        document.querySelector("a").innerText = "https://login.microsoftonline.com/common/oauth2/v2.0/token&code=" + paramsObject["code"]
       }, 10);
     </script>
   </body>
