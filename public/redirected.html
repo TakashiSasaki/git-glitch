@@ -36,7 +36,12 @@
         document.querySelector("#code").value = paramsObject["code"];
         document.querySelector("#session_state").value =
           paramsObject["session_state"];
-        document.querySelector("a").innerText = "https://login.microsoftonline.com/common/oauth2/v2.0/token&code=" + paramsObject["code"]
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://login.microsoftonline.com/common/oauth2/v2.0/token", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        
+  
       }, 10);
     </script>
   </body>
