@@ -28,8 +28,14 @@ app.get("/dreams", (request, response) => {
   response.json(dreams);
 });
 
+app.get("/.well-known/microsoft-identity-association.json", (request, response)=>{
+  response.writeHead(200, {'Content-Type': 'application/json' });
+  response.sendFile(__dirname + "/public/microsoft-identity-association.json")
+});
+
 app.get("/.well-known/microsoft-identity-association", (request, response)=>{
-  response.sendFile(__dirname + "/public/.well-known/microsoft-identity-association.json")
+  response.writeHead(200, {'Content-Type': 'application/json' });
+  response.sendFile(__dirname + "/public/microsoft-identity-association.json")
 });
 
 // listen for requests :)
