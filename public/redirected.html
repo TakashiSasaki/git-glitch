@@ -1,3 +1,26 @@
 <html>
-  
+  <head>
+    <title>redirected</title>
+    <style>
+      textarea {width:99%; height:11.1em;}
+    </style>
+  </head>
+  <body>
+    <textarea id="location"></textarea>
+    <button onclick="splitCode();">
+      
+    </button>
+    <script>
+    setTimeout(x=>{
+      document.querySelector("#location").value=location.href;
+      //alert(location.href);
+    }, 10);
+      
+      function splitCode(){
+        const url = document.querySelector("#location").value;
+        a = url.split("&");
+        console.log(a);
+      }
+    </script>
+  </body>
 </html>
