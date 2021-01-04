@@ -3,6 +3,7 @@
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+const fs = require("fs");
 const express = require("express");
 const app = express();
 
@@ -28,15 +29,21 @@ app.get("/dreams", (request, response) => {
   response.json(dreams);
 });
 
-app.get("/.well-known/microsoft-identity-association.json", (request, response)=>{
-  response.writeHead(200, {'Content-Type': 'application/json' });
-  response.sendFile(__dirname + "/public/microsoft-identity-association.json")
+app.get("/.well-known/microsoft-identity-association", (request, response)=>{
+  //response.writeHead(200, {'Content-Type': 'application/json' });
+  response.setHeader("Content-Type", "application/json");
+  const text = fs.readFileSync("public/microsoft-identity-association.json").toString();
+  //response.sendFile(__dirname + "/public/microsoft-identity-association.json")
+  response.send(text)
 });
 
-app.get("/.well-known/microsoft-identity-association", (request, response)=>{
-  response.writeHead(200, {'Content-Type': 'application/json' });
-  response.sendFile(__dirname + "/public/microsoft-identity-association.json")
+app.get("/.well-known/microsoft-identity-association.json", (request, response)=>{
+  response.setHeader("Content-Type", "application/json");
+  const text = fs.readFileSync("public/microsoft-identity-association.json").toString();
+  //response.sendFile(__dirname + "/public/microsoft-identity-association.json")
+  response.send(text)
 });
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
