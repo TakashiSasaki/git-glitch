@@ -2,25 +2,31 @@
   <head>
     <title>redirected</title>
     <style>
-      textarea {width:99%; height:11.1em;}
+      textarea {
+        width: 99%;
+        height: 11.1em;
+      }
     </style>
   </head>
   <body>
     <textarea id="location"></textarea>
-    <button onclick="splitCode();">
-      
-    </button>
+    <input id="code">
+    <input id="session_state">
     <script>
-    setTimeout(x=>{
-      document.querySelector("#location").value=location.href;
-      //alert(location.href);
-    }, 10);
-      
-      function splitCode(){
+      setTimeout(x => {
+        document.querySelector("#location").value = location.href;
         const url = document.querySelector("#location").value;
-        a = url.split("&");
-        console.log(a);
-      }
+        const queryPart = url.split("?")[1];
+        const params = queryPart.split("&");
+        const paramsObject = {};
+        for (var i = 0; i < params.length; ++i) {
+          const kv = params[i].split("=");
+          paramsObject[kv[0]] = kv[1];
+        }
+        console.log(paramsObject);
+        document.querySelector("#code").value = paramsObject["code"];
+        document.querySelector("#session_state").value = paramsObject["session_state"];
+      }, 10);
     </script>
   </body>
 </html>
