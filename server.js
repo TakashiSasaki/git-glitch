@@ -20,6 +20,11 @@ fastify.register(require("fastify-static"), {
   prefix: "/" // optional: default '/'
 });
 
+fastify.register(require("fastify-static"), {
+  root: path.join(__dirname, "apg-exp"),
+  prefix: "/apg-exp"
+});
+
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
 
