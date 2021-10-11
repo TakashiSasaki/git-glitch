@@ -13,18 +13,27 @@ const fastify = require("fastify")({
 
 // ADD FAVORITES ARRAY VARIABLE FROM TODO HERE
 
-const fastifyStatic = require("fastify-static");
+const fastifyStatic = require('fastify-static');
 
 // Setup our static files
+
 fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "apg-exp"),
-  prefix: "/apg-exp" // optional: default '/'
+  root: path.join(__dirname, "public"),
+  //prefix: "/" // optional: default '/'
 });
 
-//fastify.register(require("fatify-static"), {
-//  root: path.join(__dirname, "public"),
-//  prefix: "/" // optional: default '/'
-//});
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules/apg-js-examples/src/apg-exp"),
+  prefix: "/apg-exp/", // optional: default '/'
+  decorateReply: false
+});
+
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules/apg-js-examples/src/apg-api"),
+  prefix: "/apg-api/", // optional: default '/'
+  decorateReply: false
+});
+
 
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
