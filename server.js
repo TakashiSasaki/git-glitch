@@ -34,6 +34,17 @@ fastify.register(fastifyStatic, {
   decorateReply: false
 });
 
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules/apg-js-examples/src/apg-lib"),
+  prefix: "/apg-lib/", // optional: default '/'
+  decorateReply: false
+});
+
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules/apg-js-examples/src/apg-conv-api"),
+  prefix: "/apg-conv-api/", // optional: default '/'
+  decorateReply: false
+});
 
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
