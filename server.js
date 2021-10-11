@@ -46,6 +46,12 @@ fastify.register(fastifyStatic, {
   decorateReply: false
 });
 
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules/apg-js"),
+  prefix: "/apg-js", // optional: default '/'
+  decorateReply: false
+});
+
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
 
@@ -55,6 +61,7 @@ fastify.register(require("point-of-view"), {
     handlebars: require("handlebars")
   }
 });
+
 
 // Load and parse SEO data
 const seo = require("./src/seo.json");
