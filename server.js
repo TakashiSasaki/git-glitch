@@ -23,12 +23,6 @@ fastify.register(fastifyStatic, {
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "node_modules"),
-  prefix: "/node_modules",
-  decorateReply: false
-});
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
   prefix: "/*/node_modules",
   decorateReply: false
 });
@@ -55,8 +49,8 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
-fastify.get("/a/node_modules/b", (request, reply) => {
-  reply.send(JSON.stringify(request.params))
+fastify.get("/*/node_modules/", function(request, reply) {
+  //reply.send(JSON.stringify(request.params));
   //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
 
