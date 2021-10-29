@@ -23,11 +23,11 @@ fastify.register(fastifyStatic, {
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "node_modules"),
-  wildcard: true,
-  prefix : "/(.*)/node_modules",
+  prefix : "/node_modules",
   decorateReply: false 
 });
 
+fastify.use('/.*/node_modules/(.*)', fastifyStatic(path.join(__dirname, 'node_modules')))
 
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
