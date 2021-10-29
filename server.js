@@ -49,7 +49,7 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
-fastify.get("/(.node_modules/", (request, reply) => {
+fastify.get("//*/node_modules/", (request, reply) => {
 //  //reply.send(JSON.stringify(request.params));
 //  //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
