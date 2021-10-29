@@ -49,7 +49,7 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
-fastify.get("/", function(request, reply) {
+fastify.get("/index.hbs", function(request, reply) {
   // params is an object we'll pass to our handlebars template
   let params = { seo: seo };
 
