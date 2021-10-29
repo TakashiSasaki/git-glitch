@@ -9,7 +9,7 @@
     <style>
       iframe {
         width: 98%;
-        border: 0px;
+        border: 1px;
         margin: 0px;
         padidng: 0px;
         height: 100%;
@@ -34,10 +34,10 @@
           const exampleName = x.target.dataset["exampleName"];
           document
             .querySelector("IFRAME")
-            .setAttribute("src", exampleName + ".html");
+            .setAttribute("src", exampleName + "/index.html");
         });
       }
-      querySelector("IFRAME").style.
+      document.querySelector("IFRAME").style.height = document.body.scrollHeight;
     </script>
   </body>
 </html>
