@@ -23,31 +23,7 @@ fastify.register(fastifyStatic, {
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "node_modules"),
-  prefix : "/node_modules",
-  decorateReply: false 
-});
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
-  prefix : "/graph-demo/node_modules",
-  decorateReply: false 
-});
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
-  prefix : "/headless-demo/node_modules",
-  decorateReply: false 
-});
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
-  prefix : "/turtle-field-demo/node_modules",
-  decorateReply: false 
-});
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
-  prefix : "/interpreter-demo/node_modules",
+  prefix : "/*/node_modules",
   decorateReply: false 
 });
 
