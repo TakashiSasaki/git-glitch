@@ -17,13 +17,13 @@ const fastify = require("fastify")({
 const fastifyStatic = require("fastify-static");
 
 fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
-  prefix : "/node_modules",
+  root: path.join(__dirname, "public"),
+  prefix: "/", // optional: default '/'
 });
 
 fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "public"),
-  prefix: "/", // optional: default '/'
+  root: path.join(__dirname, "node_modules"),
+  prefix : "/node_modules",
   decorateReply: false 
 });
 
