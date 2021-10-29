@@ -14,15 +14,17 @@ const fastify = require("fastify")({
 // ADD FAVORITES ARRAY VARIABLE FROM TODO HERE
 
 // Setup our static files
-fastify.register(require("fastify-static"), {
-  root: path.join(__dirname, "public"),
-  prefix: "/" // optional: default '/'
+const fastifyStatic = require("fastify-static");
+
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules"),
+  prefix : "/node_modules"
 });
 
-fastify.register(require("fastify-static"), {
-  root: path.join(__dirname, "node_modules"),
-  prefix: "/node_modules"
-});
+//fastify.register(fastifyStatic, {
+//  root: path.join(__dirname, "public"),
+//  prefix: "/" // optional: default '/'
+//});
 
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
