@@ -1,14 +1,43 @@
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+      integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+      crossorigin="anonymous"
+    />
+    <style>
+      iframe {
+        width: 98%;
+        border: 0px;
+        margin: 0px;
+        padidng: 0px;
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
-    <div>
-      <button>
-        graph-demo
-      </button>      
+    <div class="pure-g">
+      <div class="pure-u-1-5">
+        <button data-example-name="graph-demo">
+          graph-demo
+        </button>
+      </div>
+      <div class="pure-u-4-5">
+        <iframe> </iframe>
+      </div>
     </div>
-    <iframe>
-    </iframe>
+    <script>
+      const buttons = document.querySelectorAll("BUTTON");
+      for (var i = 0; i < buttons.length; ++i) {
+        buttons[i].addEventListener("click", x => {
+          const exampleName = x.target.dataset["exampleName"];
+          document
+            .querySelector("IFRAME")
+            .setAttribute("src", exampleName + ".html");
+        });
+      }
+      querySelector("IFRAME").style.
+    </script>
   </body>
 </html>
