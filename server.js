@@ -16,9 +16,14 @@ const fastify = require("fastify")({
 // Setup our static files
 const fastifyStatic = require("fastify-static");
 
+//fastify.register(fastifyStatic, {
+//  root: path.join(__dirname, "public"),
+//  prefix: "/" // optional: default '/'
+//});
+
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
-  prefix: "/" // optional: default '/'
+  prefix: "/public",
 });
 
 fastify.register(fastifyStatic, {
@@ -49,7 +54,7 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
-fastify.get("//*/node_modules/", (request, reply) => {
+fastify.get("/*/node_modules/", (request, reply) => {
 //  //reply.send(JSON.stringify(request.params));
 //  //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
