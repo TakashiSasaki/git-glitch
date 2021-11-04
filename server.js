@@ -23,6 +23,13 @@ fastify.register(fastifyStatic, {
   //decorateReply: false
 });
 
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules"),
+  prefix: "/node_modules",
+  //wildcard: true,
+  decorateReply: false
+});
+
 // fastify-formbody lets us parse incoming forms
 fastify.register(require("fastify-formbody"));
 
@@ -45,8 +52,12 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
-fastify.get("/*/node_modules/x", (request, reply) => {
-  reply.send("nononononono");
+fastify.get("/index.html", (request, reply) => {
+  reply.send(fs.createReadStream(path.join(__dirname, "path/index.html")));
+}
+
+fastify.get("/:demoname/node_modules/:trailing", (request, reply) => {
+  reply.redirect(302, "/node_modules/"+request.trailing);
 //  //reply.send(JSON.stringify(request.params));
 //  //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
