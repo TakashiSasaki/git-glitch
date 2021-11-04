@@ -20,7 +20,11 @@
     <div class="pure-g">
       <div class="pure-u-1-5">
         <p>
-          <a target="blockly-samples" href="https://github.com/google/blockly-samples/tree/master/examples">https://github.com/google/blockly-samples/tree/master/examples</a>
+          <a
+            target="blockly-samples"
+            href="https://github.com/google/blockly-samples/tree/master/examples"
+            >https://github.com/google/blockly-samples/tree/master/examples</a
+          >
         </p>
         <button data-example-name="graph-demo">
           graph-demo
@@ -37,8 +41,14 @@
         <button data-example-name="fixed-demo">
           fixed-demo
         </button>
-        <button data-example-name="plane-demo">
-          plane-demo
+        <button data-example-name="single-direction-scroll-demo">
+          single-direction-scroll-demo
+        </button>
+        <button data-example-name="toolbox-demo">
+          toolbox-demo
+        </button>
+        <button data-example-name="custom-dialogs-demo">
+          custom-dialogs-demo
         </button>
       </div>
       <div class="pure-u-4-5">
@@ -55,7 +65,8 @@
             .setAttribute("src", exampleName + "/index.html");
         });
       }
-      document.querySelector("IFRAME").style.height = document.body.scrollHeight;
+      document.querySelector("IFRAME").style.height =
+        document.body.scrollHeight;
     </script>
   </body>
 </html>
