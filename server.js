@@ -63,21 +63,24 @@ fastify.get("/index.html", (request, reply) => {
   reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
 });
 
-fastify.get("/:demoname([a-z-_]+)/:filename([a-z_-]+).html", (request, reply) => {
-  reply.type("text/html");
-  reply.send(
-    fs.createReadStream(
-      path.join(
-        __dirname,
-        "public/" +
-          request.params.demoname +
-          "/" +
-          request.params.filename +
-          ".html"
+fastify.get(
+  "/:demoname([a-z-_]+)/:filename([a-z_-]+).html",
+  (request, reply) => {
+    reply.type("text/html");
+    reply.send(
+      fs.createReadStream(
+        path.join(
+          __dirname,
+          "public/" +
+            request.params.demoname +
+            "/" +
+            request.params.filename +
+            ".html"
+        )
       )
-    )
-  );
-});
+    );
+  }
+);
 
 fastify.get("/:demoname([a-z-_]+)/:filename.js", (request, reply) => {
   reply.type("application/javascript");
@@ -122,6 +125,38 @@ fastify.get("/:demoname([a-z-_]+)/media/:filename.svg", (request, reply) => {
           "/media/" +
           request.params.filename +
           ".svg"
+      )
+    )
+  );
+});
+
+fastify.get("/:demoname([a-z-_]+)/generated/:filename.js", (request, reply) => {
+  reply.type("application/javascript");
+  reply.send(
+    fs.createReadStream(
+      path.join(
+        __dirname,
+        "public/" +
+          request.params.demoname +
+          "/generated/" +
+          request.params.filename +
+          ".js"
+      )
+    )
+  );
+});
+
+fastify.get("/:demoname([a-z-_]+)/soy/:filename.js", (request, reply) => {
+  reply.type("application/javascript");
+  reply.send(
+    fs.createReadStream(
+      path.join(
+        __dirname,
+        "public/" +
+          request.params.demoname +
+          "/soy/" +
+          request.params.filename +
+          ".js"
       )
     )
   );
