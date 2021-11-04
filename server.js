@@ -18,15 +18,17 @@ const fastifyStatic = require("fastify-static");
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
-  prefix: "/public",
+  //prefix: "/public",
+  //wildcard: true,
   //decorateReply: false
 });
 
 fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules"),
-  prefix: "/[a-z_-]+/node_modules/",
+  root: path.join(__dirname, "node_modules/blockly"),
+  prefix: "/node_modules/blockly/",
   decorateReply: false,
 });
+
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
