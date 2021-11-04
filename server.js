@@ -53,23 +53,45 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
+fastify.get("/", (request, reply) => {
+  reply.header("Content-Type", "text/html");
+  reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
+});
+
 fastify.get("/index.html", (request, reply) => {
   reply.header("Content-Type", "text/html");
   reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
 });
 
-fastify.get("/:demoname([a-z-_]+)/index.html", (request, reply) => {
+fastify.get("/:demoname([a-z-_]+)/:filename.html", (request, reply) => {
   reply.header("Content-Type", "text/html");
   reply.send(
     fs.createReadStream(
-      path.join(__dirname, "public/" + request.params.demoname + "/index.html")
+      path.join(__dirname, "public/" + request.params.demoname + "/" + request.params.filename + ".html")
     )
   );
-
-  //  reply.redirect(302, "/node_modules/"+request.trailing);
-  //  //reply.send(JSON.stringify(request.params));
-  //  //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
+
+fastify.get("/:demoname([a-z-_]+)/:filename.png", (request, reply) => {
+  reply.header("Content-Type", "text/html");
+  reply.send(
+    fs.createReadStream(
+      path.join(__dirname, "public/" + request.params.demoname + "/" + request.params.filename + ".png")
+    )
+  );
+});
+
+fastify.get(
+  "/:demoname([a-z-_]+)/node_modules/blockly/:trailing",
+  (request, reply) => {
+    reply.header("Content-Type", "text/html");
+    reply.send(
+      fs.createReadStream(
+        path.join(__dirname, "node_modules/blockly/" + request.params.trailing)
+      )
+    );
+  }
+);
 
 fastify.get("/index.hbs", function(request, reply) {
   // params is an object we'll pass to our handlebars template
