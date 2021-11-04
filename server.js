@@ -54,7 +54,7 @@ if (seo.url === "glitch-default") {
  */
 
 fastify.get("/", (request, reply) => {
-  reply.header("Content-Type", "text/html");
+  reply.type("text/html");
   reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
 });
 
@@ -67,16 +67,62 @@ fastify.get("/:demoname([a-z-_]+)/:filename.html", (request, reply) => {
   reply.type("text/html");
   reply.send(
     fs.createReadStream(
-      path.join(__dirname, "public/" + request.params.demoname + "/" + request.params.filename + ".html")
+      path.join(
+        __dirname,
+        "public/" +
+          request.params.demoname +
+          "/" +
+          request.params.filename +
+          ".html"
+      )
     )
   );
 });
 
-fastify.get("/:demoname([a-z-_]+)/:filename.png", (request, reply) => {
-  reply.header("Content-Type", "text/html");
+fastify.get("/:demoname([a-z-_]+)/:filename.js", (request, reply) => {
+  reply.type("application/javascript");
   reply.send(
     fs.createReadStream(
-      path.join(__dirname, "public/" + request.params.demoname + "/" + request.params.filename + ".png")
+      path.join(
+        __dirname,
+        "public/" +
+          request.params.demoname +
+          "/" +
+          request.params.filename +
+          ".js"
+      )
+    )
+  );
+});
+
+fastify.get("/:demoname([a-z-_]+)/:filename.css", (request, reply) => {
+  reply.type("text/css");
+  reply.send(
+    fs.createReadStream(
+      path.join(
+        __dirname,
+        "public/" +
+          request.params.demoname +
+          "/" +
+          request.params.filename +
+          ".css"
+      )
+    )
+  );
+});
+
+fastify.get("/:demoname([a-z-_]+)/media/:filename.svg", (request, reply) => {
+  reply.type("image/svg+xml");
+  reply.send(
+    fs.createReadStream(
+      path.join(
+        __dirname,
+        "public/" +
+          request.params.demoname +
+          "/media/" +
+          request.params.filename +
+          ".svg"
+      )
     )
   );
 });
@@ -84,10 +130,25 @@ fastify.get("/:demoname([a-z-_]+)/:filename.png", (request, reply) => {
 fastify.get(
   "/:demoname([a-z-_]+)/node_modules/blockly/:trailing",
   (request, reply) => {
-    reply.header("Content-Type", "text/html");
+    reply.type("application/javascript");
     reply.send(
       fs.createReadStream(
         path.join(__dirname, "node_modules/blockly/" + request.params.trailing)
+      )
+    );
+  }
+);
+
+fastify.get(
+  "/:demoname([a-z-_]+)/node_modules/blockly/msg/:trailing",
+  (request, reply) => {
+    reply.type("application/javascript");
+    reply.send(
+      fs.createReadStream(
+        path.join(
+          __dirname,
+          "node_modules/blockly/msg" + request.params.trailing
+        )
       )
     );
   }
