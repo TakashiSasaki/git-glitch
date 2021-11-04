@@ -59,12 +59,12 @@ fastify.get("/", (request, reply) => {
 });
 
 fastify.get("/index.html", (request, reply) => {
-  reply.header("Content-Type", "text/html");
+  reply.type("text/html");
   reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
 });
 
 fastify.get("/:demoname([a-z-_]+)/:filename.html", (request, reply) => {
-  reply.header("Content-Type", "text/html");
+  reply.type("text/html");
   reply.send(
     fs.createReadStream(
       path.join(__dirname, "public/" + request.params.demoname + "/" + request.params.filename + ".html")
