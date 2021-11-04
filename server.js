@@ -18,22 +18,9 @@ const fastifyStatic = require("fastify-static");
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
-  //prefix: "/public",
+  prefix: "/public",
   //wildcard: true,
   //decorateReply: false
-});
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "node_modules/blockly"),
-  prefix: "/node_modules/blockly/",
-  decorateReply: false,
-});
-
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "public"),
-  prefix: "/", // optional: default '/'
-  decorateReply: false,
 });
 
 // fastify-formbody lets us parse incoming forms
@@ -58,7 +45,8 @@ if (seo.url === "glitch-default") {
  * Returns src/pages/index.hbs with data built into it
  */
 
-fastify.get("/*/node_modules/", (request, reply) => {
+fastify.get("/*/node_modules/x", (request, reply) => {
+  reply.send("nononononono");
 //  //reply.send(JSON.stringify(request.params));
 //  //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
