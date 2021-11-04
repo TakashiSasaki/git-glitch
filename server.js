@@ -63,7 +63,7 @@ fastify.get("/index.html", (request, reply) => {
   reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
 });
 
-fastify.get("/:demoname([a-z-_]+)/:filename.html", (request, reply) => {
+fastify.get("/:demoname([a-z-_]+)/:filename([a-z_-]+).html", (request, reply) => {
   reply.type("text/html");
   reply.send(
     fs.createReadStream(
@@ -128,26 +128,29 @@ fastify.get("/:demoname([a-z-_]+)/media/:filename.svg", (request, reply) => {
 });
 
 fastify.get(
-  "/:demoname([a-z-_]+)/node_modules/blockly/:trailing",
-  (request, reply) => {
-    reply.type("application/javascript");
-    reply.send(
-      fs.createReadStream(
-        path.join(__dirname, "node_modules/blockly/" + request.params.trailing)
-      )
-    );
-  }
-);
-
-fastify.get(
-  "/:demoname([a-z-_]+)/node_modules/blockly/msg/:trailing",
+  "/:demoname([a-z-_]+)/node_modules/blockly/:filename.js",
   (request, reply) => {
     reply.type("application/javascript");
     reply.send(
       fs.createReadStream(
         path.join(
           __dirname,
-          "node_modules/blockly/msg" + request.params.trailing
+          "node_modules/blockly/" + request.params.filename + ".js"
+        )
+      )
+    );
+  }
+);
+
+fastify.get(
+  "/:demoname([a-z-_]+)/node_modules/blockly/msg/:filename.js",
+  (request, reply) => {
+    reply.type("application/javascript");
+    reply.send(
+      fs.createReadStream(
+        path.join(
+          __dirname,
+          "node_modules/blockly/msg/" + request.params.filename + ".js"
         )
       )
     );
