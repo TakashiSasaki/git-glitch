@@ -4,6 +4,7 @@
  */
 
 const path = require("path");
+const fs = require("fs");
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -18,7 +19,7 @@ const fastifyStatic = require("fastify-static");
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
-  prefix: "/public",
+  prefix: "/public"
   //wildcard: true,
   //decorateReply: false
 });
@@ -53,13 +54,21 @@ if (seo.url === "glitch-default") {
  */
 
 fastify.get("/index.html", (request, reply) => {
-  reply.send(fs.createReadStream(path.join(__dirname, "path/index.html")));
-}
+  reply.header("Content-Type", "text/html");
+  reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
+});
 
-fastify.get("/:demoname/node_modules/:trailing", (request, reply) => {
-  reply.redirect(302, "/node_modules/"+request.trailing);
-//  //reply.send(JSON.stringify(request.params));
-//  //reply.redirect(302, "/node_modules/" + request.params.trailing);
+fastify.get("/:demoname([a-z-_]+)/index.html", (request, reply) => {
+  reply.header("Content-Type", "text/html");
+  reply.send(
+    fs.createReadStream(
+      path.join(__dirname, "public/" + request.params.demoname + "/index.html")
+    )
+  );
+
+  //  reply.redirect(302, "/node_modules/"+request.trailing);
+  //  //reply.send(JSON.stringify(request.params));
+  //  //reply.redirect(302, "/node_modules/" + request.params.trailing);
 });
 
 fastify.get("/index.hbs", function(request, reply) {
