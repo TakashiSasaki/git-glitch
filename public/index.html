@@ -14,6 +14,10 @@
         padidng: 0px;
         height: 100%;
       }
+      #buttons{
+        display: flex;
+        flex-direction: column;
+      }
     </style>
   </head>
   <body>
@@ -26,10 +30,10 @@
             >https://github.com/google/blockly-samples/tree/master/examples</a
           >
         </p>
-        <div>
+        <div id="buttons"">
           <button data-example-name="custom-dialogs-demo" />
           <button data-example-name="fixed-demo" />
-          <button data-example-name="graph-demos" />
+          <button data-example-name="graph-demo" />
           <button data-example-name="headless-demo" />
           <button data-example-name="interpreter-demo" />
           <button data-example-name="max-blocks-demo" />
