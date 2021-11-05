@@ -26,30 +26,16 @@
             >https://github.com/google/blockly-samples/tree/master/examples</a
           >
         </p>
-        <button data-example-name="graph-demo">
-          graph-demo
-        </button>
-        <button data-example-name="headless-demo">
-          headless-demo
-        </button>
-        <button data-example-name="turtle-field-demo">
-          turtle-field-demo
-        </button>
-        <button data-example-name="interpreter-demo">
-          interpreter-demo
-        </button>
-        <button data-example-name="fixed-demo">
-          fixed-demo
-        </button>
-        <button data-example-name="single-direction-scroll-demo">
-          single-direction-scroll-demo
-        </button>
-        <button data-example-name="toolbox-demo">
-          toolbox-demo
-        </button>
-        <button data-example-name="custom-dialogs-demo">
-          custom-dialogs-demo
-        </button>
+        <button data-example-name="custom-dialogs-demo"/>
+        <button data-example-name="fixed-demo" />
+        <button data-example-name="graph-demos" />
+        <button data-example-name="headless-demo"/>
+        <button data-example-name="interpreter-demo"/>
+        <button data-example-name="max-blocks-demo"/>
+        <button data-example-name="mirror-demo"/>
+        <button data-example-name="single-direction-scroll-demo"/>
+        <button data-example-name="toolbox-demo"/>
+        <button data-example-name="turtle-field-demo"/>
       </div>
       <div class="pure-u-4-5">
         <iframe> </iframe>
@@ -64,7 +50,9 @@
             .querySelector("IFRAME")
             .setAttribute("src", exampleName + "/index.html");
         });
+        buttons[i].innerText = buttons[i].dataset["exampleName"];
       }
+
       document.querySelector("IFRAME").style.height =
         document.body.scrollHeight;
     </script>
