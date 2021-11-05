@@ -130,6 +130,14 @@ fastify.get("/:demoname([a-z-_]+)/media/:filename.svg", (request, reply) => {
   );
 });
 
+fastify.get("/:demoname([a-z-_]+)/media/:filename.png", (request, reply) => {
+  reply.redirect(
+    "https://cdn.glitch.me/2875e037-75af-4fc3-a115-4e66391bf721%2F" +
+      request.params.filename +
+      ".png"
+  );
+});
+
 fastify.get("/:demoname([a-z-_]+)/generated/:filename.js", (request, reply) => {
   reply.type("application/javascript");
   reply.send(
