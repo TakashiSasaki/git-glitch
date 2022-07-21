@@ -33,7 +33,9 @@ export default function Home() {
   /* The wiggle function defined in /hooks/wiggle.jsx returns the style effect and trigger function
      - We can attach this to events on elements in the page and apply the resulting style
   */
-  const [style, trigger] = useWiggle({ x: 5, y: 5, scale: 1 });
+  //const [style, trigger] = useWiggle({ x: 5, y: 5, scale: 1 });
+  const style = {display: "none"};
+  const trigger = null;
 
   // When the user clicks we change the header language
   const handleChangeHello = () => {
