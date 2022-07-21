@@ -23,9 +23,9 @@ import Seo from "./components/seo.jsx";
 // by TakashiSasaki
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
-import ToolBar from "@mui/material/Toolbar";
-//import IconButton from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
 // Home function that is reflected across the site
 export default function Home() {
@@ -33,10 +33,12 @@ export default function Home() {
     <Router>
       <CssBaseline />
       <MuiAppBar position="static">
-        <MenuIcon/>
-        <div>x</div>
+        <IconButton>
+          <MenuIcon />
+          <MenuIcon />
+        </IconButton>
+        <Typography>Schema</Typography>
       </MuiAppBar>
-
       <main role="main" className="wrapper">
         <div className="content">
           {/* Router specifies which component to insert here as the main content */}
