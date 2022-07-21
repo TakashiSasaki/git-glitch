@@ -38,7 +38,6 @@ export default function Home() {
           <span className="divider">|</span>
           <Link href="/about">About</Link>
         </div>
-        <p>ppp</p>
         <a
           className="btn--remix"
           target="_top"
