@@ -47,7 +47,6 @@ export default function Home() {
         </Toolbar>
       </MuiAppBar>
       <MuiDrawer>
-        
         <p>drawer</p>
       </MuiDrawer>
       <main role="main" className="wrapper">
