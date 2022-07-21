@@ -25,7 +25,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
+import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import MuiDrawer from "@mui/material/Drawer";
 
 // Home function that is reflected across the site
 export default function Home() {
@@ -33,12 +36,20 @@ export default function Home() {
     <Router>
       <CssBaseline />
       <MuiAppBar position="static">
-        <IconButton>
-          <MenuIcon />
-          <MenuIcon />
-        </IconButton>
-        <Typography>Schema</Typography>
+        <Toolbar>
+          <IconButton color="inherit" size="large">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" sx={{ flexGrow: 10 }}>
+            Schema
+          </Typography>
+          <Button color="inherit">button</Button>
+        </Toolbar>
       </MuiAppBar>
+      <MuiDrawer>
+        
+        <p>drawer</p>
+      </MuiDrawer>
       <main role="main" className="wrapper">
         <div className="content">
           {/* Router specifies which component to insert here as the main content */}
