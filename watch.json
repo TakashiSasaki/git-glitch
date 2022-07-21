@@ -8,10 +8,11 @@
   "restart": {
     "include": [
       "^backend/",
-      "index.html"
+      "index.html",
+      "*.css"
     ],
     "exclude": [
-      "src/" 
+      "src/pages/" 
     ]
   },
   "noSavedEvents": true
