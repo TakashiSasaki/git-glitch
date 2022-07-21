@@ -20,14 +20,14 @@ import PageRouter from "./components/router.jsx";
 // The component that adds our Meta tags to the page
 import Seo from './components/seo.jsx';
 
+// Reset CSS by TakashiSasaki
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Home function that is reflected across the site
 export default function Home() {
   return (
-    <CssBaselne />
     <Router>
-      <Seo />
+      <CssBaseline />
       <main role="main" className="wrapper">
         <div className="content">
           {/* Router specifies which component to insert here as the main content */}
