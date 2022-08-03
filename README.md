@@ -32,6 +32,8 @@ Create a new projectを選んでみる。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/eb0fb1d1-55f2-494b-985a-b6310df9c0ce.image.png?v=1659502009635">
 この「Create a new project」というのはGoogle Cloud　Platformのプロジェクトのことらしい。
 新しくGCPのプロジェクトが作成された。
+<img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/2a086602-42cd-4232-830b-8ea441a8fb8b.image.png?v=1659502351249">
+
 
 
 This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
