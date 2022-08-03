@@ -14,6 +14,11 @@ $ refresh
 ターミナルから直接インストールしたnpmパッケージは放っておくと次のログイン時には消えてしまっていた。
 コンテナが毎度新しく作り直されるかららしい。どないしたらええねん？
 
+コマンドラインからnpmでインストールするのではなくpackage.jsonに追加すればいいのかもしれない。
+<img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/a6c2508b-b23a-4d0b-b40e-1ad7a73d2325.image.png?v=1659500465919">
+
+
+
 
 
 This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
