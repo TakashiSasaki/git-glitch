@@ -40,7 +40,8 @@ SPAとしてデプロイする選択をするとURLのパス部分が常に`inde
 4つのファイルが生成された。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/9625734f-c41d-4c56-8e04-8dedaefa7a06.image.png?v=1659503309421">
 生成されたファイルはすぐにIDEに反映されるわけではないが、
-`refresh`
+ターミナルで`refresh`コマンドを実行するとIDEに反映される。
+
 
 This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
 
