@@ -34,7 +34,13 @@ Create a new projectを選んでみる。
 新しくGCPのプロジェクトが作成された。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/2a086602-42cd-4232-830b-8ea441a8fb8b.image.png?v=1659502351249">
 
+SPAとしてデプロイする選択をするとURLのパス部分が常に`index.html`に書き換えられる。
+<img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/7ed42fe8-f689-4ccd-b9c0-a67f8ef2a346.image.png?v=1659503188839">
 
+4つのファイルが生成された。
+<img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/9625734f-c41d-4c56-8e04-8dedaefa7a06.image.png?v=1659503309421">
+生成されたファイルはすぐにIDEに反映されるわけではないが、
+`refresh`
 
 This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
 
