@@ -17,7 +17,17 @@ $ refresh
 コマンドラインからnpmでインストールするのではなくpackage.jsonに追加すればいいのかもしれない。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/a6c2508b-b23a-4d0b-b40e-1ad7a73d2325.image.png?v=1659500465919">
 
+firebase-toolsのトークンなど各種設定は.config/configstore/以下に保存される。
+<img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/12bfc221-3e94-4efa-8097-6a04f6b651ac.image.png?v=1659501322707">
+`.config`は`/etc/git/gitignore-global`
+に含まれているのでコミット対象では無い。
+毎回`firebase login --reauth --no-localhost`
+しなければならないかもしれないが、`firebase-tools.json`
+にはアクセストークンも含まれているので安全のためには致し方ない。
 
+```
+$ firebase init hosting
+```
 
 
 
