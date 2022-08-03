@@ -1,9 +1,11 @@
 # firebase-moukaeritai-work
 
-このプロジェクトをFirebaseにデプロイしてマルチドメインで使うつもり。
-npm firebase-tools しなければならないので、glitch-hello-nodeからのフォークを選んだ。
+このプロジェクトを Firebase にデプロイしてマルチドメインで使うつもり。
+npm firebase-tools しなければならないので、glitch-hello-node からのフォークを選んだ。
 
-# 作業記録
+# Firebase Toolsの導入
+Glitchの仮想マシンに[Firebase Tools](https://www.npmjs.com/package/firebase-tools)を導入する。
+
 ```
 $ npm update npm
 $ npm update`
@@ -11,13 +13,14 @@ $ npm install firebase-tools
 $ firebase login --no-localhost
 $ refresh
 ```
-ターミナルから直接インストールしたnpmパッケージは放っておくと次のログイン時には消えてしまっていた。
+
+ターミナルから直接インストールした npm パッケージは放っておくと次のログイン時には消えてしまっていた。
 コンテナが毎度新しく作り直されるかららしい。どないしたらええねん？
 
-コマンドラインからnpmでインストールするのではなくpackage.jsonに追加すればいいのかもしれない。
+コマンドラインから npm でインストールするのではなく package.json に追加すればいいのかもしれない。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/a6c2508b-b23a-4d0b-b40e-1ad7a73d2325.image.png?v=1659500465919">
 
-firebase-toolsのトークンなど各種設定は.config/configstore/以下に保存される。
+firebase-tools のトークンなど各種設定は.config/configstore/以下に保存される。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/12bfc221-3e94-4efa-8097-6a04f6b651ac.image.png?v=1659501322707">
 `.config`は`/etc/git/gitignore-global`
 に含まれているのでコミット対象では無い。
@@ -28,24 +31,37 @@ firebase-toolsのトークンなど各種設定は.config/configstore/以下に�
 ```
 $ firebase init hosting
 ```
-Create a new projectを選んでみる。
+
+Create a new project を選んでみる。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/eb0fb1d1-55f2-494b-985a-b6310df9c0ce.image.png?v=1659502009635">
-この「Create a new project」というのはGoogle Cloud　Platformのプロジェクトのことらしい。
-新しくGCPのプロジェクトが作成された。
+この「Create a new project」というのは Google Cloud 　 Platform のプロジェクトのことらしい。
+新しく GCP のプロジェクトが作成された。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/2a086602-42cd-4232-830b-8ea441a8fb8b.image.png?v=1659502351249">
 
-SPAとしてデプロイする選択をするとURLのパス部分が常に`index.html`に書き換えられる。
+SPA としてデプロイする選択をすると URL のパス部分が常に`index.html`に書き換えられる。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/7ed42fe8-f689-4ccd-b9c0-a67f8ef2a346.image.png?v=1659503188839">
 
-4つのファイルが生成された。
+4 つのファイルが生成された。
 <img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/9625734f-c41d-4c56-8e04-8dedaefa7a06.image.png?v=1659503309421">
-生成されたファイルはすぐにIDEに反映されるわけではないが、
-ターミナルで`refresh`コマンドを実行するとIDEに反映される。
+生成されたファイルはすぐに IDE に反映されるわけではないが、
+ターミナルで`refresh`コマンドを実行すると IDE に反映される。
+そのうちチェックポイントとして git リポジトリにも記録される。
+<img src="https://cdn.glitch.global/c1a42e05-227b-4feb-af43-a29f603f6fe4/5aa49b92-6254-4bd8-8d13-22b9c938b38c.image.png?v=1659505173553">
+
+
+## Firebase Console での確認
+
+
+
+
 
 
 This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
 
 [Node.js](https://nodejs.org/en/about/) is a popular runtime that lets you run server-side JavaScript. This project uses the [Fastify](https://www.fastify.io/) framework and explores basic templating with [Handlebars](https://handlebarsjs.com/).
+
+
+
 
 ## Prerequisites
 
@@ -73,7 +89,7 @@ You'll get best use out of this project if you're familiar with basic JavaScript
 
 Take a look in `TODO.md` for next steps you can try out in your new site!
 
-___Want a minimal version of this project to build your own Node.js app? Check out [Blank Node](https://glitch.com/edit/#!/remix/glitch-blank-node)!___
+**_Want a minimal version of this project to build your own Node.js app? Check out [Blank Node](https://glitch.com/edit/#!/remix/glitch-blank-node)!_**
 
 ![Glitch](https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2FLogo_Color.svg?v=1602781328576)
 
