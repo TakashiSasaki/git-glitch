@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "build",
+    rollupOptions: {
+      input: {
+        app: "index.orig.html",
+      },
+    },
   },
   server: {
     strictPort: true,
@@ -13,5 +18,4 @@ export default defineConfig({
       port: 443, // Run the websocket server on the SSL port
     },
   },
-  entry: "/app/index.orig.html",
 });
