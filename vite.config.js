@@ -13,4 +13,5 @@ export default defineConfig({
       port: 443, // Run the websocket server on the SSL port
     },
   },
+  entry: "/app/index.orig.html",
 });
