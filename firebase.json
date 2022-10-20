@@ -2,6 +2,6 @@
   "hosting": {
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [{ "regex": "/[1-9]{8}", "destination": "/eigitdigits.html" }]
+    "rewrites": [{ "regex": "/[1-9]{8,}", "destination": "/eightdigits.html" }]
   }
 }
