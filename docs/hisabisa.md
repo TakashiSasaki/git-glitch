@@ -1,5 +1,9 @@
 久しぶりにGlitchのターミナルを開いたときに試すこと。
 
-firebase projects:list
-これが正しく表示されると、Firebaseにアクセスするためのトークンが生きていることがわかる
+`firebase projects:list`
+
+これでFirebaseプロジェクトがずらずらと表示されると、
+Firebaseにアクセスするためのトークンが生きていることがわかる。
+
+
 
