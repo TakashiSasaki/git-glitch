@@ -13,15 +13,18 @@ const fastify = require("fastify")({
 
 // ADD FAVORITES ARRAY VARIABLE FROM TODO HERE
 
+const fastifyStatic = require("@fastify/static");
+
 // Setup our static files
-fastify.register(require("@fastify/static"), {
+fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
   prefix: "/", // optional: default '/'
 });
 
-fastify.register(require("@fastify/static"), {
+fastify.register(fastifyStatic, {
   root: path.join(__dirname, "functions"),
   prefix: "/functions/", // optional: default '/'
+  decorateReply: false
 });
 
 // Formbody lets us parse incoming forms
