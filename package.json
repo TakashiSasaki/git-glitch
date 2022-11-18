@@ -7,11 +7,12 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "fastify": "^4.9.2",
+    "fastify": "^4.10.0",
     "handlebars": "^4.7.7",
     "@fastify/formbody": "^7.3.0",
     "@fastify/static": "^6.5.0",
-    "@fastify/view": "^7.1.2"
+    "@fastify/view": "^7.1.2",
+    "@simplewebauthn/server": "^6.2.2"
   },
   "engines": {
     "node": "14.x"
