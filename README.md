@@ -9,9 +9,17 @@ webauthn-reauthではNode.jsのExpressを使っていたが、
 Handlebarっていうテンプレートエンジンを使うらしい。
 これはwebauthn-reauthでも使っていたな。
 こういうのを使うのが普通なの？
-webauthn-reauthでは
-`const hbs = require('hbs');`
-って
+
+Expressではテンプレートエンジンを以下のように登録するらしい。
+```
+const hbs = require('hbs');
+const app = express();
+app.set('view engine', 'html');
+app.engine('html', hbs.__express);
+app.set('views', './views');
+```
+
+
 
 ----------------
 ここから下は最初から入っていた文書。
