@@ -1,6 +1,9 @@
 <html>
   <head>
     <title>webauthn-fastify</title>
+    <style>
+      textarea {width:90%; height: 3em;}
+    </style>
   </head>
   <body>
     <form>
@@ -8,14 +11,19 @@
       <input type="submit" />
 
     </form>
-    <button>
-      Check window.PublicKeyCredential
-    </button>
-    <textarea id="publicKeyCredential">a</textarea>
+    <textarea id="textareaPublicKeyCredential">a</textarea>
     <script>
-      window.onload = ()=>{
-      document.querySelector("BUTTON").addEventListener("CLICK", ()=>{ alert(1);
-      document.querySelector("#publicKeyCredential").innerHTML = "1"; }); }
+      setTimeout(()=>{
+      document.querySelector("#textareaPublicKeyCredential").value =
+      window.PublicKeyCredential;}, 100);
+    </script>
+
+    <textarea id="textareaUVPAA"></textarea>
+    <script>
+      setTimeout(()=>{ 
+      window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().
+      then(document.querySelector("#textareaUVPAA").value = x); },
+      100);
     </script>
   </body>
 </html>
