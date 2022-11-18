@@ -10,7 +10,7 @@ Handlebarっていうテンプレートエンジンを使うらしい。
 これはwebauthn-reauthでも使っていたな。
 こういうのを使うのが普通なの？
 
-Expressではテンプレートエンジンを以下のように登録するらしい。
+Expressではテンプレートエンジンを以下のように登録する。
 ```
 const hbs = require('hbs');
 const app = express();
@@ -19,6 +19,14 @@ app.engine('html', hbs.__express);
 app.set('views', './views');
 ```
 
+Fastifyではテンプレートエンジンを以下のように登録する。
+```
+fastify.register(require("@fastify/view"), {
+  engine: {
+    handlebars: require("handlebars"),
+  },
+});
+```
 
 
 ----------------
