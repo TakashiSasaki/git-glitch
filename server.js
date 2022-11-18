@@ -63,6 +63,10 @@ fastify.get("/", function (request, reply) {
   return reply.view("/src/pages/index.hbs", params);
 });
 
+fastify.get("/credential", (request, reply)=>{
+  
+});
+
 /**
  * Our POST route to handle and react to form submissions
  *
