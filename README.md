@@ -1,3 +1,21 @@
+WebAuthn周りをいじってみる練習。
+Google Codelabの[webauthn-reauth](https://developers.google.com/codelabs/webauthn-reauth)
+という[Glitchプロジェクト](https://glitch.com/edit/#!/webauthn-codelab-start)
+をもとに書き直してみる。
+
+webauthn-reauthではNode.jsのExpressを使っていたが、
+最近のGlitchではFastifyを使うのが普通らしい。
+
+Handlebarっていうテンプレートエンジンを使うらしい。
+これはwebauthn-reauthでも使っていたな。
+こういうのを使うのが普通なの？
+webauthn-reauthでは
+`const hbs = require('hbs');`
+って
+
+----------------
+ここから下は最初から入っていた文書。
+----------------
 # Hello Node!
 
 This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
