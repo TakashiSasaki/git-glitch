@@ -4,8 +4,18 @@
   </head>
   <body>
     <form>
-      <input type="text">
-      <input type="submit">
+      <input type="text" />
+      <input type="submit" />
+
     </form>
+    <button>
+      Check window.PublicKeyCredential
+    </button>
+    <textarea id="publicKeyCredential">a</textarea>
+    <script>
+      window.onload = ()=>{
+      document.querySelector("BUTTON").addEventListener("CLICK", ()=>{ alert(1);
+      document.querySelector("#publicKeyCredential").innerHTML = "1"; }); }
+    </script>
   </body>
 </html>
