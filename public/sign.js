@@ -1,5 +1,7 @@
 async function generateRegistrationOptions() {
-  const x = await fetch("generateRegistrationOptions", {});
+  const x = await fetch("generateRegistrationOptions", {
+    credentials: "same-origin",
+  });
   x.json().then((y) => {
     document.querySelector("#textareaRegistrationOptions").value =
       JSON.stringify(y);
