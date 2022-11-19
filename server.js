@@ -64,11 +64,11 @@ fastify.get("/", function (request, reply) {
   return reply.view("/src/pages/index.hbs", params);
 });
 
-fastify.get("/credential", (request, reply)=>{
-
-  //const options = fido2.generateAttestationOptions({
-  //});
-  reply.send(JSON.stringify(fido2));
+fastify.get("/generateRegistrationOptions", (request, reply)=>{
+  const options = fido2.generateRegistrationOptions({
+    rpName: "webauthn-fastify"
+  });
+  reply.send(options);
 });
 
 /**
