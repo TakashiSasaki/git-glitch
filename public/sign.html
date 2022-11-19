@@ -1,20 +1,30 @@
 <html>
   <head>
     <title>sign</title>
+    <style>
+      textarea {
+        width: 99%;
+        height: 10em;
+      }
+    </style>
   </head>
   <body>
     <header>
       <script src="sign.js"></script>
     </header>
     <main>
-      <button id="buttonGenerateRegistrationOptions">
+      <button
+        id="buttonGenerateRegistrationOptions"
+        onclick="generateRegistrationOptions()"
+      >
         Fetch registration options from the server.
       </button>
-      <script></script>
-
-      <textarea></textarea>
+      <textarea id="textareaRegistrationOptions"></textarea>
+      <button id="buttonCreateSignature">
+        Create signature at the client.
+      </button>
+      <textarea></Textarea>
     </main>
     <footer></footer>
-    <script></script>
   </body>
 </html>
