@@ -13,11 +13,14 @@ async function createSignature() {
     document.querySelector("#textareaRegistrationOptions").value
   );
   x.challenge = base64url.decode(x.challenge);
-  x.user = { name: "unknown_user_name", displayName: "Unknown User Name",
-           id: Uint8Array.from("unknown_user_id")};
-  const cred = await navigator.credentials.create({
+  x.user.id = Uint8Array.from()
+  //x.user = { name: "unknown_user_name", displayName: "Unknown User Name",
+  //         id: Uint8Array.from("unknown_user_id")};
+  navigator.credentials.create({
     publicKey: x,
+  }).then(credentials => {
+    document.querySelector("#signature").value = credentials;
+  }).catch(error => {
+    document.querySelector("#signature").value = error;
   });
-
-  document.querySelector("#signature").value = 5;
 }
