@@ -4,6 +4,7 @@
  */
 
 const path = require("path");
+const fido2 = require("@simplewebauthn/server");
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -64,7 +65,10 @@ fastify.get("/", function (request, reply) {
 });
 
 fastify.get("/credential", (request, reply)=>{
-  
+
+  //const options = fido2.generateAttestationOptions({
+  //});
+  reply.send(JSON.stringify(fido2));
 });
 
 /**
