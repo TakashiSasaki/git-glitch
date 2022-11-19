@@ -1,15 +1,18 @@
 async function generateRegistrationOptions() {
   const x = await fetch("generateRegistrationOptions", {});
   x.json().then((y) => {
-    document.querySelector("#textareaRegistrationOptions").value = JSON.stringify(y);
+    document.querySelector("#textareaRegistrationOptions").value =
+      JSON.stringify(y);
   });
 }
 
-async function createSignature(){
-  alert(1);
-  const x = JSON.parse(document.querySelector("#textareaRegistrationOptions").value);
+async function createSignature() {
+  const x = JSON.parse(
+    document.querySelector("#textareaRegistrationOptions").value
+  );
   const cred = await navigator.credentials.create({
-    publicKey: x
+    publicKey: x,
   });
-  alert(cred);
+
+  document.querySelector("#signature").value = 5;
 }
