@@ -1,15 +1,10 @@
 <html>
   <head>
     <title>webauthn-fastify</title>
-    <link
-      href="//unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
-      rel="stylesheet"
-    />
-    <script
-      src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"
-    ></script>
     <style>
-      textarea {width:90%; height: 3em;}
+      body {margin: 0px}
+      iframe {margin:0px; padding 0px; width:100vw; height:100vw; border:none;
+    }
     </style>
   </head>
   <body class="mdc-typography">
@@ -23,33 +18,9 @@
       </nav>
     </header>
     <main>
-      <h1>WebAuthnが利用可能か？
-      </h1>
-      <p>
-        <code>window.PublicKeyCredential</code>があれば
-        WebAuthnが利用可能である。
-      </p>
-      <textarea id="textareaPublicKeyCredential">a</textarea>
-      <script>
-        setTimeout(()=>{
-        document.querySelector("#textareaPublicKeyCredential").value =
-        window.PublicKeyCredential;}, 100);
-      </script>
-
-      <h1>
-        生体認証器が利用可能か？
-      </h1>
-      <p>
-        <code
-        >PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()</code>の
-        返すPromiseがtrueを返すなら生体認証器が利用可能。
-      </p>
-      <textarea id="textareaUVPAA"></textarea>
-      <script>
-        setTimeout(()=>{
-        window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().
-        then(x => document.querySelector("#textareaUVPAA").value = x); }, 100);
-      </script>
+      <iframe src="client-side-check.html">
+        
+      </iframe>
     </main>
     <footer>
     </footer>
