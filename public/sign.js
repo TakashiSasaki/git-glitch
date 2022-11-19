@@ -13,7 +13,7 @@ async function createSignature() {
     document.querySelector("#textareaRegistrationOptions").value
   );
   x.challenge = base64url.decode(x.challenge);
-  x.user.id = Uint8Array.from()
+  x.user.id = Uint8Array.from(x.user.id);
   //x.user = { name: "unknown_user_name", displayName: "Unknown User Name",
   //         id: Uint8Array.from("unknown_user_id")};
   navigator.credentials.create({
