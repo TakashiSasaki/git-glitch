@@ -12,7 +12,7 @@ async function createSignature() {
   );
   x.challenge = base64url.decode(x.challenge);
   x.user = { name: "unknown_user_name", displayName: "Unknown User Name",
-           id: "unknown_user_id"};
+           id: Uint8Array.from("unknown_user_id")};
   const cred = await navigator.credentials.create({
     publicKey: x,
   });
