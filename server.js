@@ -67,6 +67,12 @@ fastify.get("/", function (request, reply) {
 
 fastify.get("/generateRegistrationOptions", (request, reply) => {
   const options = fido2.generateRegistrationOptions({
+    rpName: "webauthn-fastify heyhey",
+    user : {
+      id: "unknown_user_id",
+      name: "unknown_user_name"
+      
+    }
   });
   reply.send(options);
 });

@@ -10,6 +10,7 @@
   </head>
   <body>
     <header>
+      <script src="https://cdn.jsdelivr.net/gh/herrjemand/Base64URL-ArrayBuffer@latest/lib/base64url-arraybuffer.js"></script>
       <script src="sign.js"></script>
     </header>
     <main>
@@ -20,8 +21,7 @@
         Fetch registration options from the server.
       </button>
       <textarea id="textareaRegistrationOptions"></textarea>
-      <button id="buttonCreateSignature"
-              onclick="createSignature()">
+      <button id="buttonCreateSignature" onclick="createSignature()">
         Create signature at the client.
       </button>
       <textarea id="signature"></textarea>
