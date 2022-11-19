@@ -62,7 +62,7 @@ fastify.get("/", function (request, reply) {
 
   // The Handlebars code will be able to access the parameter values and build them into the page
   //return reply.view("/src/pages/index.hbs", params);
-  reply.send("")
+  reply.view("/public/index.html");
 });
 
 fastify.get("/generateRegistrationOptions", (request, reply) => {
