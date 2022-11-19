@@ -10,6 +10,7 @@ async function createSignature() {
   const x = JSON.parse(
     document.querySelector("#textareaRegistrationOptions").value
   );
+  x.challenge = atob(x.challenge.replace("-","+").replace("_","/"));
   const cred = await navigator.credentials.create({
     publicKey: x,
   });
