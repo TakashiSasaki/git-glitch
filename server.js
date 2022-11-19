@@ -66,14 +66,12 @@ fastify.get("/", function (request, reply) {
 
 fastify.get("/generateRegistrationOptions", (request, reply) => {
   const options = fido2.generateRegistrationOptions({
-    rpName: "webauthn-fastify",
   });
   reply.send(options);
 });
 
-fastify.get("generateAuthenticationOptions", (request, reply) => {
+fastify.get("/generateAuthenticationOptions", (request, reply) => {
   const options = fido2.generateAuthenticationOptions({
-    rpName: "webauthn-fastify",
   });
   reply.send(options);
 });
