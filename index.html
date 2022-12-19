@@ -6,15 +6,27 @@
       href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
   </head>
   <body>
-    <div class="mdc-card">
-      <h2 class="mdc-card__title">このサイトは何？</h2>
-      <div>ほんぶん</div>
+    <aside class="mdc-drawer mdc-drawer--dismissible">
+      <div class="mdc-drawer__content">ドロワー</div>
+    </aside>
+    <div class="mdc-drawer-app-content">
+      <header class="mdc-top-app-bar">headerタグ</header>
+      <main class="main-content">
+        <div class="mdc-card">
+          <h2 class="mdc-card__title">このサイトは何？</h2>
+          <div>ほんぶん</div>
+        </div>
+        <div>ああああ</div>
+        <button class="foo-button mdc-button">Button</button>
+        <button class="mdc-button mdc-button--raised">Button</button>
+      </main>
     </div>
-    <div>ああああ</div>
-    <button class="foo-button mdc-button">Button</button>
-    <button class="mdc-button mdc-button--raised">Button</button>
   </body>
 </html>
