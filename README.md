@@ -1,4 +1,6 @@
 WebAuthn周りをいじってみる練習。
+2022年11月18日スタート。
+
 Google Codelabの[webauthn-reauth](https://developers.google.com/codelabs/webauthn-reauth)
 という[Glitchプロジェクト](https://glitch.com/edit/#!/webauthn-codelab-start)
 をもとに書き直してみる。
