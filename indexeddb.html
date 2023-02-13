@@ -1,13 +1,19 @@
 <html>
   <head>
     <title>Hello indexedDB</title>
+    <style>
+      textarea {
+        width: 99%;
+        min-height: 3em;
+      }
+    </style>
   </head>
   <body>
     <script>
-      const VERSION = 3;
+      const VERSION = 4;
       const request = window.indexedDB.open("MyTestDatabase", VERSION);
       request.onerror = (event) =>
-        (document.querySelector("#onerror").value = event.target);
+        (document.querySelector("#onerror").value = event.target.error);
       request.onsuccess = (event) =>
         (document.querySelector("#onsuccess").value = event.target.result);
       request.onupgradeneeded = (event) => {
@@ -15,8 +21,8 @@
         const objectStore = db.createObjectStore("MyTestStore");
       };
     </script>
-    <input id="onerror" readonly />
+    <textarea id="onerror" readonly></textarea>
     <input id="onsuccess" readonly />
-    <input id="onupgradeneeded" readonly />
+    <textarea id="onupgradeneeded" readonly></textarea>
   </body>
 </html>
