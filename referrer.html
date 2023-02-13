@@ -2,7 +2,10 @@
   <head>
     <title>referer check</title>
     <style>
-      textarea {width:99%; height:2em;}
+      textarea {
+        width: 99%;
+        height: 2em;
+      }
     </style>
   </head>
   <body>
@@ -12,14 +15,15 @@
       document.querySelector("textarea").value = document.referrer;
     </script>
     <h1>hash</h1>
-    <input id="hash" readonly>
+    <input id="hash" readonly />
     <script>
       document.querySelector("#hash").value = location.hash;
     </script>
-    <input id="hash-decoded" readonly>
+    <input id="hash-decoded" readonly />
     <script>
-      document.querySelector("#hash-decoded").value
-      = 
+      document.querySelector("#hash-decoded").value = decodeURIComponent(
+        location.hash
+      );
     </script>
   </body>
 </html>
