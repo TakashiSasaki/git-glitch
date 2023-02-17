@@ -1,6 +1,8 @@
+const dq = (selector) => document.querySelector(selector);
+
 window.addEventListener("load", () => {
-  document.querySelector("button").addEventListener("click", (e) => {
-    const username = document.querySelector("input").value;
+  dq("button").addEventListener("click", (e) => {
+    const username = dq("input").value;
     fetch("/auth/username", {
       method: "POST",
       headers: {
@@ -11,6 +13,11 @@ window.addEventListener("load", () => {
       body: JSON.stringify({ username: username }),
     })
       .then((response) => response.text())
-      .then((text) => (document.querySelector("textarea").value = text));
+      .then((text) => (dq("textarea").value = text));
+  });
+
+  dq("input").value = localStorage.getItem("username");
+  dq("input").addEventListener("change", (event) => {
+    localStorage.setItem("username", event.target.value);
   });
 });
