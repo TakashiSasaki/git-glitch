@@ -1,6 +1,6 @@
 //import { _fetch, registerCredential, unregisterCredential } from "/clients.js";
 
-export const registerCredential = async () => {
+const registerCredential = async () => {
   const opts = {
     attestation: "none",
     authenticatorSelection: {
@@ -10,10 +10,12 @@ export const registerCredential = async () => {
     },
   };
   //const options = await _fetch("/auth/registerRequest", opts);
-  const options = await fetch("/auth/registerRequest", {
-    method: "POST",
-    body: JSON.stringify(opts),
-  }).then((response) => response.json());
+  const options = await (async () => {
+    fetch("/auth/registerRequest", {
+      method: "POST",
+      body: JSON.stringify(opts),
+    }).then((response) => response.json());
+  })();
 
   options.user.id = base64url.decode(options.user.id);
   options.challenge = base64url.decode(options.challenge);
@@ -44,13 +46,18 @@ export const registerCredential = async () => {
   localStorage.setItem(`credId`, credential.id);
 
   //return await _fetch("/auth/registerResponse", credential);
-  await fetch("/auth/registerResponse", {
-    
-  })
+  const result = await (async () => {
+    fetch("/auth/registerResponse", {
+      method: "POST",
+      body: JSON.stringify(credential),
+    }).then((response) => response.json());
+  })();
+  return result;
 };
 
 window.addEventListener("load", (event) => {
   document.querySelector("button").addEventListener("click", (event) => {
-    registerCredential();
+    const result = registerCredential();
+    document.querySelector("textarea").value = result;
   });
 });
