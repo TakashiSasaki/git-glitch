@@ -10,12 +10,11 @@ const registerCredential = async () => {
     },
   };
   //const options = await _fetch("/auth/registerRequest", opts);
-  const options = await (async () => {
-    fetch("/auth/registerRequest", {
-      method: "POST",
-      body: JSON.stringify(opts),
-    }).then((response) => response.json());
-  })();
+  const response1Promise = await fetch("/auth/registerRequest", {
+    method: "POST",
+    body: JSON.stringify(opts),
+  });
+  const options = await response1Promise.json();
 
   options.user.id = base64url.decode(options.user.id);
   options.challenge = base64url.decode(options.challenge);
