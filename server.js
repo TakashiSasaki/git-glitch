@@ -24,7 +24,7 @@ const app = express();
 
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
-app.set('views', './views');
+app.set('views', ['./views', './my']);
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.static('dist'));

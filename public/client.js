@@ -46,7 +46,7 @@ export const _fetch = async (path, payload = "") => {
 
 export const registerCredential = async () => {
   const opts = {
-    //あてステーションを伝達する優先度。必要でない限りnoneを選択する。
+    //Attestationを伝達する優先度。必要でない限りnoneを選択する。
     attestation: "none",
     authenticatorSelection: {
       //利用可能な認証器をフィルタする。
@@ -57,7 +57,7 @@ export const registerCredential = async () => {
       userVerification: "required",
       //作成したクレデンシャルを将来のアカウント選択UIで使用できるようにするか。
       requireResidentKey: false,
-    },
+    }
   };
   const options = await _fetch("/auth/registerRequest", opts);
 };
