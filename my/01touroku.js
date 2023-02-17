@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
     const username = dq("input").value;
     fetch("/auth/username", {
       method: "POST",
+      credentials: "same-origin",
       headers: {
         //"Content-Type": "application/x-www-form-urlencoded",
         "Content-Type": "application/json",

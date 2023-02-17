@@ -12,6 +12,7 @@ const registerCredential = async () => {
   //const options = await _fetch("/auth/registerRequest", opts);
   const response1Promise = await fetch("/auth/registerRequest", {
     method: "POST",
+    credentials: "same-origin",
     body: JSON.stringify(opts),
     headers: {
       "X-Requested-With": "XMLHttpRequest",
@@ -19,6 +20,7 @@ const registerCredential = async () => {
     },
   });
   const options = await response1Promise.json();
+  console.log(options);
 
   options.user.id = base64url.decode(options.user.id);
   options.challenge = base64url.decode(options.challenge);
@@ -52,11 +54,13 @@ const registerCredential = async () => {
   const response2Promise = await fetch("/auth/registerResponse", {
     method: "POST",
     body: JSON.stringify(credential),
+    credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
     },
   });
   const result = await response2Promise.json();
+  console.log(result);
   return result;
 };
 
