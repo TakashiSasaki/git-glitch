@@ -5,10 +5,10 @@ window.addEventListener("load", () => {
       method: "POST",
       headers: {
         //"Content-Type": "application/x-www-form-urlencoded",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       //body: "username=" + username,
-      body: JSON.stringify({"username": username});
+      body: JSON.stringify({ username: username }),
     })
       .then((response) => response.text())
       .then((text) => (document.querySelector("textarea").value = text));
