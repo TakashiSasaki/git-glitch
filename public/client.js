@@ -50,8 +50,12 @@ export const registerCredential = async () => {
     attestation: "none",
     authenticatorSelection: {
       //利用可能な認証器をフィルタする。
+      //組み込まれた認証器は platform、ローミング認証器はcross-platform
       authenticatorAttachment: "platform",
+      //認証器の端末上でのユーザーの検証（指紋や画面ロック解除）が必要か。
+      //required（必須）、preferred（好ましい）、discouraged（回避）
       userVerification: "required",
+      //作成したクレデンシャルを将来のアカウント選択UIで使用できるようにするか。
       requireResidentKey: false,
     },
   };
