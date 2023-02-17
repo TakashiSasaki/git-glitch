@@ -57,10 +57,10 @@ export const registerCredential = async () => {
       userVerification: "required",
       //作成したクレデンシャルを将来のアカウント選択UIで使用できるようにするか。
       requireResidentKey: false,
-    }
+    },
   };
-  const options = await _fetch("/auth/registerRequest", opts);
-};
+  //const options = await _fetch("/auth/registerRequest", opts);
+}
 
 // TODO (2): Build the UI to register, get and remove credentials
 // 3. Remove the credential: `removeCredential()`
