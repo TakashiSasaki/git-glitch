@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License
  */
-export const _fetch = async (path, payload = '') => {
+export const _fetch = async (path, payload = "") => {
   const headers = {
-    'X-Requested-With': 'XMLHttpRequest',
+    "X-Requested-With": "XMLHttpRequest",
   };
   if (payload && !(payload instanceof FormData)) {
-    headers['Content-Type'] = 'application/json';
+    headers["Content-Type"] = "application/json";
     payload = JSON.stringify(payload);
   }
   const res = await fetch(path, {
-    method: 'POST',
-    credentials: 'same-origin',
+    method: "POST",
+    credentials: "same-origin",
     headers: headers,
     body: payload,
   });
@@ -52,3 +52,46 @@ export const _fetch = async (path, payload = '') => {
 // 2. Obtain the challenge and other options from server
 // 3. Locally verify the user and get a credential
 // 4. Verify the credential: `/auth/signinResponse`
+
+//これ以下の関数を追加した。
+export const registerCredential = async () => {
+  const opts = {
+    attestation: "none",
+    authenticatorSelection: {
+      authenticatorAttachment: "platform",
+      userVerification: "required",
+      requireResidentKey: false,
+    },
+  };
+  const options = await _fetch("/auth/registerRequest", opts);
+
+  options.user.id = base64url.decode(options.user.id);
+  options.challenge = base64url.decode(options.challenge);
+
+  if (options.excludeCredentials) {
+    for (let cred of options.excludeCredentials) {
+      cred.id = base64url.decode(cred.id);
+    }
+  }
+  const cred = await navigator.credentials.create({
+    publicKey: options,
+  });
+
+  const credential = {};
+  credential.id = cred.id;
+  credential.rawId = base64url.encode(cred.rawId);
+  credential.type = cred.type;
+
+  if (cred.response) {
+    const clientDataJSON = base64url.encode(cred.response.clientDataJSON);
+    const attestationObject = base64url.encode(cred.response.attestationObject);
+    credential.response = {
+      clientDataJSON,
+      attestationObject,
+    };
+  }
+
+  localStorage.setItem(`credId`, credential.id);
+
+  return await _fetch("/auth/registerResponse", credential);
+};
