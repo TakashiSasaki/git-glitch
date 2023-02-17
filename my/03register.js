@@ -30,6 +30,7 @@ const registerCredential = async () => {
       cred.id = base64url.decode(cred.id);
     }
   }
+  console.log(options);
   const cred = await navigator.credentials.create({
     publicKey: options,
   });
@@ -66,7 +67,8 @@ const registerCredential = async () => {
 
 window.addEventListener("load", (event) => {
   document.querySelector("button").addEventListener("click", (event) => {
-    const result = registerCredential();
-    document.querySelector("textarea").value = result;
+    registerCredential().then((result) => {
+      document.querySelector("textarea").value = result;
+    });
   });
 });
