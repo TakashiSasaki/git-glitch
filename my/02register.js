@@ -13,6 +13,10 @@ const registerCredential = async () => {
   const response1Promise = await fetch("/auth/registerRequest", {
     method: "POST",
     body: JSON.stringify(opts),
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json",
+    },
   });
   const options = await response1Promise.json();
 
@@ -45,12 +49,14 @@ const registerCredential = async () => {
   localStorage.setItem(`credId`, credential.id);
 
   //return await _fetch("/auth/registerResponse", credential);
-  const result = await (async () => {
-    fetch("/auth/registerResponse", {
-      method: "POST",
-      body: JSON.stringify(credential),
-    }).then((response) => response.json());
-  })();
+  const response2Promise = await fetch("/auth/registerResponse", {
+    method: "POST",
+    body: JSON.stringify(credential),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const result = await response2Promise.json();
   return result;
 };
 
