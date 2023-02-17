@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>webauthn-fastify</title>
+    <style>
+      body {
+        margin: 0px} iframe {margin:0px; padding 0px; width:100vw;
+      height:100vw; border:none; }
+    </style>
+    <script src="index.js"></script>
+  </head>
+  <body class="mdc-typography">
+    <header>
+      <nav>
+        <div>
+          <span>Client side</span>
+          <button value="client-side-check.html" onclick="setIframeSrc(this)">
+            client-side-check
+          </button>
+          <button value="sign.html" onclick="setIframeSrc(this)">
+            Sign at the client.
+          </button>
+        </div>
+        <div>
+          <span>Server side</span>
+          <button
+            value="generateRegistrationOptions"
+            onclick="setIframeSrc(this)"
+          >
+            generateRegistrationOptions
+          </button>
+          <button
+            value="generateAuthenticationOptions"
+            onclick="setIframeSrc(this)"
+          >
+            generateAuthenticationOptions
+          </button>
+        </div>
+      </nav>
+      <script type="javascript"></script>
+    </header>
+    <main>
+      <iframe src="client-side-check.html"> </iframe>
+    </main>
+    <footer></footer>
+  </body>
+</html>
