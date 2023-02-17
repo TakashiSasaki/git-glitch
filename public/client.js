@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License
  */
-export const _fetch = async (path, payload = "") => {
+export const _fetch = async (path, payload = '') => {
   const headers = {
-    "X-Requested-With": "XMLHttpRequest",
+    'X-Requested-With': 'XMLHttpRequest',
   };
   if (payload && !(payload instanceof FormData)) {
-    headers["Content-Type"] = "application/json";
+    headers['Content-Type'] = 'application/json';
     payload = JSON.stringify(payload);
   }
   const res = await fetch(path, {
-    method: "POST",
-    credentials: "same-origin",
+    method: 'POST',
+    credentials: 'same-origin',
     headers: headers,
     body: payload,
   });
@@ -43,24 +43,6 @@ export const _fetch = async (path, payload = "") => {
 // 2. Obtain the challenge and other options from server endpoint: `/auth/registerRequest`
 // 3. Create a credential
 // 4. Register the credential to the server endpoint: `/auth/registerResponse`
-
-export const registerCredential = async () => {
-  const opts = {
-    //Attestationを伝達する優先度。必要でない限りnoneを選択する。
-    attestation: "none",
-    authenticatorSelection: {
-      //利用可能な認証器をフィルタする。
-      //組み込まれた認証器は platform、ローミング認証器はcross-platform
-      authenticatorAttachment: "platform",
-      //認証器の端末上でのユーザーの検証（指紋や画面ロック解除）が必要か。
-      //required（必須）、preferred（好ましい）、discouraged（回避）
-      userVerification: "required",
-      //作成したクレデンシャルを将来のアカウント選択UIで使用できるようにするか。
-      requireResidentKey: false,
-    },
-  };
-  //const options = await _fetch("/auth/registerRequest", opts);
-}
 
 // TODO (2): Build the UI to register, get and remove credentials
 // 3. Remove the credential: `removeCredential()`
