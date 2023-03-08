@@ -29,7 +29,8 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-require("original/routes");
+fastify.get("/original/", require("./original/routes.js").get);
+fastify.post("/original/", require("./original/routes.js").post);
 
 // Run the server and report out to the logs
 fastify.listen(
