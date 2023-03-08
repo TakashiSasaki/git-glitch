@@ -1,10 +1,29 @@
 <html>
   <head>
     <title>index.html</title>
+    <script src="//moukaeritai-static.glitch.me/min.js"></script>
+    <style>
+      a {
+        padding: 0.5em;
+        margin: 0.5em;
+        background: cyan;
+        transparent: 90%;
+      }
+    </style>
   </head>
   <body>
+    <a href="original/"></a>
+    <a href="blocky-demo-examples/"></a>
     <script>
-      
+      wal((event) => {
+        dqa("a").forEach((a) => {
+          if (!a.innerHTML) {
+            if (a.getAttribute("href")) {
+              a.innerText = a.getAttribute("href");
+            }
+          }
+        });
+      });
     </script>
   </body>
 </html>
