@@ -4,13 +4,12 @@ if (seo.url === "glitch-default") {
   seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
 }
 
-
 /**
  * Our home page route
  *
  * Returns src/pages/index.hbs with data built into it
  */
-function get (request, reply) => {
+function get(request, reply) {
   // params is an object we'll pass to our handlebars template
   let params = { seo: seo };
 
@@ -30,15 +29,15 @@ function get (request, reply) => {
   }
 
   // The Handlebars code will be able to access the parameter values and build them into the page
-  return reply.view("./index.hbs", params);
-};
+  return reply.view("original/index.hbs", params);
+}
 
 /**
  * Our POST route to handle and react to form submissions
  *
  * Accepts body data indicating the user choice
  */
-function post (request, reply) => {
+function post(request, reply) {
   // Build the params object to pass to the template
   let params = { seo: seo };
 
@@ -74,9 +73,9 @@ function post (request, reply) => {
 
   // The Handlebars template will use the parameter values to update the page with the chosen color
   return reply.view("./index.hbs", params);
-};
+}
 
 module.exports = {
-  get : get,
-  post: post
-}
+  get: get,
+  post: post,
+};
