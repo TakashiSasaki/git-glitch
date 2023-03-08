@@ -29,8 +29,30 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-fastify.get("/original/", require("./original/routes.js").get);
-fastify.post("/original/", require("./original/routes.js").post);
+
+
+
+// Setup our static files
+const fastifyStatic = require("fastify-static");
+
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "public"),
+  prefix: "/public"
+  //wildcard: true,
+  //decorateReply: false
+});
+
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "node_modules"),
+  prefix: "/node_modules",
+  //wildcard: true,
+  decorateReply: false
+});
+
+
+
+fastify.get("/original/", require("./original/route.js").get);
+fastify.post("/original/", require("./original/route.js").post);
 
 // Run the server and report out to the logs
 fastify.listen(
