@@ -38,7 +38,7 @@ fastify.register(require("@fastify/static"), {
 
 fastify.get("/original/", require("./original/route.js").get);
 fastify.post("/original/", require("./original/route.js").post);
-require("./blocky-demo-examples/route.js").route(fastify);
+require("./blocky-demo-examples/route.js");
 
 // Run the server and report out to the logs
 fastify.listen(
