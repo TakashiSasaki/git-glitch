@@ -30,19 +30,7 @@ fastify.register(require("@fastify/view"), {
 });
 
 
-
-
-// Setup our static files
-const fastifyStatic = require("fastify-static");
-
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "public"),
-  prefix: "/public"
-  //wildcard: true,
-  //decorateReply: false
-});
-
-fastify.register(fastifyStatic, {
+fastify.register(require("fastify-static"), {
   root: path.join(__dirname, "node_modules"),
   prefix: "/node_modules",
   //wildcard: true,
