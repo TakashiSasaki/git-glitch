@@ -29,18 +29,16 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-
-fastify.register(require("fastify-static"), {
+fastify.register(require("@fastify/static"), {
   root: path.join(__dirname, "node_modules"),
   prefix: "/node_modules",
   //wildcard: true,
-  decorateReply: false
+  decorateReply: false,
 });
-
-
 
 fastify.get("/original/", require("./original/route.js").get);
 fastify.post("/original/", require("./original/route.js").post);
+require("./blocky-demo-examples/route.js").route(fastify);
 
 // Run the server and report out to the logs
 fastify.listen(

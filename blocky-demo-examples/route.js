@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
+const fastify = require("fastify");
 
-const route = (fastify) => {
   fastify.get("/", (request, reply) => {
     reply.type("text/html");
     reply.send(fs.createReadStream(path.join(__dirname, "public/index.html")));
