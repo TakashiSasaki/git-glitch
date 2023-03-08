@@ -2,3 +2,5 @@
 .search
 "install
 "COMMAND
+"output
+"-O
