@@ -22,8 +22,8 @@ def dir():
     from google.cloud import datastore
     datastore_client = datastore.Client()
     from google.appengine.api import memcache
-    from google.appengine.api import ndb
-    return dir()
+    from google.appengine.ext import ndb
+    return str(dir())
   
 
 if __name__ == '__main__':
