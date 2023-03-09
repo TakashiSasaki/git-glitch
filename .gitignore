@@ -1,3 +1,5 @@
 .glitchdotcom.json
 .node-gyp
 node_modules
+gcloud/logs/*.log
+
