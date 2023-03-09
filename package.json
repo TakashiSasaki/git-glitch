@@ -9,7 +9,7 @@
   "scripts": {
     "//start": "cd glitch; node server-fastify.js",
     "///start": "cd express; node server-express.js",
-    "start": "cd app-engine-nodejs; node server.js"
+    "start": "cd appengine-nodejs; node server.js"
   },
   "dependencies": {
     "@fastify/formbody": "^7.4.0",
@@ -18,7 +18,8 @@
     "@google-cloud/memcache": "^2.3.1",
     "express": "^4.18.2",
     "fastify": "^4.14.1",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "@google-cloud/datastore": "^7.3.2"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/glitch-hello-node"
