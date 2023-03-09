@@ -13,10 +13,11 @@ const route = (fastify) => {
   });
 
   fastify.get("/count", (request, reply) => {
-    if (typeof request.session.count != "number") {
+    if (typeof request.session.count !== "number") {
       request.session.count = 1;
+      request.session.countType = typeof request.session.count;
     } else {
-      request.session.count += 1;
+      request.session.count = request.session.count + 1;
     }
     reply.send(JSON.stringify(request.session));
   });

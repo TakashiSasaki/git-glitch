@@ -6,4 +6,4 @@ handlers:
   script: auto
 
 env_variables:
-  FASTIFY_SESSION_SECRET: "DTzliTx71WW$@av#" 
+  FASTIFY_SESSION_SECRET: "abcM4y8^uVz$wDvSsxUoGz^Bs2USkviUgx0I6511kB8" 
