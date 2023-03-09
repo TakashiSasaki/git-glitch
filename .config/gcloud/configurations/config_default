@@ -1,8 +1,0 @@
-[core]
-account = takashi316@gmail.com
-project = moukaeritaid
-
-[compute]
-zone = asia-east1-b
-region = asia-east1
-
