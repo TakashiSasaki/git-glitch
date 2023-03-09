@@ -16,6 +16,15 @@ def root():
 
     return render_template('index.html', times=dummy_times)
 
+@app.route("/dir")
+def dir():
+    from google.cloud import datastore
+    datastore_client = datastore.Client()
+    from google.appengine.api import memcache
+    from google.appengine.api import ndb
+    return dir()
+  
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
@@ -27,10 +36,3 @@ if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
     
 
-@app.route("/datastore")
-def root():
-    from google.cloud import datastore
-    datastore_client = datastore.Client()
-    from google.appengine.api import memcache
-    from google.appengine.api import ndb
-    return dir()
