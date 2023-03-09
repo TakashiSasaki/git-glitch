@@ -27,7 +27,7 @@ def dir_str():
     datastore_client = datastore.Client()
     from google.appengine.api import memcache
     from google.appengine.ext import ndb
-    return str(dir())
+    return str(dir(memcache))
 
 @app.route("/hoge")
 def hoge():
