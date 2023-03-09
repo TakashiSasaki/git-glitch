@@ -36,5 +36,5 @@ automatic_scaling:
 app_engine_apis: true
 #threadsafe: true
 
-env_variables:
-  MEMCACHE_USE_CROSS_COMPATIBLE_PROTOCOL: True
+#env_variables:
+#  MEMCACHE_USE_CROSS_COMPATIBLE_PROTOCOL: 'True'
