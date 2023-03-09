@@ -3,4 +3,5 @@ google-cloud
 google-cloud-ndb
 google-cloud-memcache
 google-cloud-datastore
-google-api-python-clien
+google-api-python-client
+appengine-python-standard

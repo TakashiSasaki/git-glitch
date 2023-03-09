@@ -20,9 +20,9 @@ def root():
 def dir():
     import google
     from google.cloud import datastore
+    datastore_client = datastore.Client()
     from google.appengine.api import memcache
     from google.appengine.api import ndb
-    datastore_client = datastore.Client()
     return dir()
   
 
