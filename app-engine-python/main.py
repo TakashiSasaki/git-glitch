@@ -16,15 +16,28 @@ def root():
 
     return render_template('index.html', times=dummy_times)
 
+@app.route("hello")
+def hello():
+    return "hello"
+  
 @app.route("/dir")
-def dir():
+def dir_str():
     import google
     from google.cloud import datastore
     datastore_client = datastore.Client()
     from google.appengine.api import memcache
     from google.appengine.ext import ndb
     return str(dir())
-  
+
+@app.route("/memcache")
+def memcache_str():
+    from google.appengine.api import memcache
+    memcache.set("hoge-key", "hoge-value",namespace="hoge-namespace")
+    x = memcache.get("hoge-key", namespace="hoge-namespace")
+    y = memcache.get("hoge-key")
+    return str([x,y])
+    
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
