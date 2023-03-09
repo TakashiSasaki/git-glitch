@@ -33,8 +33,8 @@ def dir_str():
 def hoge():
     import google.appengine.api.memcache
     google.appengine.api.memcache.add("hoge-key", "hoge-value")
+    return str(dir(google.appengine.api.memcache))
     #memcache.set("hoge-key", "hoge-value",namespace="hoge-namespace")
-    return str(dir())
     #x = memcache.get("hoge-key", namespace="hoge-namespace")
     #y = memcache.get("hoge-key")
     #return str(x)
