@@ -8,9 +8,7 @@ fastify.register(require("@fastify/static"), {
   prefix: "/", // optional: default '/'
 });
 
-
 fastify.register(require("@fastify/formbody"));
-
 
 fastify.register(require("@fastify/view"), {
   engine: {
@@ -18,7 +16,7 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-require("./route.js").route(fastify);
+require("./route").route(fastify);
 
 fastify.listen(
   { port: process.env.PORT, host: "0.0.0.0" },
