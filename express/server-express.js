@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
 
+app.use(express.static("/app/express"));
 
-
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Hello from App Engine!");
 });
 
