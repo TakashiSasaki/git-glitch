@@ -29,10 +29,11 @@ def dir_str():
     from google.appengine.ext import ndb
     return str(dir())
 
-@app.route("/memcache")
-def memcache_str():
+@app.route("/hoge")
+def hoge():
     from google.appengine.api import memcache
-    memcache.set("hoge-key", "hoge-value",namespace="hoge-namespace")
+    memcache.set("hoge-key", "hoge-value")
+    #memcache.set("hoge-key", "hoge-value",namespace="hoge-namespace")
     return "memcache"
     #x = memcache.get("hoge-key", namespace="hoge-namespace")
     #y = memcache.get("hoge-key")
