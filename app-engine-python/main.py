@@ -39,7 +39,13 @@ def hoge():
     #y = memcache.get("hoge-key")
     #return str(x)
     
-
+@app.route("/test")
+def test():
+    from google.appengine.api import memcache
+    from google.appengine.api import users
+    from google.appengine.ext import ndb
+    return str(dir())
+    
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

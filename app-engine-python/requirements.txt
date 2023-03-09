@@ -1,4 +1,4 @@
-Flask>=2.1.0
+Flask
 google-cloud
 google-cloud-ndb
 google-cloud-memcache
@@ -6,5 +6,6 @@ google-cloud-datastore
 google-cloud-storage
 google-auth
 google-api-python-client
-appengine-python-standard
+#appengine-python-standard
+https://github.com/GoogleCloudPlatform/appengine-python-standard/archive/main.tar.gz
 firestore-model
