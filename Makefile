@@ -10,5 +10,5 @@ all: install
 	cd /tmp; tar zxvf $<
 
 install: /tmp/google-cloud-sdk
-	cd /tmp/google-cloud-sdk; ./install.sh -q
+	cd /tmp/google-cloud-sdk; ./install.sh
 
