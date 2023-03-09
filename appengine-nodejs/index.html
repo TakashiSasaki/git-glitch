@@ -22,5 +22,15 @@
       <a href="https://moukaeritaid.dt.r.appspot.com/"></a>
       <a href="https://moukaeritaid.dt.r.appspot.com/json"></a>
     </div>
+    <iframe src="count"> </iframe>
+    <script>
+      function reloadIframe() {
+        dq("iframe").contentWindow.location.reload();
+        setTimeout(() => reloadIframe(), 2000);
+      }
+      wal((event) => {
+        reloadIframe();
+      });
+    </script>
   </body>
 </html>

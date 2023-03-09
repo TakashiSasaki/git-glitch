@@ -15,7 +15,7 @@ const route = (fastify) => {
   fastify.get("/count", (request, reply) => {
     if (typeof request.session.count !== "number") {
       request.session.count = 1;
-      request.session.countType = typeof request.session.count;
+      request.session.timestamp = new Date();
     } else {
       request.session.count = request.session.count + 1;
     }
