@@ -1,1 +1,6 @@
 Flask>=2.1.0
+google-cloud
+google-cloud-ndb
+google-cloud-memcache
+google-cloud-datastore
+google-api-python-clien
