@@ -33,9 +33,10 @@ def dir_str():
 def memcache_str():
     from google.appengine.api import memcache
     memcache.set("hoge-key", "hoge-value",namespace="hoge-namespace")
-    x = memcache.get("hoge-key", namespace="hoge-namespace")
+    return "memcache"
+    #x = memcache.get("hoge-key", namespace="hoge-namespace")
     #y = memcache.get("hoge-key")
-    return str(x)
+    #return str(x)
     
 
 
