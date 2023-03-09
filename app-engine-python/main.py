@@ -31,10 +31,10 @@ def dir_str():
 
 @app.route("/hoge")
 def hoge():
-    import google.appengine.api
+    import google.appengine.api.memcache
     google.appengine.api.memcache.add("hoge-key", "hoge-value")
     #memcache.set("hoge-key", "hoge-value",namespace="hoge-namespace")
-    return "memcache"
+    return str(dir())
     #x = memcache.get("hoge-key", namespace="hoge-namespace")
     #y = memcache.get("hoge-key")
     #return str(x)

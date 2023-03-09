@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-runtime: python311
+runtime: python27
 
 handlers:
   # This configures Google App Engine to serve the files in the app's static
@@ -32,4 +32,5 @@ automatic_scaling:
     #min_pending_latency: automatic # default value 
     #max_pending_latency: 30ms 
 
-app_engine_apis: true
+#app_engine_apis: true
+threadsafe: true
