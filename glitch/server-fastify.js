@@ -15,7 +15,7 @@ const fastify = require("fastify")({
 
 // Setup our static files
 fastify.register(require("@fastify/static"), {
-  root: path.join(__dirname, "public"),
+  root: path.join(__dirname, "."),
   prefix: "/", // optional: default '/'
 });
 
@@ -29,7 +29,7 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-require("/app/glitch/route.js")(fastify);
+require("./route.js").route(fastify);
 
 // Run the server and report out to the logs
 fastify.listen(

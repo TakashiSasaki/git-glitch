@@ -1,6 +1,6 @@
 const route = (fastify) => {
   // Load and parse SEO data
-  const seo = require("./src/seo.json");
+  const seo = require("./seo.json");
   if (seo.url === "glitch-default") {
     seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
   }
@@ -17,7 +17,7 @@ const route = (fastify) => {
     // If someone clicked the option for a random color it'll be passed in the querystring
     if (request.query.randomize) {
       // We need to load our color data file, pick one at random, and add it to the params
-      const colors = require("./src/colors.json");
+      const colors = require("./colors.json");
       const allColors = Object.keys(colors);
       let currentColor = allColors[(allColors.length * Math.random()) << 0];
 
@@ -30,7 +30,7 @@ const route = (fastify) => {
     }
 
     // The Handlebars code will be able to access the parameter values and build them into the page
-    return reply.view("/src/pages/index.hbs", params);
+    return reply.view("./index.hbs", params);
   });
 
   /**
@@ -50,7 +50,7 @@ const route = (fastify) => {
       // ADD CODE FROM TODO HERE TO SAVE SUBMITTED FAVORITES
 
       // Load our color data file
-      const colors = require("./src/colors.json");
+      const colors = require("./colors.json");
 
       // Take our form submission, remove whitespace, and convert to lowercase
       color = color.toLowerCase().replace(/\s/g, "");
@@ -73,7 +73,7 @@ const route = (fastify) => {
     }
 
     // The Handlebars template will use the parameter values to update the page with the chosen color
-    return reply.view("/src/pages/index.hbs", params);
+    return reply.view("./index.hbs", params);
   });
 };
 
