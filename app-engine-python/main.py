@@ -16,7 +16,7 @@ def root():
 
     return render_template('index.html', times=dummy_times)
 
-@app.route("hello")
+@app.route("/hello")
 def hello():
     return "hello"
   
