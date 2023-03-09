@@ -16,6 +16,11 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
+fastify.register(require("@fastify/cookie"));
+fastify.register(require("@fastify/session"), {
+  secret: process.env.FASTIFY_SESSION_SECRET,
+});
+
 require("./route").route(fastify);
 
 fastify.listen(

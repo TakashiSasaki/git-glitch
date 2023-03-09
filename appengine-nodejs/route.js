@@ -7,9 +7,18 @@ const route = (fastify) => {
   });
 
   fastify.get("/datastore", (request, reply) => {
-    const {Datastore} = require("@google-cloud/datastore");
+    const { Datastore } = require("@google-cloud/datastore");
     const datastore = new Datastore();
     reply.send("datastore");
+  });
+
+  fastify.get("/count", (request, reply) => {
+    if (typeof request.session.count != "number") {
+      request.session.count = 1;
+    } else {
+      request.session.count += 1;
+    }
+    reply.send(JSON.stringify(request.session));
   });
 };
 
