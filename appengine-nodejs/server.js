@@ -19,7 +19,7 @@ fastify.register(require("@fastify/view"), {
 fastify.register(require("@fastify/cookie"));
 fastify.register(require("@fastify/session"), {
   secret: process.env.FASTIFY_SESSION_SECRET,
-  cookie: { secure: false, sameSite: "Lax", domain: "glitch.com" },
+  cookie: { secure: false, sameSite: "Lax" },
 });
 
 require("./route").route(fastify);

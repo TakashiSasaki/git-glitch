@@ -12,3 +12,5 @@ all: install
 install: /tmp/google-cloud-sdk
 	cd /tmp/google-cloud-sdk; ./install.sh
 
+deploy:
+	/tmp/google-cloud-sdk/bin/gcloud app deploy
