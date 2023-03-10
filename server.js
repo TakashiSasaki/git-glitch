@@ -17,7 +17,6 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-fastify.register(require("@fastify/cookie"));
 
 const fastifySessionOptions = {
   secret: process.env.FASTIFY_SESSION_SECRET,
@@ -40,6 +39,7 @@ if (process.env.USE_GOOGLE_DATASTORE == "yes") {
   fastifySessionOptions.store = datastorestore;
 } //if
 
+fastify.register(require("@fastify/cookie"));
 fastify.register(require("@fastify/session"), fastifySessionOptions);
 
 fastify.addHook("preHandler", (request, reply, next) => {
@@ -74,7 +74,8 @@ fastify.addHook("preHandler", (request, reply, next) => {
   if (request.session.timestamps.length >= 10) {
     request.session.timestamps = request.session.timestamps.slice(1, -1);
   }
-  next();
+
+  //next();
 });
 
 require("./route").route(fastify);
