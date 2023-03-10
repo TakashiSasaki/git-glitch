@@ -16,4 +16,4 @@ uninstall:
 	rm -rf /tmp/google-cloud-sdk
 
 deploy:
-	/tmp/google-cloud-sdk/bin/gcloud app deploy
+	/tmp/google-cloud-sdk/bin/gcloud app deploy --quiet
