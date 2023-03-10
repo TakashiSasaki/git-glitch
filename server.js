@@ -28,7 +28,7 @@ const fastifySessionOptions = {
 };
 
 if (process.env.USE_GOOGLE_DATASTORE == "yes") {
-  const { Datastore } = require("google-cloud/datastore");
+  const { Datastore } = require("@google-cloud/datastore");
   const datastore = new Datastore();
   const { DatastoreStore } = require("@google-cloud/connect-datastore");
   const datastorestore = new DatastoreStore({
