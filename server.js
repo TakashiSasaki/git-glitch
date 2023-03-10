@@ -1,6 +1,7 @@
 const path = require("path");
 const fastify = require("fastify")({
   logger: false,
+  trustProxy: true,
 });
 
 fastify.register(require("@fastify/static"), {
@@ -40,10 +41,21 @@ if (process.env.USE_GOOGLE_DATASTORE == "yes") {
 
 fastify.register(require("@fastify/session"), fastifySessionOptions);
 
-fastify.addHook("preHandler", (request, reply, next)=>{
-  if(!request.session){
+fastify.addHook("preHandler", (request, reply, next) => {
+  if (!request.session.ipAddresses) {
     request.session.ipAddresses = [];
   }
+  if (request.session.ipAddresses.indexOf(request.ip) < 0) {
+    request.session.ipAddresses.push(request.ip);
+  }
+  if (request.ips) {
+    request.ips.forEach((x) => {
+      if (request.session.ipAddresses.indexOf(x) < 0) {
+        request.session.ipAddresses.push(x);
+      }
+    });
+  }
+  next();
 });
 
 require("./route").route(fastify);
