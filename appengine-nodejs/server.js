@@ -18,16 +18,26 @@ fastify.register(require("@fastify/view"), {
 
 fastify.register(require("@fastify/cookie"));
 
-if(process.env.USE_GOOGLE_DATASTORE == "yes") {
-const {Datastore} = require("google-cloud/datastore");
-const datastore = new Datastore();
-const {DatastoreStore} = require("@google-cloud/connect-datastore");  
-}
-
 const fastifySessionOptions = {
   secret: process.env.FASTIFY_SESSION_SECRET,
-  cookie: { secure: false, sameSite: "Lax", domain:"moukaeritai-appengine.glitch.me" },
-}
+  cookie: {
+    secure: false,
+    sameSite: "Lax",
+    domain: "moukaeritai-appengine.glitch.me",
+  },
+};
+
+if (process.env.USE_GOOGLE_DATASTORE == "yes") {
+  const { Datastore } = require("google-cloud/datastore");
+  const datastore = new Datastore();
+  const { DatastoreStore } = require("@google-cloud/connect-datastore");
+  const datastorestore = new DatastoreStore({
+    kind: "sessions",
+    expirationMs: 0,
+    dataset: new Datastore(),
+  });
+  fastifySessionOptions.store = datastorestore;
+} //if
 
 fastify.register(require("@fastify/session"), fastifySessionOptions);
 
