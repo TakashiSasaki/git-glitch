@@ -24,6 +24,7 @@ const fastifySessionOptions = {
   cookie: {
     secure: false,
     sameSite: "Lax",
+    httpOnly: false,
   },
 };
 
@@ -42,6 +43,8 @@ if (process.env.USE_GOOGLE_DATASTORE == "yes") {
 fastify.register(require("@fastify/session"), fastifySessionOptions);
 
 fastify.addHook("preHandler", (request, reply, next) => {
+  
+  // add ip addresses
   if (!request.session.ipAddresses) {
     request.session.ipAddresses = [];
   }
@@ -55,24 +58,22 @@ fastify.addHook("preHandler", (request, reply, next) => {
       }
     });
   }
-  next();
-});
 
-fastify.addHook("preHandler", (request, reply, next) => {
+  //increment counter
   if (typeof request.session.count !== "number") {
     request.session.count = 1;
   } else {
     request.session.count += 1;
   }
-  next();
-});
 
-fastify.addHook("preHandler", (request, reply, next) => {
+  //add timestamp
   if (typeof request.session.timestamps === "undefined") {
     request.session.timestamps = [];
   }
   request.session.timestamps.push(new Date());
-  request.session.timestamps = request.session.timestamps.slice(1);
+  if (request.session.timestamps.length >= 10) {
+    request.session.timestamps = request.session.timestamps.slice(1, -1);
+  }
   next();
 });
 
