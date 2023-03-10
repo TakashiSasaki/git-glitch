@@ -23,7 +23,6 @@ const fastifySessionOptions = {
   cookie: {
     secure: false,
     sameSite: "Lax",
-    domain: "moukaeritai-appengine.glitch.me",
   },
 };
 
