@@ -18,7 +18,8 @@
     "fastify": "^4.14.1",
     "handlebars": "^4.7.7",
     "@fastify/session": "^10.1.1",
-    "@fastify/cookie": "^8.3.0"
+    "@fastify/cookie": "^8.3.0",
+    "@google-cloud/connect-datastore": "^6.0.1"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/glitch-hello-node"
