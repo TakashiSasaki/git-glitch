@@ -1,14 +1,16 @@
-class DatastoreStore extends expressSession.Store {
-  //ds: Datastore;
-  //kind: string;
-  //expirationMs: number;
-  constructor(DataStoreOptions = {}) {
-    super();
-    this.ds = (options.dataset || options.datastore);
+//https://github.com/fastify/session
+//set(sessionId, session, callback)
+//get(sessionId, callback)
+//destroy(sessionId, callback)
+
+class DatastoreStore {
+  constructor(options) {
+    //super();
+    this.ds = options.dataset || options.datastore;
     if (!this.ds) {
-      throw new Error('No dataset provided to Datastore Session.');
+      throw new Error("No dataset provided to Datastore Session.");
     }
-    this.kind = options.kind || 'Session';
+    this.kind = options.kind || "Session";
 
     if (options.expirationMs) {
       if (
@@ -16,19 +18,16 @@ class DatastoreStore extends expressSession.Store {
         options.expirationMs < 0
       ) {
         throw new Error(
-          'invalid value for option expirationMs: must be an integer greater than 0'
+          "invalid value for option expirationMs: must be an integer greater than 0"
         );
       }
       this.expirationMs = Number(options.expirationMs);
     } else {
       this.expirationMs = 0;
     }
-  }
+  }//constructor
 
-  get  (
-    sid,
-    callback
-  )  {
+  get(sid, callback) {
     this.ds.get(this.ds.key([this.kind, sid]), (err, entity) => {
       if (err) {
         return callback(err);
@@ -53,7 +52,7 @@ class DatastoreStore extends expressSession.Store {
       const nowMs = new Date().valueOf();
 
       if (expiresAtMs <= nowMs) {
-        this.destroy(sid, err => {
+        this.destroy(sid, (err) => {
           if (err) {
             return callback(err);
           }
@@ -64,13 +63,9 @@ class DatastoreStore extends expressSession.Store {
 
       return callback(null, result);
     });
-  };
+  }//get method
 
-  set (
-    sid,
-    sess,
-    callback
-  )  {
+  set(sid, sess, callback) {
     callback = callback || (() => {});
     let sessJson;
 
@@ -83,12 +78,12 @@ class DatastoreStore extends expressSession.Store {
     const createdAt = new Date();
     const data = [
       {
-        name: 'data',
+        name: "data",
         value: sessJson,
         excludeFromIndexes: true,
       },
       {
-        name: 'createdAt',
+        name: "createdAt",
         value: createdAt,
       },
     ];
@@ -100,9 +95,9 @@ class DatastoreStore extends expressSession.Store {
       },
       callback
     );
-  };
+  }//set method
 
-  destroy (sid, callback?: (err: Error | null) => void) => {
-    this.ds.delete(this.ds.key([this.kind, sid]), callback as DeleteCallback);
-  };
+  destroy(sid, callback) {
+    this.ds.delete(this.ds.key([this.kind, sid]), callback);
+  }//destroy method
 }
