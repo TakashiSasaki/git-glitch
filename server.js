@@ -40,6 +40,12 @@ if (process.env.USE_GOOGLE_DATASTORE == "yes") {
 
 fastify.register(require("@fastify/session"), fastifySessionOptions);
 
+fastify.addHook("preHandler", (request, reply, next)=>{
+  if(!request.session){
+    request.session.ipAddresses = [];
+  }
+});
+
 require("./route").route(fastify);
 
 fastify.listen(
