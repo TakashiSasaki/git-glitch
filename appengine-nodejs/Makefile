@@ -10,7 +10,7 @@ all: install
 	cd /tmp; tar zxvf $<
 
 install: /tmp/google-cloud-sdk
-	cd /tmp/google-cloud-sdk; ./install.sh --command-completion true --bash-completion true --path-update true --usage-reporting true
+	cd /tmp/google-cloud-sdk; ./install.sh --command-completion true --bash-completion true --path-update true --usage-reporting true --rc-path /app/.bashrc
 
 uninstall:
 	rm -rf /tmp/google-cloud-sdk
