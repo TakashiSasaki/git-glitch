@@ -17,7 +17,6 @@ fastify.register(require("@fastify/view"), {
   },
 });
 
-
 const fastifySessionOptions = {
   secret: process.env.FASTIFY_SESSION_SECRET,
   cookie: {
@@ -43,7 +42,6 @@ fastify.register(require("@fastify/cookie"));
 fastify.register(require("@fastify/session"), fastifySessionOptions);
 
 fastify.addHook("preHandler", (request, reply, next) => {
-  
   // add ip addresses
   if (!request.session.ipAddresses) {
     request.session.ipAddresses = [];
@@ -75,10 +73,10 @@ fastify.addHook("preHandler", (request, reply, next) => {
     request.session.timestamps = request.session.timestamps.slice(1, -1);
   }
 
-  //next();
+  next();
 });
 
-require("./route").route(fastify);
+require("./route")(fastify);
 
 fastify.listen(
   { port: process.env.PORT, host: "0.0.0.0" },

@@ -18,10 +18,8 @@ const route = (fastify) => {
   });
   
   fastify.get("/session", (request, reply)=>{
-    reply.send(JSON.stringify(request.session));    
+    reply.send(JSON.stringify(request.session));
   });
 };
 
-module.exports = {
-  route: route,
-};
+module.exports = route;
