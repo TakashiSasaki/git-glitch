@@ -58,6 +58,24 @@ fastify.addHook("preHandler", (request, reply, next) => {
   next();
 });
 
+fastify.addHook("preHandler", (request, reply, next) => {
+  if (typeof request.session.count !== "number") {
+    request.session.count = 1;
+  } else {
+    request.session.count += 1;
+  }
+  next();
+});
+
+fastify.addHook("preHandler", (request, reply, next) => {
+  if (typeof request.session.timestamps === "undefined") {
+    request.session.timestamps = [];
+  }
+  request.session.timestamps.push(new Date());
+  request.session.timestamps = request.session.timestamps.slice(1);
+  next();
+});
+
 require("./route").route(fastify);
 
 fastify.listen(

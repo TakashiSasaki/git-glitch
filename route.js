@@ -16,6 +16,10 @@ const route = (fastify) => {
     }
     reply.send(JSON.stringify(request.session));
   });
+  
+  fastify.get("/session", (request, reply)=>{
+    reply.send(JSON.stringify(request.session));    
+  });
 };
 
 module.exports = {
