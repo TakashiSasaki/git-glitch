@@ -17,10 +17,19 @@ fastify.register(require("@fastify/view"), {
 });
 
 fastify.register(require("@fastify/cookie"));
-fastify.register(require("@fastify/session"), {
+
+if(process.env.USE_GOOGLE_DATASTORE == "yes") {
+const {Datastore} = require("google-cloud/datastore");
+const datastore = new Datastore();
+const {DatastoreStore} = require("@google-cloud/connect-datastore");  
+}
+
+const fastifySessionOptions = {
   secret: process.env.FASTIFY_SESSION_SECRET,
   cookie: { secure: false, sameSite: "Lax", domain:"moukaeritai-appengine.glitch.me" },
-});
+}
+
+fastify.register(require("@fastify/session"), fastifySessionOptions);
 
 require("./route").route(fastify);
 
