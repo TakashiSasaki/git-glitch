@@ -14,3 +14,6 @@ clean:
 test: /tmp/bin/aws
 	$< --version
 
+configure: /tmp/bin/aws
+	$< configure
+
