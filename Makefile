@@ -1,3 +1,9 @@
+AWS=/tmp/bin/aws
+
+lambda-list-functions: $(AWS)
+	$< lambda list-functions
+
+
 /tmp/bin/aws: /tmp/aws/install
 	cd /tmp/aws; ./install --bin-dir /tmp/bin --install-dir /tmp/aws-cli
 
