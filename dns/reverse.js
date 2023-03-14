@@ -19,4 +19,5 @@ function test(){
   reverseLookup("133.71.200.68");
 }
 
-exports.test
+exports.test = test
+
