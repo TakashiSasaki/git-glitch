@@ -1,2 +1,3 @@
 test-database:
-	cd .data; node reverse.js
+	node dns/reverse.js
+

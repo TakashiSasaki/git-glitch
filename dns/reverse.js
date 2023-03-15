@@ -11,22 +11,16 @@ function createTable() {
 function reverseLookup(ipAddress) {
   dns.reverse(ipAddress, (x, y) => {
     const database = new sqlite3.Database("/app/.data/dns.sqlite");
-    try {
-      console.log(1);
-      const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
-      console.log(2);
-      statement.run([ipAddress, y]);
-      console.log(3);
-      statement.finalize();
-      console.log(4);
-    } catch (e) {
-      console.log(5);
-      console.log(e);
-      console.log(6);
-      createTable();
-    } finally{
-      //database.close();
-    }
+    database.on("error", (error) => {
+      console.log(error);
+    });
+    console.log(1);
+    const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
+    console.log(2);
+    statement.run([ipAddress, y]);
+    console.log(3);
+    statement.finalize();
+    console.log(4);
   });
 } //reverseLookup
 
@@ -34,8 +28,8 @@ exports.createTable = createTable;
 exports.reverseLookup = reverseLookup;
 
 if (require.main === module) {
-  console.log('This file was run directly.');
-  reverseLookup("133.71.200.68");  
+  console.log("This file was run directly.");
+  reverseLookup("133.71.200.68");
 } else {
-  console.log('This file was imported as a module.');
+  console.log("This file was imported as a module.");
 }
