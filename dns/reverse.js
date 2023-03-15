@@ -21,7 +21,7 @@ function reverseLookup(ipAddress) {
     console.log(1);
     const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
     statement.on("error", error =>{
-      console.log("SQLITE errorerror);
+      console.log("SQLITE errorerror");
       if(error.code === "SQLITE_ERROR"){
         createTable();
       }
