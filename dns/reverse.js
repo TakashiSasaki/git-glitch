@@ -3,7 +3,8 @@ const sqlite3 = require("sqlite3");
 const dns = require("dns");
 
 function createTable() {
-  const database = new sqlite3.Database("/app/.data/dns.sqlite3", error=>{
+  const database = new sqlite3.Database("/app/.data/dns.sqlite3");
+  database.on("error", (error) => {
     console.log(error);
   });
   database.run("CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT)");
@@ -12,25 +13,28 @@ function createTable() {
 
 function reverseLookup(ipAddress) {
   dns.reverse(ipAddress, (x, y) => {
-    const database = new sqlite3.Database("/app/.data/dns.sqlite", error=>{
+    const database = new sqlite3.Database("/app/.data/dns.sqlite", (error) => {
       console.log(error);
     });
     database.on("error", (error) => {
       console.log(error);
     });
-    console.log(1);
     const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
-    statement.on("error", error =>{
-      console.log("SQLITE errorerror");
-      if(error.code === "SQLITE_ERROR"){
+    statement.on("error", (error) => {
+      if (/no such table/.test(error.toString())) {
+        console.log("creating table");
         createTable();
+        return;
       }
+      if (/table .+ already exists/.test(error.toString())) {
+        console.log("eeeeee????");
+        return;
+      }
+      console.log("unknown error");
+      console.log(error);
     });
-    console.log(2);
     statement.run([ipAddress, y]);
-    console.log(3);
     statement.finalize();
-    console.log(4);
   });
 } //reverseLookup
 
