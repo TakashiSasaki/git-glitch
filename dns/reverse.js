@@ -1,4 +1,4 @@
-const sqlite = require("sqlite");
+//const sqlite = require("sqlite");
 const sqlite3 = require("sqlite3");
 const dns = require("dns");
 
@@ -16,7 +16,7 @@ function createTable() {
       console.log(error);
     }
   );
-} //createTable function
+} //function createTable
 
 function recreateTable() {
   console.log("recreateTable()");
@@ -28,22 +28,27 @@ function recreateTable() {
     console.log(error.toString());
   });
   createTable();
-} //recreateTable function
+} //function recreateTable
 
-function reverseLookup(ipAddress) {
+function lookup(ipAddress) {
   console.log("reverseLookup");
   const statement = database.prepare(
-    "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)"
+    "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
+
+    (error) => {
+      if (!error) return;
+      if (/no such table/.test(error.toString())) {
+        recreateTable();
+        return;
+      }
+      console.log(error.toString());
+    }
   );
   dns.reverse(ipAddress, (x, y) => {
     console.log("callback of dns.reverse");
     statement.run([ipAddress, y, new Date()], (error) => {
       console.log("callback of statement.run");
       if (!error) return;
-      if (/no such table/.test(error.toString())) {
-        recreateTable();
-        return;
-      }
       if (/table .+ already exists/.test(error.toString())) {
         console.log(error.toString());
         return;
@@ -52,14 +57,20 @@ function reverseLookup(ipAddress) {
     });
     statement.finalize();
   });
-} //reverseLookup function
+} //function reverseLookup
 
-exports.createTable = createTable;
-exports.reverseLookup = reverseLookup;
+function get(ipAddress) {
+  
+  
+  
+} //function select
+
+exports.lookup = lookup;
+exports.get = get;
 
 if (require.main === module) {
   console.log("This file was run directly.");
-  reverseLookup("133.71.200.68");
+  lookup("133.71.200.68");
 } else {
   console.log("This file was imported as a module.");
 }
