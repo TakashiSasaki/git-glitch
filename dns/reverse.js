@@ -31,10 +31,9 @@ function recreateTable() {
 } //function recreateTable
 
 function lookup(ipAddress) {
-  console.log("reverseLookup");
+  console.log("lookup");
   const statement = database.prepare(
     "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
-
     (error) => {
       if (!error) return;
       if (/no such table/.test(error.toString())) {
@@ -65,6 +64,7 @@ function get(ipAddress) {
       "SELECT ipv4, fqdn, MAX(timestamp) FROM reverse GROUP BY ipv4, fqdn";
     database.all(SQL, (error, rows) => {
       if (!error) {
+        console.log(rows.length);
         return ok(rows);
       } else {
         ng(error);
@@ -82,9 +82,7 @@ if (require.main === module) {
   lookup("133.71.200.68");
   console.log("... done.");
   console.log("get ... ");
-  get("133.71.200.68").then();
-  console.log("... done.");
-  console.log(rows);
+  get("133.71.200.68").then((rows) => console.log(rows));
 } else {
   console.log("This file was imported as a module.");
 }
