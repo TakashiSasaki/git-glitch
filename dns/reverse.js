@@ -18,6 +18,7 @@ function createTable() {
 } //createTable function
 
 function recreateTable() {
+        console.log("recreateTable()");
   database.run("DROP TABLE reverse", (error) => {
     if (!error) return;
     if (/no such table/.test(error.toString())) {
@@ -29,12 +30,11 @@ function recreateTable() {
 } //recreateTable function
 
 function reverseLookup(ipAddress) {
+  const statement = database.prepare(
+    "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)"
+  );
   dns.reverse(ipAddress, (x, y) => {
-    const statement = database.prepare(
-      "INSERT INTO reverse (ipv4, fqdn) VALUES(?,?)"
-    );
-
-    statement.run([ipAddress, y], (error) => {
+    statement.run([ipAddress, y, new Date()], (error) => {
       if (!error) return;
       if (/no such table/.test(error.toString())) {
         recreateTable();
