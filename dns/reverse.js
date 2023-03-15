@@ -3,15 +3,15 @@ const sqlite3 = require("sqlite3");
 const dns = require("dns");
 
 function createTable() {
-  const database = new sqlite3.Database("/app/.data/dns.sqlite");
+  const database = new sqlite3.Database("/app/.data/dns.sqlite3");
   database.run("CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT)");
   //a.reverse("133.71.200.68", (x,y)=>console.log(y))
 } //createTable
 
 function reverseLookup(ipAddress) {
   dns.reverse(ipAddress, (x, y) => {
+    const database = new sqlite3.Database("/app/.data/dns.sqlite");
     try {
-      const database = new sqlite3.Database("/app/.data/dns.sqlite");
       console.log(1);
       const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
       console.log(2);
@@ -23,14 +23,18 @@ function reverseLookup(ipAddress) {
       console.log(5);
       console.log(e);
       console.log(6);
+      createTable();
     } finally{
       //database.close();
     }
   });
 } //reverseLookup
 
-function test() {
-  reverseLookup("133.71.200.68");
-}
-
 exports.test = test;
+
+if (require.main === module) {
+  console.log('This file was run directly.');
+  reverseLookup("133.71.200.68");  
+} else {
+  console.log('This file was imported as a module.');
+}
