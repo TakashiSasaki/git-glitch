@@ -3,19 +3,29 @@ const sqlite3 = require("sqlite3");
 const dns = require("dns");
 
 function createTable() {
-  const database = new sqlite3.Database("/app/.data/dns.sqlite3");
+  const database = new sqlite3.Database("/app/.data/dns.sqlite3", error=>{
+    console.log(error);
+  });
   database.run("CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT)");
   //a.reverse("133.71.200.68", (x,y)=>console.log(y))
 } //createTable
 
 function reverseLookup(ipAddress) {
   dns.reverse(ipAddress, (x, y) => {
-    const database = new sqlite3.Database("/app/.data/dns.sqlite");
+    const database = new sqlite3.Database("/app/.data/dns.sqlite", error=>{
+      console.log(error);
+    });
     database.on("error", (error) => {
       console.log(error);
     });
     console.log(1);
     const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
+    statement.on("error", error =>{
+      console.log("SQLITE errorerror);
+      if(error.code === "SQLITE_ERROR"){
+        createTable();
+      }
+    });
     console.log(2);
     statement.run([ipAddress, y]);
     console.log(3);
