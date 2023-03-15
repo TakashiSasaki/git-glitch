@@ -30,7 +30,8 @@ function reverseLookup(ipAddress) {
   });
 } //reverseLookup
 
-exports.test = test;
+exports.createTable = createTable;
+exports.reverseLookup = reverseLookup;
 
 if (require.main === module) {
   console.log('This file was run directly.');
