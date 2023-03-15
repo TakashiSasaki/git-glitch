@@ -8,16 +8,25 @@ const database = new sqlite3.Database("/app/.data/dns.sqlite3", (error) => {
 });
 
 function createTable() {
-  database.run("CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)", (error) => {
-    if (!error) return;
-    console.log(error);
-  });
-} //createTable
+  database.run(
+    "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
+    (error) => {
+      if (!error) return;
+      console.log(error);
+    }
+  );
+} //createTable function
 
-function recreateTable(){
-  database.run("DROP TABLE reverse");
+function recreateTable() {
+  database.run("DROP TABLE reverse", (error) => {
+    if (!error) return;
+    if (/no such table/.test(error.toString())) {
+      return;
+    }
+    console.log(error.toString());
+  });
   createTable();
-}
+} //recreateTable function
 
 function reverseLookup(ipAddress) {
   dns.reverse(ipAddress, (x, y) => {
@@ -39,7 +48,7 @@ function reverseLookup(ipAddress) {
     });
     statement.finalize();
   });
-} //reverseLookup
+} //reverseLookup function
 
 exports.createTable = createTable;
 exports.reverseLookup = reverseLookup;
