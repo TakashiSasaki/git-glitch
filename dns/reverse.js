@@ -60,13 +60,16 @@ function lookup(ipAddress) {
 } //function reverseLookup
 
 function get(ipAddress) {
-  const SQL = "SELECT ipv4, fqdn, MAX(timestamp) FROM reverse GROUP BY ipv4, fqdn";
-  database.all(SQL, (error, rows)=>{
-    if(!error){
-      console.log(error);
-      return;
-    }
-    return rows;
+  return new Promise((ok, ng) => {
+    const SQL =
+      "SELECT ipv4, fqdn, MAX(timestamp) FROM reverse GROUP BY ipv4, fqdn";
+    database.all(SQL, (error, rows) => {
+      if (!error) {
+        return ok(rows);
+      } else {
+        ng(error);
+      }
+    });
   });
 } //function select
 
@@ -75,8 +78,13 @@ exports.get = get;
 
 if (require.main === module) {
   console.log("This file was run directly.");
+  console.log("lookup ... ");
   lookup("133.71.200.68");
-  get("133.71.200.68");
+  console.log("... done.");
+  console.log("get ... ");
+  get("133.71.200.68").then();
+  console.log("... done.");
+  console.log(rows);
 } else {
   console.log("This file was imported as a module.");
 }
