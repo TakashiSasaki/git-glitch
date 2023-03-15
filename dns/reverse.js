@@ -4,10 +4,9 @@ const dns = require("dns");
 
 function createTable() {
   const database = new sqlite3.Database("/app/.data/dns.sqlite3");
-  database.on("error", (error) => {
+  database.run("CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT)", (error) => {
     console.log(error);
   });
-  database.run("CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT)");
   //a.reverse("133.71.200.68", (x,y)=>console.log(y))
 } //createTable
 
@@ -16,24 +15,25 @@ function reverseLookup(ipAddress) {
     const database = new sqlite3.Database("/app/.data/dns.sqlite", (error) => {
       console.log(error);
     });
-    database.on("error", (error) => {
-      console.log(error);
-    });
-    const statement = database.prepare("INSERT INTO reverse VALUES(?,?)");
-    statement.on("error", (error) => {
-      if (/no such table/.test(error.toString())) {
-        console.log("creating table");
+    const statement = database.prepare(
+      "INSERT INTO reverse (ipv4, fqdn) VALUES(?,?)"
+    );
+
+    statement.run([ipAddress, y], (error) => {
+      if (/no such table/.test("a" + error.toString() + "b")) {
+        console.log("CREATE TABLE");
+        console.log("a" + error.toString() + "b");
         createTable();
         return;
       }
       if (/table .+ already exists/.test(error.toString())) {
-        console.log("eeeeee????");
+        console.log(error.toString());
+        console.log("ALREADY EXISTS");
         return;
       }
       console.log("unknown error");
       console.log(error);
     });
-    statement.run([ipAddress, y]);
     statement.finalize();
   });
 } //reverseLookup
