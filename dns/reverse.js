@@ -8,6 +8,7 @@ const database = new sqlite3.Database("/app/.data/dns.sqlite3", (error) => {
 });
 
 function createTable() {
+  console.log("createTable");
   database.run(
     "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
     (error) => {
@@ -18,7 +19,7 @@ function createTable() {
 } //createTable function
 
 function recreateTable() {
-        console.log("recreateTable()");
+  console.log("recreateTable()");
   database.run("DROP TABLE reverse", (error) => {
     if (!error) return;
     if (/no such table/.test(error.toString())) {
@@ -30,11 +31,14 @@ function recreateTable() {
 } //recreateTable function
 
 function reverseLookup(ipAddress) {
+  console.log("reverseLookup");
   const statement = database.prepare(
     "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)"
   );
   dns.reverse(ipAddress, (x, y) => {
+    console.log("callback of dns.reverse");
     statement.run([ipAddress, y, new Date()], (error) => {
+      console.log("callback of statement.run");
       if (!error) return;
       if (/no such table/.test(error.toString())) {
         recreateTable();
