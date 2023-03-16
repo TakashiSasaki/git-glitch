@@ -11,14 +11,15 @@ var hasTableCreated = false;
 
 function createTable() {
   console.log("createTable()");
-  if (hasTableCreated) throw new Error("Dangling table creation.");
-  hasTableCreated = true;
   return new Promise((ok, ng) => {
+    if (createTable.hasInvoked)
+      throw new Error("Dangling invocation of createTable().");
+    else createTable.hasInvoked = true;
     database.run(
       "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
       (error) => {
-        if (!error)
-          throw new Error("Unexpected error callback at database.run().");
+        if (!error) ok();
+          //throw new Error("Unexpected error callback at database.run().");
         throw error;
       }
     );
@@ -29,15 +30,16 @@ var hasTableRecreated = false;
 
 function recreateTable() {
   console.log("recreateTable()");
-  if (hasTableRecreated) throw new Error("Dangling table recreation.");
-  hasTableRecreated = true;
   return new Promise((ok, ng) => {
+    if (recreateTable.hasInvoked)
+      throw new Error("Dangling invocation of recreateTable().");
+    else recreateTable.hasInvoked = true;
     database.run("DROP TABLE reverse", (error) => {
       if (!error) {
-        createTable();
+        createTable().then(ok);
       }
       if (/no such table/.test(error.toString())) {
-        createTable();
+        createTable().then(ok);
       }
       throw error;
     });
