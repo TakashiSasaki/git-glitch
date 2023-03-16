@@ -30,30 +30,29 @@ function recreateTable() {
   createTable();
 } //function recreateTable
 
-function getStatement() {
+function insertIntoReverseStatement() {
   return new Promise((ok, ng) => {
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
       (error) => {
         if (!error) {
+          throw error;
+        } else if (/no such table/.test(error.toString())) {
+          recreateTable();
+          return;
+        } else {
+          ng(error);
           return;
         }
-        if (/no such table/.test(error.toString())) {
-          recreateTable();
-        }
-        ng(error);
-        return;
       }
     );
     ok(statement);
-    statement.finalize();
+    //statement.finalize();
   });
 } //function statement
 
 function lookup(ipAddress) {
-  return getStatement().then(
-    (s) =>
-      new Promise((ok, ng) => {
+return      new Promise((ok, ng) => {
         dns.reverse(ipAddress, (x, y) => {
           console.log("callback of dns.reverse");
           s.run([ipAddress, y, new Date()], (error) => {
