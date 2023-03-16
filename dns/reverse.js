@@ -41,22 +41,26 @@ function recreateTable() {
 } //function recreateTable
 
 function insertIntoReverse(ipAddress, fqdn) {
+  console.log(`insertIntoReverse(${ipAddress}, ${fqdn})`);
   return new Promise((ok, ng) => {
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
       (error) => {
-        if (!error)
-          throw new Error("Unexpected error callback at database.prepare().");
+        if (!error) {
+          statement.run([ipAddress, fqdn, new Date()], (error) => {
+            if (error) throw error;
+          });
+          return;
+        }
+        //throw new Error(`Unexpected error (${error}) callback at database.prepare().`);
         if (/no such table/.test(error.toString())) {
           recreateTable();
+          insertIntoReverse(ipAddress, fqdn);
+          return;
         }
         throw error;
       }
     );
-    statement.run([ipAddress, fqdn, new Date()], (error) => {
-      if (!error)
-        throw new Error("Unexpected error callback at statement.run().");
-    });
   });
 } //function statement
 
@@ -64,7 +68,7 @@ function lookup(ipAddress) {
   return new Promise((ok, ng) => {
     dns.reverse(ipAddress, (x, y) => {
       console.log("callback of dns.reverse");
-      insertIntoReverse(x, y);
+      insertIntoReverse(ipAddress, y).then(ok()).catch(ng);
     });
   });
 } //function lookup
