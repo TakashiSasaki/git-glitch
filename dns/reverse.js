@@ -31,31 +31,32 @@ function recreateTable() {
 } //function recreateTable
 
 function getStatement() {
-  return Promise((ok, ng) => {
+  return new Promise((ok, ng) => {
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
       (error) => {
         if (!error) {
-          ok(statement);
-          statement.finalize();
+          return;
         }
         if (/no such table/.test(error.toString())) {
           recreateTable();
-          ng(statement);
         }
+        ng(error);
+        return;
       }
     );
+    ok(statement);
+    statement.finalize();
   });
 } //function statement
 
 function lookup(ipAddress) {
-  const statement = getStatement();
-  return .then(
+  return getStatement().then(
     (s) =>
       new Promise((ok, ng) => {
         dns.reverse(ipAddress, (x, y) => {
           console.log("callback of dns.reverse");
-          statement.run([ipAddress, y, new Date()], (error) => {
+          s.run([ipAddress, y, new Date()], (error) => {
             console.log("callback of statement.run");
             if (!error) ok();
             if (/table .+ already exists/.test(error.toString())) {
@@ -88,11 +89,9 @@ exports.get = get;
 
 if (require.main === module) {
   console.log("This file was run directly.");
-  console.log("lookup ... ");
-  lookup("133.71.200.68");
-  console.log("... done.");
-  console.log("get ... ");
-  get("133.71.200.68").then((rows) => console.log(rows));
+  lookup("133.71.200.68").then(() => {
+    get("133.71.200.68").then((rows) => console.log(rows));
+  });
 } else {
   console.log("This file was imported as a module.");
 }
