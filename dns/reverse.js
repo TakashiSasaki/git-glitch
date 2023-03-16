@@ -12,35 +12,37 @@ var hasTableCreated = false;
 function createTable() {
   console.log("createTable()");
   return new Promise((ok, ng) => {
-    if (createTable.hasInvoked)
-      throw new Error("Dangling invocation of createTable().");
-    else createTable.hasInvoked = true;
     database.run(
       "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
       (error) => {
-        if (!error) ok();
-          //throw new Error("Unexpected error callback at database.run().");
+        if (!error) {
+          ok();
+          return;
+        } //if
+        if (/exists/.test(error.toString())) {
+          ok();
+          return;
+        } //if
         throw error;
-      }
+      } //lambda
     );
   });
 } //function createTable
 
 var hasTableRecreated = false;
 
-function recreateTable() {
+function dropTable() {
   console.log("recreateTable()");
   return new Promise((ok, ng) => {
-    if (recreateTable.hasInvoked)
-      throw new Error("Dangling invocation of recreateTable().");
-    else recreateTable.hasInvoked = true;
     database.run("DROP TABLE reverse", (error) => {
       if (!error) {
-        createTable().then(ok);
-      }
-      if (/no such table/.test(error.toString())) {
-        createTable().then(ok);
-      }
+        ok();
+        return;
+      } //if
+      if (/no such/.test(error.toString())) {
+        ok();
+        return;
+      } //if
       throw error;
     });
   });
@@ -54,15 +56,20 @@ function insertIntoReverse(ipAddress, fqdn) {
       (error) => {
         if (!error) {
           statement.run([ipAddress, fqdn, new Date()], (error) => {
-            if (error) throw error;
+            if (!error) {
+              ok();
+              return;
+            }
+            if (/no such table/.test(error.toString())) {
+              createTable().then(() => insertIntoReverse(ipAddress, fqdn));
+              ok();
+              return;
+            }
+            throw error;
           });
-          return;
         }
-        //throw new Error(`Unexpected error (${error}) callback at database.prepare().`);
-        if (/no such table/.test(error.toString())) {
-          recreateTable();
-          insertIntoReverse(ipAddress, fqdn);
-          return;
+        if(/no such table/.test(error.toString())){
+          createTable().then(()=>insertIntoReverse(ipAddress, fqdn))          ;
         }
         throw error;
       }
