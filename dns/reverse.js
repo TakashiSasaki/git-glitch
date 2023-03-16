@@ -11,6 +11,7 @@ var hasTableCreated = false;
 
 function createTable() {
   if (hasTableCreated) throw new Error("Dangling table creation.");
+  hasTableCreated = true;
   return new Promise((ok, ng) => {
     database.run(
       "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
@@ -27,6 +28,7 @@ var hasTableRecreated = false;
 
 function recreateTable() {
   if (hasTableRecreated) throw new Error("Dangling table recreation.");
+  hasTableRecreated = true;
   return new Promise((ok, ng) => {
     database.run("DROP TABLE reverse", (error) => {
       if (!error) {
