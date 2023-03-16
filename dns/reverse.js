@@ -4,19 +4,18 @@ const dns = require("dns");
 
 const database = new sqlite3.Database("/app/.data/dns.sqlite3", (error) => {
   if (!error) return;
-  console.log(error);
+  throw error;
 });
 
 var hasTableCreated = false;
 
 function createTable() {
-  if(hasTableCreated) throw "It has been atempted to create table 'reverse'";
-  console.log("createTable");
+  if(hasTableCreated) throw new Error("Dangling table creation.");
   database.run(
     "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
     (error) => {
       if (!error) return;
-      console.log(error);
+      throw error;
     }
   );
 } //function createTable
@@ -24,15 +23,16 @@ function createTable() {
 var hasTableRecreated = false;
 
 function recreateTable() {
-  console.log("recreateTable()");
+  if(hasTableRecrested) throw new Error("Dangling table recreation.")
   database.run("DROP TABLE reverse", (error) => {
-    if (!error) return;
-    if (/no such table/.test(error.toString())) {
-      return;
+    if (!error) {
+      createTable();
     }
-    console.log(error.toString());
+    if (/no such table/.test(error.toString())) {
+      createTable();
+    }
+    throw error;
   });
-  createTable();
 } //function recreateTable
 
 
@@ -41,15 +41,16 @@ function insertIntoReverse(ipAddress, fqdn) {
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
       (error) => {
-        if (!error) {
-          return statement;
-        } else if (/no such table/.test(error.toString())) {
+        if (!error) throw new Error("Unexpected error callback at database.prepare().");
+        if (/no such table/.test(error.toString())) {
           recreateTable();
         }
         throw error;
       }
     );
-    
+    statement.run([ipAddress, y, new Date()], error=>{
+      if(!error) throw new Error("Unexpected error callback at statement.run().")
+    });
   });
   
 } //function statement
