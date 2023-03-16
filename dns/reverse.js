@@ -10,65 +10,63 @@ const database = new sqlite3.Database("/app/.data/dns.sqlite3", (error) => {
 var hasTableCreated = false;
 
 function createTable() {
-  if(hasTableCreated) throw new Error("Dangling table creation.");
-  database.run(
-    "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
-    (error) => {
-      if (!error) return;
-      throw error;
-    }
-  );
+  if (hasTableCreated) throw new Error("Dangling table creation.");
+  return new Promise((ok, ng) => {
+    database.run(
+      "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
+      (error) => {
+        if (!error)
+          throw new Error("Unexpected error callback at database.run().");
+        throw error;
+      }
+    );
+  });
 } //function createTable
 
 var hasTableRecreated = false;
 
 function recreateTable() {
-  if(hasTableRecrested) throw new Error("Dangling table recreation.")
-  database.run("DROP TABLE reverse", (error) => {
-    if (!error) {
-      createTable();
-    }
-    if (/no such table/.test(error.toString())) {
-      createTable();
-    }
-    throw error;
+  if (hasTableRecreated) throw new Error("Dangling table recreation.");
+  return new Promise((ok, ng) => {
+    database.run("DROP TABLE reverse", (error) => {
+      if (!error) {
+        createTable();
+      }
+      if (/no such table/.test(error.toString())) {
+        createTable();
+      }
+      throw error;
+    });
   });
 } //function recreateTable
 
-
 function insertIntoReverse(ipAddress, fqdn) {
-  return new Promise((ok,ng)=>{
+  return new Promise((ok, ng) => {
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
       (error) => {
-        if (!error) throw new Error("Unexpected error callback at database.prepare().");
+        if (!error)
+          throw new Error("Unexpected error callback at database.prepare().");
         if (/no such table/.test(error.toString())) {
           recreateTable();
         }
         throw error;
       }
     );
-    statement.run([ipAddress, y, new Date()], error=>{
-      if(!error) throw new Error("Unexpected error callback at statement.run().")
+    statement.run([ipAddress, fqdn, new Date()], (error) => {
+      if (!error)
+        throw new Error("Unexpected error callback at statement.run().");
     });
   });
-  
 } //function statement
 
-async function lookup(ipAddress) {
-        dns.reverse(ipAddress, (x, y) => {
-          console.log("callback of dns.reverse");
-          
-          s.run([ipAddress, y, new Date()], (error) => {
-            console.log("callback of statement.run");
-            if (!error) ok();
-            if (/table .+ already exists/.test(error.toString())) {
-              console.log(error.toString());
-            }
-            ng(error);
-          });
-        });
-      });
+function lookup(ipAddress) {
+  return new Promise((ok, ng) => {
+    dns.reverse(ipAddress, (x, y) => {
+      console.log("callback of dns.reverse");
+      insertIntoReverse(x, y);
+    });
+  });
 } //function lookup
 
 function get(ipAddress) {
