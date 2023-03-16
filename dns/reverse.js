@@ -10,6 +10,7 @@ const database = new sqlite3.Database("/app/.data/dns.sqlite3", (error) => {
 var hasTableCreated = false;
 
 function createTable() {
+  console.log("createTable()");
   if (hasTableCreated) throw new Error("Dangling table creation.");
   hasTableCreated = true;
   return new Promise((ok, ng) => {
@@ -27,6 +28,7 @@ function createTable() {
 var hasTableRecreated = false;
 
 function recreateTable() {
+  console.log("recreateTable()");
   if (hasTableRecreated) throw new Error("Dangling table recreation.");
   hasTableRecreated = true;
   return new Promise((ok, ng) => {
