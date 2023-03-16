@@ -7,7 +7,10 @@ const database = new sqlite3.Database("/app/.data/dns.sqlite3", (error) => {
   console.log(error);
 });
 
+var hasTableCreated = false;
+
 function createTable() {
+  if(hasTableCreated) throw "It has been atempted to create table 'reverse'";
   console.log("createTable");
   database.run(
     "CREATE TABLE reverse (ipv4 TEXT, fqdn TEXT, timestamp DATE)",
@@ -17,6 +20,8 @@ function createTable() {
     }
   );
 } //function createTable
+
+var hasTableRecreated = false;
 
 function recreateTable() {
   console.log("recreateTable()");
@@ -30,31 +35,29 @@ function recreateTable() {
   createTable();
 } //function recreateTable
 
-function insertIntoReverseStatement() {
-  return new Promise((ok, ng) => {
+
+function insertIntoReverse(ipAddress, fqdn) {
+  return new Promise((ok,ng)=>{
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
       (error) => {
         if (!error) {
-          throw error;
+          return statement;
         } else if (/no such table/.test(error.toString())) {
           recreateTable();
-          return;
-        } else {
-          ng(error);
-          return;
         }
+        throw error;
       }
     );
-    ok(statement);
-    //statement.finalize();
+    
   });
+  
 } //function statement
 
-function lookup(ipAddress) {
-return      new Promise((ok, ng) => {
+async function lookup(ipAddress) {
         dns.reverse(ipAddress, (x, y) => {
           console.log("callback of dns.reverse");
+          
           s.run([ipAddress, y, new Date()], (error) => {
             console.log("callback of statement.run");
             if (!error) ok();
@@ -64,8 +67,7 @@ return      new Promise((ok, ng) => {
             ng(error);
           });
         });
-      })
-  );
+      });
 } //function lookup
 
 function get(ipAddress) {
