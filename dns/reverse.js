@@ -24,7 +24,7 @@ function createTable() {
           return;
         } //if
         throw error;
-      } //lambda
+      }
     );
   });
 } //function createTable
@@ -49,7 +49,7 @@ function dropTable() {
 } //function recreateTable
 
 function insertIntoReverse(ipAddress, fqdn) {
-  console.log(`insertIntoReverse(${ipAddress}, ${fqdn})`);
+  //console.log(`insertIntoReverse(${ipAddress}, ${fqdn})`);
   return new Promise((ok, ng) => {
     const statement = database.prepare(
       "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
@@ -61,15 +61,21 @@ function insertIntoReverse(ipAddress, fqdn) {
               return;
             }
             if (/no such table/.test(error.toString())) {
-              createTable().then(() => insertIntoReverse(ipAddress, fqdn));
-              ok();
+              createTable()
+                .then(() => insertIntoReverse(ipAddress, fqdn))
+                .then(ok);
               return;
             }
             throw error;
           });
+          ok();
+          return;
         }
-        if(/no such table/.test(error.toString())){
-          createTable().then(()=>insertIntoReverse(ipAddress, fqdn))          ;
+        if (/no such table/.test(error.toString())) {
+          createTable()
+            .then(() => insertIntoReverse(ipAddress, fqdn))
+            .then(ok);
+          return;
         }
         throw error;
       }
@@ -80,8 +86,8 @@ function insertIntoReverse(ipAddress, fqdn) {
 function lookup(ipAddress) {
   return new Promise((ok, ng) => {
     dns.reverse(ipAddress, (x, y) => {
-      console.log("callback of dns.reverse");
-      insertIntoReverse(ipAddress, y).then(ok()).catch(ng);
+      insertIntoReverse(ipAddress, y).then(ok);
+      return y;
     });
   });
 } //function lookup
@@ -92,11 +98,17 @@ function get(ipAddress) {
       "SELECT ipv4, fqdn, MAX(timestamp) FROM reverse GROUP BY ipv4, fqdn";
     database.all(SQL, (error, rows) => {
       if (!error) {
-        console.log(rows.length);
-        return ok(rows);
-      } else {
-        ng(error);
-      }
+        if (rows.length === 0) {
+          ng();
+          return;
+        }
+        if (rows.length === 1) {
+          ok(rows);
+          return;
+        }
+        throw new Error(`Unexpected row number ${rows.length}`);
+      } //if
+      throw error;
     });
   });
 } //function select
@@ -106,9 +118,9 @@ exports.get = get;
 
 if (require.main === module) {
   console.log("This file was run directly.");
-  lookup("133.71.200.68").then(() => {
-    get("133.71.200.68").then((rows) => console.log(rows));
-  });
+  lookup("133.71.200.68")
+    .then(() => get("133.71.200.68"))
+    .then((rows) => console.log(rows));
 } else {
   console.log("This file was imported as a module.");
 }
