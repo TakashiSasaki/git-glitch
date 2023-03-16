@@ -30,33 +30,43 @@ function recreateTable() {
   createTable();
 } //function recreateTable
 
-function lookup(ipAddress) {
-  console.log("lookup");
-  const statement = database.prepare(
-    "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
-    (error) => {
-      if (!error) return;
-      if (/no such table/.test(error.toString())) {
-        recreateTable();
-        return;
+function getStatement() {
+  return Promise((ok, ng) => {
+    const statement = database.prepare(
+      "INSERT INTO reverse (ipv4, fqdn, timestamp) VALUES(?,?,?)",
+      (error) => {
+        if (!error) {
+          ok(statement);
+          statement.finalize();
+        }
+        if (/no such table/.test(error.toString())) {
+          recreateTable();
+          ng(statement);
+        }
       }
-      console.log(error.toString());
-    }
-  );
-  dns.reverse(ipAddress, (x, y) => {
-    console.log("callback of dns.reverse");
-    statement.run([ipAddress, y, new Date()], (error) => {
-      console.log("callback of statement.run");
-      if (!error) return;
-      if (/table .+ already exists/.test(error.toString())) {
-        console.log(error.toString());
-        return;
-      }
-      console.log(error.toString());
-    });
-    statement.finalize();
+    );
   });
-} //function reverseLookup
+} //function statement
+
+function lookup(ipAddress) {
+  const statement = getStatement();
+  return .then(
+    (s) =>
+      new Promise((ok, ng) => {
+        dns.reverse(ipAddress, (x, y) => {
+          console.log("callback of dns.reverse");
+          statement.run([ipAddress, y, new Date()], (error) => {
+            console.log("callback of statement.run");
+            if (!error) ok();
+            if (/table .+ already exists/.test(error.toString())) {
+              console.log(error.toString());
+            }
+            ng(error);
+          });
+        });
+      })
+  );
+} //function lookup
 
 function get(ipAddress) {
   return new Promise((ok, ng) => {
