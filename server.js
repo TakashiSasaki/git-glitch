@@ -17,6 +17,8 @@ const fastify = require("fastify")({
   logger: false,
 });
 
+fastify.register(require("./dns/handler"));
+
 // Setup our static files
 fastify.register(require("@fastify/static"), {
   root: path.join(__dirname, "public"),
