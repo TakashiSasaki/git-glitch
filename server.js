@@ -17,7 +17,7 @@ const fastify = require("fastify")({
   logger: false,
 });
 
-fastify.register(require("./dns/handler"), { prefix: "/dns" });
+fastify.register(require("./dns/plugin"), { prefix: "/dns" });
 
 // Setup our static files
 fastify.register(require("@fastify/static"), {
