@@ -1,3 +1,16 @@
+// users.js
+
+const fastify = require('fastify')();
+
+async function getUsersHandler(request, reply) {
+  const users = [{ name: 'John' }, { name: 'Jane' }];
+  return { users };
+}
+
+fastify.get('/', getUsersHandler);
+
+module.exports = fastify;
+
 fastify.get("/logs", async (request, reply) => {
   let params = request.query.raw ? {} : { seo: seo };
 
