@@ -15,6 +15,11 @@
     </style>
   </head>
   <body>
+    <div>
+      The Glitch project is intended to develop Python programs to run on the
+      Google App Engine, but also includes some code to understand the behavior
+      of the fastify server running in the Glitch container.
+    </div>
     <div class="color1">
       <h1>Glitch</h1>
       <a href="https://moukaeritai-appengine.glitch.me/"></a>
@@ -26,10 +31,23 @@
       <a href="https://moukaeritaid.dt.r.appspot.com/json"></a>
     </div>
     <div>
-      <p>This iframe reloads the path "/count" every 5 seconds.
-      
+      <p>
+        The following iframe is an example of using fastify's session module. In
+        this example, the server code server.js does not specify a non-volatile
+        session store, so the session information is lost when the container
+        terminates. count1 is counted up by preHandler. count2 is counted up
+        only when /count is accessed. count2 is counted up only when /count is
+        accessed.
+      </p>
+      <p>
+        This iframe reloads the path "/count" every 5 seconds. Reloading iframes
+        does not work properly when previewing in Glitch's preview pane. The
+        page must be opened as a separate window.
       </p>
       <iframe src="count"></iframe>
+    </div>
+    <div>
+      
     </div>
     <script>
       function reloadIframe() {
