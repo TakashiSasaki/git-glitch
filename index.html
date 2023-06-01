@@ -16,12 +16,16 @@
   </head>
   <body>
     <div>
-      This project is developed on Glitch with the intent to be deployed on
-      Google App Engine. If you're accessing this via glitch.me, the code is
-      operating in a Glitch container, and if you're accessing through
-      appspot.com, the code is running on App Engine's Node.js runtime. I've
-      long used Python as the runtime for App Engine, but considering its
-      compatibility with Glitch, I've chosen to use Node.js.
+      This project is developed on Glitch, with the expectation of deployment on
+      Google App Engine. When you access it through glitch.me, the code runs in
+      a Glitch container. If accessed via appspot.com, the code runs on the App
+      Engine's Node.js runtime. In the Glitch container, session management is
+      handled in-memory; as a result, session information is lost upon a
+      container reboot. However, when running on App Engine, session information
+      is saved to Datastore, preserving session information for the duration of
+      the cookie's validity. While I have extensively used Python as a runtime
+      for App Engine in the past, I have opted for Node.js considering its
+      compatibility with Glitch.
     </div>
     <div class="color1">
       <h1>Glitch</h1>
@@ -49,7 +53,17 @@
       </p>
       <iframe src="count"></iframe>
     </div>
-    <div></div>
+    <a
+      href="https://twitter.com/intent/tweet?screen_name=TakashiSasaki&ref_src=twsrc%5Etfw"
+      class="twitter-mention-button"
+      data-show-count="false"
+      >Tweet to @TakashiSasaki</a
+    >
+    <script
+      async
+      src="https://platform.twitter.com/widgets.js"
+      charset="utf-8"
+    ></script>
     <script>
       function reloadIframe() {
         dq("iframe").contentWindow.location.reload();
