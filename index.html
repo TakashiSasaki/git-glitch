@@ -40,11 +40,10 @@
     <div>
       <p>
         The following iframe is an example of using fastify's session module. In
-        this example, the server code server.js does not specify a non-volatile
-        session store, so the session information is lost when the container
-        terminates. count1 is counted up by preHandler. count2 is counted up
-        only when /count is accessed. count2 is counted up only when /count is
-        accessed.
+        this example, the server code server.js uses volatile session store, so
+        the session information is lost when the container terminates. count1 is
+        counted up by preHandler. count2 is counted up only when /count is
+        accessed. count2 is counted up only when /count is accessed.
       </p>
       <p>
         This iframe reloads the path "/count" every 5 seconds. Reloading iframes
@@ -53,17 +52,7 @@
       </p>
       <iframe src="count"></iframe>
     </div>
-    <a
-      href="https://twitter.com/intent/tweet?screen_name=TakashiSasaki&ref_src=twsrc%5Etfw"
-      class="twitter-mention-button"
-      data-show-count="false"
-      >Tweet to @TakashiSasaki</a
-    >
-    <script
-      async
-      src="https://platform.twitter.com/widgets.js"
-      charset="utf-8"
-    ></script>
+
     <script>
       function reloadIframe() {
         dq("iframe").contentWindow.location.reload();
