@@ -16,9 +16,12 @@
   </head>
   <body>
     <div>
-      The Glitch project is intended to develop Python programs to run on the
-      Google App Engine, but also includes some code to understand the behavior
-      of the fastify server running in the Glitch container.
+      This project is developed on Glitch with the intent to be deployed on
+      Google App Engine. If you're accessing this via glitch.me, the code is
+      operating in a Glitch container, and if you're accessing through
+      appspot.com, the code is running on App Engine's Node.js runtime. I've
+      long used Python as the runtime for App Engine, but considering its
+      compatibility with Glitch, I've chosen to use Node.js.
     </div>
     <div class="color1">
       <h1>Glitch</h1>
@@ -46,9 +49,7 @@
       </p>
       <iframe src="count"></iframe>
     </div>
-    <div>
-      
-    </div>
+    <div></div>
     <script>
       function reloadIframe() {
         dq("iframe").contentWindow.location.reload();
