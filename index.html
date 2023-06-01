@@ -9,6 +9,9 @@
       h1 {
         font-size: 1em;
       }
+      iframe {
+        width: 90%;
+      }
     </style>
   </head>
   <body>
@@ -22,11 +25,14 @@
       <a href="https://moukaeritaid.dt.r.appspot.com/"></a>
       <a href="https://moukaeritaid.dt.r.appspot.com/json"></a>
     </div>
-    <iframe src="count"> </iframe>
+    <div>
+      <p>This iframe reloads the path "/count" every 5 seconds.</p>
+      <iframe src="count"></iframe>
+    </div>
     <script>
       function reloadIframe() {
         dq("iframe").contentWindow.location.reload();
-        setTimeout(() => reloadIframe(), 2000);
+        setTimeout(() => reloadIframe(), 5000);
       }
       wal((event) => {
         reloadIframe();
