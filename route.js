@@ -8,11 +8,11 @@ const route = (fastify) => {
   });
 
   fastify.get("/count", (request, reply) => {
-    if (typeof request.session.count !== "number") {
-      request.session.count = 1;
+    if (typeof request.session.count2 !== "number") {
+      request.session.count2 = 1;
       request.session.timestamp = new Date();
     } else {
-      request.session.count += 1;
+      request.session.count2 += 1;
     }
     reply.send(JSON.stringify(request.session));
   });

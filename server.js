@@ -58,10 +58,10 @@ fastify.addHook("preHandler", (request, reply, next) => {
   }
 
   //increment counter
-  if (typeof request.session.count !== "number") {
-    request.session.count = 1;
+  if (typeof request.session.count1 !== "number") {
+    request.session.count1 = 1;
   } else {
-    request.session.count += 1;
+    request.session.count1 += 1;
   }
 
   //add timestamp
