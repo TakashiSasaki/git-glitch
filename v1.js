@@ -1,40 +1,54 @@
 class NameContentElement extends HTMLElement {
-  static get observedAttributes(){
+  constructor() {
+    super();
+    this.nameInput = document.createElement("input");
+    this.nameInput.setAttribute("placeholder", "name");
+    this.contentInput = document.createElement("input");
+    this.contentInput.setAttribute("placeholder", "content");
+  }
+
+  static get observedAttributes() {
     return ["name", "content"];
   }
-  
+
   connectedCallback() {
-    this.nameInput = document.createElement("input");
-    this.contentInput = document.createElement("input");
     this.appendChild(this.nameInput);
     this.appendChild(this.contentInput);
   }
-  
-  attributeChangedCallback(name, oldValue, newValue){
-    if(name="name"){
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name == "name") {
       this.nameInput.value = newValue;
       return;
     }
-    if(name="content"){
-      this.contentInput = newValue;
+    if (name == "content") {
+      this.contentInput.value = newValue;
       return;
     }
   }
 }
 customElements.define("name-content", NameContentElement);
 
-class MyElement extends HTMLElement {
+class MetaNameContents extends HTMLElement {
   connectedCallback() {
     this.textContent = "Hello, Web Components!";
     this.innerHTML = "<input placeholder='abc'></input>";
     this.style.backgroundColor = "yellow";
-    
-    document.querySelector("meta").forEach(element =>{
-      const nameContentElement = document.createElement("name-content");
-      
-      nameContentElement.setAttribute("name", element.getAttribute("name"));
-      nameContentElement.setAttribute("content", element.getAttribute("content"));
+
+    document.querySelectorAll("meta").forEach((metaElement) => {
+      if (metaElement.hasAttribute("name")) {
+        const nameContentElement = document.createElement("name-content");
+        nameContentElement.setAttribute(
+          "name",
+          metaElement.getAttribute("name")
+        );
+        nameContentElement.setAttribute(
+          "content",
+          metaElement.getAttribute("content")
+        );
+        this.appendChild(nameContentElement);
+      }
     });
   }
 }
-customElements.define("my-element", MyElement);
+customElements.define("meta-name-contents", MetaNameContents);
