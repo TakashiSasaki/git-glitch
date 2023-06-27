@@ -52,3 +52,6 @@ class MetaNameContents extends HTMLElement {
   }
 }
 customElements.define("meta-name-contents", MetaNameContents);
+
+class PrintLocationElement extends HTMLElement {
+}
