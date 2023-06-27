@@ -7,8 +7,36 @@
     />
   </head>
   <body>
-    <script src=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"></script>
-
+    <script
+      id="json1"
+      src=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></script>
+    <script id="json2" src="c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"></script>
+    <iframe
+      id="iframe1"
+      src=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></iframe>
+    <iframe
+      id="iframe2"
+      src="c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></iframe>
+    <object
+      id="object1"
+      data=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></object>
+    <object
+      id="object2"
+      data="c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></object>
+    <script>
+      window.addEventListener("load", (event) => {
+        const json1 = document.querySelector("#json1").innerHTML;
+        const json2 = document.querySelector("#json2").innerHTML;
+        const iframe1 = document.querySelector("#iframe1").innerText;
+        const iframe2 = document.querySelector("#iframe2").innerText;
+        alert(json2);
+      });
+    </script>
     <button onclick="location.reload()">Reload Page</button>
   </body>
 </html>
