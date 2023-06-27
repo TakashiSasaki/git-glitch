@@ -8,11 +8,12 @@
   </head>
   <body>
     <p>
-      このページでは script 要素の src 属性、object 要素の data 属性、iframe 要素の src 属性により 
-      JSONが書かれた外部のファイルを読み込み、JSON で書かれたデータを JavaScript から利用できるか調査した。
-      その結果、同一のドメインから iframe で読み取った場合に限り、
-      その DOM にアクセスできることがわかった。
-      それ以外の2つの方法で読み込んだ JSON にはアクセスできないこともわかった。
+      このページでは script 要素の src 属性、object 要素の data 属性、iframe
+      要素の src 属性により JSONが書かれた外部のファイルを読み込み、JSON
+      で書かれたデータを JavaScript から利用できるか調査した。
+      その結果、同一のドメインから iframe で読み取った場合に限り、 その DOM
+      にアクセスできることがわかった。 それ以外の2つの方法で読み込んだ JSON
+      にはアクセスできないこともわかった。
     </p>
     <script
       id="json1"
@@ -37,8 +38,12 @@
     ></object>
     <script>
       window.addEventListener("load", (event) => {
-        const iframe1 = document.querySelector("#iframe1").contentDocument.querySelector("body pre").innerHTML;
-        const iframe2 = document.querySelector("#iframe2").contentDocument.querySelector("body pre").innerHTML;
+        const iframe1 = document
+          .querySelector("#iframe1")
+          .contentDocument.querySelector("body pre").innerHTML;
+        const iframe2 = document
+          .querySelector("#iframe2")
+          .contentDocument.querySelector("body pre").innerHTML;
       });
     </script>
     <button onclick="location.reload()">Reload Page</button>
