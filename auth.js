@@ -48,7 +48,7 @@ async function signIn(method) {
     if (signInType === "popup") {
         return myMSALObj.loginPopup({
             ...loginRequest,
-            redirectUri: "/redirect"
+            redirectUri: "/redirect.html"
         }).then(handleResponse).catch(function (error) {
             console.log(error);
         });
@@ -72,7 +72,7 @@ function signOut(interactionType) {
 }
 
 async function getTokenPopup(request, account) {
-    request.redirectUri = "/redirect"
+    request.redirectUri = "/redirect.html"
     return await myMSALObj
         .acquireTokenSilent(request)
         .catch(async (error) => {
