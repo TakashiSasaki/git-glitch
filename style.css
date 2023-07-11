@@ -1,14 +1,13 @@
 #grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: #ffffcc; /* Add this line */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: 100pt;
+  position: relative;
+  background-color: #ffffcc;
 }
-
 
 .grid-cell {
   border: 1px solid black;
