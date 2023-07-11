@@ -1,34 +1,28 @@
-/*
-  This is your site JavaScript code - you can add interactivity!
-*/
+function createGrid(rows, cols) {
+    var gridContainer = document.getElementById('grid-container');
+    // Set the grid dimensions
+    gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    for (var i = 0; i < rows * cols; i++) {
+        var cell = document.createElement('div');
+        cell.className = 'grid-cell';
+        cell.addEventListener('click', function(event) {
+            // Handle the click event here
+            var x = event.clientX - event.target.offsetLeft; // x position within the element.
+            var y = event.clientY - event.target.offsetTop;  // y position within the element.
+            console.log('x:', x, 'y:', y);
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
-
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the steps in the TODO 🚧
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-if (btn) { // Detect clicks on the button
-  btn.onclick = function () {
-    // The 'dipped' class in style.css changes the appearance on click
-    btn.classList.toggle("dipped");
-  };
+            // Create a circle at the clicked position
+            var circle = document.createElement('div');
+            circle.className = 'circle';
+            circle.style.left = x + 'px';
+            circle.style.top = y + 'px';
+            event.target.appendChild(circle);
+        });
+        gridContainer.appendChild(cell);
+    }
 }
 
-
-// ----- GLITCH STARTER PROJECT HELPER CODE -----
-
-// Open file when the link in the preview is clicked
-let goto = (file, line) => {
-  window.parent.postMessage(
-    { type: "glitch/go-to-line", payload: { filePath: file, line: line } }, "*"
-  );
+window.onload = function() {
+    createGrid(5, 5); // Change these numbers to your desired grid size
 };
-// Get the file opening button from its class name
-const filer = document.querySelectorAll(".fileopener");
-filer.forEach((f) => {
-  f.onclick = () => { goto(f.dataset.file, f.dataset.line); };
-});
