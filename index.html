@@ -15,6 +15,57 @@
     </style>
   </head>
   <body>
+    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shadow -->
+      <ellipse
+        cx="100"
+        cy="160"
+        rx="70"
+        ry="20"
+        style="fill: rgba(0, 0, 0, 0.1)"
+      />
+      <!-- Bottom of the disk -->
+      <ellipse cx="100" cy="120" rx="80" ry="30" style="fill: darkgrey" />
+      <!-- Top of the disk -->
+      <ellipse cx="100" cy="100" rx="80" ry="30" style="fill: lightgrey" />
+
+      <!-- X-axis -->
+      <line
+        x1="100"
+        y1="100"
+        x2="180"
+        y2="100"
+        style="stroke: red; stroke-width: 2"
+      />
+      <!-- Y-axis -->
+      <line
+        x1="100"
+        y1="100"
+        x2="100"
+        y2="20"
+        style="stroke: green; stroke-width: 2"
+      />
+      <!-- Z-axis (end point adjusted to match the edge of the top disk) -->
+      <line
+        x1="100"
+        y1="100"
+        x2="60"
+        y2="130"
+        style="stroke: blue; stroke-width: 2"
+      />
+
+      <!-- Circle on XY plane (visible part) -->
+      <path
+        d="M 20 100 A 80 80 0 0 1 180 100"
+        style="fill: none; stroke: black; stroke-width: 2"
+      />
+      <!-- Circle on XY plane (hidden part) -->
+      <path
+        d="M 20 100 A 80 80 0 0 0 180 100"
+        style="fill: none; stroke: black; stroke-width: 2; stroke-dasharray: 4"
+      />
+    </svg>
+
     <section class="section">
       <div class="container">
         <div class="columns is-mobile">
