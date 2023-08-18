@@ -7,6 +7,6 @@
 
 
 /tmp/rdfa-streaming-parser.js/dist/out.js: /tmp/rdfa-streaming-parser.js/webpack.config.js
-	npx build
+	npx webpack
 
 
