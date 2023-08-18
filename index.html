@@ -1,8 +1,52 @@
 <html>
-<head>
-  <title>rdfa-streaming-parser</title>
-</head>
+  <head>
+    <title>rdfa-streaming-parser</title>
+    <style>
+      pre {
+        padding: 10px;
+        border: 2px solid #ccc;
+        background-color: #f9f9f9;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    </style>
+  </head>
   <body>
-    
+    <p>
+      This Glitch project provides the rdfa-streaming-parser.js, made accessible
+      for browsers through webpack.
+    </p>
+    <p>
+      <a href="//rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.js">rdfa-streaming-parser.js (webpack)</a>
+    </p>
+    <p>
+      The rdfa-streaming-parser.js was created by Ruben Taelman and is published
+      under the MIT License on GitHub.
+    </p>
+    <p>
+      <a href="https://github.com/rubensworks/rdfa-streaming-parser.js"
+        >https://github.com/rubensworks/rdfa-streaming-parser.js</a
+      >
+    </p>
+
+    <p>You can use it with the following code:</p>
+    <pre><code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.js"&gt;&lt;/script&gt;
+</code></pre>
+    <script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.js"></script>
+    <script>
+      const myParser = new RdfaParser({
+        baseIRI: "https://www.rubensworks.net/",
+        contentType: "text/html",
+      });
+
+      const myTextStream = fs.createReadStream("index.html");
+
+      myParser
+        .import(myTextStream)
+        .on("data", console.log)
+        .on("error", console.error)
+        .on("end", () => console.log("All triples were parsed!"));
+    </script>
   </body>
 </html>
