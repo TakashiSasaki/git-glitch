@@ -44,7 +44,8 @@
       const modules = import("./rdfa-streaming-parser.js");
       modules.then((x) => {
         console.log(x);
-        console.log(x.RdfaParser);
+        console.log(x.default);
+        console.log(Object.keys(x));
       });
     </script>
   </body>
