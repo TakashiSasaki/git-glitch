@@ -15838,5 +15838,7 @@ function isCharacterAllowedAfterRelativePathSegment(character) {
 
 },{}],72:[function(require,module,exports){
 const RdfaParser = require("./lib/RdfaParser.js").RdfaParser;
+window.RdfaParser = RdfaParser
+
 
 },{"./lib/RdfaParser.js":7}]},{},[72]);
