@@ -43,32 +43,43 @@
       const x = new RdfaParser();
       console.log(x);
     </script>
+    <h1>Sample code</h1>
+    <p>
+      This code is from README.md of
+      <a
+        href="https://github.com/rubensworks/rdfa-streaming-parser.js/blob/master/README.md"
+        >rdfa-streaming-parser.js</a
+      >
+    </p>
     <pre><code>
-      const myParser = new RdfaParser({
-        baseIRI: "https://www.rubensworks.net/",
-        contentType: "text/html",
-      });
+const myParser = new RdfaParser({
+  baseIRI: "https://www.rubensworks.net/",
+  contentType: "text/html",
+});
 
-      myParser
-        .on("data", console.log)
-        .on("error", console.error)
-        .on("end", () => console.log("All triples were parsed!"));
+myParser
+  .on("data", ()=>{
+    document.querySelector("textarea").
+  })
+  .on("error", console.error)
+  .on("end", () => console.log("All triples were parsed!"));
 
-      myParser.write('<?xml version="1.0"?>');
-      myParser.write(`<!DOCTYPE html>
+myParser.write('<?xml version="1.0"?>');
+myParser.write(`<!DOCTYPE html>
 <html>
 
 <head prefix="foaf: http://xmlns.com/foaf/0.1/">`);
-      myParser.write(
-        `<link rel="foaf:primaryTopic foaf:maker" href="https://www.rubensworks.net/#me" />`
-      );
-      myParser.write(`</head>`);
-      myParser.write(`<body>`);
-      myParser.write(`</body>`);
-      myParser.write(`</html>`);
-      myParser.end();    
+myParser.write(
+  `<link rel="foaf:primaryTopic foaf:maker" href="https://www.rubensworks.net/#me" />`
+);
+myParser.write(`</head>`);
+myParser.write(`<body>`);
+myParser.write(`</body>`);
+myParser.write(`</html>`);
+myParser.end();    
     </code>
     </pre>
+    <textarea></textarea>
     <script>
       const myParser = new RdfaParser({
         baseIRI: "https://www.rubensworks.net/",
