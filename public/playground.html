@@ -15,27 +15,42 @@
     <script type="module">
       const inputTextarea = document.querySelector("#inputTextarea");
       const outputDiv = document.querySelector("#outputDiv");
-      const parser = new MicrodataRdfParser();
-      parser.on("data", (x)=>{
-        const p = document.createElement("p");
-        p.innerText = JSON.stringify(x, null, 2);
-        outputDiv.appendChild(p);
-      });
-      parser.on("error", (x)=>{
-        const p = document.createElement("p");
-        p.innerText = JSON.stringify(x, null, 2);
-        outputDiv.appendChild(p);
-      });
-      parser.on("end", (x)=>{
-        p.innerText = JSON.stringify(x, null, 2);
-        outputDiv.appendChild(p);
-      })
 
-      inputTextarea.addEventListener("change", (changeEvent)=>{
+      inputTextarea.addEventListener("change", debounce(changeEvent) => {
         outputDiv.innerHTML = "";
         const p = document.createElement("p");
+        p.innerText = " ----------- ";
         outputDiv.appendChild(p);
+
+        const parser = new MicrodataRdfParser();
+        parser.on("data", (x) => {
+          const p = document.createElement("p");
+          p.innerText = JSON.stringify(x, null, 2);
+          outputDiv.appendChild(p);
+        });
+        parser.on("error", (x) => {
+          const p = document.createElement("p");
+          p.innerText = JSON.stringify(x, null, 2);
+          outputDiv.appendChild(p);
+        });
+        parser.on("end", (x) => {
+          p.innerText = JSON.stringify(x, null, 2);
+          outputDiv.appendChild(p);
+        });
+        parser.write(inputTextarea.value);
       });
+
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
     </script>
   </body>
 </html>
