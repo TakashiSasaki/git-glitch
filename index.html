@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>rdfa-streaming-parser</title>
+    <title>rdfa-streaming-parser.webpack.js</title>
     <style>
       pre {
         padding: 10px;
@@ -15,37 +15,38 @@
         height: 50em;
       }
     </style>
+    <script src="./rdfa-streaming-parser.webpack.js"></script>
   </head>
   <body>
-    <script src="./rdfa-streaming-parser.webpack.js"></script>
+    <h1>rdfa-streaming-parser.webpack.js</h1>
     <p>
-      This Glitch project provides the rdfa-streaming-parser.js, made accessible
-      for browsers through webpack.
-    </p>
-    <p>
-      <a href="//rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"
-        >rdfa-streaming-parser.js (webpack)</a
+      This page provides
+      <a href="./rdfa-streaming-parser.webpack.js"
+        >rdfa-streaming-parser.webpack.js</a
       >
-    </p>
-    <p>
-      The rdfa-streaming-parser.js was created by Ruben Taelman and is published
-      under the MIT License on GitHub.
-    </p>
-    <p>
+      which is a webpacked file of rdfa-streaming-parser.js. The
       <a href="https://github.com/rubensworks/rdfa-streaming-parser.js"
-        >https://github.com/rubensworks/rdfa-streaming-parser.js</a
+        >rdfa-streaming-parser.js</a
       >
+      is the great library written by
+      <a href="https://github.com/rubensworks/">Ruben Taelman</a> and is
+      published under the MIT License on GitHub.
     </p>
-<h1>
-  webpack.config.js
-    </h1>
+
+    <h1>webpack.config.js</h1>
+    <p>I changed original webpack.config.js as follows.</p>
     <script type="module">
       fetch("./upstream/webpack.config.js")
+        .then((response) => response.text())
+        .then(
+          (text) =>
+            (document.querySelector("#webpackConfigJsCode").innerText = text)
+        );
     </script>
     <pre><code id="webpackConfigJsCode"></code></pre>
     <h1>Usage</h1>
     <h2>In HTML document</h2>
-  <pre><code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"&gt;&lt;/script&gt;</code></pre>
+    <pre><code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"&gt;&lt;/script&gt;</code></pre>
     <h2>In JavaScript code</h2>
     <p>
       The original code is from README.md of
@@ -106,5 +107,9 @@
       becomes possible to effectively manage different datasets or views,
       security contexts, and more.
     </p>
+    <h1>
+      About me
+    </h1>
+    <a href="https://twitter.com/TakashiSasaki">Takashi SASAKI</a>
   </body>
 </html>
