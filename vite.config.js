@@ -19,6 +19,9 @@ export default defineConfig(async ({ command, mode }) => {
     build: {
       cssCodeSplit: false,
       outDir: "build",
+      rollupOptions: {
+        input: "index.original.html",
+      },
     },
     optimizeDeps: {
       exclude: ["./settings.json"],

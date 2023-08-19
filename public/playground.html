@@ -2,12 +2,17 @@
   <head>
     <title>microdata-rdf-streaming-parser playground</title>
     <script src="https://microdata-rdf-streaming-parser.glitch.me/microdata-rdf-streaming-parser.webpack.js"></script>
+    <style>
+      textarea {
+        width: 90%;
+        height: 10em;
+      }
+    </style>
   </head>
   <body>
     <textarea id="inputTextarea"></textarea>
     <div id="outputDiv"></div>
     <script type="module">
-      alert(123);
       const inputTextarea = document.querySelector("#inputTextarea");
       const outputDiv = document.querySelector("#outputDiv");
       const parser = new MicrodataRdfParser();
@@ -26,10 +31,9 @@
         outputDiv.appendChild(p);
       })
 
-      inputTextarea.addEventListener("chagne", (changeEvent)=>{
+      inputTextarea.addEventListener("change", (changeEvent)=>{
         outputDiv.innerHTML = "";
         const p = document.createElement("p");
-        p.innerText = "Cleared."
         outputDiv.appendChild(p);
       });
     </script>
