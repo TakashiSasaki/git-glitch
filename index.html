@@ -23,7 +23,7 @@
       for browsers through webpack.
     </p>
     <p>
-      <a href="//rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.wasm.js"
+      <a href="//rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"
         >rdfa-streaming-parser.js (webpack)</a
       >
     </p>
@@ -36,24 +36,75 @@
         >https://github.com/rubensworks/rdfa-streaming-parser.js</a
       >
     </p>
-
-    <p>You can use it with the following code:</p>
-    <pre>
-    <code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.js"&gt;&lt;/script&gt;
-</code>
-</pre>
-    <h1>Sample code</h1>
+<h1>
+  webpack.config.js
+    </h1>
+    <script type="module">
+      fetch("./upstream/webpack.config.js")
+    </script>
+    <pre><code id="webpackConfigJsCode"></code></pre>
+    <h1>Usage</h1>
+    <h2>In HTML document</h2>
+  <pre><code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"&gt;&lt;/script&gt;</code></pre>
+    <h2>In JavaScript code</h2>
     <p>
-      This code is from README.md of
+      The original code is from README.md of
       <a
         href="https://github.com/rubensworks/rdfa-streaming-parser.js/blob/master/README.md"
         >rdfa-streaming-parser.js</a
       >
     </p>
-    <pre><code>
+    <script type="module">
+      fetch("./index.js")
+        .then((response) => response.text())
+        .then((text) => {
+          document.querySelector("#indexJsCode").innerText = text;
+        });
+    </script>
+    <pre><code id="indexJsCode">
     </code>
     </pre>
+    <h2>Result</h2>
     <textarea readonly></textarea>
-    <script type="module" src="./index.js">    </script>
+    <script type="module" src="./index.js"></script>
+    <h1>Note</h1>
+    <p>
+      In the Resource Description Framework (RDF), a <strong>triple</strong> is
+      a basic data structure composed of three parts: Subject, Predicate, and
+      Object. It represents relationships between resources.
+    </p>
+
+    <p>
+      On the other hand, a <strong>quad</strong> is a data structure composed of
+      four parts, adding context or graph name to a triple. The components of a
+      quad are as follows:
+    </p>
+
+    <ol>
+      <li>
+        <strong>Subject</strong>: The resource that is the subject of the
+        relationship.
+      </li>
+      <li>
+        <strong>Predicate</strong>: The resource representing the relationship
+        between the subject and object.
+      </li>
+      <li>
+        <strong>Object</strong>: The resource that is the object of the
+        relationship.
+      </li>
+      <li>
+        <strong>Graph Name</strong> or <strong>Context</strong>: The identifier
+        of the RDF graph to which this triple belongs. This part allows for the
+        reuse of the same triple in different contexts or graphs.
+      </li>
+    </ol>
+
+    <p>
+      The introduction of quads makes the modeling of RDF data more flexible. By
+      explicitly specifying to which graph a particular triple belongs, it
+      becomes possible to effectively manage different datasets or views,
+      security contexts, and more.
+    </p>
   </body>
 </html>
