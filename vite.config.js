@@ -20,7 +20,7 @@ export default defineConfig(async ({ command, mode }) => {
       cssCodeSplit: false,
       outDir: "build",
       rollupOptions: {
-        input: "src/main.html", // Specify the entry point here
+        input: "index.original.html", // Specify the entry point here
       },
     },
     optimizeDeps: {
