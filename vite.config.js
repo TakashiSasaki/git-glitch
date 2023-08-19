@@ -6,13 +6,16 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "build",
+    rollupOptions: {
+      input: "src/main.html", // Path to your custom entry point
+    },
   },
   server: {
-    host:"0.0.0.0",
-    port:3000,
+    host: "0.0.0.0",
+    port: 3000,
     strictPort: true,
     hmr: {
-      clientPort: 443 // Run the websocket server on the SSL port
-    }
-  }
+      clientPort: 443, // Run the websocket server on the SSL port
+    },
+  },
 });

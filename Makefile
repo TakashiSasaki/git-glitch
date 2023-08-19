@@ -19,7 +19,7 @@ build:
 
 webpack: 
 	-mkdir /tmp/node_modules
-	-cd upsream; ln -s /tmp/node_modules 
+	-cd upstream; ln -s /tmp/node_modules 
 	cd upstream; npx webpack
 
 rdfa-streaming-parser.webpack.js: upstream/dist/rdfa-streaming-parser.webpack.js
