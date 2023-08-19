@@ -9,8 +9,8 @@ upstream:
 
 install: upstream
 	-mkdir /tmp/node_modules
-	-ln -sf /tmp/node_modules upstream/node_modules
-	cd upstream; npm install --force
+	-ln -s /tmp/node_modules 
+	cd upstream; npm install
 
 build: install
 	cd upstream; npm run build
@@ -20,3 +20,4 @@ webpack: build
 
 clean:
 	rm -rf upstream/
+	rm -rf /tmp/node_modules
