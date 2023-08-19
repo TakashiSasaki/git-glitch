@@ -30,6 +30,6 @@
     "url": "https://glitch.com/edit/#!/glitch-hello-react"
   },
   "glitch": {
-    "projectType": "generated_static"
+    "projectType": "static"
   }
 }

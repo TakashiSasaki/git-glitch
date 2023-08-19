@@ -10,7 +10,8 @@
       "^backend/"
     ],
     "exclude": [
-      "src/" 
+      "src/",
+      "index.html"
     ]
   },
   "noSavedEvents": true
