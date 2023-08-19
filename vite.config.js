@@ -9,27 +9,30 @@ export default defineConfig(async ({ command, mode }) => {
     plugins: [
       handlebars({
         partialDirectory: resolve(__dirname, "layout"),
-        settingsFile: 'settings.json',
+        settingsFile: "settings.json",
         helpers: {
-          hostasclass: value => new URL(value).hostname.replace(/\./g, "_")
+          hostasclass: (value) => new URL(value).hostname.replace(/\./g, "_"),
         },
-        reloadOnPartialChange: true
-      })
+        reloadOnPartialChange: true,
+      }),
     ],
     build: {
       cssCodeSplit: false,
-      outDir: "build"
+      outDir: "build",
+      rollupOptions: {
+        input: "src/main.html", // Specify the entry point here
+      },
     },
     optimizeDeps: {
-      exclude: ['./settings.json']
+      exclude: ["./settings.json"],
     },
     server: {
-      host:"0.0.0.0",
-      port:3000,
+      host: "0.0.0.0",
+      port: 3000,
       strictPort: true,
       hmr: {
-        clientPort: 443
-      }
-    }
+        clientPort: 443,
+      },
+    },
   };
 });
