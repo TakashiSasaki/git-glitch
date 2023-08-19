@@ -7,6 +7,12 @@
         width: 90%;
         height: 10em;
       }
+      div#outputDiv {
+        background-color: #ffeeff;
+        margin: 0px;
+        margin-top: 0.5em;
+        padding: 0.5em;
+      }
     </style>
   </head>
   <body>
@@ -16,29 +22,32 @@
       const inputTextarea = document.querySelector("#inputTextarea");
       const outputDiv = document.querySelector("#outputDiv");
 
-      inputTextarea.addEventListener("change", debounce(changeEvent) => {
-        outputDiv.innerHTML = "";
-        const p = document.createElement("p");
-        p.innerText = " ----------- ";
-        outputDiv.appendChild(p);
+      inputTextarea.addEventListener(
+        "input",
+        debounce((inputEvent) => {
+          outputDiv.innerHTML = "";
+          const p = document.createElement("p");
+          p.innerText = " ----------- ";
+          outputDiv.appendChild(p);
 
-        const parser = new MicrodataRdfParser();
-        parser.on("data", (x) => {
-          const p = document.createElement("p");
-          p.innerText = JSON.stringify(x, null, 2);
-          outputDiv.appendChild(p);
-        });
-        parser.on("error", (x) => {
-          const p = document.createElement("p");
-          p.innerText = JSON.stringify(x, null, 2);
-          outputDiv.appendChild(p);
-        });
-        parser.on("end", (x) => {
-          p.innerText = JSON.stringify(x, null, 2);
-          outputDiv.appendChild(p);
-        });
-        parser.write(inputTextarea.value);
-      });
+          const parser = new MicrodataRdfParser();
+          parser.on("data", (x) => {
+            const p = document.createElement("p");
+            p.innerText = JSON.stringify(x, null, 2);
+            outputDiv.appendChild(p);
+          });
+          parser.on("error", (x) => {
+            const p = document.createElement("p");
+            p.innerText = JSON.stringify(x, null, 2);
+            outputDiv.appendChild(p);
+          });
+          parser.on("end", (x) => {
+            p.innerText = JSON.stringify(x, null, 2);
+            outputDiv.appendChild(p);
+          });
+          parser.write(inputTextarea.value);
+        }, 500)
+      );
 
       function debounce(func, wait) {
         let timeout;
