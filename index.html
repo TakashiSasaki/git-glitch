@@ -13,8 +13,7 @@
     </style>
   </head>
   <body>
-    <script type="module">
-      console.log("abcd");
+    <script src="./rdfa-streaming-parser.webpack.js">
     </script>
     <p>
       This Glitch project provides the rdfa-streaming-parser.js, made accessible
@@ -41,13 +40,8 @@
 </code>
 </pre>
     <script type="module">
-      const modules = import("./rdfa-streaming-parser.webpack.js");
-      modules.then((x) => {
-        document.querySelector("#x").value = ;
-        console.log(x.default);
-        console.log(Object.keys(x));
-      });
+      console.log(RdfaParser);
+      const x = RdfaParser();
     </script>
-    <input id="x">
   </body>
 </html>
