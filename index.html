@@ -21,7 +21,7 @@
       for browsers through webpack.
     </p>
     <p>
-      <a href="//rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.js"
+      <a href="//rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.wasm.js"
         >rdfa-streaming-parser.js (webpack)</a
       >
     </p>
@@ -41,7 +41,7 @@
 </code>
 </pre>
     <script type="module">
-      const modules = import("./rdfa-streaming-parser.js");
+      const modules = import("./rdfa-streaming-parser.wasm.js");
       modules.then((x) => {
         console.log(x);
         console.log(x.default);
