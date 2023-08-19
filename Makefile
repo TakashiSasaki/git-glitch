@@ -8,7 +8,9 @@ upstream:
 	-ln -sf /tmp/node_modules upstream/node_modules
 
 install: upstream
-	cd upstream; npm install
+	-mkdir /tmp/node_modules
+	-ln -sf /tmp/node_modules upstream/node_modules
+	cd upstream; npm install --force
 
 build: install
 	cd upstream; npm run build
