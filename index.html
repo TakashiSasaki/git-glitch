@@ -33,17 +33,6 @@
       published under the MIT License on GitHub.
     </p>
 
-    <h1>webpack.config.js</h1>
-    <p>I changed original webpack.config.js as follows.</p>
-    <script type="module">
-      fetch("./upstream/webpack.config.js")
-        .then((response) => response.text())
-        .then(
-          (text) =>
-            (document.querySelector("#webpackConfigJsCode").innerText = text)
-        );
-    </script>
-    <pre><code id="webpackConfigJsCode"></code></pre>
     <h1>Usage</h1>
     <h2>In HTML document</h2>
     <pre><code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"&gt;&lt;/script&gt;</code></pre>
@@ -68,6 +57,19 @@
     <h2>Result</h2>
     <textarea readonly></textarea>
     <script type="module" src="./index.js"></script>
+
+    <h1>webpack.config.js</h1>
+    <p>I changed original webpack.config.js as follows.</p>
+    <script type="module">
+      fetch("./upstream/webpack.config.js")
+        .then((response) => response.text())
+        .then(
+          (text) =>
+            (document.querySelector("#webpackConfigJsCode").innerText = text)
+        );
+    </script>
+    <pre><code id="webpackConfigJsCode"></code></pre>
+
     <h1>Note</h1>
     <p>
       In the Resource Description Framework (RDF), a <strong>triple</strong> is
