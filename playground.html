@@ -7,22 +7,30 @@
     <textarea id="inputTextarea"></textarea>
     <div id="outputDiv"></div>
     <script type="module">
+      alert(123);
       const inputTextarea = document.querySelector("#inputTextarea");
       const outputDiv = document.querySelector("#outputDiv");
       const parser = new MicrodataRdfParser();
       parser.on("data", (x)=>{
-        const p = document.create("p");
+        const p = document.createElement("p");
         p.innerText = JSON.stringify(x, null, 2);
         outputDiv.appendChild(p);
       });
       parser.on("error", (x)=>{
-        const p = document.create("p");
+        const p = document.createElement("p");
         p.innerText = JSON.stringify(x, null, 2);
         outputDiv.appendChild(p);
       });
+      parser.on("end", (x)=>{
+        p.innerText = JSON.stringify(x, null, 2);
+        outputDiv.appendChild(p);
+      })
 
-      inputTextarea.addEventListener("chagne", (inputEvent)=>{
+      inputTextarea.addEventListener("chagne", (changeEvent)=>{
         outputDiv.innerHTML = "";
+        const p = document.createElement("p");
+        p.innerText = "Cleared."
+        outputDiv.appendChild(p);
       });
     </script>
   </body>
