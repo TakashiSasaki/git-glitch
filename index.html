@@ -10,6 +10,10 @@
         white-space: pre-wrap;
         word-wrap: break-word;
       }
+      textarea {
+        width: 99%;
+        height: 50em;
+      }
     </style>
   </head>
   <body>
@@ -38,11 +42,6 @@
     <code>&lt;script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.js"&gt;&lt;/script&gt;
 </code>
 </pre>
-    <script type="module">
-      console.log(RdfaParser);
-      const x = new RdfaParser();
-      console.log(x);
-    </script>
     <h1>Sample code</h1>
     <p>
       This code is from README.md of
@@ -54,7 +53,7 @@
     <pre><code>
     </code>
     </pre>
-    <textarea></textarea>
-    <script src="./index.js">    </script>
+    <textarea readonly></textarea>
+    <script type="module" src="./index.js">    </script>
   </body>
 </html>

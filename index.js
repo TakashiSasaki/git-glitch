@@ -3,12 +3,12 @@ const myParser = new RdfaParser({
   contentType: "text/html",
 });
 
-var log = document.querySelector("textarea").value;
+var textarea = document.querySelector("textarea");
 
 myParser
-  .on("data", (x) => (log += x))
-  .on("error", (x) => (log += x))
-  .on("end", () => (log += "All triples were parsed!"));
+  .on("data", (x) => (textarea.value += JSON.stringify(x, null, 2) + "\n"))
+  .on("error", (x) => (textarea.value += JSON.stringify(x, null, 2) + "\n"))
+  .on("end", () => (textarea.value += "All triples were parsed!"));
 
 myParser.write('<?xml version="1.0"?>');
 myParser.write(`<!DOCTYPE html>
