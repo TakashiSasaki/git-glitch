@@ -31,6 +31,8 @@
       }
       label input,
       select {
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
         margin-left: 0.5em;
         width: 99.99%;
       }
@@ -43,7 +45,7 @@
     <section id="inputSection">
       <h1>input</h1>
       <div>
-        <label>URL<input id="urlInput" /></label>
+        <label>Any URL👉<input id="urlInput" placeholder="type any URL" /></label>
       </div>
       <script type="module">
         const urlInput = document.getElementById("urlInput");
@@ -64,9 +66,9 @@
       </script>
       <div>
         <label
-          >example
+          >example URLs👉
           <select>
-            <option value=""></option>
+            <option value="">or choose example URL</option>
             <option value="./example1.html">example1.html</option>
             <option value="./example2.html">example2.html</option>
             <option value="./example3.html">example3.html</option>
@@ -81,7 +83,11 @@
           urlInput.dispatchEvent(new Event("change"));
         });
       </script>
-      <textarea id="inputTextarea" placeholder="HTML code with microdata here."></textarea>
+      <label for="inputTextarea">Read content👇</label>
+      <textarea
+        id="inputTextarea"
+        placeholder="HTML code with microdata here."
+      ></textarea>
       <script type="module">
         const inputTextarea = document.querySelector("#inputTextarea");
         const outputDiv = document.querySelector("#outputDiv");
@@ -90,9 +96,7 @@
           "input",
           debounce((inputEvent) => {
             outputDiv.innerHTML = "";
-            const p = document.createElement("p");
-            p.innerText = " ----------- ";
-            outputDiv.appendChild(p);
+            addResult(inputEvent);
 
             const parser = new MicrodataRdfParser();
             parser.on("data", (x) => {
@@ -113,6 +117,15 @@
           }, 500)
         );
 
+        function addResult(o){
+const outputDiv = document.querySelector("#outputDiv");
+          const pre = document.createElement("pre");
+          const code = document.createElement("code");
+          pre.appendChild(code);
+          code.innerText = JSON.stringify(o, null, 2);
+          
+        }//addResult
+        
         function debounce(func, wait) {
           let timeout;
           return function executedFunction(...args) {
