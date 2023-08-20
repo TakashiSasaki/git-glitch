@@ -1,0 +1,12 @@
+section#parsedSection {
+  background-color: #fdddfd;
+}
+
+pre {
+  border: 1px solid;
+  padding: 0.1em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}

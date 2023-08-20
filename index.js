@@ -1,4 +1,4 @@
-const parsedSection = document.getElementById("parsedSection");
+const parsedDiv = document.getElementById("parsedDiv");
 
 function parse() {
   const parser = new RdfaParser();
@@ -11,7 +11,7 @@ function addQuad(o) {
   const code = document.createElement("code");
   pre.appendChild(code);
   code.innerText = JSON.stringify(o, null, 2);
-  parsedSection.appendChild(pre);
+  parsedDiv.appendChild(pre);
 } //addQuad()
 
 window.addEventListener("load", parse);
