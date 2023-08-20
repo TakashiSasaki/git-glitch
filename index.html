@@ -1,8 +1,47 @@
-<html>
+<!DOCTYPE html>
+<html
+  lang="en"
+  prefix="ts: https://purl.org/ts/# rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# xsd: http://www.w3.org/2001/XMLSchema# owl: http://www.w3.org/2002/07/owl#"
+>
   <head>
-    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocabulary Definitions</title>
+    <base href="https://purl.org/ts/" />
+    <link rel="canonical" href="https://purl.org/ts/" />
   </head>
   <body>
-    <section id="randAlpha8"></section>
+    <h1>Vocabulary Definitions</h1>
+
+    <!-- RDFa Explanation -->
+    <p>
+      This document is encoded using
+      <a href="https://www.w3.org/TR/rdfa-primer/" target="_blank">RDFa</a>, a
+      W3C standard for embedding RDF information in HTML. It allows both
+      human-readable presentation and machine-readable metadata. RDFa-enabled
+      parsers can extract semantic information from this document.
+    </p>
+
+    <section
+      id="randAlpha8"
+      about="ts:randAlpha8"
+      typeof="rdf:Property owl:DatatypeProperty"
+    >
+      <h2 property="rdfs:label">randAlpha8</h2>
+      <p property="rdfs:comment">
+        Represents a string of 8 uppercase alphabetic characters generated based
+        on cryptographically secure random numbers.
+      </p>
+      <p>
+        <strong>Range:</strong>
+        <span property="rdfs:range" resource="ts:RandAlpha8String"
+          >RandAlpha8String</span
+        >
+        (a datatype with pattern restriction
+        <code property="xsd:pattern">^[A-Z]{8}$</code>)
+      </p>
+    </section>
+
+    <!-- Additional vocabulary definitions can be added in separate section elements -->
   </body>
 </html>
