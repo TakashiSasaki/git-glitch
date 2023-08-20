@@ -26,12 +26,10 @@
         padding-left: 0.5em;
         font-size: 1.5em;
       }
-      label {
-        display: flex;
-      }
       label input[type=""],
-      input[type="text"],
-      select {
+      label input[type="text"],
+      label select {
+        display: flex;
         margin-top: 0.2em;
         margin-bottom: 0.2em;
         margin-left: 0.5em;
@@ -41,6 +39,16 @@
         background-color: #deffff;
         border-top: 1px solid #888888;
       }
+      #outputDiv, #ourputDiv2 {
+        display:none;
+      }
+      #microdataRadioInput:checked ~ #outputDiv {
+        display:block;
+      }
+      #rdfaRadioRadioInput:checked ~ #outputDiv2 {
+        display: block;
+      }
+      
     </style>
   </head>
   <body>
@@ -134,9 +142,12 @@
 
     <section id="outputSection">
       <h1>output</h1>
-      <label>as microdata<input type="radio" name="parser" /></label>
-      <input type="radio" name="parser" />
+      <div>
+        <label><input id="microdataRadioInput" type="radio" name="parser" />as Microdata</label>
+        <label><input id="rdfaRadioInput" type="radio" name="parser" />as RDFa</label>
+      </div>
       <div id="outputDiv"></div>
+      <div id="outputDiv2"></div>
     </section>
     <footer>
       <h1>about this code and me</h1>
