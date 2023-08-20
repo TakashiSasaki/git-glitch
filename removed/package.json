@@ -29,6 +29,6 @@
     "url": "https://glitch.com/edit/#!/glitch-hello-react"
   },
   "glitch": {
-    "projectType": "static"
+    "projectType": "generated_static"
   }
 }
