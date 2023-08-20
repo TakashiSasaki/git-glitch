@@ -17,13 +17,30 @@
   </head>
   <body>
     <select>
-      <script type="module">
-      </script>
       <option value=""></option>
-      <option value="example1.html">example1.html</option>
-      <option value="example2.html">example2.html</option>
-      <option value="example3.html">example3.html</option>
+      <option value="./example1.html">example1.html</option>
+      <option value="./example2.html">example2.html</option>
+      <option value="./example3.html">example3.html</option>
     </select>
+    <script type="module">
+      const select = document.querySelector("select");
+      select.addEventListener("change", (changeEvent)=>{
+        const value = changeEvent.target.value;
+        const inputTextarea = document.querySelector("#inputTextarea");
+        fetch(value).then(response=>response.text())
+        .then(text=>{
+          inputTextarea.value = text;
+          inputTextarea.dispatchEvent(new Event("input"), {
+            bubbles: true, cancellable: true
+          });
+          var inputEvent = new Event('input', {
+  'bubbles': true,
+  'cancelable': true
+});
+textarea.dispatchEvent(inputEvent);
+        });
+      });  
+    </script>
 
     <textarea id="inputTextarea"></textarea>
     <div id="outputDiv"></div>
