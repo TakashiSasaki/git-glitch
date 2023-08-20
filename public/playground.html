@@ -5,7 +5,7 @@
     <script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"></script>
     <style>
       textarea {
-        width: 99.99%;
+        width: 99%;
         height: 10em;
       }
       #inputSection {
@@ -27,14 +27,18 @@
         padding-left: 0.5em;
         font-size: 1.5em;
       }
-      label input[type=""],
-      label input[type="text"],
-      label select {
+      label:not([for]) {
+        display: flex;
+      }
+      label:not([for]) input:not([type]),
+      label:not([for]) input[type=""],
+      label:not([for]) input[type="text"],
+      label:not([for]) select {
         display: flex;
         margin-top: 0.2em;
         margin-bottom: 0.2em;
         margin-left: 0.5em;
-        width: 99.99%;
+        width: 99%;
       }
       footer {
         background-color: #deffff;
@@ -89,8 +93,11 @@
           <select>
             <option value="">or choose example URL</option>
             <option value="./microdata-example1.html">microdata-example1.html</option>
-            <option value="./example2.html">example2.html</option>
-            <option value="./example3.html">example3.html</option>
+            <option value="./microdata-example2.html">microdata-example2.html</option>
+            <option value="./microdata-example3.html">microdata-example3.html</option>
+            <option value="./rdfa-example1.html">microdata-example1.html</option>
+            <option value="./rdfa-example2.html">microdata-example2.html</option>
+            <option value="./rdfa-example3.html">microdata-example3.html</option>
           </select></label
         >
       </div>
