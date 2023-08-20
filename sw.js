@@ -7,9 +7,10 @@ self.addEventListener("install", (e) => {
         "/",
         "/index.html",
         "/index.js",
+        "/index.css",
         "/manifest.json",
         "https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js",
-        "https://cdn.glitch.global/24ccdc30-220b-4578-a211-8cf3f3e1bcff/favicon.png?v=1692564673448"
+        "https://cdn.glitch.global/24ccdc30-220b-4578-a211-8cf3f3e1bcff/favicon.png?v=1692564673448",
       ];
       return Promise.all(
         requests.map((url) =>
