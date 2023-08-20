@@ -49,6 +49,12 @@
       #rdfaRadioInput:checked ~ #outputDiv2 {
         display: block;
       }
+      pre {
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        padding-left: 0.2em;
+        border: 1px solid #666666;
+      }
     </style>
   </head>
   <body>
@@ -122,9 +128,11 @@
           const pre = document.createElement("pre");
           const code = document.createElement("code");
           pre.appendChild(code);
-          pre.sytle.border="solid";
           code.innerText = JSON.stringify(o, null, 2);
           outputDiv.appendChild(pre);
+          if(o instanceof Event){
+            pre.style.borderStyle = "dotted";
+          }
         } //addResult
 
         function debounce(func, wait) {
