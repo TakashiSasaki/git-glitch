@@ -1,11 +1,10 @@
-const CACHE_NAME = "20230820T2130";
+const CACHE_NAME = "20230820T2133";
 
 self.addEventListener("install", (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       const requests = [
         "/",
-        "/sw.js",
         "/index.html",
         "/manifest.json",
         "/microdata-rdf-streaming-parser.webpack.js",
@@ -17,9 +16,11 @@ self.addEventListener("install", (e) => {
       ];
       return Promise.all(
         requests.map((url) =>
-          fetch(url, { mode: "no-cors" }).then((response) =>
-            cache.put(url, response)
-          )
+          fetch(url, { mode: "no-cors" })
+            .then((response) =>
+              cache.put(url, response).catch((e) => console.log(e))
+            )
+            .catch((e) => console.log(e))
         ) //map
       ); //all
     }) //then
@@ -32,9 +33,14 @@ self.addEventListener("fetch", function (event) {
       .then(function (response) {
         // レスポンスをクローンしてキャッシュに保存
         const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then(function (cache) {
-          cache.put(event.request, responseToCache);
-        });
+        caches
+          .open(CACHE_NAME)
+          .then(function (cache) {
+            cache
+              .put(event.request, responseToCache)
+              .catch((e) => console.log(e));
+          })
+          .catch((e) => console.log(e));
 
         // オリジナルのレスポンスを返す
         return response;
