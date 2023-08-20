@@ -1,0 +1,17 @@
+{
+  "name": "purl-ts-terms",
+  "short_name": "purl-ts-terms",
+  "description": "purl-ts-terms",
+  "icons": [
+    {
+      "sizes": "120x120",
+      "type": "image/png",
+      "src": "https://cdn.glitch.global/6b24e0e1-6ff5-4d1f-b67a-033177bd884c/favicon.png?v=1692522089636",
+      "purpose": "any"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#D7F5EF",
+  "theme_color": "#9480FF",
+  "start_url": "/"
+}

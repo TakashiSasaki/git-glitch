@@ -9,6 +9,13 @@
     <title>Vocabulary Definitions</title>
     <base href="https://purl.org/ts/" />
     <link rel="canonical" href="https://purl.org/ts/" />
+    <script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"></script>
+    <script type="module">
+      navigator.serviceWorker.register(
+        "https://purl-ts-terms.glitch.me/sw.js",
+        { scope: "https://purl-ts-terms.glitch.me/" }
+      );
+    </script>
   </head>
   <body>
     <h1>Vocabulary Definitions</h1>
