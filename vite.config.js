@@ -6,6 +6,7 @@ import handlebars from "@glitchdotcom/vite-plugin-handlebars";
 // https://vitejs.dev/config/
 export default defineConfig(async ({ command, mode }) => {
   return {
+    base: "/",
     plugins: [
       handlebars({
         partialDirectory: resolve(__dirname, "layout"),
