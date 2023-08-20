@@ -2,6 +2,7 @@
   <head>
     <title>microdata-rdf-streaming-parser playground</title>
     <script src="https://microdata-rdf-streaming-parser.glitch.me/microdata-rdf-streaming-parser.webpack.js"></script>
+    <script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"></script>
     <style>
       textarea {
         width: 99.99%;
@@ -87,7 +88,7 @@
           >example URLs👉
           <select>
             <option value="">or choose example URL</option>
-            <option value="./example1.html">example1.html</option>
+            <option value="./microdata-example1.html">microdata-example1.html</option>
             <option value="./example2.html">example2.html</option>
             <option value="./example3.html">example3.html</option>
           </select></label
@@ -108,11 +109,10 @@
       ></textarea>
       <script type="module">
         const inputTextarea = document.querySelector("#inputTextarea");
-
         inputTextarea.addEventListener(
           "input",
           debounce((inputEvent) => {
-            outputDiv.innerHTML = "";
+            document.getElementById("outputDiv").innerHTML = "";
             addResult(inputEvent);
 
             const parser = new MicrodataRdfParser();
@@ -130,23 +130,41 @@
           pre.appendChild(code);
           code.innerText = JSON.stringify(o, null, 2);
           outputDiv.appendChild(pre);
-          if(o instanceof Event){
+          if (o instanceof Event) {
             pre.style.borderStyle = "dotted";
           }
         } //addResult
-
-        function debounce(func, wait) {
-          let timeout;
-          return function executedFunction(...args) {
-            const later = () => {
-              clearTimeout(timeout);
-              func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-          };
-        }
       </script>
+      <script type="module">
+        const inputTextarea = document.querySelector("#inputTextarea");
+
+        inputTextarea.addEventListener(
+          "input",
+          debounce((inputEvent) => {
+            document.getElementById("outputDiv2").innerHTML = "";
+            addResult(inputEvent);
+
+            const parser = new RdfaParser();
+            parser.on("data", (x) => addResult(x));
+            parser.on("error", (x) => addResult(x));
+            parser.on("end", (x) => addResult(x));
+            parser.write(inputTextarea.value);
+          }, 500)
+        );
+
+        function addResult(o) {
+          const outputDiv2 = document.getElementById("outputDiv2");
+          const pre = document.createElement("pre");
+          const code = document.createElement("code");
+          pre.appendChild(code);
+          code.innerText = JSON.stringify(o, null, 2);
+          outputDiv2.appendChild(pre);
+          if (o instanceof Event) {
+            pre.style.borderStyle = "dotted";
+          }
+        } //addResult
+      </script>
+      <script src="./debounce.js"></script>
     </section>
 
     <section id="outputSection">
