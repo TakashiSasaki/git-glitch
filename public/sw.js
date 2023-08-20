@@ -5,13 +5,16 @@ self.addEventListener("install", (e) => {
     caches.open(CACHE_NAME).then((cache) => {
       const requests = [
         "/",
+        "/sw.js",
         "/index.html",
+        "/manifest.json",
+        "/microdata-rdf-streaming-parser.webpack.js",
         "https://microdata-rdf-streaming-parser.glitch.me/microdata-rdf-streaming-parser.webpack.js",
         "https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js",
         "https://cdn.glitch.global/a43cd5ca-78f3-480e-98d1-3ff0012d2783/favicon.png",
         "https://cdn.glitch.global/6b24e0e1-6ff5-4d1f-b67a-033177bd884c/favicon.png",
+        "https://platform.twitter.com/js/button.e7f9415a2e000feaab02c86dd5802747.js",
       ];
-
       return Promise.all(
         requests.map((url) =>
           fetch(url, { mode: "no-cors" }).then((response) =>

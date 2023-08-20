@@ -1,4 +1,4 @@
-const inputText =  `<html>
+const inputText = `<html>
 <head></head>
 <body>
     <span id="b">Name: <span itemprop="prop2">b</span></span>
