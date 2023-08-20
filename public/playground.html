@@ -4,7 +4,7 @@
     <script src="https://microdata-rdf-streaming-parser.glitch.me/microdata-rdf-streaming-parser.webpack.js"></script>
     <style>
       textarea {
-        width: 90%;
+        width: 99.99%;
         height: 10em;
       }
       #inputSection {
@@ -18,20 +18,24 @@
         padding: 1px;
       }
       body {
-        margin:0px;
-        padding:0px;
-      }
-      h1{
         margin: 0px;
-        padding-left:0.5em;
+        padding: 0px;
+      }
+      h1 {
+        margin: 0px;
+        padding-left: 0.5em;
         font-size: 1.5em;
       }
-      label{
+      label {
         display: flex;
       }
-      label input {
-        margin-left:0.5em;
-        width: 100%;
+      label input,
+      select {
+        margin-left: 0.5em;
+        width: 99.99%;
+      }
+      footer {
+        background-color: #deffff;
       }
     </style>
   </head>
@@ -77,8 +81,7 @@
           urlInput.dispatchEvent(new Event("change"));
         });
       </script>
-
-      <textarea id="inputTextarea"></textarea>
+      <textarea id="inputTextarea" placeholder="HTML code with microdata here."></textarea>
       <script type="module">
         const inputTextarea = document.querySelector("#inputTextarea");
         const outputDiv = document.querySelector("#outputDiv");
@@ -127,5 +130,11 @@
       <h1>output</h1>
       <div id="outputDiv"></div>
     </section>
+    <footer>
+      <a href="https://glitch.com/edit/#!/microdata-rdf-streaming-parser"
+        >Code in Glitch</a
+      >
+      <a href="https://twitter.com/TakashiSasaki">Takashi Sasaki</a>
+    </footer>
   </body>
 </html>
