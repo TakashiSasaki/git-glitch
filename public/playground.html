@@ -7,101 +7,125 @@
         width: 90%;
         height: 10em;
       }
-      div#outputDiv {
+      #inputSection {
+        background-color: #eefeef;
+        margin: 0px;
+        padding: 1px;
+      }
+      #outputSection {
         background-color: #ffeeff;
         margin: 0px;
-        margin-top: 0.5em;
-        padding: 0.5em;
+        padding: 1px;
+      }
+      body {
+        margin:0px;
+        padding:0px;
+      }
+      h1{
+        margin: 0px;
+        padding-left:0.5em;
+        font-size: 1.5em;
+      }
+      label{
+        display: flex;
+      }
+      label input {
+        margin-left:0.5em;
+        width: 100%;
       }
     </style>
   </head>
   <body>
-    <h1>input</h1>
-    <div>
-      <label>URL<input id="urlInput" /></label>
-    </div>
-    <script type="module">
-      const urlInput = document.getElementById("urlInput");
-      urlInput.addEventListener("change", (changeEvent) => {
-        const value = changeEvent.target.value;
-        const inputTextarea = document.querySelector("#inputTextarea");
-        urlInput.value = value;
-        fetch(value)
-          .then((response) => response.text())
-          .then((text) => {
-            inputTextarea.value = text;
-            inputTextarea.dispatchEvent(new Event("input"), {
-              bubbles: true,
-              cancellable: true,
+    <section id="inputSection">
+      <h1>input</h1>
+      <div>
+        <label>URL<input id="urlInput" /></label>
+      </div>
+      <script type="module">
+        const urlInput = document.getElementById("urlInput");
+        urlInput.addEventListener("change", (changeEvent) => {
+          const value = changeEvent.target.value;
+          const inputTextarea = document.querySelector("#inputTextarea");
+          urlInput.value = value;
+          fetch(value)
+            .then((response) => response.text())
+            .then((text) => {
+              inputTextarea.value = text;
+              inputTextarea.dispatchEvent(new Event("input"), {
+                bubbles: true,
+                cancellable: true,
+              });
             });
-          });
-      });
-    </script>
-    <div>
-      <label
-        >example
-        <select>
-          <option value=""></option>
-          <option value="./example1.html">example1.html</option>
-          <option value="./example2.html">example2.html</option>
-          <option value="./example3.html">example3.html</option>
-        </select></label
-      >
-    </div>
-    <script type="module">
-      const select = document.querySelector("select");
-      select.addEventListener("change", (changeEvent) => {
-        const urlInput = document.querySelector("#urlInput");
-        urlInput.value = changeEvent.target.value;
-        urlInput.dispatchEvent(new Event("change"));
-      });
-    </script>
+        });
+      </script>
+      <div>
+        <label
+          >example
+          <select>
+            <option value=""></option>
+            <option value="./example1.html">example1.html</option>
+            <option value="./example2.html">example2.html</option>
+            <option value="./example3.html">example3.html</option>
+          </select></label
+        >
+      </div>
+      <script type="module">
+        const select = document.querySelector("select");
+        select.addEventListener("change", (changeEvent) => {
+          const urlInput = document.querySelector("#urlInput");
+          urlInput.value = changeEvent.target.value;
+          urlInput.dispatchEvent(new Event("change"));
+        });
+      </script>
 
-    <textarea id="inputTextarea"></textarea>
-    <script type="module">
-      const inputTextarea = document.querySelector("#inputTextarea");
-      const outputDiv = document.querySelector("#outputDiv");
+      <textarea id="inputTextarea"></textarea>
+      <script type="module">
+        const inputTextarea = document.querySelector("#inputTextarea");
+        const outputDiv = document.querySelector("#outputDiv");
 
-      inputTextarea.addEventListener(
-        "input",
-        debounce((inputEvent) => {
-          outputDiv.innerHTML = "";
-          const p = document.createElement("p");
-          p.innerText = " ----------- ";
-          outputDiv.appendChild(p);
-
-          const parser = new MicrodataRdfParser();
-          parser.on("data", (x) => {
+        inputTextarea.addEventListener(
+          "input",
+          debounce((inputEvent) => {
+            outputDiv.innerHTML = "";
             const p = document.createElement("p");
-            p.innerText = JSON.stringify(x, null, 2);
+            p.innerText = " ----------- ";
             outputDiv.appendChild(p);
-          });
-          parser.on("error", (x) => {
-            const p = document.createElement("p");
-            p.innerText = JSON.stringify(x, null, 2);
-            outputDiv.appendChild(p);
-          });
-          parser.on("end", (x) => {
-            p.innerText = JSON.stringify(x, null, 2);
-            outputDiv.appendChild(p);
-          });
-          parser.write(inputTextarea.value);
-        }, 500)
-      );
 
-      function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-          const later = () => {
+            const parser = new MicrodataRdfParser();
+            parser.on("data", (x) => {
+              const p = document.createElement("p");
+              p.innerText = JSON.stringify(x, null, 2);
+              outputDiv.appendChild(p);
+            });
+            parser.on("error", (x) => {
+              const p = document.createElement("p");
+              p.innerText = JSON.stringify(x, null, 2);
+              outputDiv.appendChild(p);
+            });
+            parser.on("end", (x) => {
+              p.innerText = JSON.stringify(x, null, 2);
+              outputDiv.appendChild(p);
+            });
+            parser.write(inputTextarea.value);
+          }, 500)
+        );
+
+        function debounce(func, wait) {
+          let timeout;
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout);
+              func(...args);
+            };
             clearTimeout(timeout);
-            func(...args);
+            timeout = setTimeout(later, wait);
           };
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-        };
-      }
-    </script>
-    <h1>output</h1>
-    <div id="outputDiv"></div>
+        }
+      </script>
+    </section>
+    <section id="outputSection">
+      <h1>output</h1>
+      <div id="outputDiv"></div>
+    </section>
   </body>
 </html>
