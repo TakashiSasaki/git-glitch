@@ -6,9 +6,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "build",
-    rollupOptions: {
-      input: "src/main.html", // Path to your custom entry point
-    },
   },
   server: {
     host: "0.0.0.0",
