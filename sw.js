@@ -27,25 +27,38 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("fetch", function (event) {
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { mode: "cors" })
       .then(function (response) {
         // レスポンスをクローンしてキャッシュに保存
         const responseToCache = response.clone();
-        caches
-          .open(CACHE_NAME)
-          .then(function (cache) {
-            cache
-              .put(event.request, responseToCache)
-              .catch((e) => console.log(e));
-          })
-          .catch((e) => console.log(e));
+        caches.open(CACHE_NAME).then(function (cache) {
+          cache
+            .put(event.request, responseToCache)
+            .catch((e) => console.log(e));
+        });
 
         // オリジナルのレスポンスを返す
         return response;
       })
       .catch(function () {
-        // フェッチに失敗した場合、キャッシュからレスポンスを返す
-        return caches.match(event.request);
+        // no-cors フェッチに失敗した場合、cors モードで再試行
+        return fetch(event.request, { mode: "no-cors" })
+          .then(function (response) {
+            // 成功した場合、レスポンスをクローンしてキャッシュに保存
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then(function (cache) {
+              cache
+                .put(event.request, responseToCache)
+                .catch((e) => console.log(e));
+            });
+
+            // オリジナルのレスポンスを返す
+            return response;
+          })
+          .catch(function () {
+            // cors フェッチも失敗した場合、キャッシュからレスポンスを返す
+            return caches.match(event.request);
+          });
       })
   );
 });
