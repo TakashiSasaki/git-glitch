@@ -58,6 +58,21 @@
         <code property="xsd:pattern">^[A-Z]{8}$</code>)
       </p>
     </section>
+    <section
+      about="https://purl.org/ts/terms/#designativeKeyword"
+      typeof="rdf:Property rdfs:DatatypeProperty"
+    >
+      <h2 property="rdfs:label">designativeKeyword</h2>
+      <p property="rdfs:comment">
+        This property represents a keyword that directly designates a specific
+        subject. Designative keywords are used to emphasize the essential
+        identity of the subject, independent of its attributes or
+        characteristics. This concept is contrasted with descriptive keywords,
+        and specifies the particular designative keyword for a resource.
+      </p>
+      <link rel="rdfs:subPropertyOf" href="http://purl.org/dc/terms/subject" />
+      <link rel="rdfs:range" href="xsd:string" />
+    </section>
     <section id="parsedSection">
       <h1>Parsed result of this document as RDFa</h1>
       <div id="parsedDiv"></div>
