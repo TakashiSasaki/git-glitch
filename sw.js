@@ -25,28 +25,23 @@ self.addEventListener("install", (e) => {
   ); //waitUtil
 }); //addEventListener
 
-self.addEventListener("fetch", function (event) {
-  event.respondWith(
-    fetch(event.request, { mode: event.request.mode })
-      .then(function (response) {
-        // レスポンスをクローンしてキャッシュに保存
+self.addEventListener("fetch", (fetchEvent) =>
+  fetchEvent.respondWith(
+    fetch(fetchEvent.request, { mode: fetchEvent.request.mode })
+      .then((response) => {
         const responseToCache = response.clone();
-        return caches.open(CACHE_NAME).then(function (cache) {
-          return cache
-            .put(event.request, responseToCache)
-            .then(() => response) // オリジナルのレスポンスを返す
-            .catch((e) => {
-              console.log(e);
-              return response; // エラーが発生してもオリジナルのレスポンスを返す
-            });
-        });
-      })
-      .catch(function (ex) {
-        console.log(ex);
-        // fetchが失敗した場合、キャッシュからレスポンスを返す
-        return caches.match(event.request).then(response=> 
-          return response || new Response("キャッシュが見つかりません")
+        return caches.open(CACHE_NAME).then((cache) =>
+          cache
+            .put(fetchEvent.request, responseToCache)
+            .then(() => response)
+            .catch(() => response)
         );
       })
-  ); //respondWith
-});
+      .catch((ex) => {
+        return caches
+          .match(fetchEvent.request)
+          .then((response) => response)
+          .catch(() => reponse);
+      })
+  )
+); //addEventListener
