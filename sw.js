@@ -27,38 +27,26 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("fetch", function (event) {
   event.respondWith(
-    fetch(event.request, { mode: "cors" })
+    fetch(event.request, { mode: event.request.mode })
       .then(function (response) {
         // レスポンスをクローンしてキャッシュに保存
         const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then(function (cache) {
-          cache
+        return caches.open(CACHE_NAME).then(function (cache) {
+          return cache
             .put(event.request, responseToCache)
-            .catch((e) => console.log(e));
-        });
-
-        // オリジナルのレスポンスを返す
-        return response;
-      })
-      .catch(function () {
-        // no-cors フェッチに失敗した場合、cors モードで再試行
-        return fetch(event.request, { mode: "no-cors" })
-          .then(function (response) {
-            // 成功した場合、レスポンスをクローンしてキャッシュに保存
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME).then(function (cache) {
-              cache
-                .put(event.request, responseToCache)
-                .catch((e) => console.log(e));
+            .then(() => response) // オリジナルのレスポンスを返す
+            .catch((e) => {
+              console.log(e);
+              return response; // エラーが発生してもオリジナルのレスポンスを返す
             });
-
-            // オリジナルのレスポンスを返す
-            return response;
-          })
-          .catch(function () {
-            // cors フェッチも失敗した場合、キャッシュからレスポンスを返す
-            return caches.match(event.request);
-          });
+        });
       })
-  );
+      .catch(function (ex) {
+        console.log(ex);
+        // fetchが失敗した場合、キャッシュからレスポンスを返す
+        return caches.match(event.request).then(response=> 
+          return response || new Response("キャッシュが見つかりません")
+        );
+      })
+  ); //respondWith
 });
