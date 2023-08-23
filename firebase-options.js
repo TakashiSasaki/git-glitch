@@ -8,6 +8,12 @@ class FirebaseOptionsElement extends LitElement {
   static properties = {
     firebaseOptions: { type: Object },
   };
+  
+  set firebaseOptions(newValue){
+    console.log(newValue);
+    this.firebaseOptions = newValue;
+    this.requestUpdate();
+  }
 
   static get styles() {
     return css`
@@ -21,35 +27,37 @@ class FirebaseOptionsElement extends LitElement {
   } //styles()
 
   get apiKey() {
-    return firebaseOptions.apiKey;
+    console.log(this.firebaseOptions);
+    console.log(this.firebaseOptions.apiKey);
+    return this.firebaseOptions.apiKey;
   }
 
   get appId() {
-    return firebaseOptions.appId;
+    return this.firebaseOptions.appId;
   }
 
   get authDomain() {
-    return firebaseOptions.authDomain;
+    return this.firebaseOptions.authDomain;
   }
 
   get databaseURL() {
-    return firebaseOptions.databaseURL;
+    return this.firebaseOptions.databaseURL;
   }
 
   get measurementId() {
-    return firebaseOptions.measurementId;
+    return this.firebaseOptions.measurementId;
   }
 
   get messagingSenderId() {
-    return firebaseOptions.messagingSenderId;
+    return this.firebaseOptions.messagingSenderId;
   }
 
   get projectId() {
-    return firebaseOptions.projectId;
+    return this.firebaseOptions.projectId;
   }
 
   get storageBucket() {
-    return firebaseOptions.storageBucket;
+    return this.firebaseOptions.storageBucket;
   }
 
   render() {
@@ -68,5 +76,5 @@ class FirebaseOptionsElement extends LitElement {
   } //render()
 } //LitElement
 
-customElements.define( "firebase-options", FirebaseOptionsElement);
-export FirebaseOptionsElement;
+customElements.define("firebase-options", FirebaseOptionsElement);
+export default FirebaseOptionsElement;
