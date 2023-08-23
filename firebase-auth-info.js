@@ -15,8 +15,40 @@ customElements.define(
         }
       `;
     }
+
+    get app() {
+      return firebase.auth().app;
+    }
     
-    get app() {return firebase.auth().app
+    get appName(){
+      return this.app().name;
+    }
+    
+    get config(){
+      return firebase.auth().cofnig;
+    }
+    
+    get currentUser(){
+      return firebase.auth().currentUser;
+    }
+    
+    
+    get languageCode(){
+      return firebase.auth().languageCode;
+    }
+    
+    get name(){
+      return firebase.auth().name;
+    }
+    
+    get settings(){
+      return firebase.auth().settings;
+    }
+    
+    get tenantId(){
+      return firebase.auth().tenantId;
+    }
+    
     
 
     connectedCallback() {

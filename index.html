@@ -25,8 +25,8 @@
             console.log(authResult, redirectUrl);
             return false;
           },
-          uiShown: () =>
-            (document.getElementById("loader").style.display = "none"),
+          /*uiShown: () =>
+            (document.getElementById("loader").style.display = "none"),*/
           signInFailure: (error) => console.log(error),
         },
         signInFlow: "popup",
@@ -37,7 +37,7 @@
             forceSameDevice: false,
           },
         ],
-        singInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
+        signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
         tosUrl: "",
         privacyPolicyUrl: "",
       });
