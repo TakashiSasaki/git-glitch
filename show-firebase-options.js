@@ -4,8 +4,10 @@ customElements.define(
   "show-firebase-options",
 
   class extends LitElement {
-    constructor() {
+    constructor(firebaseOptions) {
+      console.log(firebaseOptions);
       super();
+      this.firebaseOptions = firebaseOptions;
     } //constructor
 
     static get styles() {
@@ -20,31 +22,31 @@ customElements.define(
     } //styles()
 
     get apiKey(){
-      return firebase.auth().apiKey;
+      return firebaseOptions.apiKey;
     }
     
     get appId(){
-      return firebase.auth().appId;
+      return firebaseOptions.appId;
     }
     
     get authDomain(){
-      return firebase.auth().authDomain;
+      return firebaseOptions.authDomain;
     }
     
     get databaseURL(){
-      return firebase.auth().databaseURL;
+      return firebaseOptions.databaseURL;
     }
     
     get measurementId(){
-      return firebase.auth().measurementId;
+      return firebaseOptions.measurementId;
     }
     
     get messagingSenderId(){
-      return firebase.auth().messagingSenderId;
+      return firebaseOptions.messagingSenderId;
     }
     
     get projectId(){
-      return firebase.auth().projectId;
+      return firebaseOptions.projectId;
     }
     
     get storageBucket(){
@@ -52,18 +54,17 @@ customElements.define(
     }
     
     render() {
-      return html```
-<div>
+      return html`<div>
   <label>apiKey<input value="${this.apiKey}"</label>
   <label>appId<input value="${this.appId}"></label>
   <label>authDomain<input value="${this.authDomain}"></label>
-  <label>databaseURL<input value=${this.databaseURL}"></label>
-  <label>measurementId<input value=${this.measurementId}"></label>
-  <label>messagingSenderId<input value=${this.messagingSenderId}"></label>
-  <label>projectId<input value=${this.projectId}"></label>
-  <label>storageBucket<input value=${this.storageBucket}"></label>
+  <label>databaseURL<input value="${this.databaseURL}"></label>
+  <label>measurementId<input value="${this.measurementId}"></label>
+  <label>messagingSenderId<input value="${this.messagingSenderId}"></label>
+  <label>projectId<input value="${this.projectId}"></label>
+  <label>storageBucket<input value="${this.storageBucket}"></label>
 </div>
-```;
+`;
     } //render()
   } //LitElement
-);//customElement.define
+);//customElements.define
