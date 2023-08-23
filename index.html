@@ -16,7 +16,10 @@
   <body>
     <section>
       <script type="module">
-        const auth = firebase.auth().getAuth();
+        console.log(firebase.auth())
+        console.log(firebase.auth().app);
+        console.log(firebase.auth().config);
+        console.log(firebase.auth().)
         const user = auth.currentUser;
         console.log(auth);
       </script>
