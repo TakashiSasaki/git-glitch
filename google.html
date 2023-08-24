@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sample FirebaseUI App</title>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
+    <script type="module" src="./app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css"
+    />
+  </head>
+  <body>
+    <script type="module">
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      ui.start("#firebase-auth-container", {
+        signInOptions: [
+          {
+            provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            scopes: ["https://www.googleapis.com/auth/contacts.readonly"],
+          },
+        ],
+      });
+    </script>
+    <div id="firebaseui-auth-container"></div>
+    <script type="module" src="./firebase-user.js"></script>
+    <firebase-user autoRefresh></firebase-user>
+  </body>
+</html>

@@ -41,7 +41,6 @@ class FirebaseUserElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    console.log(this.autoRefresh);
     if (this.autoRefresh) {
       this.intervalId = setInterval(() => {
         this.firebaseUser = firebase.auth().currentUser;
@@ -56,7 +55,7 @@ class FirebaseUserElement extends LitElement {
 
   render() {
     return html`<fieldset>
-      <legend>firebase-user</legend>
+      <legend>firebase-user<span>${this.autoRefresh ? "auto refresh" : ""}</span></legend>
       <label
         >displayName <input value="${this.firebaseUser.displayName}" readonly
       /></label>
