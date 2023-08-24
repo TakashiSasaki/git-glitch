@@ -16,7 +16,11 @@
   <body>
     <section>
       <script type="module" src="./firebase-options.js"></script>
-      <firebase-options .firebaseOptions=${firebase.auth().app.options}></firebase-options>
+      <firebase-options></firebase-options>
+      <script type="module">
+        document.getElementsByTagName("firebase-options")[0].firebaseOptions =
+          firebase.auth().app.options;
+      </script>
     </section>
     <script type="module" defer>
       // Initialize the FirebaseUI Widget using Firebase.

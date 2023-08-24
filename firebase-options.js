@@ -8,11 +8,15 @@ class FirebaseOptionsElement extends LitElement {
   static properties = {
     firebaseOptions: { type: Object },
   };
-  
-  set firebaseOptions(newValue){
+
+  set firebaseOptions(newValue) {
     console.log(newValue);
-    this.firebaseOptions = newValue;
+    this._firebaseOptions = newValue;
     this.requestUpdate();
+  }
+
+  get firebaseOptions() {
+    return this._firebaseOptions;
   }
 
   static get styles() {
@@ -22,6 +26,10 @@ class FirebaseOptionsElement extends LitElement {
       }
       label {
         display: block;
+      }
+      input {
+        margin-left: 1em;
+        min-width: 35em;
       }
     `;
   } //styles()
@@ -62,16 +70,20 @@ class FirebaseOptionsElement extends LitElement {
 
   render() {
     return html`<div>
-      <label>apiKey<input value="${this.apiKey}"</label>
-      <label>appId<input value="${this.appId}" /></label>
-      <label>authDomain<input value="${this.authDomain}" /></label>
-      <label>databaseURL<input value="${this.databaseURL}" /></label>
-      <label>measurementId<input value="${this.measurementId}" /></label>
+      <label>apiKey<input value="${this.apiKey}" readonly /></label>
+      <label>appId<input value="${this.appId}" readonly /></label>
+      <label>authDomain<input value="${this.authDomain}" readonly /></label>
+      <label>databaseURL<input value="${this.databaseURL}" readonly /></label>
       <label
-        >messagingSenderId<input value="${this.messagingSenderId}"
+        >measurementId<input value="${this.measurementId}" readonly
       /></label>
-      <label>projectId<input value="${this.projectId}" /></label>
-      <label>storageBucket<input value="${this.storageBucket}" /></label>
+      <label
+        >messagingSenderId<input value="${this.messagingSenderId}" readonly
+      /></label>
+      <label>projectId<input value="${this.projectId}" readonly /></label>
+      <label
+        >storageBucket<input value="${this.storageBucket}" readoly
+      /></label>
     </div> `;
   } //render()
 } //LitElement
