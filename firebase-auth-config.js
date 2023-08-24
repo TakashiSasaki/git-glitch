@@ -42,7 +42,7 @@ customElements.define(
           <legend>
             <a
               href="https://firebase.google.com/docs/reference/js/v8/firebase.auth.Config"
-              >firebase.auth.Config</a
+              target="firebase.auth.Config">firebase.auth.Config</a
             >
           </legend>
           <label

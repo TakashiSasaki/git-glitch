@@ -38,26 +38,31 @@ customElements.define(
     } //styles
 
     initChildCustomElements() {
-      console.log("initChildCustomElements");
       this.firebaseAuth = firebase.auth();
-      if(!this.shadowRoot) throw new Error("Shadow root does not exist.");
       const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
       if (firebaseAppElement) {
         firebaseAppElement.firebaseApp = this.firebaseAuth.app;
       } //if
-      const firebaseAuthConfigElement = this.shadowRoot.querySelector(
-        "firebase-auth-config"
-      );
-      console.log(firebaseAuthConfigElement);
-      console.log(this.firebaseAuth.config);
-      if (firebaseAuthConfigElement) {
-        firebaseAuthConfigElement.firebaseAuthConfig = this.firebaseAuth.config;
+      try {
+        this.shadowRoot.querySelector(
+          "firebase-auth-config"
+        ).firebaseAuthConfig = this.firebaseAuth.config;
+      } catch (e) {
+        console.log(e);
+      }
+      try {
+        this.shadowRoot.querySelector("firebase-user").firebaseUser =
+          this.firebaseAuth.currentUser;
+      } catch (e) {
+        console.log(e);
       }
     } //u
 
     connectedCallback() {
       super.connectedCallback();
-      this.intervalId = setInterval(this.initChildCustomElements, 1000); // 1000ミリ秒ごとに更新
+      this.intervalId = setInterval(() => {
+        this.initChildCustomElements();
+      }, 10000); // 1000ミリ秒ごとに更新
     } //connectedCallback
 
     disconnectedCallback() {
@@ -72,7 +77,7 @@ customElements.define(
       <label>app<firebase-app></firebase-app></label>
       <label>config<firebase-auth-config
          ></firebase-auth-config></label>
-      <label>currentUser<firebase-user .firebaseUser=${this.firebaseAuth.currentUser}/></firebase-user></label>
+      <label>currentUser<firebase-user/></firebase-user></label>
       <label>emulatorConfig<input placeholder="N/A" readonly></label>
       <label>languageCode<input value="${this.firebaseAuth.languageCode}" redonly></label>
       <label>name<input value="${this.firebaseAuth.name} readonly"></label>
