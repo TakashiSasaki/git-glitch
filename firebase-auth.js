@@ -19,25 +19,28 @@ customElements.define(
     static properties = {
       firebaseAuth: { type: Object },
     };
-    
-    set firebaseAuth(newValue){
+
+    set firebaseAuth(newValue) {
       this._firebaseAuth = newValue;
       this.requestUpdate();
     }
-    
-    get fireabaseAuth(){
+
+    get fireabaseAuth() {
       return this._firebaseAuth;
     }
 
     static get styles() {
       return css`
-        :host div {
-          background-color: yellow;
+        fieldset {
+          background-color: #ffddff;
         }
+        label{display:block}
       `;
     }
 
     get app() {
+      if(this._firebaseAuth === undefined)
+        throw new Error("_firebaseAuth is not initialized");
       return this._firebaseAuth.app;
     }
 
@@ -73,7 +76,7 @@ customElements.define(
       return html`
       <fieldset>
       <legend>firebase.auth.Auth</legend>
-      <label>app<firebase-app .firebaseApp="${this.firebaseApp}"></firebase-app></label>
+      <label>app<firebase-app .firebaseApp="${this.app}"></firebase-app></label>
       <label>config<firebase-auth-config
          .firebaseAuthConfig="${this.config}"></firebase-auth-config></label>
       <label>currentUser<firebase-user .firebaseUser=${this.currentUser}/></firebase-user></label>
@@ -81,7 +84,7 @@ customElements.define(
       <label>languageCode<input value="${this.languageCode}"></label>
       <label>name<input value="${this.name}"></label>
       <label>appVerificationDisabledForTesting<input value="${this.appVerificationDisabledForTesting}"></label>
-      <label>tenantId<input value=${this.tenantId}</label>
+      <label>tenantId<input value=${this.tenantId}></label>
       </fieldset>
       `;
     }

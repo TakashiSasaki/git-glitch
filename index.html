@@ -16,18 +16,21 @@
   <body>
     <section>
       <script type="module" src="./firebase-auth.js"></script>
-      <script type="module" defer>
+      <script type="module">
+        console.log(1);
         firebase.auth().onAuthStateChanged(() => {
           console.log(firebase.auth());
           console.log(firebase.auth().app);
           console.log(firebase.auth().currentUser);
-          document.querySelector("firebase-auth").firebaseAuth =
-            firebase.auth();
+          setTimeout(() => {
+            document.querySelector("firebase-auth").firebaseAuth =
+              firebase.auth();
+          }, 5000);
         });
       </script>
       <firebase-auth></firebase-auth>
     </section>
-    <script type="module" defer>
+    <script type="module">
       // Initialize the FirebaseUI Widget using Firebase.
       var ui = new firebaseui.auth.AuthUI(firebase.auth());
       ui.start("#firebaseui-auth-container", {
