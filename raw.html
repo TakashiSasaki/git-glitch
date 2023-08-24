@@ -5,21 +5,31 @@
     <script type="module" src="./app.js"></script>
   </head>
   <body>
-    <label>email:<input id="email"></label><label>password:<input id="password"></label>
+    <label>email:<input id="email" /></label
+    ><label>password:<input id="password" /></label>
+    <button id="authButton">auth</button>
+
+    <script>
+      const dq = (x)=>document.querySelector(x);
+    </script>
     <script type="module">
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          // Signed in
-          var user = userCredential.user;
-          // ...
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ..
-        });
+      const email = dq("#email").value;
+      const password = dq("#password").value;
+      dq("#authButton").addEventListener("click", (clickEvent) => {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+          });
+      });
     </script>
     <firebase-user autoRefresh></firebase-user>
   </body>
