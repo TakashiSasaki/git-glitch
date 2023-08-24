@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
+import "./firebase-user-info.js";
 
 class FirebaseUserElement extends LitElement {
   constructor() {

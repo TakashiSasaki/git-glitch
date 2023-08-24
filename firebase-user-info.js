@@ -13,9 +13,27 @@ customElements.define(
     }; //properties
 
     static styles = css`
-      
+      legend {
+        margin: inherit;
+        margin-left: 0.5em;
+        font-size: 1.3em;
+        text-decoration: underline;
+      }
+
+      fieldset {
+        background-color: #dfdfff;
+      }
+      label {
+        display: block;
+      }
+      input {
+        margin-left: 1em;
+        min-width: 32em;
+      }
     `;
     
+    set firebaseUserInfo
+
     render() {
       return html`
         <fieldset>
@@ -37,3 +55,10 @@ customElements.define(
     }
   } //class LitElement
 );
+
+customElements.define("firebase-user-info-array", class extends LitElement{
+  
+  
+  render() {
+  }
+}
