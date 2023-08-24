@@ -12,6 +12,10 @@ customElements.define(
       userInfo: { type: Object },
     }; //properties
 
+    static styles = css`
+      
+    `;
+    
     render() {
       return html`
         <fieldset>
@@ -21,7 +25,12 @@ customElements.define(
               >firebase.UserInfo</a
             >
           </legend>
-          <label>
+          <label>displayName<input value="${this.displayName}" readonly/></label>
+          <label>email<input value="${this.email}" readonly/></label>
+          <label>phoneNumber<input value="${this.phoneNumber}" readonly/></label>
+          <label>photoURL<input value="${this.photoURL}" readonly/></label>
+          <label>providerId<input value="${this.providerId}" readonly/></label>
+          <label>uid<input value="${this.uid}" readonly/></label>
           </label>
         </fieldset>
       `;
