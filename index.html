@@ -17,18 +17,31 @@
     <section>
       <script type="module" src="./firebase-app.js"></script>
       <script type="module" defer>
-        console.log(firebase.auth().app);
-        document.querySelector("firebase-app").firebaseApp =
-          firebase.auth().app;
+        firebase.auth().onAuthStateChanged(() => {
+          console.log(firebase.auth());
+          console.log(firebase.auth().app);
+          document.querySelector("firebase-app").firebaseApp =
+            firebase.auth().app;
+        });
       </script>
       <firebase-app></firebase-app>
       <script type="module" src="./firebase-user.js"></script>
       <firebase-user></firebase-user>
       <script type="module" defer>
-        console.log(firebase.auth());
         firebase.auth().onAuthStateChanged(() => {
+          console.log(firebase.auth());
           document.querySelector("firebase-user").firebaseUser =
             firebase.auth().currentUser;
+        });
+      </script>
+      <script type="module" src="./firebase-multi-factor-info.js"></script>
+      <firebase-multi-factor-info></firebase-multi-factor-info>
+      <script type="module">
+        firebase.auth().onAuthStateChanged(() => {
+          console.log(firebase.auth());
+          console.log(firebase.auth().currentUser);
+          console.log(firebase.auth().currentUser.multiFactor);
+          console.log(firebase.auth().currentUser.multiFactor.enrolledFactors);
         });
       </script>
     </section>

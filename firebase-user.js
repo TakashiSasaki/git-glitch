@@ -41,59 +41,59 @@ class FirebaseUserElement extends LitElement {
 
   get displayName() {
     console.log(this.firebaseUser);
-    return this.firebaseUser.displayName;
+    return this._firebaseUser.displayName;
   }
 
   get email() {
-    return this.firebaseUser.email;
+    return this._firebaseUser.email;
   }
 
   get emailVerified() {
-    return this.firebaseUser.emailVerified;
+    return this._firebaseUser.emailVerified;
   }
 
   get isAnonymous() {
-    return this.firebaseUser.isAnonymous;
+    return this._firebaseUser.isAnonymous;
   }
 
   get creationTime() {
-    return this.firebaseUser.metadata.creationTime;
+    return this._firebaseUser.metadata.creationTime;
   }
 
   get lastSignInTime() {
-    return this.firebaseUser.metadata.lastSignInTime;
+    return this._firebaseUser.metadata.lastSignInTime;
   }
 
   get multiFactor() {
-    return this.firebaseUser.multiFactor;
+    return this._firebaseUser.multiFactor;
   }
 
   get phoneNumber() {
-    return this.firebaseUser.phoneNumber;
+    return this._firebaseUser.phoneNumber;
   }
 
   get photoURL() {
-    return this.firebaseUser.photoURL;
+    return this._firebaseUser.photoURL;
   }
 
   get providerData() {
-    return this.firebaseUser.providerData;
+    return this._firebaseUser.providerData;
   }
 
   get providerId() {
-    return this.firebaseUser.providerId;
+    return this._firebaseUser.providerId;
   }
 
   get refreshToken() {
-    return this.firebaseUser.refreshToken;
+    return this._firebaseUser.refreshToken;
   }
 
   get tenantId() {
-    return this.firebaseUser.tenantId;
+    return this._firebaseUser.tenantId;
   }
 
   get uid() {
-    return this.firebaseUser.uid;
+    return this._firebaseUser.uid;
   }
 
   updated(changedProperties) {

@@ -18,14 +18,32 @@ class FirebaseMultiFactorInfoElement extends LitElement {
       type: Object,
     },
   };
-  
-  get displayName(){
+
+  get displayName() {
     return this._multiFactorInfo.displayName;
   }
-  
-  get enrollmentTime(){
+
+  get enrollmentTime() {
     return this._multiFactorInfo.enrollmentTime;
   }
+  static get styles() {
+    return css`
+      fieldset {
+        background-color: #ffdffd;
+      }
+      legend {
+        font-size: 1.3em;
+        text-decoration: underline;
+      }
+      label {
+        display: block;
+      }
+      input {
+        margin-left: 1em;
+        min-width: 32em;
+      }
+    `;
+  } //styles()
 
   render() {
     return html`
