@@ -37,8 +37,7 @@ customElements.define(
       `;
     } //styles
 
-    u() {
-      this.firebaseAuth = firebase.auth();
+    initChildCustomElements() {
       const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
       if (firebaseAppElement) {
         firebaseAppElement.firebaseApp = this.firebaseAuth.app;
@@ -51,11 +50,13 @@ customElements.define(
       if (firebaseAuthConfigElement) {
         firebaseAuthConfigElement.firebaseAuthConfig = this.firebaseAuth.config;
       }
-    }
+    } //u
 
     connectedCallback() {
       super.connectedCallback();
-      this.intervalId = setInterval(u, 10000); // 1000ミリ秒ごとに更新
+      this.firebaseAuth = firebase.auth();
+      setTimeout(this.initChildCustomElements, 3000);
+      this.intervalId = setInterval(this.initChildCustomElements, 10000); // 1000ミリ秒ごとに更新
     } //connectedCallback
 
     disconnectedCallback() {
