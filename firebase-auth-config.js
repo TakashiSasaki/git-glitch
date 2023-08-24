@@ -23,14 +23,20 @@ customElements.define(
     get firebaseAuthConfig() {
       return this._firebaseAuthConfig;
     }
-    
-    static style = css`
-    fieldset{
-      background-color: #FFF4DB;
-    }
-    label{
-    display:block
-    }
+
+    static styles = css`
+      fieldset {
+        background-color: #fff4db;
+      }
+      label {
+        display: block;
+      }
+      label input {
+        min-width: 33em;
+      }
+      legend {
+        font-size: 1.3em;
+      }
     `;
 
     render() {
@@ -39,30 +45,31 @@ customElements.define(
           <legend>
             <a
               href="https://firebase.google.com/docs/reference/js/v8/firebase.auth.Config"
-              target="firebase.auth.Config">firebase.auth.Config</a
+              target="firebase.auth.Config"
+              >firebase.auth.Config</a
             >
           </legend>
           <label
-            >apiHost<input value="${this.firebaseAuthConfig.apiHost}" readonly
+            >apiHost:<input value="${this.firebaseAuthConfig.apiHost}" readonly
           /></label>
           <label
-            >apiKey <input value="${this.firebaseAuthConfig.apiKey}" readonly
+            >apiKey:<input value="${this.firebaseAuthConfig.apiKey}" readonly
           /></label>
           <label
-            >apiScheme
+            >apiScheme:
             <input value="${this.firebaseAuthConfig.apiScheme}" readonly
           /></label>
           <label
-            >authDomain<input
+            >authDomain:<input
               value="${this.firebaseAuthConfig.authDomain}"
               readonly
           /></label>
           <label
-            >sdkClientVersion
+            >sdkClientVersion:
             <input value="${this.firebaseAuthConfig.sdkClientVersion}" readonly
           /></label>
           <label
-            >tokenApiHost
+            >tokenApiHost:
             <input value="${this.firebaseAuthConfig.tokenApiHost}" readonly
           /></label>
         </fieldset>

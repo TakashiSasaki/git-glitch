@@ -78,7 +78,7 @@ class FirebaseUserElement extends LitElement {
         >lastSignInTime
         <input value="${this.firebaseUser.metadata.lastSignInTime}" readonly
       /></label>
-      <label> multiFactor </label>
+      <label> multiFactor <input value="N/A" readonly/></label>
       <label
         >phoneNumber <input value="${this.firebaseUser.phoneNumber}" readonly
       /></label>
@@ -86,7 +86,7 @@ class FirebaseUserElement extends LitElement {
         >photoURL <input value="${this.firebaseUser.photoURL}" readonly
       /></label>
       <label
-        >prividerData
+        >providerData:
         <div>
           ${this.firebaseUser.providerData.map(
             (item) => html`

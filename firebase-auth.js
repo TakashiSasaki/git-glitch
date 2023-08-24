@@ -47,6 +47,9 @@ customElements.define(
           display: block;
           margin-top: 0.2em;
         }
+        label input {
+          min-width: 33em;
+        }
       `;
     } //styles
 
@@ -68,7 +71,6 @@ customElements.define(
     render() {
       return html`
       <fieldset>
-      <div> ${this.autoRefresh}</div>
       <legend><a href="https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#config">firebase.auth.Auth</a></legend>
       <label>app<firebase-app .firebaseApp=${this.firebaseAuth.app}></firebase-app></label>
       <label>config<firebase-auth-config .firebaseAuthConfig=${this.firebaseAuthConfig}
@@ -81,7 +83,7 @@ customElements.define(
       <input value="${this.firebaseAuth.settings.appVerificationDisabledForTesting}" readonly/>
       </label>
       <label>tenantId<input value=${this.firebaseAuth.tenantId} readonly/></label>
-      <label>last updated time<input value=${this.lastUpdated}/></label>
+      <label>last updated time<input value=${this.lastUpdated} readonly/></label>
       </fieldset>
       `;
     } //render()

@@ -56,14 +56,14 @@ class FirebaseAppElement extends LitElement {
         /></label>
         <label>name<input value="${this.firebaseApp.name}" readonly /></label>
         <label
-          >last updated <input value="${this.lastUpdated}" readonly
-        /></label>
-        <label
           >options
           <firebase-options
             .firebaseOptions="${this.firebaseApp.options}"
           ></firebase-options
         ></label>
+        <label
+          >last updated <input value="${this.lastUpdated}" readonly
+        /></label>
       </fieldset>
     </div> `;
   } //render()
