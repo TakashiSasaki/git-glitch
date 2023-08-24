@@ -22,8 +22,9 @@ customElements.define(
 
     set firebaseAuth(newValue) {
       console.log(newValue);
+      const oldValue = this._firebaseAuth;
       this._firebaseAuth = newValue;
-      this.requestUpdate();
+      this.requestUpdate("firebaseAuth", oldValue);
     }
 
     get firebaseAuth() {
