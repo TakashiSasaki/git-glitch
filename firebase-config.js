@@ -84,7 +84,12 @@ class FirebaseConfigElement extends LitElement {
   render() {
     return html`
       <fieldset>
-        <legend>firebase-config</legend>
+        <legend>
+          <a
+            href="https://firebase.google.com/docs/reference/js/app.firebaseoptions?hl=en"
+            >FirebaseOptions</a
+          >
+        </legend>
         <label>apiKey<input value="${this.apiKey}" readonly /></label>
         <label>appId<input value="${this.appId}" readonly /></label>
         <label>authDomain<input value="${this.authDomain}" readonly /></label>
@@ -103,7 +108,7 @@ class FirebaseConfigElement extends LitElement {
           >last updated <input value="${this.lastUpdated}" readonly
         /></label>
       </fieldset>
-     `;
+    `;
   } //render()
 } //LitElement
 

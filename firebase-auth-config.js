@@ -28,7 +28,7 @@ customElements.define(
       super.connectedCallback();
       this.intervalId = setInterval(() => {
         this.requestUpdate();
-      }, 3000); // 1000ミリ秒ごとに更新
+      }, 3000); 
     } //connectedCallback
 
     disconnectedCallback() {

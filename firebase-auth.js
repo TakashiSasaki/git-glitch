@@ -29,11 +29,15 @@ customElements.define(
 
     static get styles() {
       return css`
+        legend {
+          font-size: 1.3em;
+        }
         fieldset {
           background-color: #dfffdf;
         }
         label {
           display: block;
+          margin-top: 0.2em;
         }
       `;
     } //styles
@@ -50,7 +54,7 @@ customElements.define(
           this.firebaseAuth.currentUser;
       } catch (e) {
         console.log(e);
-      }//try
+      } //try
     } //initChildCustomElements
 
     connectedCallback() {
@@ -73,15 +77,15 @@ customElements.define(
       <label>config<firebase-auth-config
          ></firebase-auth-config></label>
       <label>currentUser<firebase-user/></firebase-user></label>
-      <label>emulatorConfig<input placeholder="N/A" readonly></label>
-      <label>languageCode<input value="${this.firebaseAuth.languageCode}" redonly></label>
-      <label>name<input value="${this.firebaseAuth.name} readonly"></label>
+      <label>emulatorConfig<input placeholder="N/A" readonly/></label>
+      <label>languageCode<input value="${this.firebaseAuth.languageCode}" readonly/></label>
+      <label>name<input value="${this.firebaseAuth.name}" readonly></label>
       <label>appVerificationDisabledForTesting
-      <input value="${this.firebaseAuth.settings.appVerificationDisabledForTesting}" readonly>
+      <input value="${this.firebaseAuth.settings.appVerificationDisabledForTesting}" readonly/>
       </label>
-      <label>tenantId<input value=${this.firebaseAuth.tenantId} readonly></label>
+      <label>tenantId<input value=${this.firebaseAuth.tenantId} readonly/></label>
       </fieldset>
       `;
-    }
-  }
+    } //render()
+  } //class LitElement
 );
