@@ -24,6 +24,9 @@ customElements.define(
         firebaseAuth: {
           type: Object,
         },
+        autoRefresh: {
+          type: Boolean,
+        },
       };
     }
 
@@ -61,7 +64,7 @@ customElements.define(
       super.connectedCallback();
       this.intervalId = setInterval(() => {
         this.initChildCustomElements();
-      }, 10000);
+      }, 5000);
     } //connectedCallback
 
     disconnectedCallback() {

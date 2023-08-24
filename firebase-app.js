@@ -70,4 +70,3 @@ class FirebaseAppElement extends LitElement {
 } //class FirebaseAppElement
 
 customElements.define("firebase-app", FirebaseAppElement);
-export default FirebaseAppElement;

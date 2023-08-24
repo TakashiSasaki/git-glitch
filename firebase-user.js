@@ -68,8 +68,19 @@ class FirebaseUserElement extends LitElement {
       <label
         >photoURL <input value="${this.firebaseUser.photoURL}" readonly
       /></label>
-      <label>prividerData</label>
-      <label>providerId <input value="${this.firebaseUser.providerId}" readonly></label>
+      <label
+        >prividerData
+        <div>
+          ${this.firebaseUser.providerData.map(
+            (item) => html`
+          <firebase-user-info .firebaseUserInfo=${item}>
+          </firease-user-info>`
+          )}
+        </div></label
+      >
+      <label
+        >providerId <input value="${this.firebaseUser.providerId}" readonly
+      /></label>
       <label
         >refreshToken <input value="${this.firebaseUser.refreshToken}" readonly
       /></label>

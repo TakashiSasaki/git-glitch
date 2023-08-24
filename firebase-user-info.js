@@ -2,14 +2,13 @@ import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 
 customElements.define(
   "firebase-user-info",
-  "firebase-auth",
   class extends LitElement {
     constructor() {
       super();
     }
 
     static properties = {
-      userInfo: { type: Object },
+      firebaseUserInfo: { type: Object },
     }; //properties
 
     static styles = css`
@@ -31,14 +30,14 @@ customElements.define(
         min-width: 32em;
       }
     `;
-    
-    set userInfo(newValue){
-      this._userInfo = newValue;
+
+    set firebaseUserInfo(newValue) {
+      this._firebaseUserInfo = newValue;
       this.requestUpdate();
-    }//init
-    
-    get userInfo(){
-      return this._userInfo;
+    } //init
+
+    get firebaseUserInfo() {
+      return this._firebaseUserInfo;
     }
 
     render() {
@@ -50,16 +49,15 @@ customElements.define(
               >firebase.UserInfo</a
             >
           </legend>
-          <label>displayName<input value="${this.userInfo.displayName}" readonly/></label>
-          <label>email<input value="${this.userInfo.email}" readonly/></label>
-          <label>phoneNumber<input value="${this.userInfo.phoneNumber}" readonly/></label>
-          <label>photoURL<input value="${this.userInfo.photoURL}" readonly/></label>
-          <label>providerId<input value="${this.userInfo.providerId}" readonly/></label>
-          <label>uid<input value="${this.userInfo.uid}" readonly/></label>
+          <label>displayName<input value="${this.firebaseUserInfo.displayName}" readonly/></label>
+          <label>email<input value="${this.firebaseUserInfo.email}" readonly/></label>
+          <label>phoneNumber<input value="${this.firebaseUserInfo.phoneNumber}" readonly/></label>
+          <label>photoURL<input value="${this.firebaseUserInfo.photoURL}" readonly/></label>
+          <label>providerId<input value="${this.firebaseUserInfo.providerId}" readonly/></label>
+          <label>uid<input value="${this.firebaseUserInfo.uid}" readonly/></label>
           </label>
         </fieldset>
       `;
     }
   } //class LitElement
 );
-
