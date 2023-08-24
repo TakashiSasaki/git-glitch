@@ -28,7 +28,7 @@ customElements.define(
     static get styles() {
       return css`
         fieldset {
-          background-color: #ffddff;
+          background-color: #dfffdf;
         }
         label {
           display: block;
@@ -60,14 +60,14 @@ customElements.define(
       <label>app<firebase-app></firebase-app></label>
       <label>config<firebase-auth-config
          ></firebase-auth-config></label>
-      <label>currentUser<firebase-user/></firebase-user></label>
-      <label>emulatorConfig<input placeholder="N/A"></label>
-      <label>languageCode<input value="${this.firebaseAuth.languageCode}"></label>
-      <label>name<input value="${this.firebaseAuth.name}"></label>
+      <label>currentUser<firebase-user .firebaseUser=${this.firebaseAuth.currentUser}/></firebase-user></label>
+      <label>emulatorConfig<input placeholder="N/A" readonly></label>
+      <label>languageCode<input value="${this.firebaseAuth.languageCode}" redonly></label>
+      <label>name<input value="${this.firebaseAuth.name} readonly"></label>
       <label>appVerificationDisabledForTesting
-      <input value="${this.firebaseAuth.settings.appVerificationDisabledForTesting}">
+      <input value="${this.firebaseAuth.settings.appVerificationDisabledForTesting}" readonly>
       </label>
-      <label>tenantId<input value=${this.firebaseAuth.tenantId}></label>
+      <label>tenantId<input value=${this.firebaseAuth.tenantId} readonly></label>
       </fieldset>
       `;
     }

@@ -19,31 +19,10 @@ class FirebaseAppElement extends LitElement {
     firebaseApp: { type: Object },
   };
 
-  set firebaseApp(newValue) {
-    this._firebaseApp = newValue;
-    this.requestUpdate();
-  }
-
-  get firebaseApp() {
-    return this._firebaseApp;
-  }
-
-  get name() {
-    return this._firebaseApp.name;
-  }
-
-  get automaticDataCollectionEnabled() {
-    if (this._firebaseApp === undefined) {
-      throw new Error("_firebaseApp is not initialized.");
-    } else {
-      return this._firebaseApp.automaticDataCollectionEnabled;
-    }
-  }
-
   get options() {
     return this._firebaseApp.options;
   }
-  
+
   static get styles() {
     return css`
       :host > div {
@@ -71,15 +50,17 @@ class FirebaseAppElement extends LitElement {
         <legend>firebase-app</legend>
         <label
           >automaticDataCollectionEnabled<input
-            value="${this.automaticDataCollectionEnabled}"
+            value="${this.firebaseApp.automaticDataCollectionEnabled}"
             readonly
         /></label>
-        <label>name<input value="${this.name}" readonly /></label>
+        <label>name<input value="${this.firebaseApp.name}" readonly /></label>
         <label
           >last updated <input value="${this.lastUpdated}" readonly
         /></label>
-
-        <firebase-config .firebaseConfig="${this.options}"></firebase-config>
+        <label>options
+        <firebase-config
+          .firebaseConfig="${this.firebaseApp.options}"
+        ></firebase-config></label>
       </fieldset>
     </div> `;
   } //render()
