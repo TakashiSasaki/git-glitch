@@ -61,6 +61,18 @@ customElements.define(
       } //try
     } //initChildCustomElements
 
+    attributeChangedCallback(name, oldValue, newValue) {
+      super.attributeChangedCallback(name, oldValue, newValue);
+      if (name === "auto-refresh") {
+        if (this.autoRefresh) {
+          clearInterval(this.intervalId);
+          this.intervalId = setInterval(() => {
+            this.initChildCustomElements();
+          }, 5000);
+        }
+      } //if
+    } //attributeChangedCallback
+
     connectedCallback() {
       super.connectedCallback();
       console.log(this.autoRefresh);
