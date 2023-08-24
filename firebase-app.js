@@ -21,6 +21,7 @@ class FirebaseAppElement extends LitElement {
   set firebaseApp(newValue) {
     console.log(newValue);
     this._firebaseApp = newValue;
+    console.log(this._firebaseApp.options);
     this.requestUpdate();
   }
 
