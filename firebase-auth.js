@@ -28,20 +28,18 @@ customElements.define(
         },
       };
     }
-    
-    get root() {
-      return this.shadowRoot || this;
-    }
-    
+
     set firebaseAuth(newValue) {
-      console.log(newValue);
       this._firebaseAuth = newValue;
-      console.log(this.root);
-      this.root.querySelector("firebase-app").firebaseApp = newValue.app;
+      const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
+      if (firebaseAppElement) {
+        firebaseAppElement.firebaseApp = newValue.app;
+      }
       this.requestUpdate();
     }
 
     get firebaseAuth() {
+      if (!this._firebaseAuth) throw Error("firebaseAuth is not set.");
       return this._firebaseAuth;
     }
 
