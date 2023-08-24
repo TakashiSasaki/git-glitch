@@ -15,10 +15,10 @@
   </head>
   <body>
     <section>
-      <script type="module" src="./firebase-options.js"></script>
-      <firebase-options></firebase-options>
+      <script type="module" src="./firebase-config.js"></script>
+      <firebase-config></firebase-config>
       <script type="module">
-        document.getElementsByTagName("firebase-options")[0].firebaseOptions =
+        document.getElementsByTagName("firebase-config")[0].firebaseConfig =
           firebase.auth().app.options;
       </script>
     </section>

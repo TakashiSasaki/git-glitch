@@ -1,22 +1,22 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 
-class FirebaseOptionsElement extends LitElement {
+class FirebaseConfigElement extends LitElement {
   constructor() {
     super();
   } //constructor
 
   static properties = {
-    firebaseOptions: { type: Object },
+    firebaseConfig: { type: Object },
   };
 
-  set firebaseOptions(newValue) {
+  set firebaseConfig(newValue) {
     console.log(newValue);
-    this._firebaseOptions = newValue;
+    this._firebaseConfig = newValue;
     this.requestUpdate();
   }
 
-  get firebaseOptions() {
-    return this._firebaseOptions;
+  get firebaseConfig() {
+    return this._firebaseConfig;
   }
 
   static get styles() {
@@ -29,43 +29,41 @@ class FirebaseOptionsElement extends LitElement {
       }
       input {
         margin-left: 1em;
-        min-width: 35em;
+        min-width: 32em;
       }
     `;
   } //styles()
 
   get apiKey() {
-    console.log(this.firebaseOptions);
-    console.log(this.firebaseOptions.apiKey);
-    return this.firebaseOptions.apiKey;
+    return this.firebaseConfig.apiKey;
   }
 
   get appId() {
-    return this.firebaseOptions.appId;
+    return this.firebaseConfig.appId;
   }
 
   get authDomain() {
-    return this.firebaseOptions.authDomain;
+    return this.firebaseConfig.authDomain;
   }
 
   get databaseURL() {
-    return this.firebaseOptions.databaseURL;
+    return this.firebaseConfig.databaseURL;
   }
 
   get measurementId() {
-    return this.firebaseOptions.measurementId;
+    return this.firebaseConfig.measurementId;
   }
 
   get messagingSenderId() {
-    return this.firebaseOptions.messagingSenderId;
+    return this.firebaseConfig.messagingSenderId;
   }
 
   get projectId() {
-    return this.firebaseOptions.projectId;
+    return this.firebaseConfig.projectId;
   }
 
   get storageBucket() {
-    return this.firebaseOptions.storageBucket;
+    return this.firebaseConfig.storageBucket;
   }
 
   render() {
@@ -88,5 +86,5 @@ class FirebaseOptionsElement extends LitElement {
   } //render()
 } //LitElement
 
-customElements.define("firebase-options", FirebaseOptionsElement);
-export default FirebaseOptionsElement;
+customElements.define("firebase-config", FirebaseConfigElement);
+export default FirebaseConfigElement;
