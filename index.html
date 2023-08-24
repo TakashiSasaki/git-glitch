@@ -16,12 +16,12 @@
   <body>
     <section>
       <script type="module" src="./firebase-app.js"></script>
-      <firebase-app></firebase-app>
-      <script type="module">
+      <script type="module" defer>
         console.log(firebase.auth().app);
         document.querySelector("firebase-app").firebaseApp =
           firebase.auth().app;
       </script>
+      <firebase-app></firebase-app>
     </section>
     <script type="module" defer>
       // Initialize the FirebaseUI Widget using Firebase.
