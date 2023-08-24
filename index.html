@@ -24,8 +24,9 @@
           setTimeout(() => {
             console.log(firebase.auth());
             console.log(firebase.auth().app);
-            document.querySelector("firebase-auth").firebaseAuth =
-              firebase.auth();
+            const auth = firebase.auth();
+            console.log(auth);
+            document.querySelector("firebase-auth").firebaseAuth = auth;
           }, 100);
         });
       </script>
