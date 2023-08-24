@@ -10,7 +10,7 @@ class FirebaseUserElement extends LitElement {
     firebaseUser: { type: Object },
   };
 
-  set firebaseConfig(newValue) {
+  set firebaseUser(newValue) {
     console.log(newValue);
     this._firebaseUser = newValue;
     this.requestUpdate();
@@ -37,6 +37,7 @@ class FirebaseUserElement extends LitElement {
   } //styles()
 
   get displayName() {
+    console.log(this.firebaseUser);
     return this.firebaseUser.displayName;
   }
 
@@ -131,5 +132,5 @@ class FirebaseUserElement extends LitElement {
   } //render()
 } //LitElement
 
-customElements.define("firebase-config", FirebaseConfigElement);
-export default FirebaseConfigElement;
+customElements.define("firebase-user", FirebaseUserElement);
+export default FirebaseUserElement;
