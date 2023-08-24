@@ -22,6 +22,12 @@
           firebase.auth().app;
       </script>
       <firebase-app></firebase-app>
+      <script type="module" src="./firebase-user.js"></script>
+      <script type="module" defer>{
+          document.querySelector("firebase-user").firebaseUser
+          =firebase.auth().currentUser
+        }
+      <firebase-user></firebase-user>
     </section>
     <script type="module" defer>
       // Initialize the FirebaseUI Widget using Firebase.

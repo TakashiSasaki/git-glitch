@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
-import  FirebaseConfigElement from "./firebase-config.js";
+import FirebaseConfigElement from "./firebase-config.js";
 
 class FirebaseAppElement extends LitElement {
   constructor() {
@@ -26,17 +26,16 @@ class FirebaseAppElement extends LitElement {
   get firebaseApp() {
     return this._firebaseApp;
   }
-  
-  get name(){
+
+  get name() {
     return this._firebaseApp.name;
   }
-  
-  get automaticDataCollectionEnabled(){
+
+  get automaticDataCollectionEnabled() {
     return this._firebaseApp.automaticDataCollectionEnabled;
   }
-  
-  
-  get options(){
+
+  get options() {
     return this._firebaseApp.options;
   }
 
@@ -65,8 +64,14 @@ class FirebaseAppElement extends LitElement {
 
   render() {
     return html`<div>
-      <label>automaticDataCollectionEnabled<input value="${this.automaticDataCollectionEnabled}" readonly /></label>
-      <label>name<input value="${this.name}" readonly/></label>
+      <label
+        >automaticDataCollectionEnabled<input
+          value="${this.automaticDataCollectionEnabled}"
+          readonly
+      /></label>
+      <label>name<input value="${this.name}" readonly /></label>
+      <label>last updated <input value="${this.lastUpdated}" readonly /></label>
+
       <firebase-config .firebaseConfig="${this.options}"></firebase-config>
     </div> `;
   } //render()
