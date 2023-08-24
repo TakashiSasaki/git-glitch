@@ -45,6 +45,10 @@ class FirebaseAppElement extends LitElement {
         background-color: #eeffff;
         border: 1px dotted gray;
       }
+      h1 {
+       font-size: 1.3em;
+       text-decoration: underline;
+      }
       label {
         display: block;
       }
@@ -52,18 +56,12 @@ class FirebaseAppElement extends LitElement {
         margin-left: 1em;
         min-width: 32em;
       }
-      firebase-config {
-        max-width: 90%;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-        margin-left: 0.5em;
-        margin-right: 0.5em;
-      }
     `;
   } //styles()
 
   render() {
     return html`<div>
+      <h1>firebase-app</h1>
       <label
         >automaticDataCollectionEnabled<input
           value="${this.automaticDataCollectionEnabled}"

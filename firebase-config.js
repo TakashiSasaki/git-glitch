@@ -23,6 +23,7 @@ class FirebaseConfigElement extends LitElement {
   static get styles() {
     return css`
       :host div {
+        margin: 0.5em;
         background-color: yellow;
         border: 1px dotted gray;
       }
@@ -38,9 +39,6 @@ class FirebaseConfigElement extends LitElement {
       input {
         margin-left: 1em;
         min-width: 32em;
-      }
-      firebase-config {
-        margin: 1em;
       }
     `;
   } //styles()
