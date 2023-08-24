@@ -5,32 +5,41 @@
     <script type="module" src="./app.js"></script>
   </head>
   <body>
-    <label>email:<input id="email" /></label
-    ><label>password:<input id="password" /></label>
-    <button id="authButton">auth</button>
+    <label>email:<input id="emailInput" /></label
+    ><label>password:<input id="passwordInput" /></label>
+    <button id="signInWithEmailAndPasswordButton">
+      signInWithEmailAndPassword
+    </button>
 
     <script>
-      const dq = (x)=>document.querySelector(x);
+      const dq = (x) => document.querySelector(x);
     </script>
     <script type="module">
-      const email = dq("#email").value;
-      const password = dq("#password").value;
-      dq("#authButton").addEventListener("click", (clickEvent) => {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            // ...
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ..
-          });
-      });
+      dq("#signInWithEmailAndPasswordButton").addEventListener(
+        "click",
+        (clickEvent) => {
+          const email = dq("#emailInput").value;
+          const password = dq("#passwordInput").value;
+          console.log(email, password);
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              // Signed in
+              var user = userCredential.user;
+              console.log(user);
+              // ...
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(errorCode, errorMessage);
+              // ..
+            });
+        }
+      );
     </script>
+    <script type="module" src="firebase-user.js"></script>
     <firebase-user autoRefresh></firebase-user>
   </body>
 </html>
