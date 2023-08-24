@@ -48,6 +48,7 @@ class FirebaseUserElement extends LitElement {
 
   get email() {
     if(this._firebaseUser === undefined)
+      throw new Error("_firebaseUser is not initialized");
     return this._firebaseUser.email;
   }
 

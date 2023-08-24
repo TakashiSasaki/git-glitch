@@ -44,11 +44,6 @@ class FirebaseAppElement extends LitElement {
     return this._firebaseApp.options;
   }
   
-  get currentUser(){
-    console.log(this._firebaseApp.currentUser);
-    return this._firebaseApp.currentUser;
-  }
-
   static get styles() {
     return css`
       :host > div {
@@ -85,7 +80,6 @@ class FirebaseAppElement extends LitElement {
         /></label>
 
         <firebase-config .firebaseConfig="${this.options}"></firebase-config>
-        <firebase-user .firebaseUser="${this.currentUser}"></firebase-user>
       </fieldset>
     </div> `;
   } //render()
