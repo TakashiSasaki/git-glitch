@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
-import { FirebaseConfigElement} from "./firebase-cofnig.js";
+import  FirebaseConfigElement from "./firebase-config.js";
 
-class FirebaseConfigElement extends LitElement {
+class FirebaseAppElement extends LitElement {
   constructor() {
     super();
     this.lastUpdated = new Date();
@@ -27,6 +27,14 @@ class FirebaseConfigElement extends LitElement {
   get firebaseApp() {
     return this._firebaseApp;
   }
+  
+  get name(){
+    return this._firebaseApp.name;
+  }
+  
+  get automaticDataCollectionEnabled(){
+    return this._automaticDataCollectionEnabled;
+  }
 
   static get styles() {
     return css`
@@ -46,21 +54,9 @@ class FirebaseConfigElement extends LitElement {
 
   render() {
     return html`<div>
-      <label>automaticDataCollectionEnabled<input value="${this.apiKey}" readonly /></label>
-      <label>appId<input value="${this.appId}" readonly /></label>
-      <label>authDomain<input value="${this.authDomain}" readonly /></label>
-      <label>databaseURL<input value="${this.databaseURL}" readonly /></label>
-      <label
-        >measurementId<input value="${this.measurementId}" readonly
-      /></label>
-      <label
-        >messagingSenderId<input value="${this.messagingSenderId}" readonly
-      /></label>
-      <label>projectId<input value="${this.projectId}" readonly /></label>
-      <label
-        >storageBucket<input value="${this.storageBucket}" readoly
-      /></label>
-      <label>last updated <input value="${this.lastUpdated}" readonly /></label>
+      <label>automaticDataCollectionEnabled<input value="${this.automaticDataCollectionEnabled}" readonly /></label>
+      <label>name<input value="${this.name}" readonly/></label>
+      <firebase-config .firebaseApp="${this._firebaseApp.options}"></firebase-config>
     </div> `;
   } //render()
 } //class FirebaseAppElement

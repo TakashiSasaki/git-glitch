@@ -15,11 +15,12 @@
   </head>
   <body>
     <section>
-      <script type="module" src="./firebase-config.js"></script>
-      <firebase-config></firebase-config>
+      <script type="module" src="./firebase-app.js"></script>
+      <firebase-app></firebase-app>
       <script type="module">
-        document.getElementsByTagName("firebase-config")[0].firebaseConfig =
-          firebase.auth().app.options;
+        console.log(firebase.auth().app);
+        document.querySelector("firebase-app").firebaseApp =
+          firebase.auth().app;
       </script>
     </section>
     <script type="module" defer>
