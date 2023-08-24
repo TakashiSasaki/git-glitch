@@ -16,20 +16,6 @@
   <body>
     <section>
       <script type="module" src="./firebase-auth.js"></script>
-      <script type="module">
-        firebase.auth().onAuthStateChanged(() => {
-          console.log(firebase.auth());
-          console.log(firebase.auth().app);
-          console.log(firebase.auth().currentUser);
-          setTimeout(() => {
-            console.log(firebase.auth());
-            console.log(firebase.auth().app);
-            const auth = firebase.auth();
-            console.log(auth);
-            document.querySelector("firebase-auth").firebaseAuth = auth;
-          }, 100);
-        });
-      </script>
       <firebase-auth></firebase-auth>
     </section>
     <script type="module">

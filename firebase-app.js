@@ -19,10 +19,6 @@ class FirebaseAppElement extends LitElement {
     firebaseApp: { type: Object },
   };
 
-  get options() {
-    return this._firebaseApp.options;
-  }
-
   static get styles() {
     return css`
       :host > div {

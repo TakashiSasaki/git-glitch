@@ -11,16 +11,6 @@ class FirebaseUserElement extends LitElement {
     firebaseUser: { type: Object },
   };
 
-  set firebaseUser(newValue) {
-    console.log(newValue);
-    this._firebaseUser = newValue;
-    this.requestUpdate();
-  }
-
-  get firebaseUser() {
-    return this._firebaseUser;
-  }
-
   static get styles() {
     return css`
       fieldset {
@@ -39,66 +29,6 @@ class FirebaseUserElement extends LitElement {
       }
     `;
   } //styles()
-
-  get displayName() {
-    if (this._firebaseUser === undefined)
-      throw new Error("_firebaseUser is not initialized");
-    return this._firebaseUser.displayName;
-  }
-
-  get email() {
-    if(this._firebaseUser === undefined)
-      throw new Error("_firebaseUser is not initialized");
-    return this._firebaseUser.email;
-  }
-
-  get emailVerified() {
-    return this._firebaseUser.emailVerified;
-  }
-
-  get isAnonymous() {
-    return this._firebaseUser.isAnonymous;
-  }
-
-  get creationTime() {
-    return this._firebaseUser.metadata.creationTime;
-  }
-
-  get lastSignInTime() {
-    return this._firebaseUser.metadata.lastSignInTime;
-  }
-
-  get multiFactor() {
-    return this._firebaseUser.multiFactor;
-  }
-
-  get phoneNumber() {
-    return this._firebaseUser.phoneNumber;
-  }
-
-  get photoURL() {
-    return this._firebaseUser.photoURL;
-  }
-
-  get providerData() {
-    return this._firebaseUser.providerData;
-  }
-
-  get providerId() {
-    return this._firebaseUser.providerId;
-  }
-
-  get refreshToken() {
-    return this._firebaseUser.refreshToken;
-  }
-
-  get tenantId() {
-    return this._firebaseUser.tenantId;
-  }
-
-  get uid() {
-    return this._firebaseUser.uid;
-  }
 
   updated(changedProperties) {
     if (!changedProperties.has("lastUpdated")) {

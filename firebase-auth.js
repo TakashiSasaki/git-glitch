@@ -37,24 +37,25 @@ customElements.define(
       `;
     } //styles
 
+    u() {
+      this.firebaseAuth = firebase.auth();
+      const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
+      if (firebaseAppElement) {
+        firebaseAppElement.firebaseApp = this.firebaseAuth.app;
+      } //if
+      const firebaseAuthConfigElement = this.shadowRoot.querySelector(
+        "firebase-auth-config"
+      );
+      console.log(firebaseAuthConfigElement);
+      console.log(this.firebaseAuth.config);
+      if (firebaseAuthConfigElement) {
+        firebaseAuthConfigElement.firebaseAuthConfig = this.firebaseAuth.config;
+      }
+    }
+
     connectedCallback() {
       super.connectedCallback();
-      this.intervalId = setInterval(() => {
-        const firebaseAppElement =
-          this.shadowRoot.querySelector("firebase-app");
-        if (firebaseAppElement) {
-          firebaseAppElement.firebaseApp = this.firebaseAuth.app;
-        } //if
-        const firebaseAuthConfigElement = this.shadowRoot.querySelector(
-          "firebase-auth-config"
-        );
-        console.log(firebaseAuthConfigElement);
-        console.log(this.firebaseAuth.config);
-        if (firebaseAuthConfigElement) {
-          firebaseAuthConfigElement.firebaseAuthConfig =
-            this.firebaseAuth.config;
-        }
-      }, 3000); // 1000ミリ秒ごとに更新
+      this.intervalId = setInterval(u, 10000); // 1000ミリ秒ごとに更新
     } //connectedCallback
 
     disconnectedCallback() {
@@ -65,7 +66,7 @@ customElements.define(
     render() {
       return html`
       <fieldset>
-      <legend>firebase.auth.Auth</legend>
+      <legend><a href="https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#config">firebase.auth.Auth</a></legend>
       <label>app<firebase-app></firebase-app></label>
       <label>config<firebase-auth-config
          ></firebase-auth-config></label>
