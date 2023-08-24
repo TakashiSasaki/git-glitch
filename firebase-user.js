@@ -40,6 +40,8 @@ class FirebaseUserElement extends LitElement {
   } //styles()
 
   get displayName() {
+    if (this._firebaseUser === undefined)
+      throw new Error("_firebaseUser is not initialized");
     console.log(this.firebaseUser);
     return this._firebaseUser.displayName;
   }

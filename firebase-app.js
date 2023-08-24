@@ -32,7 +32,11 @@ class FirebaseAppElement extends LitElement {
   }
 
   get automaticDataCollectionEnabled() {
-    return this._firebaseApp.automaticDataCollectionEnabled;
+    if (this._firebaseApp === undefined) {
+      throw new Error("_firebaseApp is not initialized.");
+    } else {
+      return this._firebaseApp.automaticDataCollectionEnabled;
+    }
   }
 
   get options() {
@@ -75,6 +79,7 @@ class FirebaseAppElement extends LitElement {
         /></label>
 
         <firebase-config .firebaseConfig="${this.options}"></firebase-config>
+        <firebase-user></firebase-user>
       </fieldset>
     </div> `;
   } //render()
