@@ -10,6 +10,7 @@ customElements.define(
     constructor() {
       super();
       this.lastUpdated = new Date();
+      this.autoRefresh = 100;
     }
 
     updated(changedProperties) {
@@ -17,19 +18,17 @@ customElements.define(
         this.lastUpdated = new Date();
       }
       super.updated(changedProperties);
-    }
+    } //updated
 
-    static get properties() {
-      return {
-        firebaseAuth: {
-          type: Object,
-        },
-        autoRefresh: {
-          type: Boolean,
-          reflect: true,
-        },
-      };
-    }
+    static properties = {
+      firebaseAuth: {
+        type: Object,
+      },
+      autoRefresh: {
+        type: Boolean,
+        reflect: true,
+      },
+    };
 
     static get styles() {
       return css`
@@ -61,17 +60,6 @@ customElements.define(
       } //try
     } //initChildCustomElements
 
-    attributeChangedCallback(name, oldValue, newValue) {
-      super.attributeChangedCallback(name, oldValue, newValue);
-      if (name === "auto-refresh") {
-        if (this.autoRefresh) {
-          clearInterval(this.intervalId);
-          this.intervalId = setInterval(() => {
-            this.initChildCustomElements();
-          }, 5000);
-        }
-      } //if
-    } //attributeChangedCallback
 
     connectedCallback() {
       super.connectedCallback();
@@ -91,6 +79,7 @@ customElements.define(
     render() {
       return html`
       <fieldset>
+      <div> ${this.autoRefresh}</div>
       <legend><a href="https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#config">firebase.auth.Auth</a></legend>
       <label>app<firebase-app></firebase-app></label>
       <label>config<firebase-auth-config
@@ -103,6 +92,7 @@ customElements.define(
       <input value="${this.firebaseAuth.settings.appVerificationDisabledForTesting}" readonly/>
       </label>
       <label>tenantId<input value=${this.firebaseAuth.tenantId} readonly/></label>
+      <label>last updated time<input value=${this.lastUpdated}/></label>
       </fieldset>
       `;
     } //render()
