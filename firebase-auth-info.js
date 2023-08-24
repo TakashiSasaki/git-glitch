@@ -6,6 +6,7 @@ customElements.define(
   class extends LitElement {
     constructor() {
       super();
+      this.lastUpdated = new Date();
     }
 
     static get styles() {
@@ -19,37 +20,41 @@ customElements.define(
     get app() {
       return firebase.auth().app;
     }
-    
-    get appName(){
+
+    get appName() {
       return this.app().name;
     }
-    
-    get config(){
+
+    get config() {
       return firebase.auth().cofnig;
     }
-    
-    get currentUser(){
+
+    get currentUser() {
       return firebase.auth().currentUser;
     }
-    
-    
-    get languageCode(){
+
+    get languageCode() {
       return firebase.auth().languageCode;
     }
-    
-    get name(){
+
+    get name() {
       return firebase.auth().name;
     }
-    
-    get settings(){
+
+    get settings() {
       return firebase.auth().settings;
     }
-    
-    get tenantId(){
+
+    get tenantId() {
       return firebase.auth().tenantId;
     }
-    
-    
+
+    updated(changedProperties) {
+      if (!changedProperties.has("lastUpdated")) {
+        this.lastUpdated = new Date();
+      }
+      super.updated(changedProperties);
+    }
 
     connectedCallback() {
       super.connectedCallback();

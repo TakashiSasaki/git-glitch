@@ -3,6 +3,7 @@ import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 class FirebaseConfigElement extends LitElement {
   constructor() {
     super();
+    this.lastUpdated = new Date();
   } //constructor
 
   static properties = {
@@ -23,6 +24,7 @@ class FirebaseConfigElement extends LitElement {
     return css`
       :host div {
         background-color: yellow;
+        border: 1px dotted gray;
       }
       label {
         display: block;
@@ -66,6 +68,13 @@ class FirebaseConfigElement extends LitElement {
     return this.firebaseConfig.storageBucket;
   }
 
+  updated(changedProperties) {
+    if (!changedProperties.has("lastUpdated")) {
+      this.lastUpdated = new Date();
+    }
+    super.updated(changedProperties);
+  } //updated()
+
   render() {
     return html`<div>
       <label>apiKey<input value="${this.apiKey}" readonly /></label>
@@ -82,6 +91,7 @@ class FirebaseConfigElement extends LitElement {
       <label
         >storageBucket<input value="${this.storageBucket}" readoly
       /></label>
+      <label>last updated <input value="${this.lastUpdated}" readonly /></label>
     </div> `;
   } //render()
 } //LitElement
