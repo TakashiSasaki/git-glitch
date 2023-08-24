@@ -19,9 +19,7 @@ class FirebaseAppElement extends LitElement {
   };
 
   set firebaseApp(newValue) {
-    console.log(newValue);
     this._firebaseApp = newValue;
-    console.log(this._firebaseApp.options);
     this.requestUpdate();
   }
 
@@ -34,7 +32,12 @@ class FirebaseAppElement extends LitElement {
   }
   
   get automaticDataCollectionEnabled(){
-    return this._automaticDataCollectionEnabled;
+    return this._firebaseApp.automaticDataCollectionEnabled;
+  }
+  
+  
+  get options(){
+    return this._firebaseApp.options;
   }
 
   static get styles() {
@@ -50,6 +53,13 @@ class FirebaseAppElement extends LitElement {
         margin-left: 1em;
         min-width: 32em;
       }
+      firebase-config {
+        max-width: 90%;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+      }
     `;
   } //styles()
 
@@ -57,7 +67,7 @@ class FirebaseAppElement extends LitElement {
     return html`<div>
       <label>automaticDataCollectionEnabled<input value="${this.automaticDataCollectionEnabled}" readonly /></label>
       <label>name<input value="${this.name}" readonly/></label>
-      <firebase-config .firebaseApp="${this._firebaseApp.options}"></firebase-config>
+      <firebase-config .firebaseConfig="${this.options}"></firebase-config>
     </div> `;
   } //render()
 } //class FirebaseAppElement
