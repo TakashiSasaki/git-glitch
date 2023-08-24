@@ -52,11 +52,13 @@ class FirebaseUserElement extends LitElement {
         >isAnonymous<input value="${this.firebaseUser.isAnonymous}" readonly
       /></label>
       <label
-        >creationTime<input value="${this.firebaseUser.creationTime}" readonly
+        >creationTime<input
+          value="${this.firebaseUser.metadata.creationTime}"
+          readonly
       /></label>
       <label
         >lastSignInTime
-        <input value="${this.firebaseUser.lastSignInTime}" readonly
+        <input value="${this.firebaseUser.metadata.lastSignInTime}" readonly
       /></label>
       <label> multiFactor </label>
       <label
@@ -65,7 +67,8 @@ class FirebaseUserElement extends LitElement {
       <label
         >photoURL <input value="${this.firebaseUser.photoURL}" readonly
       /></label>
-      <div>prividerData</div>
+      <label>prividerData</label>
+      <label>providerId <input value="${this.firebaseUser.providerId}" readonly></label>
       <label
         >refreshToken <input value="${this.firebaseUser.refreshToken}" readonly
       /></label>
