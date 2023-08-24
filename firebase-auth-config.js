@@ -11,6 +11,18 @@ customElements.define(
       firebaseAuthConfig: { type: Object },
     }; //properties
 
+    connectedCallback() {
+      super.connectedCallback();
+      this.intervalId = setInterval(() => {
+         this.requestUpdate();
+      }, 3000); // 1000ミリ秒ごとに更新
+    } //connectedCallback
+
+    disconnectedCallback() {
+      clearInterval(this.intervalId);
+      super.disconnectedCallback();
+    } //disconnectedCallback
+
     render() {
       return html`
         <fieldset>
@@ -30,10 +42,21 @@ customElements.define(
             >apiScheme
             <input value="${this.firebaseAuthConfig.apiScheme}" readonly
           /></label>
-          <label>authDomain<input value="${this.firebaseAuthConfig.authDomain}" readonly></label>
-          <label>sdkClientVersion <input value="${this.firebaseAuthConfig.sdkClientVersion}"
+          <label
+            >authDomain<input
+              value="${this.firebaseAuthConfig.authDomain}"
+              readonly
+          /></label>
+          <label
+            >sdkClientVersion
+            <input value="${this.firebaseAuthConfig.sdkClientVersion}" readonly
+          /></label>
+          <label
+            >tokenApiHost
+            <input value="${this.firebaseAuthConfig.tokenApiHost}" readonly
+          /></label>
         </fieldset>
       `;
-    }
-  }
+    } //render
+  } //LitElement
 );

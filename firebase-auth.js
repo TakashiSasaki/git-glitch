@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 import "./firebase-app.js";
+import "./firebase-auth-config.js";
 
 customElements.define(
   "firebase-auth",
@@ -41,10 +42,18 @@ customElements.define(
       this.intervalId = setInterval(() => {
         const firebaseAppElement =
           this.shadowRoot.querySelector("firebase-app");
-        console.log(firebaseAppElement);
         if (firebaseAppElement) {
           firebaseAppElement.firebaseApp = this.firebaseAuth.app;
         } //if
+        const firebaseAuthConfigElement = this.shadowRoot.querySelector(
+          "firebase-auth-config"
+        );
+        console.log(firebaseAuthConfigElement);
+        console.log(this.firebaseAuth.config);
+        if (firebaseAuthConfigElement) {
+          firebaseAuthConfigElement.firebaseAuthConfig =
+            this.firebaseAuth.config;
+        }
       }, 3000); // 1000ミリ秒ごとに更新
     } //connectedCallback
 
