@@ -22,9 +22,12 @@ class FirebaseUserElement extends LitElement {
 
   static get styles() {
     return css`
-      :host div {
-        background-color: yellow;
-        border: 1px dotted gray;
+      fieldset {
+        background-color: #ffdffd;
+      }
+      legend {
+        font-size: 1.3em;
+        text-decoration: underline;
       }
       label {
         display: block;
@@ -101,7 +104,8 @@ class FirebaseUserElement extends LitElement {
   } //updated()
 
   render() {
-    return html`<div>
+    return html`<fieldset>
+      <legend>firebase-user</legend>
       <label>displayName <input value="${this.displayName}" readonly /></label>
       <label>email <input value="${this.email}" readonly /></label>
       <label
@@ -112,23 +116,15 @@ class FirebaseUserElement extends LitElement {
       <label
         >lastSignInTime <input value="${this.lastSignInTime}" readonly
       /></label>
-      <div>
-        multiFactor
-        <label
-          >phoneNumber <input value="${this.phoneNumber}" readonly
-        /></label>
-        <label>photoURL <input value="${this.photoURL}" readoly /></label>
-        <div>prividerData</div>
-        <label
-          >refreshToken <input value="${this.refreshToken}" readoly
-        /></label>
-        <label>tenantId <input value="${this.tenantId}" readoly /></label>
-        <label>uid <input value="${this.uid}" readoly /></label>
-        <label
-          >last updated <input value="${this.lastUpdated}" readonly
-        /></label>
-      </div>
-    </div> `;
+      <label> multiFactor </label>
+      <label>phoneNumber <input value="${this.phoneNumber}" readonly /></label>
+      <label>photoURL <input value="${this.photoURL}" readoly /></label>
+      <div>prividerData</div>
+      <label>refreshToken <input value="${this.refreshToken}" readoly /></label>
+      <label>tenantId <input value="${this.tenantId}" readoly /></label>
+      <label>uid <input value="${this.uid}" readoly /></label>
+      <label>last updated <input value="${this.lastUpdated}" readonly /></label>
+    </fieldset> `;
   } //render()
 } //LitElement
 

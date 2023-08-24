@@ -41,13 +41,14 @@ class FirebaseAppElement extends LitElement {
 
   static get styles() {
     return css`
-      :host div {
+      :host > div {
         background-color: #eeffff;
-        border: 1px dotted gray;
       }
-      h1 {
-       font-size: 1.3em;
-       text-decoration: underline;
+      legend {
+        margin: inherit;
+        margin-left: 0.5em;
+        font-size: 1.3em;
+        text-decoration: underline;
       }
       label {
         display: block;
@@ -61,16 +62,20 @@ class FirebaseAppElement extends LitElement {
 
   render() {
     return html`<div>
-      <h1>firebase-app</h1>
-      <label
-        >automaticDataCollectionEnabled<input
-          value="${this.automaticDataCollectionEnabled}"
-          readonly
-      /></label>
-      <label>name<input value="${this.name}" readonly /></label>
-      <label>last updated <input value="${this.lastUpdated}" readonly /></label>
+      <fieldset>
+        <legend>firebase-app</legend>
+        <label
+          >automaticDataCollectionEnabled<input
+            value="${this.automaticDataCollectionEnabled}"
+            readonly
+        /></label>
+        <label>name<input value="${this.name}" readonly /></label>
+        <label
+          >last updated <input value="${this.lastUpdated}" readonly
+        /></label>
 
-      <firebase-config .firebaseConfig="${this.options}"></firebase-config>
+        <firebase-config .firebaseConfig="${this.options}"></firebase-config>
+      </fieldset>
     </div> `;
   } //render()
 } //class FirebaseAppElement

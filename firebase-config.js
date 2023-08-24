@@ -22,16 +22,15 @@ class FirebaseConfigElement extends LitElement {
 
   static get styles() {
     return css`
-      :host div {
-        margin: 0.5em;
-        background-color: yellow;
-        border: 1px dotted gray;
-      }
-      :host div h1 {
+      legend {
         margin: inherit;
-        padding: inherit;
-        text-decoration: underline;
+        margin-left: 0.5em;
         font-size: 1.3em;
+        text-decoration: underline;
+      }
+
+      fieldset {
+        background-color: yellow;
       }
       label {
         display: block;
@@ -83,24 +82,28 @@ class FirebaseConfigElement extends LitElement {
   } //updated()
 
   render() {
-    return html`<div>
-    <h1>firebase-config</h1>
-      <label>apiKey<input value="${this.apiKey}" readonly /></label>
-      <label>appId<input value="${this.appId}" readonly /></label>
-      <label>authDomain<input value="${this.authDomain}" readonly /></label>
-      <label>databaseURL<input value="${this.databaseURL}" readonly /></label>
-      <label
-        >measurementId<input value="${this.measurementId}" readonly
-      /></label>
-      <label
-        >messagingSenderId<input value="${this.messagingSenderId}" readonly
-      /></label>
-      <label>projectId<input value="${this.projectId}" readonly /></label>
-      <label
-        >storageBucket<input value="${this.storageBucket}" readoly
-      /></label>
-      <label>last updated <input value="${this.lastUpdated}" readonly /></label>
-    </div> `;
+    return html`
+      <fieldset>
+        <legend>firebase-config</legend>
+        <label>apiKey<input value="${this.apiKey}" readonly /></label>
+        <label>appId<input value="${this.appId}" readonly /></label>
+        <label>authDomain<input value="${this.authDomain}" readonly /></label>
+        <label>databaseURL<input value="${this.databaseURL}" readonly /></label>
+        <label
+          >measurementId<input value="${this.measurementId}" readonly
+        /></label>
+        <label
+          >messagingSenderId<input value="${this.messagingSenderId}" readonly
+        /></label>
+        <label>projectId<input value="${this.projectId}" readonly /></label>
+        <label
+          >storageBucket<input value="${this.storageBucket}" readoly
+        /></label>
+        <label
+          >last updated <input value="${this.lastUpdated}" readonly
+        /></label>
+      </fieldset>
+     `;
   } //render()
 } //LitElement
 
