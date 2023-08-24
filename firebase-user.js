@@ -3,7 +3,6 @@ import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 class FirebaseUserElement extends LitElement {
   constructor() {
     super();
-    console.log("FirebaseUserElement constructor");
     this.lastUpdated = new Date();
   } //constructor
 
@@ -40,23 +39,40 @@ class FirebaseUserElement extends LitElement {
   render() {
     return html`<fieldset>
       <legend>firebase-user</legend>
-      <label>displayName <input value="${this.displayName}" readonly /></label>
-      <label>email <input value="${this.email}" readonly /></label>
       <label
-        >emailVerified<input value="${this.emailVerified}" readonly
+        >displayName <input value="${this.firebaseUser.displayName}" readonly
       /></label>
-      <label>isAnonymous<input value="${this.isAnonymous}" readonly /></label>
-      <label>creationTime<input value="${this.creationTime}" readonly /></label>
+      <label>email <input value="${this.firebaseUser.email}" readonly /></label>
       <label
-        >lastSignInTime <input value="${this.lastSignInTime}" readonly
+        >emailVerified<input
+          value="${this.firebaseUser.emailVerified}"
+          readonly
+      /></label>
+      <label
+        >isAnonymous<input value="${this.firebaseUser.isAnonymous}" readonly
+      /></label>
+      <label
+        >creationTime<input value="${this.firebaseUser.creationTime}" readonly
+      /></label>
+      <label
+        >lastSignInTime
+        <input value="${this.firebaseUser.lastSignInTime}" readonly
       /></label>
       <label> multiFactor </label>
-      <label>phoneNumber <input value="${this.phoneNumber}" readonly /></label>
-      <label>photoURL <input value="${this.photoURL}" readoly /></label>
+      <label
+        >phoneNumber <input value="${this.firebaseUser.phoneNumber}" readonly
+      /></label>
+      <label
+        >photoURL <input value="${this.firebaseUser.photoURL}" readonly
+      /></label>
       <div>prividerData</div>
-      <label>refreshToken <input value="${this.refreshToken}" readoly /></label>
-      <label>tenantId <input value="${this.tenantId}" readoly /></label>
-      <label>uid <input value="${this.uid}" readoly /></label>
+      <label
+        >refreshToken <input value="${this.firebaseUser.refreshToken}" readonly
+      /></label>
+      <label
+        >tenantId <input value="${this.firebaseUser.tenantId}" readonly
+      /></label>
+      <label>uid <input value="${this.firebaseUser.uid}" readonly /></label>
       <label>last updated <input value="${this.lastUpdated}" readonly /></label>
     </fieldset> `;
   } //render()

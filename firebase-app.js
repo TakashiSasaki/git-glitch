@@ -43,7 +43,12 @@ class FirebaseAppElement extends LitElement {
   render() {
     return html`<div>
       <fieldset>
-        <legend>firebase-app</legend>
+        <legend>
+          <a
+            href="https://firebase.google.com/docs/reference/js/v8/firebase.app.App"
+            >firebase.app.App</a
+          >
+        </legend>
         <label
           >automaticDataCollectionEnabled<input
             value="${this.firebaseApp.automaticDataCollectionEnabled}"
@@ -53,10 +58,12 @@ class FirebaseAppElement extends LitElement {
         <label
           >last updated <input value="${this.lastUpdated}" readonly
         /></label>
-        <label>options
-        <firebase-config
-          .firebaseConfig="${this.firebaseApp.options}"
-        ></firebase-config></label>
+        <label
+          >options
+          <firebase-config
+            .firebaseConfig="${this.firebaseApp.options}"
+          ></firebase-config
+        ></label>
       </fieldset>
     </div> `;
   } //render()

@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 import "./firebase-app.js";
 import "./firebase-auth-config.js";
+import "./firebase-user.js";
 
 customElements.define(
   "firebase-auth",
@@ -39,24 +40,18 @@ customElements.define(
 
     initChildCustomElements() {
       this.firebaseAuth = firebase.auth();
-      const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
-      if (firebaseAppElement) {
-        firebaseAppElement.firebaseApp = this.firebaseAuth.app;
-      } //if
       try {
+        this.shadowRoot.querySelector("firebase-app").firebaseApp =
+          this.firebaseAuth.app;
         this.shadowRoot.querySelector(
           "firebase-auth-config"
         ).firebaseAuthConfig = this.firebaseAuth.config;
-      } catch (e) {
-        console.log(e);
-      }
-      try {
         this.shadowRoot.querySelector("firebase-user").firebaseUser =
           this.firebaseAuth.currentUser;
       } catch (e) {
         console.log(e);
-      }
-    } //u
+      }//try
+    } //initChildCustomElements
 
     connectedCallback() {
       super.connectedCallback();
