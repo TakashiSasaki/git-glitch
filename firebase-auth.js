@@ -21,11 +21,12 @@ customElements.define(
     };
 
     set firebaseAuth(newValue) {
+      console.log(newValue);
       this._firebaseAuth = newValue;
       this.requestUpdate();
     }
 
-    get fireabaseAuth() {
+    get firebaseAuth() {
       return this._firebaseAuth;
     }
 

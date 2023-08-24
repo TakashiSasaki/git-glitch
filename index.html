@@ -17,12 +17,13 @@
     <section>
       <script type="module" src="./firebase-auth.js"></script>
       <script type="module">
-        console.log(1);
         firebase.auth().onAuthStateChanged(() => {
           console.log(firebase.auth());
           console.log(firebase.auth().app);
           console.log(firebase.auth().currentUser);
           setTimeout(() => {
+            console.log(firebase.auth());
+            console.log(firebase.auth().app);
             document.querySelector("firebase-auth").firebaseAuth =
               firebase.auth();
           }, 5000);
