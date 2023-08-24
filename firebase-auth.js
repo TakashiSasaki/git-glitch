@@ -16,10 +16,21 @@ customElements.define(
       super.updated(changedProperties);
     }
 
-    static properties = {
-      firebaseAuth: { type: Object },
-    };
+    static get properties() {
+      return {
+        firebaseAuth: {
+          type: Object,
+          hasChanged(newVal, oldVal) {
+            return true;
+          },
+        },
+      };
+    }
 
+    set firebaseAuth (newValue){
+      
+    }
+    
     static get styles() {
       return css`
         fieldset {
@@ -29,7 +40,7 @@ customElements.define(
           display: block;
         }
       `;
-    }//styles()
+    } //styles
 
     render() {
       return html`
