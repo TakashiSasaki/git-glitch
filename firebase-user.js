@@ -22,6 +22,10 @@ class FirebaseUserElement extends LitElement {
         font-size: 1.3em;
         text-decoration: underline;
       }
+      legend span{
+        font-size: 1em;
+        text-decoration: none;
+      }
       label {
         display: block;
       }
@@ -55,7 +59,7 @@ class FirebaseUserElement extends LitElement {
 
   render() {
     return html`<fieldset>
-      <legend>firebase-user<span>${this.autoRefresh ? "auto refresh" : ""}</span></legend>
+      <legend>firebase-user<span>(${this.autoRefresh ? "auto refresh" : ""})</span></legend>
       <label
         >displayName <input value="${this.firebaseUser.displayName}" readonly
       /></label>
