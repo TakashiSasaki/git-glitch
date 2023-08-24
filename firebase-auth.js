@@ -26,6 +26,7 @@ customElements.define(
         },
         autoRefresh: {
           type: Boolean,
+          reflect: true,
         },
       };
     }
@@ -62,9 +63,12 @@ customElements.define(
 
     connectedCallback() {
       super.connectedCallback();
-      this.intervalId = setInterval(() => {
-        this.initChildCustomElements();
-      }, 5000);
+      console.log(this.autoRefresh);
+      if (this.autoRefresh) {
+        this.intervalId = setInterval(() => {
+          this.initChildCustomElements();
+        }, 5000);
+      }
     } //connectedCallback
 
     disconnectedCallback() {
