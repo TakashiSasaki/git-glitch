@@ -11,10 +11,23 @@ customElements.define(
       firebaseAuthConfig: { type: Object },
     }; //properties
 
+    set firebaseAuthConfig(newValue) {
+      console.log(newValue);
+      if (!newValue) {
+        this._firebaseAuthConfig = {};
+      } else {
+        this._firebaseAuthConfig = newValue;
+      }
+    }
+
+    get firebaseAuthConfig() {
+      return this._firebaseAuthConfig;
+    }
+
     connectedCallback() {
       super.connectedCallback();
       this.intervalId = setInterval(() => {
-         this.requestUpdate();
+        this.requestUpdate();
       }, 3000); // 1000ミリ秒ごとに更新
     } //connectedCallback
 

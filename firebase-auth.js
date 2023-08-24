@@ -38,6 +38,9 @@ customElements.define(
     } //styles
 
     initChildCustomElements() {
+      console.log("initChildCustomElements");
+      this.firebaseAuth = firebase.auth();
+      if(!this.shadowRoot) throw new Error("Shadow root does not exist.");
       const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
       if (firebaseAppElement) {
         firebaseAppElement.firebaseApp = this.firebaseAuth.app;
@@ -54,9 +57,7 @@ customElements.define(
 
     connectedCallback() {
       super.connectedCallback();
-      this.firebaseAuth = firebase.auth();
-      setTimeout(this.initChildCustomElements, 3000);
-      this.intervalId = setInterval(this.initChildCustomElements, 10000); // 1000ミリ秒ごとに更新
+      this.intervalId = setInterval(this.initChildCustomElements, 1000); // 1000ミリ秒ごとに更新
     } //connectedCallback
 
     disconnectedCallback() {
