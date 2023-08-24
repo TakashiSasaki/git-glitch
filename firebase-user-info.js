@@ -32,7 +32,14 @@ customElements.define(
       }
     `;
     
-    set firebaseUserInfo
+    set userInfo(newValue){
+      this._userInfo = newValue;
+      this.requestUpdate();
+    }//init
+    
+    get userInfo(){
+      return this._userInfo;
+    }
 
     render() {
       return html`
@@ -43,12 +50,12 @@ customElements.define(
               >firebase.UserInfo</a
             >
           </legend>
-          <label>displayName<input value="${this.displayName}" readonly/></label>
-          <label>email<input value="${this.email}" readonly/></label>
-          <label>phoneNumber<input value="${this.phoneNumber}" readonly/></label>
-          <label>photoURL<input value="${this.photoURL}" readonly/></label>
-          <label>providerId<input value="${this.providerId}" readonly/></label>
-          <label>uid<input value="${this.uid}" readonly/></label>
+          <label>displayName<input value="${this.userInfo.displayName}" readonly/></label>
+          <label>email<input value="${this.userInfo.email}" readonly/></label>
+          <label>phoneNumber<input value="${this.userInfo.phoneNumber}" readonly/></label>
+          <label>photoURL<input value="${this.userInfo.photoURL}" readonly/></label>
+          <label>providerId<input value="${this.userInfo.providerId}" readonly/></label>
+          <label>uid<input value="${this.userInfo.uid}" readonly/></label>
           </label>
         </fieldset>
       `;
@@ -56,9 +63,3 @@ customElements.define(
   } //class LitElement
 );
 
-customElements.define("firebase-user-info-array", class extends LitElement{
-  
-  
-  render() {
-  }
-}
