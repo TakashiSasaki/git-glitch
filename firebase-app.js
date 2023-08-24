@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 import FirebaseConfigElement from "./firebase-config.js";
+import "./firebase-user.js";
 
 class FirebaseAppElement extends LitElement {
   constructor() {
@@ -42,6 +43,11 @@ class FirebaseAppElement extends LitElement {
   get options() {
     return this._firebaseApp.options;
   }
+  
+  get currentUser(){
+    console.log(this._firebaseApp.currentUser);
+    return this._firebaseApp.currentUser;
+  }
 
   static get styles() {
     return css`
@@ -79,7 +85,7 @@ class FirebaseAppElement extends LitElement {
         /></label>
 
         <firebase-config .firebaseConfig="${this.options}"></firebase-config>
-        <firebase-user></firebase-user>
+        <firebase-user .firebaseUser="${this.currentUser}"></firebase-user>
       </fieldset>
     </div> `;
   } //render()

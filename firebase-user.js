@@ -3,6 +3,7 @@ import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 class FirebaseUserElement extends LitElement {
   constructor() {
     super();
+    console.log("FirebaseUserElement constructor");
     this.lastUpdated = new Date();
   } //constructor
 
@@ -42,11 +43,11 @@ class FirebaseUserElement extends LitElement {
   get displayName() {
     if (this._firebaseUser === undefined)
       throw new Error("_firebaseUser is not initialized");
-    console.log(this.firebaseUser);
     return this._firebaseUser.displayName;
   }
 
   get email() {
+    if(this._firebaseUser === undefined)
     return this._firebaseUser.email;
   }
 

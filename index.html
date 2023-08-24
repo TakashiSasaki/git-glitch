@@ -20,6 +20,7 @@
         firebase.auth().onAuthStateChanged(() => {
           console.log(firebase.auth());
           console.log(firebase.auth().app);
+          console.log(firebase.auth().currentUser);
           document.querySelector("firebase-app").firebaseApp =
             firebase.auth().app;
         });
