@@ -5,10 +5,12 @@ class FirebaseUserElement extends LitElement {
   constructor() {
     super();
     this.lastUpdated = new Date();
+    this.autoRefresh = false;
   } //constructor
 
   static properties = {
     firebaseUser: { type: Object },
+    autoRefresh: { type: Boolean },
   };
 
   static get styles() {
@@ -36,6 +38,22 @@ class FirebaseUserElement extends LitElement {
     }
     super.updated(changedProperties);
   } //updated()
+
+  connectedCallback() {
+    super.connectedCallback();
+    console.log(this.autoRefresh);
+    if (this.autoRefresh) {
+      this.firebaseUser = firebase.auth().currentUser;
+      this.intervalId = setInterval(() => {
+        this.initChildCustomElements();
+      }, 5000);
+    } //if
+  } //connectedCallback
+
+  disconnectedCallback() {
+    clearInterval(this.intervalId);
+    super.disconnectedCallback();
+  } //disconnectedCallback
 
   render() {
     return html`<fieldset>

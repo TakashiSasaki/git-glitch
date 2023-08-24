@@ -1,5 +1,9 @@
 //import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
-import { LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
+import {
+  LitElement,
+  html,
+  css,
+} from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
 import "./firebase-app.js";
 import "./firebase-auth-config.js";
 import "./firebase-user.js";
@@ -11,7 +15,7 @@ customElements.define(
     constructor() {
       super();
       this.lastUpdated = new Date();
-      this.autoRefresh = 100;
+      this.autoRefresh = false;
     }
 
     updated(changedProperties) {
@@ -60,7 +64,6 @@ customElements.define(
         console.log(e);
       } //try
     } //initChildCustomElements
-
 
     connectedCallback() {
       super.connectedCallback();
