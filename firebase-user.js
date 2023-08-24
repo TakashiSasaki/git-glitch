@@ -43,9 +43,8 @@ class FirebaseUserElement extends LitElement {
     super.connectedCallback();
     console.log(this.autoRefresh);
     if (this.autoRefresh) {
-      this.firebaseUser = firebase.auth().currentUser;
       this.intervalId = setInterval(() => {
-        this.initChildCustomElements();
+        this.firebaseUser = firebase.auth().currentUser;
       }, 5000);
     } //if
   } //connectedCallback

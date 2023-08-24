@@ -23,18 +23,15 @@ customElements.define(
     get firebaseAuthConfig() {
       return this._firebaseAuthConfig;
     }
-
-    connectedCallback() {
-      super.connectedCallback();
-      this.intervalId = setInterval(() => {
-        this.requestUpdate();
-      }, 3000); 
-    } //connectedCallback
-
-    disconnectedCallback() {
-      clearInterval(this.intervalId);
-      super.disconnectedCallback();
-    } //disconnectedCallback
+    
+    static style = css`
+    fieldset{
+      background-color: #FFF4DB;
+    }
+    label{
+    display:block
+    }
+    `;
 
     render() {
       return html`

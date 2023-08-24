@@ -50,27 +50,12 @@ customElements.define(
       `;
     } //styles
 
-    initChildCustomElements() {
-      this.firebaseAuth = firebase.auth();
-      try {
-        this.shadowRoot.querySelector("firebase-app").firebaseApp =
-          this.firebaseAuth.app;
-        this.shadowRoot.querySelector(
-          "firebase-auth-config"
-        ).firebaseAuthConfig = this.firebaseAuth.config;
-        this.shadowRoot.querySelector("firebase-user").firebaseUser =
-          this.firebaseAuth.currentUser;
-      } catch (e) {
-        console.log(e);
-      } //try
-    } //initChildCustomElements
-
     connectedCallback() {
       super.connectedCallback();
       console.log(this.autoRefresh);
       if (this.autoRefresh) {
         this.intervalId = setInterval(() => {
-          this.initChildCustomElements();
+          this.firebaseAuth = firebase.auth();
         }, 5000);
       }
     } //connectedCallback
@@ -85,10 +70,10 @@ customElements.define(
       <fieldset>
       <div> ${this.autoRefresh}</div>
       <legend><a href="https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#config">firebase.auth.Auth</a></legend>
-      <label>app<firebase-app></firebase-app></label>
-      <label>config<firebase-auth-config
+      <label>app<firebase-app .firebaseApp=${this.firebaseAuth.app}></firebase-app></label>
+      <label>config<firebase-auth-config .firebaseAuthConfig=${this.firebaseAuthConfig}
          ></firebase-auth-config></label>
-      <label>currentUser<firebase-user/></firebase-user></label>
+      <label>currentUser<firebase-user .firebaseUser="${this.firebaseAuth.currentUser}"/></firebase-user></label>
       <label>emulatorConfig<input placeholder="N/A" readonly/></label>
       <label>languageCode<input value="${this.firebaseAuth.languageCode}" readonly/></label>
       <label>name<input value="${this.firebaseAuth.name}" readonly></label>
