@@ -15,36 +15,17 @@
   </head>
   <body>
     <section>
-      <script type="module" src="./firebase-app.js"></script>
+      <script type="module" src="./firebase-auth.js"></script>
       <script type="module" defer>
         firebase.auth().onAuthStateChanged(() => {
           console.log(firebase.auth());
           console.log(firebase.auth().app);
           console.log(firebase.auth().currentUser);
-          document.querySelector("firebase-app").firebaseApp =
-            firebase.auth().app;
+          document.querySelector("firebase-auth").firebaseAuth =
+            firebase.auth();
         });
       </script>
-      <firebase-app></firebase-app>
-      <script type="module" src="./firebase-user.js"></script>
-      <firebase-user></firebase-user>
-      <script type="module" defer>
-        firebase.auth().onAuthStateChanged(() => {
-          console.log(firebase.auth());
-          document.querySelector("firebase-user").firebaseUser =
-            firebase.auth().currentUser;
-        });
-      </script>
-      <script type="module" src="./firebase-multi-factor-info.js"></script>
-      <firebase-multi-factor-info></firebase-multi-factor-info>
-      <script type="module">
-        firebase.auth().onAuthStateChanged(() => {
-          console.log(firebase.auth());
-          console.log(firebase.auth().currentUser);
-          console.log(firebase.auth().currentUser.multiFactor);
-          console.log(firebase.auth().currentUser.multiFactor.enrolledFactors);
-        });
-      </script>
+      <firebase-auth></firebase-auth>
     </section>
     <script type="module" defer>
       // Initialize the FirebaseUI Widget using Firebase.

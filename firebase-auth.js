@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
 
 customElements.define(
-  "firebase-auth-info",
+  "firebase-auth",
 
   class extends LitElement {
     constructor() {
@@ -16,6 +16,19 @@ customElements.define(
       super.updated(changedProperties);
     }
 
+    static properties = {
+      firebaseAuth: { type: Object },
+    };
+    
+    set firebaseAuth(newValue){
+      this._firebaseAuth = newValue;
+      this.requestUpdate();
+    }
+    
+    get fireabaseAuth(){
+      return this._firebaseAuth;
+    }
+
     static get styles() {
       return css`
         :host div {
@@ -25,40 +38,45 @@ customElements.define(
     }
 
     get app() {
-      return firebase.auth().app;
+      return this._firebaseAuth.app;
     }
 
     get config() {
-      return firebase.auth().cofnig;
+      return this._firebaseAuth.config;
     }
 
     get currentUser() {
-      return firebase.auth().currentUser;
+      return this._firebaseAuth.currentUser;
     }
 
     get languageCode() {
-      return firebase.auth().languageCode;
+      return this._firebaseAuth.languageCode;
     }
 
     get name() {
-      return firebase.auth().name;
+      return this._firebaseAuth.name;
     }
 
     get settings() {
-      return firebase.auth().settings;
+      return this._firebaseAuth.settings;
     }
 
     get tenantId() {
-      return firebase.auth().tenantId;
+      return this._firebaseAuth.tenantId;
+    }
+
+    get appVerificationDisabledForTesting() {
+      return this._firebaseAuth.settings.appVerificationDisabledForTesting;
     }
 
     render() {
       return html`
       <fieldset>
       <legend>firebase.auth.Auth</legend>
+      <label>app<firebase-app .firebaseApp="${this.firebaseApp}"></firebase-app></label>
       <label>config<firebase-auth-config
-         .firebaseAuthConfig="${this.firebaseAuthConfig}"></firebase-auth-config></label>
-      <label>currentUser<firebase-user .firebaseUser=${this.firebaseUser}/></firebase-user></label>
+         .firebaseAuthConfig="${this.config}"></firebase-auth-config></label>
+      <label>currentUser<firebase-user .firebaseUser=${this.currentUser}/></firebase-user></label>
       <label>emulatorConfig<input placeholder="N/A"></label>
       <label>languageCode<input value="${this.languageCode}"></label>
       <label>name<input value="${this.name}"></label>
