@@ -26,12 +26,21 @@ class FirebaseConfigElement extends LitElement {
         background-color: yellow;
         border: 1px dotted gray;
       }
+      :host div h1 {
+        margin: inherit;
+        padding: inherit;
+        text-decoration: underline;
+        font-size: 1.3em;
+      }
       label {
         display: block;
       }
       input {
         margin-left: 1em;
         min-width: 32em;
+      }
+      firebase-config {
+        margin: 1em;
       }
     `;
   } //styles()
@@ -77,6 +86,7 @@ class FirebaseConfigElement extends LitElement {
 
   render() {
     return html`<div>
+    <h1>firebase-config</h1>
       <label>apiKey<input value="${this.apiKey}" readonly /></label>
       <label>appId<input value="${this.appId}" readonly /></label>
       <label>authDomain<input value="${this.authDomain}" readonly /></label>
