@@ -21,26 +21,8 @@ customElements.define(
       return {
         firebaseAuth: {
           type: Object,
-          hasChanged(newVal, oldVal) {
-            console.log(newVal, oldVal);
-            return true;
-          },
         },
       };
-    }
-
-    set firebaseAuth(newValue) {
-      this._firebaseAuth = newValue;
-      const firebaseAppElement = this.shadowRoot.querySelector("firebase-app");
-      if (firebaseAppElement) {
-        firebaseAppElement.firebaseApp = newValue.app;
-      }
-      this.requestUpdate();
-    }
-
-    get firebaseAuth() {
-      if (!this._firebaseAuth) throw Error("firebaseAuth is not set.");
-      return this._firebaseAuth;
     }
 
     static get styles() {
@@ -53,6 +35,23 @@ customElements.define(
         }
       `;
     } //styles
+
+    connectedCallback() {
+      super.connectedCallback();
+      this.intervalId = setInterval(() => {
+        const firebaseAppElement =
+          this.shadowRoot.querySelector("firebase-app");
+        console.log(firebaseAppElement);
+        if (firebaseAppElement) {
+          firebaseAppElement.firebaseApp = this.firebaseAuth.app;
+        } //if
+      }, 3000); // 1000ミリ秒ごとに更新
+    } //connectedCallback
+
+    disconnectedCallback() {
+      clearInterval(this.intervalId);
+      super.disconnectedCallback();
+    } //disconnectedCallback
 
     render() {
       return html`
