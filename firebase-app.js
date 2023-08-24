@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "https://unpkg.com/lit@2?module";
-import FirebaseConfigElement from "./firebase-config.js";
+import "./firebase-options.js";
 import "./firebase-user.js";
 
 class FirebaseAppElement extends LitElement {
@@ -60,9 +60,9 @@ class FirebaseAppElement extends LitElement {
         /></label>
         <label
           >options
-          <firebase-config
-            .firebaseConfig="${this.firebaseApp.options}"
-          ></firebase-config
+          <firebase-options
+            .firebaseOptions="${this.firebaseApp.options}"
+          ></firebase-options
         ></label>
       </fieldset>
     </div> `;
