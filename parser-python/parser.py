@@ -1,62 +1,55 @@
-# Adjusting the parser and serializer to fix the issue with Line 14 by handling the <DL><p> pattern correctly
-input_file_path="export-one.html"
-output_file_path="export-one-roundtrip.html"
+import json
 
-from typing import List, Tuple
-
-def parse_file(file_path: str) -> List[Tuple[str, str]]:
-    with open(file_path, 'r', encoding='utf-8') as file:
+def parse_file(file_path):
+    with open(file_path, 'r', encoding="utf-8") as file:
         lines = file.readlines()
 
-    parsed_data = []
-    current_folder = None
+    result = []
+    folder_stack = [result]
+    is_first_folder = True
 
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-
-        if line.startswith("<!DOCTYPE") or line.startswith("<META") or line.startswith("<TITLE>") or line.startswith("<H1>"):
-            parsed_data.append(("header", line))
+    for line in lines:
+        line = line.rstrip("\n")
+        if line.startswith("<DT><H3"):
+            folder = {
+                "type": "folder",
+                "content": line,
+                "items": []
+            }
+            folder_stack[-1].append(folder)
+            folder_stack.append(folder["items"])
+            is_first_folder = False
         elif line == "<DL>":
-            if lines[i + 1].strip() == "<p>":
-                parsed_data.append(("folder_start", "<DL><p>"))
-                i += 1  # Skip the next line as it's part of this folder start
+            if is_first_folder:
+                folder_stack[-1].append(line)
+                is_first_folder = False
             else:
-                parsed_data.append(("folder_start", "<DL>"))
-        elif line == "</DL>" and lines[i + 1].strip() == "<p>":
-            parsed_data.append(("folder_end", "</DL>\n<p>"))
-            i += 1  # Skip the next line as it's part of this folder end
-        elif line.startswith("<DT><H3"):
-            current_folder = line
-            parsed_data.append(("folder_name", current_folder))
+                folder_stack[-1].append(line + "<p>")
+        elif line == "<p>" and not is_first_folder:
+            continue
+        elif line == "</DL>" and folder_stack[-1][-1] != "</DL>":
+            folder_stack[-1].append(line + "<p>")
+            folder_stack.pop()
         else:
-            parsed_data.append(("item", line))
+            folder_stack[-1].append(line)
 
-        i += 1
+    return result
 
-    return parsed_data
+def serialize_data(data):
+    serialized_lines = []
+    for item in data:
+        if isinstance(item, str):
+            serialized_lines.append(item)
+        elif isinstance(item, dict) and item["type"] == "folder":
+            serialized_lines.append(item["content"])
+            serialized_lines.append("<DL><p>")
+            serialized_lines.extend(serialize_data(item["items"]))
+            serialized_lines.append("</DL><p>")
+    return "\n".join(serialized_lines)
 
-
-def serialize_data(parsed_data: List[Tuple[str, str]]) -> str:
-    serialized_content = []
-
-    for data_type, content in parsed_data:
-        if data_type == "header":
-            serialized_content.append(content)
-        elif data_type == "folder_start":
-            serialized_content.append(content.split("<p>")[0])
-            if "<p>" in content:
-                serialized_content.append("<p>")
-        elif data_type == "folder_end":
-            serialized_content.append(content.split("\n")[0])
-            serialized_content.append(content.split("\n")[1])
-        elif data_type == "folder_name":
-            serialized_content.append(content)
-        elif data_type == "item":
-            serialized_content.append(content)
-
-    return "\n".join(serialized_content)
-
+input_file_path = "input.html"
+output_file_path = "output.html"
+json_file_path = "items.json"
 
 # Parsing the file
 parsed_data = parse_file(input_file_path)
@@ -67,6 +60,10 @@ serialized_content = serialize_data(parsed_data)
 # Writing the serialized content to a file
 with open(output_file_path, 'w', encoding='utf-8') as file:
     file.write(serialized_content)
+
+# Saving the parsed data to a JSON file
+with open(json_file_path, 'w', encoding='utf-8') as file:
+    json.dump(parsed_data, file, ensure_ascii=False, indent=4)
 
 # Checking the differences again
 with open(input_file_path, 'r', encoding="utf-8") as file:
