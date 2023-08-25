@@ -55,33 +55,48 @@ def serialize_data(data):
     return serialized_content
 
 
-# Parsing the file
-parsed_data = parse_file(input_file_path)
 
-def filter_properties(obj):
-    # キー 'parent' を無視する
-    return {key: value for key, value in obj.items() if key != 'parent'}
-  
-with open(json_file_path, 'w', encoding='utf-8') as file:
-    json.dump(parsed_data, file, ensure_ascii=False, indent=4, default=filter_properties)
 
-# Serializing the parsed data
-serialized_content = serialize_data(parsed_data)
+def remove_property(obj, prop_name):
+    if isinstance(obj, dict):
+        obj.pop(prop_name, None)  # prop_name キーを削除（存在しない場合は何もしない）
+        for value in obj.values():
+            remove_property(value, prop_name)
+    elif isinstance(obj, list):
+        for item in obj:
+            remove_property(item, prop_name)
 
-# Writing the serialized content to a file
-with open(output_file_path, 'w', encoding='utf-8') as file:
-    file.write(serialized_content)
+            
+def main():            
+    # Parsing the file
+    parsed_data = parse_file(input_file_path)
 
-# Checking the differences again
-with open(input_file_path, 'r', encoding="utf-8") as file:
-    original_content = file.readlines()
+    remove_property(parsed_data, 'parent')
 
-with open(output_file_path, 'r', encoding="utf-8") as file:
-    serialized_content = file.readlines()
 
-differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}"
-               for idx, (orig, ser) in enumerate(zip(original_content, serialized_content))
-               if orig != ser]
+    with open(json_file_path, 'w', encoding='utf-8') as file:
+        json.dump(parsed_data, file, ensure_ascii=False, indent=4)
 
-# Displaying the first few differences
-print(differences[:5], len(differences))
+    # Serializing the parsed data
+    serialized_content = serialize_data(parsed_data)
+
+    # Writing the serialized content to a file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        file.write(serialized_content)
+
+    # Checking the differences again
+    with open(input_file_path, 'r', encoding="utf-8") as file:
+        original_content = file.readlines()
+
+    with open(output_file_path, 'r', encoding="utf-8") as file:
+        serialized_content = file.readlines()
+
+    differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}"
+                   for idx, (orig, ser) in enumerate(zip(original_content, serialized_content))
+                   if orig != ser]
+
+    # Displaying the first few differences
+    print(differences[:5], len(differences))
+
+if __name__ == "__main__":
+    main()
