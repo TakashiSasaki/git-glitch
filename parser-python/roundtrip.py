@@ -1,29 +1,8 @@
-def parse_file(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        content = file.readlines()
+from parse_file import parse_file
+from serialize_data import serialize_data
 
-    folder_structure = {'type': 'root', 'content': '', 'level': 0, 'items': []}
-    current_folder = folder_structure
-
-    for line in content:
-        line = line.rstrip()
-        if line.startswith('<DL>'):
-            new_folder = {'type': 'folder', 'content': '', 'level': current_folder['level'] + 1, 'items': [], 'parent': current_folder}
-            current_folder['items'].append(new_folder)
-            current_folder = new_folder
-            current_folder['items'].append({'type': 'folder_start', 'content': line})
-        elif line.startswith('</DL>'):
-            current_folder['items'].append({'type': 'folder_end', 'content': line})
-            if 'parent' in current_folder:
-                current_folder = current_folder['parent']
-        elif line.startswith('<DT><H3'):
-            current_folder['items'].append({'type': 'folder_title', 'content': line})
-        elif line == '<p>':
-            current_folder['items'].append({'type': 'paragraph', 'content': line + '\n'})
-        else:
-            current_folder['items'].append({'type': 'other', 'content': line})
-
-    return folder_structure
+input_file_path = 'input.html'
+output_file_path = 'output.html'
 
 # Parsing the file
 parsed_data = parse_file(input_file_path)
@@ -35,16 +14,16 @@ serialized_content = serialize_data(parsed_data)
 with open(output_file_path, 'w', encoding='utf-8') as file:
     file.write(serialized_content)
 
-# Checking the differences again
+# Checking the differences
 with open(input_file_path, 'r', encoding="utf-8") as file:
     original_content = file.readlines()
 
 with open(output_file_path, 'r', encoding="utf-8") as file:
     serialized_content = file.readlines()
 
-differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}"
+differences = [f"Line {idx + 1}:\\nOriginal: {orig}Serialized: {ser}"
                for idx, (orig, ser) in enumerate(zip(original_content, serialized_content))
                if orig != ser]
 
-# Displaying the first few differences
+# Displaying the differences
 differences[:5], len(differences)
