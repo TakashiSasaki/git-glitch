@@ -1,9 +1,11 @@
 #from collections import deque
 import json
+import sys
 
 input_file_path = "input.html"
 output_file_path = "output.html"
 json_file_path = "items.json"
+
 
 def parse_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -51,6 +53,9 @@ def serialize_data(data):
 
     for item in data['items']:
         serialize_item(item)
+    
+    if serialized_content.endswith('\n'):
+        serialized_content = serialized_content[:-1]
 
     return serialized_content
 
@@ -67,7 +72,16 @@ def remove_property(obj, prop_name):
             remove_property(item, prop_name)
 
             
-def main():            
+def main():  
+  
+    if len(sys.argv) != 4:
+        print("Usage: python script.py input_file_path output_file_path json_file_path")
+        sys.exit(1)
+
+    input_file_path = sys.argv[1]
+    output_file_path = sys.argv[2]
+    json_file_path = sys.argv[3]
+    
     # Parsing the file
     parsed_data = parse_file(input_file_path)
 
