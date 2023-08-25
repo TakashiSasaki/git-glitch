@@ -1,3 +1,5 @@
-export-one-roundstrip.html: export-one.html parser.py
-	python3 parser.py $^ $@
+export-one-roundtrip.html: export-one.html 
+	-python3 parser.py $^ $@
+	-diff $^ $@
+	refresh
 
