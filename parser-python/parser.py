@@ -1,46 +1,83 @@
-def extract_folders(data, index=0, level=0):
-    folders = []
-    current_folder = []
-    while index < len(data):
-        line = data[index]
-        if line.startswith("<DT><H3"):
-            folder_data, index = extract_folders(data, index + 1, level + 1)
-            current_folder.append({
-                "folder_start": line,
-                "content": folder_data,
-                "level": level
-            })
-        elif line.strip() == "</DL>":
-            folders.append(current_folder)
-            index += 1  # Skip the following <p>
-            return folders, index
-        else:
-            current_folder.append(line.rstrip())
-        index += 1
-    folders.append(current_folder)
-    return folders
+# Adjusting the parser and serializer to fix the issue with Line 14 by handling the <DL><p> pattern correctly
+input_file_path="export-one.html"
+output_file_path="export-one-roundtrip.html"
 
-def serialize_folders(folders):
-    result = ""
-    for folder in folders:
-        for item in folder:
-            if isinstance(item, dict):
-                result += item["folder_start"]
-                if item["level"] == 0:
-                    result += "<DL>\n<p>\n"
-                else:
-                    result += "<DL><p>\n"
-                result += serialize_folders(item["content"])
-                result += "</DL>\n<p>\n"
+from typing import List, Tuple
+
+def parse_file(file_path: str) -> List[Tuple[str, str]]:
+    with open(file_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    parsed_data = []
+    current_folder = None
+
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+
+        if line.startswith("<!DOCTYPE") or line.startswith("<META") or line.startswith("<TITLE>") or line.startswith("<H1>"):
+            parsed_data.append(("header", line))
+        elif line == "<DL>":
+            if lines[i + 1].strip() == "<p>":
+                parsed_data.append(("folder_start", "<DL><p>"))
+                i += 1  # Skip the next line as it's part of this folder start
             else:
-                result += item + "\n"
-    return result
+                parsed_data.append(("folder_start", "<DL>"))
+        elif line == "</DL>" and lines[i + 1].strip() == "<p>":
+            parsed_data.append(("folder_end", "</DL>\n<p>"))
+            i += 1  # Skip the next line as it's part of this folder end
+        elif line.startswith("<DT><H3"):
+            current_folder = line
+            parsed_data.append(("folder_name", current_folder))
+        else:
+            parsed_data.append(("item", line))
 
-parsed_header, parsed_folders = parse_netscape_bookmark_file(input_file_path)
-final_serialized_content = serialize_to_netscape_format(parsed_header, parsed_folders)
+        i += 1
 
-output_file_path_v4 = "/mnt/data/serialized_netscape_bookmarks_v4.html"
-with open(output_file_path_v4, 'w', encoding="utf-8") as file:
-    file.write(final_serialized_content)
+    return parsed_data
 
-output_file_path_v4
+
+def serialize_data(parsed_data: List[Tuple[str, str]]) -> str:
+    serialized_content = []
+
+    for data_type, content in parsed_data:
+        if data_type == "header":
+            serialized_content.append(content)
+        elif data_type == "folder_start":
+            serialized_content.append(content.split("<p>")[0])
+            if "<p>" in content:
+                serialized_content.append("<p>")
+        elif data_type == "folder_end":
+            serialized_content.append(content.split("\n")[0])
+            serialized_content.append(content.split("\n")[1])
+        elif data_type == "folder_name":
+            serialized_content.append(content)
+        elif data_type == "item":
+            serialized_content.append(content)
+
+    return "\n".join(serialized_content)
+
+
+# Parsing the file
+parsed_data = parse_file(input_file_path)
+
+# Serializing the parsed data
+serialized_content = serialize_data(parsed_data)
+
+# Writing the serialized content to a file
+with open(output_file_path, 'w', encoding='utf-8') as file:
+    file.write(serialized_content)
+
+# Checking the differences again
+with open(input_file_path, 'r', encoding="utf-8") as file:
+    original_content = file.readlines()
+
+with open(output_file_path, 'r', encoding="utf-8") as file:
+    serialized_content = file.readlines()
+
+differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}" 
+               for idx, (orig, ser) in enumerate(zip(original_content, serialized_content)) 
+               if orig != ser]
+
+# Displaying the first few differences
+differences[:5], len(differences)
