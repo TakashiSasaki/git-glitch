@@ -40,7 +40,7 @@ def serialize_data(data):
 
         if item_type == 'folder_start':
             serialized_content += content
-            if folder_level == 1:
+            if folder_level == 0:  # Adding a newline between <DL> and <p> for the first folder level
                 serialized_content += '\n'
             if prev_item_type == 'folder_title':
                 folder_level += 1
@@ -59,9 +59,6 @@ def serialize_data(data):
         prev_item_type = item_type
 
     return serialized_content
-
-# Previous part of the code remains unchanged.
-
 
 # Parsing the file
 parsed_data = parse_file(input_file_path)
