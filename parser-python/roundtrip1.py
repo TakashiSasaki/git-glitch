@@ -1,8 +1,7 @@
 #from collections import deque
 import json
 
-#input_file_path = "input.html"
-input_file_path = "../example/export-all.html"
+input_file_path = "input.html"
 output_file_path = "output.html"
 json_file_path = "items.json"
 
@@ -16,7 +15,7 @@ def parse_file(file_path):
     for line in content:
         line = line.rstrip()
         if line.startswith('<DL>'):
-            new_folder = {'type': 'folder', 'content': '', 'level': current_folder['level'] + 1, 'items': []}
+            new_folder = {'type': 'folder', 'content': '', 'level': current_folder['level'] + 1, 'items': [], 'parent': current_folder}
             current_folder['items'].append(new_folder)
             current_folder = new_folder
             current_folder['items'].append({'type': 'folder_start', 'content': line})
@@ -32,6 +31,7 @@ def parse_file(file_path):
             current_folder['items'].append({'type': 'other', 'content': line})
 
     return folder_structure
+
 
 
 def serialize_data(data):
@@ -58,8 +58,12 @@ def serialize_data(data):
 # Parsing the file
 parsed_data = parse_file(input_file_path)
 
+def filter_properties(obj):
+    # キー 'parent' を無視する
+    return {key: value for key, value in obj.items() if key != 'parent'}
+  
 with open(json_file_path, 'w', encoding='utf-8') as file:
-    json.dump(parsed_data, file, ensure_ascii=False, indent=4)
+    json.dump(parsed_data, file, ensure_ascii=False, indent=4, default=filter_properties)
 
 # Serializing the parsed data
 serialized_content = serialize_data(parsed_data)
