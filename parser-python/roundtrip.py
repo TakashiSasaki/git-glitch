@@ -1,56 +1,67 @@
-def parse_file(file_path):
-    with open(file_path, 'r', encoding="utf-8") as file:
-        lines = file.readlines()
+from collections import deque
+import json
 
-    result = []
-    folder_stack = [result]
-    is_first_folder = True
-
-    for line in lines:
-        line = line.rstrip("\n")
-        if line.startswith("<DT><H3"):
-            folder = {
-                "type": "folder",
-                "content": line,
-                "items": []
-            }
-            folder_stack[-1].append(folder)
-            folder_stack.append(folder["items"])
-            is_first_folder = False
-        elif line == "<DL>":
-            if is_first_folder:
-                folder_stack[-1].append(line)
-                folder_stack[-1].append("<p>")
-                is_first_folder = False
-            else:
-                folder_stack[-1].append(line)
-                folder_stack[-1].append("<p>")
-        elif line == "<p>" and not is_first_folder:
-            continue
-        elif line == "</DL>" and folder_stack[-1][-1] != "</DL>":
-            folder_stack[-1].append(line)
-            folder_stack[-1].append("<p>")
-            folder_stack.pop()
-        else:
-            folder_stack[-1].append(line)
-
-    return result
-
-def serialize_data(data):
-    serialized_lines = []
-    for item in data:
-        if isinstance(item, str):
-            serialized_lines.append(item)
-        elif isinstance(item, dict) and item["type"] == "folder":
-            serialized_lines.append(item["content"])
-            serialized_lines.append("<DL><p>")
-            serialized_lines.extend(serialize_data(item["items"]))
-            serialized_lines.append("</DL><p>")
-    return "\n".join(serialized_lines)
-  
 input_file_path = "input.html"
 output_file_path = "output.html"
 json_file_path = "items.json"
+
+def parse_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.readlines()
+
+    stack = deque()
+    parsed_data = []
+
+    for line in content:
+        line = line.rstrip()
+        if line.startswith('<DL>'):
+            stack.append({'type': 'folder_start', 'content': line})
+        elif line.startswith('</DL>'):
+            stack.append({'type': 'folder_end', 'content': line})
+        elif line.startswith('<DT><H3'):
+            stack.append({'type': 'folder_title', 'content': line})
+        else:
+            stack.append({'type': 'other', 'content': line})
+
+    while stack:
+        item = stack.popleft()
+        parsed_data.append(item)
+
+    return parsed_data
+
+def serialize_data(data):
+    serialized_content = ''
+    folder_level = 0
+    prev_item_type = None
+
+    for item in data:
+        item_type = item['type']
+        content = item['content']
+
+        if item_type == 'folder_start':
+            serialized_content += content
+            if folder_level == 1:
+                serialized_content += '\n'
+            if prev_item_type == 'folder_title':
+                folder_level += 1
+
+        elif item_type == 'folder_end':
+            serialized_content += content + '\n'
+            if folder_level > 0:
+                folder_level -= 1
+
+        elif item_type == 'folder_title':
+            serialized_content += content + '\n'
+
+        else:
+            serialized_content += content + '\n'
+
+        prev_item_type = item_type
+
+    return serialized_content
+
+# Previous part of the code remains unchanged.
+
 
 # Parsing the file
 parsed_data = parse_file(input_file_path)
@@ -73,9 +84,9 @@ with open(input_file_path, 'r', encoding="utf-8") as file:
 with open(output_file_path, 'r', encoding="utf-8") as file:
     serialized_content = file.readlines()
 
-differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}" 
-               for idx, (orig, ser) in enumerate(zip(original_content, serialized_content)) 
+differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}"
+               for idx, (orig, ser) in enumerate(zip(original_content, serialized_content))
                if orig != ser]
 
 # Displaying the first few differences
-differences[:5], len(differences)
+print(differences[:5], len(differences))

@@ -1,5 +1,5 @@
 output.html: input.html
-	python3 parser.py $^ $@
+	python3 roundtrip.py $^ $@
 	-diff $^ $@
 	refresh
 
