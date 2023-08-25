@@ -1,5 +1,3 @@
-import json
-
 def parse_file(file_path):
     with open(file_path, 'r', encoding="utf-8") as file:
         lines = file.readlines()
@@ -22,13 +20,16 @@ def parse_file(file_path):
         elif line == "<DL>":
             if is_first_folder:
                 folder_stack[-1].append(line)
+                folder_stack[-1].append("<p>")
                 is_first_folder = False
             else:
-                folder_stack[-1].append(line + "<p>")
+                folder_stack[-1].append(line)
+                folder_stack[-1].append("<p>")
         elif line == "<p>" and not is_first_folder:
             continue
         elif line == "</DL>" and folder_stack[-1][-1] != "</DL>":
-            folder_stack[-1].append(line + "<p>")
+            folder_stack[-1].append(line)
+            folder_stack[-1].append("<p>")
             folder_stack.pop()
         else:
             folder_stack[-1].append(line)
@@ -46,7 +47,7 @@ def serialize_data(data):
             serialized_lines.extend(serialize_data(item["items"]))
             serialized_lines.append("</DL><p>")
     return "\n".join(serialized_lines)
-
+  
 input_file_path = "input.html"
 output_file_path = "output.html"
 json_file_path = "items.json"
