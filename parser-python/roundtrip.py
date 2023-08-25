@@ -1,60 +1,29 @@
-from collections import deque
-import json
-
-input_file_path = "input.html"
-output_file_path = "output.html"
-json_file_path = "items.json"
-
 def parse_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.readlines()
 
-    stack = deque()
-    parsed_data = []
+    folder_structure = {'type': 'root', 'content': '', 'level': 0, 'items': []}
+    current_folder = folder_structure
 
     for line in content:
         line = line.rstrip()
         if line.startswith('<DL>'):
-            stack.append({'type': 'folder_start', 'content': line})
+            new_folder = {'type': 'folder', 'content': '', 'level': current_folder['level'] + 1, 'items': [], 'parent': current_folder}
+            current_folder['items'].append(new_folder)
+            current_folder = new_folder
+            current_folder['items'].append({'type': 'folder_start', 'content': line})
         elif line.startswith('</DL>'):
-            stack.append({'type': 'folder_end', 'content': line})
+            current_folder['items'].append({'type': 'folder_end', 'content': line})
+            if 'parent' in current_folder:
+                current_folder = current_folder['parent']
         elif line.startswith('<DT><H3'):
-            stack.append({'type': 'folder_title', 'content': line})
+            current_folder['items'].append({'type': 'folder_title', 'content': line})
+        elif line == '<p>':
+            current_folder['items'].append({'type': 'paragraph', 'content': line + '\n'})
         else:
-            stack.append({'type': 'other', 'content': line})
+            current_folder['items'].append({'type': 'other', 'content': line})
 
-    while stack:
-        item = stack.popleft()
-        parsed_data.append(item)
-
-    return parsed_data
-
-def serialize_data(data):
-    serialized_content = ''
-    folder_level = 0
-
-    for item in data:
-        item_type = item['type']
-        content = item['content']
-
-        if item_type == 'folder_start':
-            if folder_level == 0:
-                serialized_content += '<DL>\n<p>\n'
-            else:
-                serialized_content += '<DL><p>\n'
-            folder_level += 1
-
-        elif item_type == 'folder_end':
-            folder_level -= 1
-            serialized_content += content + '\n<p>\n'
-
-        elif item_type == 'folder_title':
-            serialized_content += content + '\n'
-
-        else:
-            serialized_content += content + '\n'
-
-    return serialized_content
+    return folder_structure
 
 # Parsing the file
 parsed_data = parse_file(input_file_path)
@@ -65,10 +34,6 @@ serialized_content = serialize_data(parsed_data)
 # Writing the serialized content to a file
 with open(output_file_path, 'w', encoding='utf-8') as file:
     file.write(serialized_content)
-
-# Saving the parsed data to a JSON file
-with open(json_file_path, 'w', encoding='utf-8') as file:
-    json.dump(parsed_data, file, ensure_ascii=False, indent=4)
 
 # Checking the differences again
 with open(input_file_path, 'r', encoding="utf-8") as file:
@@ -82,4 +47,4 @@ differences = [f"Line {idx + 1}:\nOriginal: {orig}Serialized: {ser}"
                if orig != ser]
 
 # Displaying the first few differences
-print(differences[:5], len(differences))
+differences[:5], len(differences)
