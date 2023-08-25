@@ -32,31 +32,27 @@ def parse_file(file_path):
 def serialize_data(data):
     serialized_content = ''
     folder_level = 0
-    prev_item_type = None
 
     for item in data:
         item_type = item['type']
         content = item['content']
 
         if item_type == 'folder_start':
-            serialized_content += content
-            if folder_level == 0:  # Adding a newline between <DL> and <p> for the first folder level
-                serialized_content += '\n'
-            if prev_item_type == 'folder_title':
-                folder_level += 1
+            if folder_level == 0:
+                serialized_content += '<DL>\n<p>\n'
+            else:
+                serialized_content += '<DL><p>\n'
+            folder_level += 1
 
         elif item_type == 'folder_end':
-            serialized_content += content + '\n'
-            if folder_level > 0:
-                folder_level -= 1
+            folder_level -= 1
+            serialized_content += content + '\n<p>\n'
 
         elif item_type == 'folder_title':
             serialized_content += content + '\n'
 
         else:
             serialized_content += content + '\n'
-
-        prev_item_type = item_type
 
     return serialized_content
 
