@@ -60,4 +60,4 @@ customElements.define(
       `;
     }
   } //class LitElement
-);
+); //customElements.define()
