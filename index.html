@@ -4,14 +4,21 @@
     <script type="module" src="./script.js"></script>
     <style>
       label {
-        display: block;
+        display: flex;
         font-family: monospace;
+        align-items: center;
+      }
+      label input {
+        flex: auto;
+        margin-left: 0.4em;
       }
     </style>
   </head>
   <body>
-    <label>UUID <input placeholder="" /></label>
-    <label>TYPE <input placeholder=""/></label>
-    <label>TIME <input placeholder=""/></label>
+    <label
+      >UUID <input placeholder="67299adb-4e40-400d-97bb-fbb092b903db"
+    /></label>
+    <label>TYPE<input placeholder="txt" /></label>
+    <label>TIME <input placeholder="2023-09-01T09:37:12.436Z" /></label>
   </body>
 </html>
