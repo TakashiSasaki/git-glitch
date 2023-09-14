@@ -1,129 +1,133 @@
-importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js"
-);
+const CACHE_NAME = "20230913T1400";
 
-// Cache .png images with a Cache First strategy
-workbox.routing.registerRoute(
-  // Match .png image files
-  /.*\.png$/,
-  // Use a Cache First strategy
-  new workbox.strategies.CacheFirst({
-    // Put all cached files in a cache named 'images'
-    cacheName: "images",
-  })
-);
+self.addEventListener("install", (e) => {
+  setTimeout(() => {
+    caches.open(CACHE_NAME).then(function (cache) {
+      cache
+        .addAll([
+          "/euvc2023/EhimeWebGL/Build/0ee8aa74d1e94e24178ce4e8a180376e.data",
+          "/euvc2023/EhimeWebGL/Build/e82b3426b38d0abb532c72e4e3170425.wasm",
+        ])
+        .catch((e) => console.log("Caching failed:", e));
+    });
+  }, 100);
 
-workbox.routing.registerRoute(
-  // Check to see if the request's destination is style css, script, or worker
-  ({ request }) => request.destination === "image",
-  // Use a Cache First strategy
-  new workbox.strategies.CacheFirst({
-    // Put all cached files in a cache named 'images'
-    cacheName: "images",
-    plugins: [
-      // Ensure that only requests that result in a 200 status are cached
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      // Don't cache more than 50 items, and expire them after 30 days
-      new workbox.expiration.ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 60 * 60 * 24 * 5, // 5 Days
-      }),
-    ],
-  })
-);
+  setTimeout(() => {
+    caches.open(CACHE_NAME).then(function (cache) {
+      cache
+        .addAll([
+          "/euvc2023contents/board/image/news/01HOUBU.png",
+          "/euvc2023contents/board/image/news/i_report.png",
+          "/euvc2023contents/board/image/news/02KYOUIKU.png",
+          "/euvc2023contents/board/image/news/03SHAKYO.png",
+          "/euvc2023contents/board/image/news/04RIGAKU.png",
+          "/euvc2023contents/board/image/news/05IGAKU.png",
+          "/euvc2023contents/board/image/news/06KOUGAKU.png",
+          "/euvc2023contents/board/image/news/07NOUGAKU.png",
+          "/euvc2023contents/board/image/news/08JYUKEN.png",
+          "/euvc2023contents/board/image/news/09OGYA.png",
+          "/euvc2023contents/board/image/news/10HOnts/board/image/news/09OGYA.png",
+          "/euvc2023contents/board/image/news/10HOSPITAL.png",
+          "/euvc2023contents/board/image/news/11datascience.png",
+          "/euvc2023contents/board/image/news/12rstock.png",
+          "/euvc2023contents/board/image/news/13newcomer.png",
+          "/euvc2023contents/board/image/news/14lr.png",
+          "/euvc2023contents/board/image/news/15bousai.png",
+          "/euvc2023contents/board/image/news/16SDGS.png",
+          "/euvc2023contents/board/image/news/17byouin.png",
+          "/euvc2023contents/board/image/news/18kikin.png",
+          "/euvc2023contents/board/image/news/19mirainoaidaisei.png",
+          "/euvc2023contents/board/image/news/20seikatujyouhou.png",
+          "/euvc2023contents/board/image/news/21iikurashi.png",
+          "/euvc2023contents/board/image/news/22youchien.png",
+          "/euvc2023contents/board/image/news/23shougakko.png",
+          "/euvc2023contents/board/image/news/24chuugaku.png",
+          "/euvc2023contents/board/image/news/25koukou.png",
+          "/euvc2023contents/board/image/news/26tokubetushien.png",
+          "/euvc2023contents/board/image/news/27enshuurin.png",
+          "/euvc2023contents/board/image/news/28museum.png",
+          "/euvc2023contents/board/image/news/i_report.png",
+          "/euvc2023contents/board/image/news/infinity.png",
+        ])
+        .catch((e) => console.log("Caching failed:", e));
+    });
+  }, 200);
 
-workbox.routing.registerRoute(
-  // Check to see if the request is a navigation to a new page
-  ({ request }) => request.mode === "navigate",
-  // Use a Network First strategy
-  new workbox.strategies.CacheFirst({
-    // Put all cached files in a cache named 'pages'
-    cacheName: "pages",
-    plugins: [
-      // Ensure that only requests that result in a 200 status are cached
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 60 * 60 * 24 * 5, // 5 Days
-      }),
-    ],
-  })
-);
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      const requests = [
+        "/",
+        "/favicon.ico",
+        "/landing.html",
+        "/landing/nicepage.css",
+        "/landing/nicepage.js",
+        "/landing/jquery-1.9.1.min.js",
+        "/landing/B13_2.jpg",
+        "/landing/eurc-2023.jpg",
+        "/landing/euvc-landing-20230914.jpg",
+      ];
 
-workbox.routing.registerRoute(
-  /jquery-1\.9\.1\.min\.js$/,
-  new workbox.strategies.CacheFirst({
-    cacheName: "jquery-cache",
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 60 * 60, // 1 hour
-      }),
-    ],
-  })
-);
+      return Promise.all(
+        requests.map((url) =>
+          fetch(url, { mode: "no-cors" })
+            .then((response) => cache.put(url, response))
+            .catch((e) => console.log(e))
+        ) //map
+      ); //all
+    }) //then
+  ); //waitUtil
+}); //addEventListener
 
-workbox.routing.registerRoute(
-  /.*\.css$/,
-  new workbox.strategies.CacheFirst({
-    cacheName: "css-cache",
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 60 * 60, // 1 hour
-      }),
-    ],
-  })
-);
+const REGEX_PATTERNS = [
+  /\/.*\/[a-f0-9]+\.data/,
+  /\/.*\/[a-f0-9]+\.wasm/,
+  /\/.*\/[a-f0-9]+\.js/,
+  /\/.+\/.+\.mp4/,
+  /\/.+\/.+\.png/,
+  /\/.+\/.+\.jpg/,
+  /\/.+\/.+\.css/,
+]; // 複数の正規表現を配列で設定
 
-workbox.routing.registerRoute(
-  ({ request }) => request.destination === "style",
-  new workbox.strategies.CacheFirst({
-    cacheName: "css-cache",
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 60 * 60 * 24 * 10, // 10 days
-      }),
-    ],
-  })
-);
+self.addEventListener("fetch", function (event) {
+  // いずれかの正規表現にマッチする場合のみキャッシュ処理を行う
+  if (REGEX_PATTERNS.some((pattern) => event.request.url.match(pattern))) {
+    event.respondWith(
+      caches.match(event.request).then(function (cachedResponse) {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
 
-workbox.routing.registerRoute(
-  /nicepage\.js$/,
-  new workbox.strategies.CacheFirst({
-    cacheName: "js-cache",
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-      }),
-    ],
-  })
-);
-workbox.routing.registerRoute(
-  /([a-f0-9]{32})\.(js|wasm|data)$/,
-  new workbox.strategies.CacheFirst({
-    cacheName: "unity-cache",
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 60 * 60 * 24, // 1 day
-      }),
-    ],
-  })
-);
+        return fetch(event.request, { mode: "cors" })
+          .then(function (response) {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then(function (cache) {
+              cache
+                .put(event.request, responseToCache)
+                .catch((e) => console.log(e));
+            });
+
+            return response;
+          })
+          .catch(function () {
+            return fetch(event.request, { mode: "no-cors" })
+              .then(function (response) {
+                const responseToCache = response.clone();
+                caches.open(CACHE_NAME).then(function (cache) {
+                  cache
+                    .put(event.request, responseToCache)
+                    .catch((e) => console.log(e));
+                });
+
+                return response;
+              })
+              .catch(function () {
+                return caches.match(event.request);
+              });
+          });
+      })
+    );
+  } else {
+    // 正規表現にマッチしない場合、通常のフェッチ処理を行う
+    event.respondWith(fetch(event.request));
+  }
+});
