@@ -1,4 +1,4 @@
-const CACHE_NAME = "20230913T1400";
+const CACHE_NAME = "20230914T1400";
 
 self.addEventListener("install", (e) => {
   setTimeout(() => {
@@ -7,6 +7,7 @@ self.addEventListener("install", (e) => {
         .addAll([
           "/euvc2023/EhimeWebGL/Build/0ee8aa74d1e94e24178ce4e8a180376e.data",
           "/euvc2023/EhimeWebGL/Build/e82b3426b38d0abb532c72e4e3170425.wasm",
+          "/euvc2023/EhimeWebGL/Build/a0eee379177e2ae2bd6c86de7f72ed55.js",
         ])
         .catch((e) => console.log("Caching failed:", e));
     });
@@ -26,7 +27,6 @@ self.addEventListener("install", (e) => {
           "/euvc2023contents/board/image/news/07NOUGAKU.png",
           "/euvc2023contents/board/image/news/08JYUKEN.png",
           "/euvc2023contents/board/image/news/09OGYA.png",
-          "/euvc2023contents/board/image/news/10HOnts/board/image/news/09OGYA.png",
           "/euvc2023contents/board/image/news/10HOSPITAL.png",
           "/euvc2023contents/board/image/news/11datascience.png",
           "/euvc2023contents/board/image/news/12rstock.png",
@@ -51,7 +51,20 @@ self.addEventListener("install", (e) => {
         ])
         .catch((e) => console.log("Caching failed:", e));
     });
-  }, 200);
+  }, 1000);
+
+  setTimeout(() => {
+    caches.open(CACHE_NAME).then(function (cache) {
+      cache
+        .addAll([
+          "/euvc2023contents/board/movie/newsdata/EU08_480.mp4",
+          "/euvc2023contents/board/movie/newsdata/EU04_1080.mp4",
+          "/euvc2023contents/board/movie/newsdata/OGYA_CHAP1.mp4",
+          "/euvc2023contents/board/movie/newsdata/EU03_1080.mp4",
+        ])
+        .catch((e) => console.log("Caching failed:", e));
+    });
+  }, 5000);
 
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
