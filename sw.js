@@ -68,6 +68,17 @@ function cacheImages() {
   );
 } //cacheImages
 
+function cacheVideo(){
+ supplementalCache([
+          "/euvc2023contents/board/movie/newsdata/EU08_480.mp4",
+          "/euvc2023contents/board/movie/newsdata/EU04_1080.mp4",
+          "/euvc2023contents/board/movie/newsdata/OGYA_CHAP1.mp4",
+          "/euvc2023contents/board/movie/newsdata/EU03_1080.mp4",
+          "/euvc2023contents/board/movie/newsdata/EU10_1080.mp4",
+        ],10000); 
+}//cacheVideo
+
+
 self.addEventListener("install", (e) => {
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
@@ -78,13 +89,7 @@ self.addEventListener("install", (e) => {
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
       cache
-        .addAll([
-          "/euvc2023contents/board/movie/newsdata/EU08_480.mp4",
-          "/euvc2023contents/board/movie/newsdata/EU04_1080.mp4",
-          "/euvc2023contents/board/movie/newsdata/OGYA_CHAP1.mp4",
-          "/euvc2023contents/board/movie/newsdata/EU03_1080.mp4",
-          "/euvc2023contents/board/movie/newsdata/EU10_1080.mp4",
-        ])
+        .addAll()
         .catch((e) => console.log("Caching failed:", e));
     });
   }, 10000);
