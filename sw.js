@@ -1,6 +1,7 @@
-const CACHE_NAME = "20230914T1400";
+const CACHE_NAME = "20230915T1400";
 
-self.addEventListener("install", (e) => {
+function cacheEhimeWebGL(msec) {
+  if (msec === undefined) msec = 1000;
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
       cache
@@ -11,8 +12,11 @@ self.addEventListener("install", (e) => {
         ])
         .catch((e) => console.log("Caching failed:", e));
     });
-  }, 100);
+  }, msec);
+} //cacheEhimeWebGL
 
+
+self.addEventListener("install", (e) => {
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
       cache
@@ -51,7 +55,7 @@ self.addEventListener("install", (e) => {
         ])
         .catch((e) => console.log("Caching failed:", e));
     });
-  }, 1000);
+  }, 5000);
 
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
@@ -61,10 +65,11 @@ self.addEventListener("install", (e) => {
           "/euvc2023contents/board/movie/newsdata/EU04_1080.mp4",
           "/euvc2023contents/board/movie/newsdata/OGYA_CHAP1.mp4",
           "/euvc2023contents/board/movie/newsdata/EU03_1080.mp4",
+          "/euvc2023contents/board/movie/newsdata/EU10_1080.mp4",
         ])
         .catch((e) => console.log("Caching failed:", e));
     });
-  }, 5000);
+  }, 10000);
 
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
