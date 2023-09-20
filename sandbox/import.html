@@ -1,6 +1,16 @@
 <html>
   <head> </head>
   <body>
+    <textaera>test</textaera>
+    <script type="module">
+      window.addEventListener("error", (event) => {
+        const textarea = document.querySelector("textarea");
+        textarea.innerText += event.message + "\n";
+      });
+    </script>
+    <script type="module">
+      undefinedFunction();
+    </script>
     <script type="module" src="./import.js"></script>
   </body>
 </html>
