@@ -17,36 +17,36 @@ self.addEventListener("install", (e) => {
     caches.open(CACHE_NAME).then(function (cache) {
       cache
         .addAll([
-          "/euvc2023contents/board/webp/01HOUBU.webp",
-          "/euvc2023contents/board/webp/i_report.webp",
-          "/euvc2023contents/board/webp/infinity.webp",
-          "/euvc2023contents/board/webp/02KYOUIKU.webp",
-          "/euvc2023contents/board/webp/03SHAKYO.webp",
-          "/euvc2023contents/board/webp/04RIGAKU.webp",
-          "/euvc2023contents/board/webp/05IGAKU.webp",
-          "/euvc2023contents/board/webp/06KOUGAKU.webp",
-          "/euvc2023contents/board/webp/07NOUGAKU.webp",
-          "/euvc2023contents/board/webp/08JYUKEN.webp",
-          "/euvc2023contents/board/webp/09OGYA.webp",
-          "/euvc2023contents/board/webp/10HOSPITAL.webp",
-          "/euvc2023contents/board/webp/11datascience.webp",
-          "/euvc2023contents/board/webp/12rstock.webp",
-          "/euvc2023contents/board/webp/13newcomer.webp",
-          "/euvc2023contents/board/webp/14lr.webp",
-          "/euvc2023contents/board/webp/15bousai.webp",
-          "/euvc2023contents/board/webp/16SDGS.webp",
-          "/euvc2023contents/board/webp/17byouin.webp",
-          "/euvc2023contents/board/webp/18kikin.webp",
-          "/euvc2023contents/board/webp/19mirainoaidaisei.webp",
-          "/euvc2023contents/board/webp/20seikatujyouhou.webp",
-          "/euvc2023contents/board/webp/21iikurashi.webp",
-          "/euvc2023contents/board/webp/22youchien.webp",
-          "/euvc2023contents/board/webp/23shougakko.webp",
-          "/euvc2023contents/board/webp/24chuugaku.webp",
-          "/euvc2023contents/board/webp/25koukou.webp",
-          "/euvc2023contents/board/webp/26tokubetushien.webp",
-          "/euvc2023contents/board/webp/27enshuurin.webp",
-          "/euvc2023contents/board/webp/28museum.webp",
+          "/euvc2023contents/board/jpg/01HOUBU.jpg",
+          "/euvc2023contents/board/jpg/i_report.jpg",
+          "/euvc2023contents/board/jpg/infinity.jpg",
+          "/euvc2023contents/board/jpg/02KYOUIKU.jpg",
+          "/euvc2023contents/board/jpg/03SHAKYO.jpg",
+          "/euvc2023contents/board/jpg/04RIGAKU.jpg",
+          "/euvc2023contents/board/jpg/05IGAKU.jpg",
+          "/euvc2023contents/board/jpg/06KOUGAKU.jpg",
+          "/euvc2023contents/board/jpg/07NOUGAKU.jpg",
+          "/euvc2023contents/board/jpg/08JYUKEN.jpg",
+          "/euvc2023contents/board/jpg/09OGYA.jpg",
+          "/euvc2023contents/board/jpg/10HOSPITAL.jpg",
+          "/euvc2023contents/board/jpg/11datascience.jpg",
+          "/euvc2023contents/board/jpg/12rstock.jpg",
+          "/euvc2023contents/board/jpg/13newcomer.jpg",
+          "/euvc2023contents/board/jpg/14lr.jpg",
+          "/euvc2023contents/board/jpg/15bousai.jpg",
+          "/euvc2023contents/board/jpg/16SDGS.jpg",
+          "/euvc2023contents/board/jpg/17byouin.jpg",
+          "/euvc2023contents/board/jpg/18kikin.jpg",
+          "/euvc2023contents/board/jpg/19mirainoaidaisei.jpg",
+          "/euvc2023contents/board/jpg/20seikatujyouhou.jpg",
+          "/euvc2023contents/board/jpg/21iikurashi.jpg",
+          "/euvc2023contents/board/jpg/22youchien.jpg",
+          "/euvc2023contents/board/jpg/23shougakko.jpg",
+          "/euvc2023contents/board/jpg/24chuugaku.jpg",
+          "/euvc2023contents/board/jpg/25koukou.jpg",
+          "/euvc2023contents/board/jpg/26tokubetushien.jpg",
+          "/euvc2023contents/board/jpg/27enshuurin.jpg",
+          "/euvc2023contents/board/jpg/28museum.jpg",
         ])
         .catch((e) => console.log(e));
     });
@@ -93,28 +93,30 @@ self.addEventListener("install", (e) => {
   ); //waitUtil
 }); //addEventListener
 
-const URL_MAPPINGS = [];
-
-const URL_MAPPINGS_2 = [
+const URL_MAPPINGS = [
   [
     "/euvc2023contents/board/image/news/01HOUBU.png",
-    "/euvc2023contents/board/webp/01HOUBU.webp",
+    "/euvc2023contents/board/jpg/01HOUBU.jpg",
   ],
   [
     "/euvc2023contents/board/image/news/02KYOUIKU.png",
-    "/euvc2023contents/board/webp/02KYOUIKU.webp",
+    "/euvc2023contents/board/jpg/02KYOUIKU.jpg",
   ],
   [
     "/euvc2023contents/board/image/news/25koukou.png",
-    "/euvc2023contents/board/webp/25koukou.webp",
+    "/euvc2023contents/board/jpg/25koukou.jpg",
   ],
   [
     "/euvc2023contents/board/image/news/i_report.png",
-    "/euvc2023contents/board/webp/i_report.webp",
+    "/euvc2023contents/board/jpg/i_report.jpg",
   ],
   [
     "/euvc2023contents/board/image/news/20seikatujyouhou.png",
-    "/euvc2023contents/board/webp/20seikatujyouhou.webp",
+    "/euvc2023contents/board/jpg/20seikatujyouhou.jpg",
+  ],
+  [
+    "/euvc2023contents/board/image/news/22youchien.png",
+    "/euvc2023contents/board/jpg/22youchien.jpg",
   ],
 ];
 
@@ -138,6 +140,9 @@ self.addEventListener("fetch", function (fetchEvent) {
 
   var mappedRequest = fetchEvent.request;
   if (foundMapping) {
+    console.log(
+      `${fetchEvent.request.url} should be mapped to alternative path ${mappedRequest[1]}`
+    );
     mappedRequest = new Request(foundMapping[1], {
       method: fetchEvent.request.method,
       headers: fetchEvent.request.headers,
@@ -147,7 +152,11 @@ self.addEventListener("fetch", function (fetchEvent) {
       referrer: fetchEvent.request.referrer,
       integrity: fetchEvent.request.integrity,
     });
-  } //if
+  } else {
+    console.log(
+      `${fetchEvent.request.url} should not be mapped to alternative path.`
+    );
+  }
 
   console.log(fetchEvent);
   // いずれかの正規表現にマッチする場合のみキャッシュ処理を行う
@@ -165,9 +174,9 @@ self.addEventListener("fetch", function (fetchEvent) {
         console.log("Trying to cache in cors mode.");
         return fetch(mappedRequest, { mode: "cors" })
           .then((response) => {
-            //const responseToCache = response.clone();
+            const responseClone = response.clone();
             caches.open(CACHE_NAME).then((cache) =>
-              cache.put(mappedRequest, response.clone()).catch((e) => {
+              cache.put(mappedRequest, responseClone).catch((e) => {
                 console.log(e);
                 if (response.status === 206) {
                   fetch(mappedRequest.url)
@@ -205,7 +214,9 @@ self.addEventListener("fetch", function (fetchEvent) {
     ); //respondWith
   } else {
     // 正規表現にマッチしない場合、通常のフェッチ処理を行う
-    console.log("target.url didn't match the regular expression for caching.");
+    console.log(
+      `${fetchEvent.request.url} didn't match the regular expression for caching.`
+    );
     fetchEvent.respondWith(fetch(fetchEvent.request));
   }
 });
