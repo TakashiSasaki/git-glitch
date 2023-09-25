@@ -93,6 +93,11 @@ self.addEventListener("install", (e) => {
   ); //waitUtil
 }); //addEventListener
 
+const URL_MAPPINGS = [
+  ["/oldpath/image1.png", "/newpath/image1.webp"],
+  ["/oldpath/image2.png", "/newpath/image2.webp"],
+];
+
 const REGEX_PATTERNS = [
   /\/.*\/[a-f0-9]+\.data/,
   /\/.*\/[a-f0-9]+\.wasm/,
@@ -105,59 +110,69 @@ const REGEX_PATTERNS = [
   /\/.+\/.+\.webp/,
 ]; // 複数の正規表現を配列で設定
 
-self.addEventListener("fetch", function (event) {
-  console.log(event);
+self.addEventListener("fetch", function (fetchEvent) {
+  const url = new URL(fetchEvent.request.url);
+  const foundMapping = URL_MAPPINGS.find(
+    (mapping) => mapping[0] === url.pathname
+  );
+
+  if (foundMapping) {
+  } else {
+  }
+
+  console.log(fetchEvent);
   // いずれかの正規表現にマッチする場合のみキャッシュ処理を行う
-  if (REGEX_PATTERNS.some((pattern) => event.request.url.match(pattern))) {
+  if (REGEX_PATTERNS.some((pattern) => fetchEvent.request.url.match(pattern))) {
     console.log("target.url matched the regular expression for caching.");
-    console.log(event.request.url);
-    event.respondWith(
-      caches.match(event.request).then(function (cachedResponse) {
+    console.log(fetchEvent.request.url);
+    fetchEvent.respondWith(
+      caches.match(fetchEvent.request).then(function (cachedResponse) {
         if (cachedResponse) {
           console.log(cachedResponse);
           return cachedResponse;
         } //if
 
         console.log("Trying to cache in cors mode.");
-        return fetch(event.request, { mode: "cors" })
+        return fetch(fetchEvent.request, { mode: "cors" })
           .then((response) => {
             const responseToCache = response.clone();
             caches.open(CACHE_NAME).then((cache) =>
-              cache.put(event.request, responseToCache).catch((e) => {
+              cache.put(fetchEvent.request, responseToCache).catch((e) => {
                 console.log(e);
                 if (responseToCache.status === 206) {
-                  fetch(event.request.url)
+                  fetch(fetchEvent.request.url)
                     .then((fullResponse) =>
                       cache
-                        .put(event.request.url, fullResponse.clone())
+                        .put(fetchEvent.request.url, fullResponse.clone())
                         .then(() =>
                           console.log(
-                            "${event.request.url} has been successfully cached."
+                            `${fetchEvent.request.url} has been successfully cached.`
                           )
                         )
                     )
-                    .catch((error) => console.log(error));
+                    .catch((fetchError) => console.log(fetchError));
                 } //if
               })
             );
             return response;
           })
-          .catch(function () {
+          .catch((corsFetchError) => {
+            console.log(corsFetchError);
             console.log("Trying to cache in no-cors mode.");
-            return fetch(event.request, { mode: "no-cors" })
-              .then(function (response) {
+            return fetch(fetchEvent.request, { mode: "no-cors" })
+              .then((response) => {
                 const responseToCache = response.clone();
                 caches.open(CACHE_NAME).then(function (cache) {
                   cache
-                    .put(event.request, responseToCache)
+                    .put(fetchEvent.request, responseToCache)
                     .catch((e) => console.log(e));
                 });
                 return response;
               })
-              .catch((error) => caches.match(event.request));
+              .catch((fetchError) => caches.match(event.request));
           });
       })
-    );
+    ); //respondWith
   } else {
     // 正規表現にマッチしない場合、通常のフェッチ処理を行う
     console.log("target.url didn't match the regular expression for caching.");
