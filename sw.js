@@ -116,25 +116,24 @@ self.addEventListener("fetch", function (event) {
         if (cachedResponse) {
           console.log(cachedResponse);
           return cachedResponse;
-        }
+        } //if
 
         console.log("Trying to cache in cors mode.");
         return fetch(event.request, { mode: "cors" })
-          .then(function (response) {
+          .then((response) => {
             const responseToCache = response.clone();
-            caches.open(CACHE_NAME).then(function (cache) {
+            caches.open(CACHE_NAME).then((cache) =>
               cache.put(event.request, responseToCache).catch((e) => {
                 console.log(e);
                 if (responseToCache.status === 206) {
-                  fetch(new Request(event.request.url){}
-                  .then(fullResponse => cache.put(event.request, fullResponse.clone))
-                  cache
-                    .put(request, fullResponse.clone())
-                    .catch((e) => console.log(e));
+                  fetch(event.request.url)
+                    .then((fullResponse) =>
+                      cache.put(fullResponse.url, fullResponse.clone())
+                    )
+                    .catch((error) => console.log(error));
                 } //if
-              });
-            });
-
+              })
+            );
             return response;
           })
           .catch(function () {
@@ -147,12 +146,9 @@ self.addEventListener("fetch", function (event) {
                     .put(event.request, responseToCache)
                     .catch((e) => console.log(e));
                 });
-
                 return response;
               })
-              .catch(function () {
-                return caches.match(event.request);
-              });
+              .catch((error) => caches.match(event.request));
           });
       })
     );
