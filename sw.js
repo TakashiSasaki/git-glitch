@@ -94,8 +94,10 @@ self.addEventListener("install", (e) => {
 }); //addEventListener
 
 const URL_MAPPINGS = [
-  ["/oldpath/image1.png", "/newpath/image1.webp"],
-  ["/oldpath/image2.png", "/newpath/image2.webp"],
+  [
+    "/euvc2023contents/board/image/news/01HOUBU.png",
+    "/euvc2023contents/board/webp/01HOUBU.webp",
+  ],
 ];
 
 const REGEX_PATTERNS = [
@@ -111,53 +113,52 @@ const REGEX_PATTERNS = [
 ]; // 複数の正規表現を配列で設定
 
 self.addEventListener("fetch", function (fetchEvent) {
-  var cacheCandidateRequest = fetchEvent.request;
-
   const url = new URL(fetchEvent.request.url);
   const foundMapping = URL_MAPPINGS.find(
     (mapping) => mapping[0] === url.pathname
   );
 
+  var mappedRequest = fetchEvent.request;
   if (foundMapping) {
-    cacheCandidateRequest = new Request(foundMapping[1], {
-      method: event.request.method,
-      headers: event.request.headers,
-      mode: event.request.mode,
-      credentials: event.request.credentials,
-      redirect: event.request.redirect,
-      referrer: event.request.referrer,
-      integrity: event.request.integrity,
+    mappedRequest = new Request(foundMapping[1], {
+      method: fetchEvent.request.method,
+      headers: fetchEvent.request.headers,
+      mode: fetchEvent.request.mode,
+      credentials: fetchEvent.request.credentials,
+      redirect: fetchEvent.request.redirect,
+      referrer: fetchEvent.request.referrer,
+      integrity: fetchEvent.request.integrity,
     });
   } //if
 
   console.log(fetchEvent);
   // いずれかの正規表現にマッチする場合のみキャッシュ処理を行う
-  if (REGEX_PATTERNS.some((pattern) => fetchEvent.request.url.match(pattern))) {
+  if (REGEX_PATTERNS.some((pattern) => mappedRequest.url.match(pattern))) {
     console.log(
       `${fetchEvent.request.url} matched the regular expression for caching.`
     );
     fetchEvent.respondWith(
-      caches.match(fetchEvent.request).then(function (cachedResponse) {
+      caches.match(mappedRequest).then(function (cachedResponse) {
         if (cachedResponse) {
           console.log(cachedResponse);
           return cachedResponse;
         } //if
 
         console.log("Trying to cache in cors mode.");
-        return fetch(fetchEvent.request, { mode: "cors" })
+        return fetch(mappedRequest, { mode: "cors" })
           .then((response) => {
-            const responseToCache = response.clone();
+            //const responseToCache = response.clone();
             caches.open(CACHE_NAME).then((cache) =>
-              cache.put(fetchEvent.request, responseToCache).catch((e) => {
+              cache.put(mappedRequest, response.clone()).catch((e) => {
                 console.log(e);
-                if (responseToCache.status === 206) {
-                  fetch(fetchEvent.request.url)
+                if (response.status === 206) {
+                  fetch(mappedRequest.url)
                     .then((fullResponse) =>
                       cache
-                        .put(fetchEvent.request.url, fullResponse.clone())
+                        .put(mappedRequest.url, fullResponse.clone())
                         .then(() =>
                           console.log(
-                            `${fetchEvent.request.url} has been successfully cached.`
+                            `${mappedRequest.url} has been successfully cached.`
                           )
                         )
                     )
@@ -170,17 +171,17 @@ self.addEventListener("fetch", function (fetchEvent) {
           .catch((corsFetchError) => {
             console.log(corsFetchError);
             console.log("Trying to cache in no-cors mode.");
-            return fetch(fetchEvent.request, { mode: "no-cors" })
-              .then((response) => {
-                const responseToCache = response.clone();
+            return fetch(mappedRequest, { mode: "no-cors" })
+              .then((noCorsResponse) => {
+                //const responseToCache = response.clone();
                 caches.open(CACHE_NAME).then(function (cache) {
                   cache
-                    .put(fetchEvent.request, responseToCache)
+                    .put(mappedRequest, noCorsResponse.clone())
                     .catch((e) => console.log(e));
                 });
-                return response;
+                return noCorsResponse;
               })
-              .catch((fetchError) => caches.match(event.request));
+              .catch((fetchError) => fetch(fetchEvent.request));
           });
       })
     ); //respondWith
