@@ -187,6 +187,6 @@ self.addEventListener("fetch", function (fetchEvent) {
   } else {
     // 正規表現にマッチしない場合、通常のフェッチ処理を行う
     console.log("target.url didn't match the regular expression for caching.");
-    event.respondWith(fetch(fetchEvent.request));
+    fetchEvent.respondWith(fetch(fetchEvent.request));
   }
 });
