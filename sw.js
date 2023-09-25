@@ -93,7 +93,9 @@ self.addEventListener("install", (e) => {
   ); //waitUtil
 }); //addEventListener
 
-const URL_MAPPINGS = [
+const URL_MAPPINGS = [];
+
+const URL_MAPPINGS_2 = [
   [
     "/euvc2023contents/board/image/news/01HOUBU.png",
     "/euvc2023contents/board/webp/01HOUBU.webp",
