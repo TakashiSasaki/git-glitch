@@ -17,8 +17,8 @@ self.addEventListener("install", (e) => {
     caches.open(CACHE_NAME).then(function (cache) {
       cache
         .addAll([
-          "/euvc2023contents/board/image/news/01HOUBU.png",
-          "/euvc2023contents/board/image/news/i_report.png",
+          "/euvc2023contents/board/webp/01HOUBU.webp",
+          "/euvc2023contents/board/webp/i_report.webp",
           "/euvc2023contents/board/image/news/infinity.png",
           "/euvc2023contents/board/image/news/02KYOUIKU.png",
           "/euvc2023contents/board/image/news/03SHAKYO.png",
@@ -48,9 +48,9 @@ self.addEventListener("install", (e) => {
           "/euvc2023contents/board/image/news/27enshuurin.png",
           "/euvc2023contents/board/image/news/28museum.png",
         ])
-        .catch((e) => console.log("Caching failed:", e));
+        .catch((e) => console.log(e));
     });
-  }, 5000);
+  }, 3000);
 
   /*
   setTimeout(() => {
@@ -111,20 +111,31 @@ const REGEX_PATTERNS = [
 ]; // 複数の正規表現を配列で設定
 
 self.addEventListener("fetch", function (fetchEvent) {
+  var cacheCandidateRequest = fetchEvent.request;
+
   const url = new URL(fetchEvent.request.url);
   const foundMapping = URL_MAPPINGS.find(
     (mapping) => mapping[0] === url.pathname
   );
 
   if (foundMapping) {
-  } else {
-  }
+    cacheCandidateRequest = new Request(foundMapping[1], {
+      method: event.request.method,
+      headers: event.request.headers,
+      mode: event.request.mode,
+      credentials: event.request.credentials,
+      redirect: event.request.redirect,
+      referrer: event.request.referrer,
+      integrity: event.request.integrity,
+    });
+  } //if
 
   console.log(fetchEvent);
   // いずれかの正規表現にマッチする場合のみキャッシュ処理を行う
   if (REGEX_PATTERNS.some((pattern) => fetchEvent.request.url.match(pattern))) {
-    console.log("target.url matched the regular expression for caching.");
-    console.log(fetchEvent.request.url);
+    console.log(
+      `${fetchEvent.request.url} matched the regular expression for caching.`
+    );
     fetchEvent.respondWith(
       caches.match(fetchEvent.request).then(function (cachedResponse) {
         if (cachedResponse) {
@@ -176,6 +187,6 @@ self.addEventListener("fetch", function (fetchEvent) {
   } else {
     // 正規表現にマッチしない場合、通常のフェッチ処理を行う
     console.log("target.url didn't match the regular expression for caching.");
-    event.respondWith(fetch(event.request));
+    event.respondWith(fetch(fetchEvent.request));
   }
 });
