@@ -126,8 +126,8 @@ self.addEventListener("fetch", function (event) {
               cache.put(event.request, responseToCache).catch((e) => {
                 console.log(e);
                 if (responseToCache.status === 206) {
-                  fetch(request.url)
-                  .then(fullResponse => cache.put(request, fullResponse.clone))
+                  fetch(new Request(event.request.url){}
+                  .then(fullResponse => cache.put(event.request, fullResponse.clone))
                   cache
                     .put(request, fullResponse.clone())
                     .catch((e) => console.log(e));
