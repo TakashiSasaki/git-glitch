@@ -1,10 +1,10 @@
-export const UNITY_PATHS = [
+const UNITY_PATHS = [
   "/euvc2023/EhimeWebGL/Build/66037178c278503228e0f5f2511b301a.data",
   "/euvc2023/EhimeWebGL/Build/dd9ff5803245e1a33787af0195f3d3d8.wasm",
   "/euvc2023/EhimeWebGL/Build/faf84e8f082175e7c8af023ce113f1ba.js",
 ];
 
-export const JPEG_PATHS = [
+const JPEG_PATHS = [
   "/euvc2023contents/board/jpg/01HOUBU.jpg",
   "/euvc2023contents/board/jpg/i_report.jpg",
   "/euvc2023contents/board/jpg/infinity.jpg",
@@ -16,7 +16,7 @@ export const JPEG_PATHS = [
   "/euvc2023contents/board/jpg/07NOUGAKU.jpg",
   "/euvc2023contents/board/jpg/08JYUKEN.jpg",
   "/euvc2023contents/board/jpg/09OGYA.jpg",
-  "/euvc2023contents/board/jpg/10OSHPITAL.jpg",
+  "/euvc2023contents/board/jpg/10HOSPITAL.jpg",
   "/euvc2023contents/board/jpg/11datascience.jpg",
   "/euvc2023contents/board/jpg/12rstock.jpg",
   "/euvc2023contents/board/jpg/13newcomer.jpg",
@@ -37,9 +37,9 @@ export const JPEG_PATHS = [
   "/euvc2023contents/board/jpg/28museum.jpg",
 ];
 
-export const MP4_PATHS = [];
+const MP4_PATHS = [];
 
-export const LANDING_PATHS = [
+const LANDING_PATHS = [
   "/",
   "/favicon.ico",
   "/landing.html",
@@ -51,7 +51,7 @@ export const LANDING_PATHS = [
   "/landing/euvc-landing-20230914.jpg",
 ];
 
-export const URL_MAPPINGS = [
+const URL_MAPPINGS = [
   [
     "/euvc2023contents/board/image/news/01HOUBU.png",
     "/euvc2023contents/board/jpg/01HOUBU.jpg",
