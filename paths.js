@@ -52,28 +52,10 @@ const LANDING_PATHS = [
 ];
 
 const URL_MAPPINGS = [
-  [
-    "/euvc2023contents/board/image/news/01HOUBU.png",
-    "/euvc2023contents/board/jpg/01HOUBU.jpg",
-  ],
-  [
-    "/euvc2023contents/board/image/news/02KYOUIKU.png",
-    "/euvc2023contents/board/jpg/02KYOUIKU.jpg",
-  ],
-  [
-    "/euvc2023contents/board/image/news/25koukou.png",
-    "/euvc2023contents/board/jpg/25koukou.jpg",
-  ],
-  [
-    "/euvc2023contents/board/image/news/i_report.png",
-    "/euvc2023contents/board/jpg/i_report.jpg",
-  ],
-  [
-    "/euvc2023contents/board/image/news/20seikatujyouhou.png",
-    "/euvc2023contents/board/jpg/20seikatujyouhou.jpg",
-  ],
-  [
-    "/euvc2023contents/board/image/news/22youchien.png",
-    "/euvc2023contents/board/jpg/22youchien.jpg",
-  ],
+  [/\/image\/news\/01HOUBU.png$/, "/jpg/01HOUBU.jpg"],
+  [/\/image\/news\/02KYOUIKU.png$, "/jpg/02KYOUIKU.jpg"],
+  ["/image/news/25koukou.png", "/jpg/25koukou.jpg"],
+  ["/image/news/i_report.png", "/jpg/i_report.jpg"],
+  ["/image/news/20seikatujyouhou.png", "/jpg/20seikatujyouhou.jpg"],
+  ["/image/news/22youchien.png", "/jpg/22youchien.jpg"],
 ];
