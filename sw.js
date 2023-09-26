@@ -28,7 +28,7 @@ self.addEventListener("install", (e) => {
           "/euvc2023contents/board/jpg/07NOUGAKU.jpg",
           "/euvc2023contents/board/jpg/08JYUKEN.jpg",
           "/euvc2023contents/board/jpg/09OGYA.jpg",
-          "/euvc2023contents/board/jpg/10HOSPITAL.jpg",
+          "/euvc2023contents/board/jpg/10OSHPITAL.jpg",
           "/euvc2023contents/board/jpg/11datascience.jpg",
           "/euvc2023contents/board/jpg/12rstock.jpg",
           "/euvc2023contents/board/jpg/13newcomer.jpg",
