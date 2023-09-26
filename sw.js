@@ -1,10 +1,4 @@
-import {
-  URL_MAPPINGS,
-  LANDING_PATHS,
-  JPEG_PATHS,
-  MP4_PATHS,
-  UNITY_PATHS,
-} from "./paths.js";
+importScripts("./paths.js");
 
 const CACHE_NAME = "20230925T1000";
 
@@ -58,8 +52,8 @@ const REGEX_PATTERNS = [
 
 self.addEventListener("fetch", function (fetchEvent) {
   const url = new URL(fetchEvent.request.url);
-  const foundMapping = URL_MAPPINGS.find(
-    (mapping) => mapping[0] === url.pathname
+  const foundMapping = URL_MAPPINGS.find((mapping) =>
+    fetchEvent.request.url.match(mapping[0])
   );
 
   var mappedRequest = fetchEvent.request;
@@ -67,15 +61,18 @@ self.addEventListener("fetch", function (fetchEvent) {
     console.log(
       `${fetchEvent.request.url} should be mapped to alternative path ${mappedRequest[1]}`
     );
-    mappedRequest = new Request(foundMapping[1], {
-      method: fetchEvent.request.method,
-      headers: fetchEvent.request.headers,
-      mode: fetchEvent.request.mode,
-      credentials: fetchEvent.request.credentials,
-      redirect: fetchEvent.request.redirect,
-      referrer: fetchEvent.request.referrer,
-      integrity: fetchEvent.request.integrity,
-    });
+    mappedRequest = new Request(
+      fetchEvent.request.url.replace(foundMapping[0], foundMapping[1]),
+      {
+        method: fetchEvent.request.method,
+        headers: fetchEvent.request.headers,
+        mode: fetchEvent.request.mode,
+        credentials: fetchEvent.request.credentials,
+        redirect: fetchEvent.request.redirect,
+        referrer: fetchEvent.request.referrer,
+        integrity: fetchEvent.request.integrity,
+      }
+    );
   } else {
     console.log(
       `${fetchEvent.request.url} should not be mapped to alternative path.`
