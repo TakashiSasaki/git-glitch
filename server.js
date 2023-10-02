@@ -17,7 +17,7 @@ fastify.register(require("@fastify/static"), {
 
 fastify.post("/extract-text", async (request, reply) => {
   const htmlContent = request.body.htmlContent;
-  const $ = cheerio.load(htmlContent);
+  const $ = cheerio.load("<html><body><a>hello</a></body></html>", null, false);
   const extractedText = $("body").text();
   return reply.send({ extractedText });
 });
