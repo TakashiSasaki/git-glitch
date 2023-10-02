@@ -19,7 +19,7 @@ fastify.post("/extract-text", async (request, reply) => {
   const htmlContent = request.body.htmlContent;
   const $ = cheerio.load(htmlContent);
   const extractedText = $("body").text();
-  return reply.send({ htmlContent });
+  return reply.send({ extractedText });
 });
 
 fastify.get("/", async (request, reply) => {
