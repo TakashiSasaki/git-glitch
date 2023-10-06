@@ -2,10 +2,61 @@
 <html lang="en">
   <head>
     <title>flatte - flatten and unflatten JSON</title>
+    <style>
+      /* ベースとなるスタイリング */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      h1, h2 {
+        color: #333;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      /* コード部分のスタイリング */
+      pre {
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      code {
+        font-family: "Courier New", monospace;
+      }
+    </style>
   </head>
   <body>
-    <a href="/docs/_build/html">document</a>
-    <a href="/flatte/flatten.py">flatten.py</a>
+    <a href="/docs/_build/html">document</a> | 
+    <a href="/flatte/flatten.py">flatten.py</a> | 
     <a href="/flatte/unflatten.py">unflatten.py</a>
+
+    <h2>import flatte by httpimport</h2>
+    <pre>
+    <code>
+from httpimport import remote_repo
+with remote_repo("https://flatte.glitch.me/"):
+  import flatte
+</code></pre>
+    <h2>
+      flatte.flatten
+    </h2>
+    <pre><code>
+print(flatte.flatten("abc"))
+&gt;&gt;&gt; [('', 'abc')]
+</code>
+    </pre>
+    <h2>
+      flatte.unflatten
+    </h2>
+    <pre><code>
+&gt;&gt;&gt; print(flatte.unflatten([('', 'abc')]))    
+abc
+</code></pre>
   </body>
 </html>
