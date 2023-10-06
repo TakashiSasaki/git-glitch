@@ -37,8 +37,16 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.0/components/prism-python.min.js"></script>
+    <script type="module">
+      fetch("header.html")
+        .then((response) => response.text())
+        .then(
+          (text) => (document.getElementById("common-header").innerHTML = text)
+        );
+    </script>
   </head>
   <body>
+    <div id="common-header"></div>
     <h1>flatte: A Python Module for Flattening and Unflattening JSON</h1>
     <p>
       The <strong>flatte</strong> module provides Python functions to flatten
@@ -46,12 +54,6 @@
       back to their original structure. This is particularly useful for easily
       manipulating or analyzing deeply nested JSON data.
     </p>
-    <p>Visit the following links for source code and documentation:</p>
-    <ul>
-      <li><a href="/docs/_build/html">Documentation</a></li>
-      <li><a href="/flatte/flatten.py">flatten.py</a></li>
-      <li><a href="/flatte/unflatten.py">unflatten.py</a></li>
-    </ul>
 
     <h2>Using flatte via httpimport</h2>
     <p>
