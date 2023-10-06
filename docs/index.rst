@@ -10,9 +10,7 @@ Welcome to flatte's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-.. autofunction:: flatte.flatten
-
-.. autofunction:: flatte.unflatten
+.. automodule:: flatte
 
 https://colab.research.google.com/drive/1JegsQXXuUjqcwKPLJz7kZ5QVCBvthzHt?usp=sharing
 
