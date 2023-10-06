@@ -11,6 +11,8 @@ Welcome to flatte's documentation!
    :caption: Contents:
 
 .. automodule:: flatte
+.. autofunction:: flatte.flatten
+.. autofunction:: flatte.unflatten
 
 https://colab.research.google.com/drive/1JegsQXXuUjqcwKPLJz7kZ5QVCBvthzHt?usp=sharing
 
