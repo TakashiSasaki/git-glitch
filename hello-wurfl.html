@@ -128,6 +128,30 @@
       });
     </script>
 
+    <h2>ユーザーエージェント クライアントヒント</h2>
+    <label
+      >navigator.userAgentData.mobile
+      <input id="userAgentDataMobile" />
+    </label>
+    <label
+      >navigator.userAgentData.brands
+      <input id="userAgentDataBrands" />
+    </label>
+    <label
+      >navigator.userAgentData.platform
+      <input id="userAgentDataPlatform" />
+    </label>
+    <script>
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("input#userAgentDataMobile").value =
+          navigator.userAgentData.mobile;
+        document.querySelector("input#userAgentDataBrands").value =
+          JSON.stringify(navigator.userAgentData.brands);
+        document.querySelector("input#userAgentDataPlatform").value =
+          navigator.userAgentData.platform;
+      });
+    </script>
+
     <h2>isMobileの結果</h2>
     <label
       >isMobile() =
