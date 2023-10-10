@@ -1,50 +1,13 @@
 <html>
   <head>
-    <title></title>
-    <script src="//wurfl.io/wurfl.js" crossorigin="anonymous"></script>
+    <script src="//wurfl.io/wurfl.js"></script>
   </head>
   <body>
-    <button id="registerButton">register service worker</button>
-    <button id="unregisterButton">unregister service worker</button>
-    <script type="module">
-      window.addEventListener("load", (loadEvent) => {
-        document
-          .querySelector("#registerButton")
-          .addEventListener("click", (clickEvent) => {
-            navigator.serviceWorker
-              .register("./passthrough.js")
-              .then((registration) => {
-                console.log(
-                  "Service Worker registered with scope:",
-                  registration.scope
-                );
-              })
-              .catch((error) => {
-                console.error("Service Worker registration failed:", error);
-              });
-          });
-        document
-          .querySelector("#unregisterButton")
-          .addEventListener("click", (clickEvent) => {
-            // サービスワーカーの登録を取得
-            navigator.serviceWorker
-              .getRegistration()
-              .then(function (registration) {
-                // 登録が存在する場合、解除
-                if (registration) {
-                  registration.unregister().then(function (unregistered) {
-                    if (unregistered) {
-                      console.log("サービスワーカーの登録を解除しました。");
-                    } else {
-                      console.log("サービスワーカーの登録解除に失敗しました。");
-                    }
-                  });
-                } else {
-                  console.log("サービスワーカーの登録が見つかりません。");
-                }
-              });
-          });
+  <script type="module">
+    window.addEventListener("load", loadEvent=>{
+      window.addEventListener("message", messageEvent=>{
+        return 
       });
-    </script>
-  </body>
+    });
+    </script></body>
 </html>
