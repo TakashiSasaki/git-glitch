@@ -83,10 +83,18 @@
     </script>
 
     <h2>メディアクエリ</h2>
+    <label>Media query <input id="mediaQueryInput" readonly /></label>
     <script type="module">
-        if (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) {
-      alert('Your screen size suggests you might be on a mobile connection, downloading large files may incur charges.');
-    }
+      window.addEventListener("load", (loadEvent) => {
+        if (
+          window.matchMedia &&
+          window.matchMedia("(max-width: 767px)").matches
+        ) {
+          document.querySelector("#mediaQueryInput").value = "narrow";
+        } else {
+          document.querySelector("#mediaQueryInput").value = "wide";
+        } //if
+      });
     </script>
 
     <h2>Modernizr</h2>
