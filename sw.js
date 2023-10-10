@@ -6,20 +6,22 @@ const PRODUCTION_DOMAIN = "euvc.pr.ehime-u.ac.jp";
 self.addEventListener("install", (e) => {
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
-      if (window.location.hostname === PRODUCTION_DOMAIN) {
+      if (self.location.hostname === PRODUCTION_DOMAIN) {
         cache
           .addAll(UNITY_PATHS)
           .catch((e) => console.log("Caching failed:", e));
       } else {
-        console.log(`Ignore UNITY_PATHS in ${window.location.hostname}`);
-      }//if
+        console.log(`Ignore UNITY_PATHS in ${self.location.hostname}`);
+      } //if
     });
   }, 1000);
 
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
-      if (window.location.hostname === PRODUCTION_DOMAIN) {
+      if (self.location.hostname === PRODUCTION_DOMAIN) {
         cache.addAll(JPEG_PATHS).catch((e) => console.log(e));
+      } else {
+        console.log(`Ignore JPEG_PATHS in ${self.location.hostname}`);
       } //if
     });
   }, 3000);
@@ -147,6 +149,6 @@ self.addEventListener("fetch", function (fetchEvent) {
     console.log(
       `${fetchEvent.request.url} didn't match the regular expression for caching.`
     );
-    fetchEvent.respondWith(fetch(fetchEvent.request, { mode: "no-cors" }));
+    fetchEvent.respondWith(fetch(fetchEvent.request, {mode: 'no-cors'}));
   }
 });
