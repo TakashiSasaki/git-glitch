@@ -1,6 +1,6 @@
 <html>
   <head>
-    <script src="https://wurfl.io/wurfl.js"></script>
+    <script src="/wurfl.js"></script>
     <style>
       label {
         display: block;
@@ -62,6 +62,14 @@
       window.addEventListener("load", (loadEvent) => {
         document.querySelector("#navigatorConnectionDownlinkInput").value =
           navigator.connection.downlink;
+        document.querySelector("#navigatorConnectionRttInput").value =
+          navigator.connection.rtt;
+        document.querySelector("#navigatorConnectionSaveDataInput").value =
+          navigator.connection.saveData;
+        document.querySelector("#navigatorConnectionTypeInput").value =
+          navigator.connection.type;
+        document.querySelector("#navigatorConnectionEffectiveTypeInput").value =
+          navigator.connection.effectiveType;
       });
     </script>
   </body>

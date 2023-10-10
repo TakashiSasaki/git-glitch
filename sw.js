@@ -149,6 +149,11 @@ self.addEventListener("fetch", function (fetchEvent) {
     console.log(
       `${fetchEvent.request.url} didn't match the regular expression for caching.`
     );
-    fetchEvent.respondWith(fetch(fetchEvent.request, {mode: 'no-cors'}));
+    fetchEvent.respondWith(
+      fetch(fetchEvent.request.url, { mode: "no-cors" }).catch((error) => {
+        console.error("Fetch failed:", error);
+        throw error;
+      })
+    );
   }
 });
