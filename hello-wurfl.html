@@ -13,14 +13,9 @@
     </style>
   </head>
   <body>
-    <h1>
-      モバイル環境からの閲覧か判定したい
-    </h1>
-    <h2>
-      WURFL.js
-    </h2>
-    <label>WURFL.is_mobile 
-      <input id="isMobileInput" readonly /></label>
+    <h1>モバイル環境からの閲覧か判定したい</h1>
+    <h2>WURFL.js</h2>
+    <label>WURFL.is_mobile <input id="isMobileInput" readonly /></label>
     <label>WURFL.from_factor <input id="formFactorInput" readonly /></label>
     <label
       >WURFL.complete_device_name <input id="completeDeviceNameInput" readonly
@@ -52,32 +47,25 @@
           WURFL.complete_device_name;
       });
     </script>
-    
-    <h2>
-      navigator.connection
-    </h2>
+
+    <h2>navigator.connection</h2>
     <label
       >navigator.connection.downlink
-      <input
-        id="navigatorConnectionDownlinkInput"
+      <input id="navigatorConnectionDownlinkInput"
     /></label>
     <label
-      >navigator.connection.rtt
-      <input id="navigatorConnectionRttInput"
+      >navigator.connection.rtt <input id="navigatorConnectionRttInput"
     /></label>
     <label
       >navigator.connection.saveData
-      <input
-        id="navigatorConnectionSaveDataInput"
+      <input id="navigatorConnectionSaveDataInput"
     /></label>
     <label
-      >navigator.connection.type
-      <input id="navigatorConnectionTypeInput"
+      >navigator.connection.type <input id="navigatorConnectionTypeInput"
     /></label>
     <label
       >navigator.connection.effectiveType
-      <input
-        id="navigatorConnectionEffectiveTypeInput"
+      <input id="navigatorConnectionEffectiveTypeInput"
     /></label>
     <script type="module">
       window.addEventListener("load", (loadEvent) => {
@@ -93,6 +81,15 @@
           navigator.connection.effectiveType;
       });
     </script>
+
+    <h2>メディアクエリ</h2>
+    <script type="module">
+        if (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) {
+      alert('Your screen size suggests you might be on a mobile connection, downloading large files may incur charges.');
+    }
+    </script>
+
+    <h2>Modernizr</h2>
     <label>
       Modernizr.webgl
       <input id="modernizrWebglInput" />
@@ -103,14 +100,14 @@
     /></label>
     <label>
       Modernizr.webglextensions
-      <textarea id="modernizrWebglExtensionsTextarea"
-                ></textarea></label>
+      <textarea id="modernizrWebglExtensionsTextarea"></textarea>
+    </label>
     <script type="module">
       window.addEventListener("load", (loadEvent) => {
         document.querySelector("#modernizrWebglInput").value = Modernizr.webgl;
         document.querySelector("#modernizrWebglExtensionsInput").value =
           Modernizr.webglextensions;
-        document.querySelector("#modernizrWebglExtensionsTextarea").innerText = 
+        document.querySelector("#modernizrWebglExtensionsTextarea").innerText =
           Object.keys(Modernizr.webglextensions);
       });
     </script>
