@@ -85,11 +85,19 @@
     <h2>メディアクエリ</h2>
     <label>Media query <input id="mediaQueryInput" readonly /></label>
     <script type="module">
-      window.addEventListener("load", (loadEvent) => {
+      function isNarrow() {
         if (
           window.matchMedia &&
           window.matchMedia("(max-width: 767px)").matches
         ) {
+          return true;
+        } else {
+          return false;
+        } //if
+      } //isNarrow
+
+      window.addEventListener("load", (loadEvent) => {
+        if (isNarrow()) {
           document.querySelector("#mediaQueryInput").value = "narrow";
         } else {
           document.querySelector("#mediaQueryInput").value = "wide";
@@ -117,6 +125,40 @@
           Modernizr.webglextensions;
         document.querySelector("#modernizrWebglExtensionsTextarea").innerText =
           Object.keys(Modernizr.webglextensions);
+      });
+    </script>
+
+    <h2>isMobileの結果</h2>
+    <label
+      >isMobile() =
+      <input id="isMobileTotallyInput" />
+    </label>
+    <script>
+      function isMobile() {
+        if (typeof WURFL !== "undefined") {
+          if (WURFL.is_mobile || WURFL.form_factor !== "Desktop") return true;
+        }
+        if (typeof navigator.connection !== "undefined") {
+          if (
+            navigator.connection.downlink < 8 ||
+            navigator.connection.rtt > 100 ||
+            navigator.connection.saveData ||
+            navigator.connection.effectiveType !== "4g"
+          )
+            return true;
+        }
+
+        if (typeof Modernizr !== "undefined") {
+          if (!Modernizr.webgl || !Modernizr.webglextensions) return true;
+        }
+        if (typeof isNarrow !== "undefined") {
+          if (isNarrow()) return true;
+        }
+        return false;
+      }
+
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("#isMobileTotallyInput").value = isMobile();
       });
     </script>
 
