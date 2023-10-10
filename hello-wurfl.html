@@ -10,7 +10,9 @@
   <body>
     <label>WURFL.is_mobile <input id="isMobileInput" readonly /></label>
     <label>WURFL.from_factor <input id="formFactorInput" readonly /></label>
-    <label>WURFL.complete_device_name <input id="completeDeviceNameInput" readonly /></label>
+    <label
+      >WURFL.complete_device_name <input id="completeDeviceNameInput" readonly
+    /></label>
     <script type="module">
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
@@ -34,7 +36,32 @@
       window.addEventListener("load", (loadEvent) => {
         document.querySelector("#isMobileInput").value = WURFL.is_mobile;
         document.querySelector("#formFactorInput").value = WURFL.form_factor;
-        document.querySelector("#completeDeviceNameInput").value = WURFL.complete_device_name;
+        document.querySelector("#completeDeviceNameInput").value =
+          WURFL.complete_device_name;
+      });
+    </script>
+    <label
+      >navigator.connection.downlink<input
+        id="navigatorConnectionDownlinkInput"
+    /></label>
+    <label
+      >navigator.connection.rtt<input id="navigatorConnectionRttInput"
+    /></label>
+    <label
+      >navigator.connection.saveData<input
+        id="navigatorConnectionSaveDataInput"
+    /></label>
+    <label
+      >navigator.connection.type<input id="navigatorConnectionTypeInput"
+    /></label>
+    <label
+      >navigator.connection.effectiveType<input
+        id="navigatorConnectionEffectiveTypeInput"
+    /></label>
+    <script type="module">
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("#navigatorConnectionDownlinkInput").value =
+          navigator.connection.downlink;
       });
     </script>
   </body>

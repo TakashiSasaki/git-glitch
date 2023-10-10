@@ -1,17 +1,26 @@
 importScripts("./paths.js");
 
 const CACHE_NAME = "20230925T1000";
+const PRODUCTION_DOMAIN = "euvc.pr.ehime-u.ac.jp";
 
 self.addEventListener("install", (e) => {
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
-      cache.addAll(UNITY_PATHS).catch((e) => console.log("Caching failed:", e));
+      if (window.location.hostname === PRODUCTION_DOMAIN) {
+        cache
+          .addAll(UNITY_PATHS)
+          .catch((e) => console.log("Caching failed:", e));
+      } else {
+        console.log(`Ignore UNITY_PATHS in ${window.location.hostname}`);
+      }//if
     });
   }, 1000);
 
   setTimeout(() => {
     caches.open(CACHE_NAME).then(function (cache) {
-      cache.addAll(JPEG_PATHS).catch((e) => console.log(e));
+      if (window.location.hostname === PRODUCTION_DOMAIN) {
+        cache.addAll(JPEG_PATHS).catch((e) => console.log(e));
+      } //if
     });
   }, 3000);
 
