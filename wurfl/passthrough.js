@@ -1,4 +1,4 @@
 // service-worker.js
 self.addEventListener("fetch", (event) => {
-  event.respondWith(fetch(event.request.url, { mode: "no-cors" }));
+  event.respondWith(fetch(event.request.url));
 });
