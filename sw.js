@@ -59,7 +59,7 @@ self.addEventListener("fetch", function (fetchEvent) {
   var mappedRequest = fetchEvent.request;
   if (foundMapping) {
     console.log(
-      `${fetchEvent.request.url} should be mapped to alternative path ${mappedRequest[1]}`
+      `${fetchEvent.request.url} should be mapped to alternative path ${foundMapping[1]}`
     );
     mappedRequest = new Request(
       fetchEvent.request.url.replace(foundMapping[0], foundMapping[1]),
@@ -138,6 +138,6 @@ self.addEventListener("fetch", function (fetchEvent) {
     console.log(
       `${fetchEvent.request.url} didn't match the regular expression for caching.`
     );
-    fetchEvent.respondWith(fetch(fetchEvent.request));
+    fetchEvent.respondWith(fetch(fetchEvent.request, { mode: "no-cors" }));
   }
 });
