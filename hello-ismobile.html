@@ -9,7 +9,9 @@
     </label>
     <script>
       window.addEventListener("load", (loadEvent) => {
-        document.querySelector("#isMobile").value = isMobile();
+        setTimeout(() => {
+          document.querySelector("#isMobile").value = isMobile();
+        }, 1000);
       });
     </script>
   </body>
