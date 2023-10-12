@@ -12,18 +12,17 @@ class FlattenToArrayTest extends TestCase {
     }
 
     public function testFlattenToArrayWithNestedArrays() {
+        $this->expectException(Exception::class);
         $arr = ['x' => ['y' => ['z' => 1]]];
         $result = flattenToArray($arr);
-        $this->assertEquals([['', '[]'], ['x', '[]'], ['x.y', '[]'], ['x.y.z', 1]], $result);
     }
 
     public function testFlattenToArrayWithObjectsUnderArrays() {
+        $this->expectException(Exception::class);
         $arr = ['a' => new stdClass()];
         $arr['a']->b = 1;
         $result = flattenToArray($arr);
-        $this->assertEquals([['', '[]'], ['a', '{}'], ['a.b', 1]], $result);
     }
-
     public function testFlattenToArrayWithArraysUnderObjects() {
         $obj = new stdClass();
         $obj->a = ['b' => 1];

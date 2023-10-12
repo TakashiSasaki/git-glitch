@@ -4,6 +4,9 @@ function flattenToArray($data, $prefix = '', $delimiter = '.') {
 
     if ($prefix === '') {
         if (is_array($data)) {
+            if (array_keys($data) !== range(0, count($data) - 1)) {
+                throw new Exception('Non-indexed array provided');
+            }
             $result[] = [$prefix, '[]'];
         } elseif ($data instanceof stdClass) {
             $result[] = [$prefix, '{}'];
@@ -20,6 +23,9 @@ function flattenToArray($data, $prefix = '', $delimiter = '.') {
             $new_key = $prefix ? $prefix . $delimiter . $key : $key;
             if (is_array($value) || $value instanceof stdClass) {
                 if (is_array($value)) {
+                    if (array_keys($value) !== range(0, count($value) - 1)) {
+                        throw new Exception('Non-indexed array provided');
+                    }
                     $result[] = [$new_key, '[]'];
                 } else {
                     $result[] = [$new_key, '{}'];
