@@ -14,24 +14,4 @@ function flatten($array, $prefix = '', $delimiter = '.') {
     }
     return $result;
 }
-
-// Test the function
-$input_array = [
-    'a' => 1,
-    'b' => [
-        'c' => 2,
-        'd' => ['e' => 3]
-    ]
-];
-$flattened_array = flatten($input_array);
-print_r($flattened_array);
-
-$input_object = new stdClass();
-$input_object->a = 1;
-$input_object->b = new stdClass();
-$input_object->b->c = 2;
-$input_object->b->d = new stdClass();
-$input_object->b->d->e = 3;
-$flattened_object = flatten($input_object, '', '/');
-print_r($flattened_object);
 ?>
