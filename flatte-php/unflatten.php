@@ -1,34 +1,41 @@
 <?php
-function unflattenFromArray($flattened) {
-    $result = null;
-
-    foreach ($flattened as $item) {
-        list($key, $value) = $item;
-        $keys = explode(".", $key);
-
-        $ref = &$result;
-        foreach ($keys as $k) {
-            if (is_null($ref)) {
-                $ref = [];
-            }
-
-            if (isset($ref[$k])) {
-                $ref = &$ref[$k];
+function unflattenFromArray($flattenedArray) {
+    $result = new stdClass();
+    
+    foreach ($flattenedArray as $item) {
+        list($path, $value) = $item;
+        
+        // Handle the root
+        if ($path === "") {
+            if ($value === "[]") {
+                return [];
+            } elseif ($value === "{}") {
+                return new stdClass();
             } else {
-                $ref[$k] = null;
-                $ref = &$ref[$k];
+                return $value;
             }
         }
-
+        
+        $keys = explode(".", $path);
+        $lastKey = array_pop($keys);
+        $tmp = &$result;
+        
+        foreach ($keys as $key) {
+            if (!isset($tmp->$key)) {
+                $tmp->$key = new stdClass();
+            }
+            $tmp = &$tmp->$key;
+        }
+        
         if ($value === "[]") {
-            $ref = [];
+            $tmp->$lastKey = [];
         } elseif ($value === "{}") {
-            $ref = new stdClass();
+            $tmp->$lastKey = new stdClass();
         } else {
-            $ref = $value;
+            $tmp->$lastKey = $value;
         }
     }
-
+    
     return $result;
 }
 ?>
