@@ -1,4 +1,4 @@
-test: test1 
+test: test1 test2
 
 test1: composer
 	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test1.php

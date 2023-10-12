@@ -14,21 +14,21 @@ class FlattenToArrayTest extends TestCase {
     public function testFlattenToArrayWithNestedArrays() {
         $arr = ['x' => ['y' => ['z' => 1]]];
         $result = flattenToArray($arr);
-        $this->assertEquals([['', '{}'], ['x', '{}'], ['x.y', '{}'], ['x.y.z', 1]], $result);
+        $this->assertEquals([['', '[]'], ['x', '[]'], ['x.y', '[]'], ['x.y.z', 1]], $result);
     }
 
     public function testFlattenToArrayWithObjectsUnderArrays() {
         $arr = ['a' => new stdClass()];
         $arr['a']->b = 1;
         $result = flattenToArray($arr);
-        $this->assertEquals([['', '{}'], ['a', '{}'], ['a.b', 1]], $result);
+        $this->assertEquals([['', '[]'], ['a', '{}'], ['a.b', 1]], $result);
     }
 
     public function testFlattenToArrayWithArraysUnderObjects() {
         $obj = new stdClass();
         $obj->a = ['b' => 1];
         $result = flattenToArray($obj);
-        $this->assertEquals([['', '{}'], ['a', '{}'], ['a.b', 1]], $result);
+        $this->assertEquals([['', '{}'], ['a', '[]'], ['a.b', 1]], $result);
     }
 
     public function testFlattenToArrayWithEmptyObject() {
@@ -40,8 +40,9 @@ class FlattenToArrayTest extends TestCase {
     public function testFlattenToArrayWithEmptyArray() {
         $arr = [];
         $result = flattenToArray($arr);
-        $this->assertEquals([['', '{}']], $result);
+        $this->assertEquals([['', '[]']], $result);
     }
+
     public function testFlattenToArrayWithString() {
         $input = "string";
         $result = flattenToArray($input);
