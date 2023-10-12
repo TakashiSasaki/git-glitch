@@ -1,13 +1,14 @@
 <?php
-function flatten($array, $prefix = '', $delimiter = '.') {
+function flatten($data, $prefix = '', $delimiter = '.') {
+    if (!is_array($data) && !is_object($data)) {
+        return [$prefix => $data];
+    }
+
     $result = [];
-    foreach($array as $key => $value) {
+    foreach ($data as $key => $value) {
         $new_key = $prefix ? $prefix . $delimiter . $key : $key;
-        if (is_array($value) || $value instanceof stdClass) {
-            if ($value instanceof stdClass) {
-                $value = (array) $value;
-            }
-            $result = array_merge($result, flatten($value, $new_key, $delimiter));
+        if (is_array($value) || is_object($value)) {
+            $result += flatten($value, $new_key, $delimiter);
         } else {
             $result[$new_key] = $value;
         }
@@ -15,3 +16,4 @@ function flatten($array, $prefix = '', $delimiter = '.') {
     return $result;
 }
 ?>
+
