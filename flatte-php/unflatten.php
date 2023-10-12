@@ -1,52 +1,40 @@
 <?php
-function unflattenFromArray($flattenedArray) {
-    // Assume the root is always the first element
-    $rootValue = $flattenedArray[0][1];
-    
-    // Handle null at root level
-    if (is_null($rootValue)) {
-        return null;
-    }
+function unflattenFromArray($flattened, $delimiter = '.') {
+    $result = new stdClass();
+    $root_primitive_value = null;
 
-    $result = ($rootValue === '[]') ? [] : new stdClass();
-
-    foreach ($flattenedArray as $item) {
-        list($path, $value) = $item;
-
-        // Skip the root
-        if ($path === '') {
+    foreach ($flattened as $pair) {
+        $keys = explode($delimiter, $pair[0]);
+        $value = $pair[1];
+        
+        // Handle root primitive value
+        if ($pair[0] === "") {
+            $root_primitive_value = $value;
             continue;
         }
 
-        $keys = explode('.', $path);
-        $tmp = &$result;
+        $temp = &$result;
 
         foreach ($keys as $key) {
-            if (is_object($tmp)) {
-                if (!property_exists($tmp, $key)) {
-                    $tmp->$key = new stdClass();
-                }
-                $tmp = &$tmp->$key;
-            } elseif (is_array($tmp)) {
-                if (!isset($tmp[$key])) {
-                    $tmp[$key] = [];
-                }
-                $tmp = &$tmp[$key];
+            if (!isset($temp->$key)) {
+                $temp->$key = new stdClass();
             }
+            $last_key = $key;
+            $temp = &$temp->$key;
         }
 
-        if ($value === '[]') {
-            $value = [];
-        } elseif ($value === '{}') {
-            $value = new stdClass();
+        if (is_string($value) && ($value === "{}" || $value === "[]")) {
+            $temp = $value === "{}" ? new stdClass() : [];
+        } else {
+            $temp = $value;
         }
+    }
 
-        $tmp = $value;
+    // If a root primitive value is set, return it instead of the result object
+    if ($root_primitive_value !== null) {
+        return $root_primitive_value;
     }
 
     return $result;
 }
-
-
-
 ?>
