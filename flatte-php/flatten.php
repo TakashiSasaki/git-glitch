@@ -21,6 +21,9 @@ function flattenToArray($data, $prefix = '', $delimiter = '.') {
         }
         foreach ($data as $key => $value) {
             $key = is_int($key) ? (string)$key : $key;  // Ensure that numeric keys are treated as strings
+            if (strpos($key, $delimiter) !== false) {
+                throw new InvalidArgumentException("Delimiter found in key: " . $key);
+            }
             $new_key = ($prefix !== '') ? $prefix . $delimiter . $key : $key;
             if (is_array($value) || $value instanceof stdClass) {
                 if (is_array($value)) {

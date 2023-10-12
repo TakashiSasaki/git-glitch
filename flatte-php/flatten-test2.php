@@ -130,5 +130,34 @@ class FlattenToArrayJSONDeserializationTest extends PHPUnit\Framework\TestCase {
         }
         $this->assertEquals($expected, $result);
     }
+  
+    public function testFlattenToArrayWithDelimiterInProperty() {
+        $json = '{"a.b": {"c": "d"}}';
+        $input = json_decode($json);
+        $this->expectException(InvalidArgumentException::class);
+        $result = flattenToArray($input);
+    }
+
+    public function testFlattenToArrayWithDelimiterInNestedProperty() {
+        $json = '{"a": {"b.c": "d"}}';
+        $input = json_decode($json);
+        $this->expectException(InvalidArgumentException::class);
+        $result = flattenToArray($input);
+    }
+
+    public function testFlattenToArrayWithMultipleDelimitersInProperty() {
+        $json = '{"a..b": {"c": "d"}}';
+        $input = json_decode($json);
+        $this->expectException(InvalidArgumentException::class);
+        $result = flattenToArray($input);
+    }
+
+    public function testFlattenToArrayWithNoDelimiterInProperty() {
+        $json = '{"a": {"b": "c"}}';
+        $input = json_decode($json);
+        $result = flattenToArray($input);
+        $this->assertEquals([["", "{}"], ["a", "{}"], ["a.b", "c"]], $result);
+    }
+
 }
 ?>
