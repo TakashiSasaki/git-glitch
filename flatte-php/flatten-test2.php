@@ -84,6 +84,51 @@ class FlattenToArrayJSONDeserializationTest extends PHPUnit\Framework\TestCase {
         $input = json_decode($json);
         $result = flattenToArray($input);
         $this->assertEquals([["", 42]], $result);
-    }}
+    }
+  
+    public function testFlattenToArrayWithDepth2() {
+        $json = '[[1, 2], [3, 4]]';
+        $input = json_decode($json);
+        $result = flattenToArray($input);
+        $this->assertEquals([["", "[]"], ["0", "[]"], ["0.0", 1], ["0.1", 2], ["1", "[]"], ["1.0", 3], ["1.1", 4]], $result);
+    }
 
+    public function testFlattenToArrayWithDepth4() {
+        $json = '[[[["a"], ["b"]], [["c"], ["d"]]], [[["e"], ["f"]], [["g"], ["h"]]]]';
+        $input = json_decode($json);
+        $result = flattenToArray($input);
+        $expected = [
+            ["", "[]"], ["0", "[]"], ["0.0", "[]"], ["0.0.0", "[]"], ["0.0.0.0", "a"], ["0.0.1", "[]"], ["0.0.1.0", "b"],
+            ["0.1", "[]"], ["0.1.0", "[]"], ["0.1.0.0", "c"], ["0.1.1", "[]"], ["0.1.1.0", "d"],
+            ["1", "[]"], ["1.0", "[]"], ["1.0.0", "[]"], ["1.0.0.0", "e"], ["1.0.1", "[]"], ["1.0.1.0", "f"],
+            ["1.1", "[]"], ["1.1.0", "[]"], ["1.1.0.0", "g"], ["1.1.1", "[]"], ["1.1.1.0", "h"]
+        ];
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testFlattenToArrayWithDepth5AndEmptyArrays() {
+        $json = '[[[[[], []], [[], []]], [[[1], [2]], [[3], [4]]]], [[[[]]]]]';
+        $input = json_decode($json);
+        $result = flattenToArray($input);
+        $expected = [
+            ["", "[]"], ["0", "[]"], ["0.0", "[]"], ["0.0.0", "[]"], ["0.0.0.0", "[]"], ["0.0.0.1", "[]"],
+            ["0.0.1", "[]"], ["0.0.1.0", "[]"], ["0.0.1.1", "[]"],
+            ["0.1", "[]"], ["0.1.0", "[]"], ["0.1.0.0", "[]"], ["0.1.0.0.0", 1], ["0.1.0.1", "[]"], ["0.1.0.1.0", 2],
+            ["0.1.1", "[]"], ["0.1.1.0", "[]"], ["0.1.1.0.0", 3], ["0.1.1.1", "[]"], ["0.1.1.1.0", 4],
+            ["1", "[]"], ["1.0", "[]"], ["1.0.0", "[]"], ["1.0.0.0", "[]"]
+        ];
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testFlattenToArrayWithLargeArray() {
+        $json = '[' . str_repeat('"x",', 999) . '"x"]';
+        $input = json_decode($json);
+        $result = flattenToArray($input);
+        $expected = [["", "[]"]];
+        for ($i = 0; $i < 1000; ++$i) {
+            $expected[] = [strval($i), "x"];
+        }
+        $this->assertEquals($expected, $result);
+    }
+}
 ?>
