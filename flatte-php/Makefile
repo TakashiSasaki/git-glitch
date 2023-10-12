@@ -1,13 +1,16 @@
-test: test1 test2 test3
+test: flatten-test1 flatten-test2 flatten-test3 unflatten-test1
 
-test1: composer
+flatten-test1: composer
 	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test1.php
 
-test2: composer
+flatten-test2: composer
 	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test2.php
 
-test3: composer
+flatten-test3: composer
 	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test3.php
+
+unflatten-test1: composer
+	./vendor/bin/phpunit --bootstrap vendor/autoload.php $@.php
 
 /tmp/.composer:
 	mkdir /tmp/.composer
