@@ -1,22 +1,27 @@
 <?php
-function flattenToArray($data, $path = "", $delimiter = ".", &$result = []) {
-    if (is_object($data)) {
-        $data = get_object_vars($data);
+function flattenToArray($data, $prefix = '', $delimiter = '.') {
+    $result = [];
+
+    if ($prefix === '') {
+        $result[] = [$prefix, is_array($data) || $data instanceof stdClass ? '{}' : $data];
     }
 
-    if (is_array($data) && count($data) === 0) {
-        $result[] = [$path, '{}'];
-        return;
-    }
-
-    if (is_array($data)) {
-        $result[] = [$path, '{}'];
-        foreach ($data as $key => $value) {
-            flattenToArray($value, ($path === "" ? $key : $path . $delimiter . $key), $delimiter, $result);
+    if (is_array($data) || $data instanceof stdClass) {
+        if ($data instanceof stdClass) {
+            $data = (array)$data;
         }
-    } else {
-        $result[] = [$path, $data];
+        foreach ($data as $key => $value) {
+            $new_key = $prefix ? $prefix . $delimiter . $key : $key;
+            if (is_array($value) || $value instanceof stdClass) {
+                $result[] = [$new_key, '{}'];
+                $result = array_merge($result, flattenToArray($value, $new_key, $delimiter));
+            } else {
+                $result[] = [$new_key, $value];
+            }
+        }
     }
+
     return $result;
 }
+
 ?>

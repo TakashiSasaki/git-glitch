@@ -34,13 +34,42 @@ class FlattenToArrayTest extends TestCase {
     public function testFlattenToArrayWithEmptyObject() {
         $obj = new stdClass();
         $result = flattenToArray($obj);
-        $this->assertEquals([['', '{}']], $result);
+        $this->assertEquals([['', '{}']], $result, "The test failed for empty stdClass object. The output should be an array with a single element indicating the root is an empty object.");
     }
 
     public function testFlattenToArrayWithEmptyArray() {
         $arr = [];
         $result = flattenToArray($arr);
         $this->assertEquals([['', '{}']], $result);
+    }
+    public function testFlattenToArrayWithString() {
+        $input = "string";
+        $result = flattenToArray($input);
+        $this->assertEquals([["", "string"]], $result);
+    }
+
+    public function testFlattenToArrayWithBoolean() {
+        $input = true;
+        $result = flattenToArray($input);
+        $this->assertEquals([["", true]], $result);
+    }
+
+    public function testFlattenToArrayWithInteger() {
+        $input = 42;
+        $result = flattenToArray($input);
+        $this->assertEquals([["", 42]], $result);
+    }
+
+    public function testFlattenToArrayWithFloat() {
+        $input = 3.14;
+        $result = flattenToArray($input);
+        $this->assertEquals([["", 3.14]], $result);
+    }
+
+    public function testFlattenToArrayWithNull() {
+        $input = null;
+        $result = flattenToArray($input);
+        $this->assertEquals([["", null]], $result);
     }
 }
 ?>
