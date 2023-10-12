@@ -6,6 +6,9 @@ test1: composer
 test2: composer
 	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test2.php
 
+test3: composer
+	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test3.php
+
 /tmp/.composer:
 	mkdir /tmp/.composer
 
