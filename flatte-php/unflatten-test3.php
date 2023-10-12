@@ -15,7 +15,7 @@ class UnflattenFromArrayDeepNestedTest extends TestCase {
             ["e.f.g", "deep"]
         ];
         $result = unflattenFromArray($flattened);
-        $this->assertEquals('{"a": {"b": {"c": {"d": 1}}}, "e": {"f": {"g": "deep"}}}', json_encode($result));
+        $this->assertEquals('{"a":{"b":{"c":{"d":1}}},"e":{"f":{"g":"deep"}}}', json_encode($result));
     }
 
     public function testUnflattenFromArrayDeeplyNestedArrays() {
@@ -28,7 +28,7 @@ class UnflattenFromArrayDeepNestedTest extends TestCase {
             ["1.0", "deep"]
         ];
         $result = unflattenFromArray($flattened);
-        $this->assertEquals('[[[1]], ["deep"]]', json_encode($result));
+        $this->assertEquals('[[[1]],["deep"]]', json_encode($result));
     }
 
     public function testUnflattenFromArrayMixedDeeplyNested() {
@@ -48,7 +48,7 @@ class UnflattenFromArrayDeepNestedTest extends TestCase {
             ["e.f.g.1.h", "deeper"]
         ];
         $result = unflattenFromArray($flattened);
-        $this->assertEquals('{"a": {"b": [{"c": 1, "d": 2}, 3]}, "e": {"f": {"g": ["deep", {"h": "deeper"}]}}}', json_encode($result));
+        $this->assertEquals('{"a":{"b":[{"c":1,"d":2},3]},"e":{"f":{"g":["deep",{"h":"deeper"}]}}}', json_encode($result));
     }
 
     public function testUnflattenFromArrayWithEmptyObjectsAndArrays() {
@@ -61,7 +61,7 @@ class UnflattenFromArrayDeepNestedTest extends TestCase {
             ["c.d.e", "[]"]
         ];
         $result = unflattenFromArray($flattened);
-        $this->assertEquals('{"a": {}, "b": [], "c": {"d": {"e": []}}}', json_encode($result));
+        $this->assertEquals('{"a":{},"b":[],"c":{"d":{"e":[]}}}', json_encode($result));
     }
 }
 ?>
