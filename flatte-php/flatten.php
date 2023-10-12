@@ -20,7 +20,7 @@ function flattenToArray($data, $prefix = '', $delimiter = '.') {
             $data = (array)$data;
         }
         foreach ($data as $key => $value) {
-            $new_key = $prefix ? $prefix . $delimiter . $key : $key;
+            $new_key = $prefix ? $prefix . $delimiter . (string)$key : (string)$key;
             if (is_array($value) || $value instanceof stdClass) {
                 if (is_array($value)) {
                     if (!empty($value) && array_keys($value) !== range(0, count($value) - 1)) {
