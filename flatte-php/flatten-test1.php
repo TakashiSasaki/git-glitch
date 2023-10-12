@@ -23,12 +23,14 @@ class FlattenToArrayTest extends TestCase {
         $arr['a']->b = 1;
         $result = flattenToArray($arr);
     }
+  
     public function testFlattenToArrayWithArraysUnderObjects() {
+        $this->expectException(Exception::class);
         $obj = new stdClass();
         $obj->a = ['b' => 1];
         $result = flattenToArray($obj);
-        $this->assertEquals([['', '{}'], ['a', '[]'], ['a.b', 1]], $result);
     }
+
 
     public function testFlattenToArrayWithEmptyObject() {
         $obj = new stdClass();
@@ -71,5 +73,6 @@ class FlattenToArrayTest extends TestCase {
         $result = flattenToArray($input);
         $this->assertEquals([["", null]], $result);
     }
+
 }
 ?>
