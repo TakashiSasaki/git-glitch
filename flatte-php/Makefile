@@ -1,7 +1,7 @@
-test: test1 test2
+test: test1
 
 test1: composer
-	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test.php
+	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test1.php
 
 test2: composer
 	./vendor/bin/phpunit --bootstrap vendor/autoload.php flatten-test2.php

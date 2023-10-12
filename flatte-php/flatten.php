@@ -1,23 +1,22 @@
 <?php
-function flatten($data, $prefix = '', $delimiter = '.') {
-    if (!is_array($data) && !is_object($data)) {
-        return [$prefix => $data];
+function flattenToArray($data, $path = "", $delimiter = ".", &$result = []) {
+    if (is_object($data)) {
+        $data = get_object_vars($data);
     }
-  
-    $result = [];
-    foreach ($data as $key => $value) {
-        $new_key = $prefix ? $prefix . $delimiter . $key : $key;
-        if (is_array($value) || is_object($value)) {
-            if (empty((array)$value)) {
-                $result[$new_key] = [];
-            } else {
-                $result += flatten((array)$value, $new_key, $delimiter);
-            }
-        } else {
-            $result[$new_key] = $value;
+
+    if (is_array($data) && count($data) === 0) {
+        $result[] = [$path, '{}'];
+        return;
+    }
+
+    if (is_array($data)) {
+        $result[] = [$path, '{}'];
+        foreach ($data as $key => $value) {
+            flattenToArray($value, ($path === "" ? $key : $path . $delimiter . $key), $delimiter, $result);
         }
+    } else {
+        $result[] = [$path, $data];
     }
     return $result;
 }
-
 ?>
