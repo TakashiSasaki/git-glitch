@@ -1,41 +1,52 @@
 <?php
 function unflattenFromArray($flattenedArray) {
-    $result = new stdClass();
+    // Assume the root is always the first element
+    $rootValue = $flattenedArray[0][1];
     
+    // Handle null at root level
+    if (is_null($rootValue)) {
+        return null;
+    }
+
+    $result = ($rootValue === '[]') ? [] : new stdClass();
+
     foreach ($flattenedArray as $item) {
         list($path, $value) = $item;
-        
-        // Handle the root
-        if ($path === "") {
-            if ($value === "[]") {
-                return [];
-            } elseif ($value === "{}") {
-                return new stdClass();
-            } else {
-                return $value;
-            }
+
+        // Skip the root
+        if ($path === '') {
+            continue;
         }
-        
-        $keys = explode(".", $path);
-        $lastKey = array_pop($keys);
+
+        $keys = explode('.', $path);
         $tmp = &$result;
-        
+
         foreach ($keys as $key) {
-            if (!isset($tmp->$key)) {
-                $tmp->$key = new stdClass();
+            if (is_object($tmp)) {
+                if (!property_exists($tmp, $key)) {
+                    $tmp->$key = new stdClass();
+                }
+                $tmp = &$tmp->$key;
+            } elseif (is_array($tmp)) {
+                if (!isset($tmp[$key])) {
+                    $tmp[$key] = [];
+                }
+                $tmp = &$tmp[$key];
             }
-            $tmp = &$tmp->$key;
         }
-        
-        if ($value === "[]") {
-            $tmp->$lastKey = [];
-        } elseif ($value === "{}") {
-            $tmp->$lastKey = new stdClass();
-        } else {
-            $tmp->$lastKey = $value;
+
+        if ($value === '[]') {
+            $value = [];
+        } elseif ($value === '{}') {
+            $value = new stdClass();
         }
+
+        $tmp = $value;
     }
-    
+
     return $result;
 }
+
+
+
 ?>
