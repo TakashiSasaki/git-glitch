@@ -29,3 +29,6 @@ unflatten-test3: composer
   
 composer: composer.json /app/.composer
 	composer install
+
+clean:
+	rm -rf vendor/ /app/.composer/  /tmp/.composer/
