@@ -40,8 +40,13 @@ class TestAlthexConversion(unittest.TestCase):
         # 元のUUIDと結果が同じであることを確認
         self.assertEqual(original_uuid, result_uuid)
 
-# determine_case 関数のユニットテストを追加します。
-
+    def test_long_string_round_trip(self):
+        # Generate a long string of random hexadecimal characters
+        long_hex_string = ''.join(random.choice('0123456789ABCDEF') for _ in range(10000))
+        custom_string = to_althex(long_hex_string)
+        round_trip_result = from_althex(custom_string)
+        self.assertEqual(long_hex_string, round_trip_result.upper())
+        
 class TestDetermineCase(unittest.TestCase):
     # 正常なケース
     def test_determine_case_lowercase(self):
@@ -66,13 +71,6 @@ class TestDetermineCase(unittest.TestCase):
         self.assertFalse(determine_case("abc123🙂🚀漢字"))
         self.assertTrue(determine_case("ABC123🙂🚀漢字"))
 
-class TestAlthexConversion(unittest.TestCase):
-    def test_long_string_round_trip(self):
-        # Generate a long string of random hexadecimal characters
-        long_hex_string = ''.join(random.choice('0123456789ABCDEF') for _ in range(10000))
-        custom_string = to_althex(long_hex_string)
-        round_trip_result = from_althex(custom_string)
-        self.assertEqual(long_hex_string, round_trip_result.upper())
 
 if __name__ == '__main__':
     unittest.main()
