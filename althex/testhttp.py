@@ -1,6 +1,8 @@
 import httpimport
 
-# althex モジュールがホストされている URL を指定します
-with httpimport.remote_repo(['althex'], 'https://althex.glitch.me/'):
-    # althex モジュールをインポートします
-    from althex import __init__
+# Specify the full URL of the module
+module_url = 'https://althex.glitch.me/althex/__init__.py'
+
+# Load the module directly from the URL
+with httpimport.load('althex', module_url):
+    import althex
