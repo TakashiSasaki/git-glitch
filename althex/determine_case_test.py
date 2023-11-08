@@ -11,6 +11,7 @@ class TestDetermineCase(unittest.TestCase):
         self.assertFalse(is_upper_althex('abcABC'))
         with self.assertRaises(TypeError):
             is_upper_althex(123)
+        self.assertFalse(is_upper_althex("1A3f"))
 
     def test_is_lower_althex(self):
         self.assertTrue(is_lower_althex('ghjkmnprstuvwxyz'))
@@ -29,6 +30,7 @@ class TestDetermineCase(unittest.TestCase):
         self.assertFalse(is_upper_stdhex('ghjkmnprstuvwxyz'))
         with self.assertRaises(TypeError):
             is_upper_stdhex(123)
+        self.assertFalse(is_upper_stdhex("1A3f"))
 
     def test_is_lower_stdhex(self):
         self.assertTrue(is_lower_stdhex('abcdef'))
@@ -38,6 +40,8 @@ class TestDetermineCase(unittest.TestCase):
         self.assertFalse(is_lower_stdhex('GHJKMNPRSTUVWXYZ'))
         with self.assertRaises(TypeError):
             is_lower_stdhex(123)
+        self.assertFalse(is_lower_stdhex("1A3f"))
+
 
 if __name__ == '__main__':
     unittest.main()
