@@ -1,3 +1,6 @@
+from_althex_test:
+	python3 althex/from_althex_test.py
+
 to_althex_test:
 	python3 althex/to_althex_test.py
 

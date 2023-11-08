@@ -3,6 +3,7 @@ from determine_case import is_upper_althex, is_lower_althex, is_upper_stdhex, is
 
 class TestDetermineCase(unittest.TestCase):
     def test_is_upper_althex(self):
+        self.assertTrue(is_upper_althex("HUKZ"))
         self.assertTrue(is_upper_althex('GHJKMNPRSTUVWXYZ'))
         self.assertFalse(is_upper_althex('ghjkmnprstuvwxyz'))
         self.assertFalse(is_upper_althex('0123456789'))
