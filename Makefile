@@ -1,5 +1,9 @@
-test_determine_case:
-	python3 althex/test_determine_case.py
+to_althex_test:
+	python3 althex/to_althex_test.py
+
+determine_case_test:
+	python3 althex/determine_case_test.py
+
 
 
 althex.html:

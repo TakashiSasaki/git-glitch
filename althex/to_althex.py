@@ -1,4 +1,4 @@
-from .determine_case import is_upper_stdhex
+from determine_case import is_upper_stdhex
 
 def to_althex(hex_string, use_uppercase=None):
     """
