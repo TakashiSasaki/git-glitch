@@ -1,25 +1,33 @@
 def determine_case(input_string):
-    # 16進数のアルファベットのみを抽出
-    hex_chars = ''.join(filter(lambda x: x.isalpha(), input_string))
-    # ケースを判断
+    # Filter out non-hexadecimal characters
+    hex_chars = ''.join(filter(lambda char: char in '0123456789abcdefABCDEF', input_string))
+    
+    # If no hex characters are present, return None
+    if not hex_chars:
+        return None
+
+    # Check if the remaining characters are all uppercase or all lowercase
     if hex_chars.islower():
         return False
     elif hex_chars.isupper():
         return True
-    elif hex_chars.isalpha() and not hex_chars.islower() and not hex_chars.isupper():
-        raise ValueError("Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.")
     else:
-        return None
+        # If there's a mix of uppercase and lowercase hex characters, raise an error
+        raise ValueError("Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.")
+
+
+
 
 def to_althex(hex_string, use_uppercase=None):
-    # Determine if the output should be uppercase or lowercase
-    # If use_uppercase is None, determine case based on the input string
+    # Determine if the output should be uppercase or lowercase based on the input string
     if use_uppercase is None:
-        use_uppercase = determine_case(hex_string)
-    
-    # If the input string contains no hexadecimal characters, we default to lowercase
-    if use_uppercase is None:
-        use_uppercase = False
+        has_upper = any(char.isupper() for char in hex_string if char.isalpha())
+        has_lower = any(char.islower() for char in hex_string if char.isalpha())
+
+        # If both upper and lower case letters are present, or no letters are present, raise an error
+        if has_upper and has_lower:
+            raise ValueError("Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.")
+        use_uppercase = has_upper
 
     # Create the translation map based on the determined case
     hex_to_custom_map = str.maketrans(
@@ -31,10 +39,17 @@ def to_althex(hex_string, use_uppercase=None):
     return hex_string.translate(hex_to_custom_map)
 
 
+
 def from_althex(custom_string, use_uppercase=None):
-    # Determine if the output should be uppercase or lowercase
-    # If use_uppercase is None, determine case based on the input string
-    use_uppercase = determine_case(custom_string) if use_uppercase is None else use_uppercase
+    # Determine the case from the input string if use_uppercase is not set
+    if use_uppercase is None:
+        if custom_string.islower():
+            use_uppercase = False
+        elif custom_string.isupper():
+            use_uppercase = True
+        else:
+            # If there's a mix of uppercase and lowercase, or no letters, raise an error
+            raise ValueError("Input string must not contain a mix of uppercase and lowercase letters.")
 
     # Create the translation map based on the determined case
     custom_to_hex_map = str.maketrans(
@@ -43,7 +58,4 @@ def from_althex(custom_string, use_uppercase=None):
     )
 
     # Translate the custom hex string back to standard hex
-    result = custom_string.translate(custom_to_hex_map)
-
-    # Return the result in the correct case
-    return result.upper() if use_uppercase else result.lower()
+    return custom_string.translate(custom_to_hex_map)

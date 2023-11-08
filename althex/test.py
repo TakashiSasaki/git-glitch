@@ -1,25 +1,26 @@
 import unittest
 import uuid
+import random
 from althex import to_althex, from_althex, determine_case
 
 class TestAlthexConversion(unittest.TestCase):
-    # to_althex のテスト
+    # to_althex tests
     def test_to_althex_lowercase(self):
-        self.assertEqual(to_althex("1A3F"), "hukz")
-        self.assertEqual(to_althex("00FF"), "ggzz")
+        self.assertEqual(to_althex("1a3f"), "hukz")  # Lowercase input
+        self.assertEqual(to_althex("00ff"), "ggzz")  # Lowercase input
 
     def test_to_althex_uppercase(self):
-        self.assertEqual(to_althex("1A3F", use_uppercase=True), "HUKZ")
-        self.assertEqual(to_althex("00FF", use_uppercase=True), "GGZZ")
+        self.assertEqual(to_althex("1A3F", use_uppercase=True), "HUKZ")  # Uppercase output forced
+        self.assertEqual(to_althex("00FF", use_uppercase=True), "GGZZ")  # Uppercase output forced
 
-    # from_althex のテスト
+    # from_althex tests
     def test_from_althex_lowercase(self):
-        self.assertEqual(from_althex("hukz"), "1A3F")
-        self.assertEqual(from_althex("ggzz"), "00FF")
+        self.assertEqual(from_althex("hukz"), "1a3f")  # Lowercase output expected
+        self.assertEqual(from_althex("ggzz"), "00ff")  # Lowercase output expected
 
     def test_from_althex_uppercase(self):
-        self.assertEqual(from_althex("HUKZ", use_uppercase=True), "1A3F")
-        self.assertEqual(from_althex("GGZZ", use_uppercase=True), "00FF")
+        self.assertEqual(from_althex("HUKZ"), "1A3F")  # Uppercase input
+        self.assertEqual(from_althex("GGZZ"), "00FF")  # Uppercase input
 
     # ラウンドトリップテスト
     def test_round_trip(self):
@@ -64,6 +65,14 @@ class TestDetermineCase(unittest.TestCase):
     def test_determine_case_mixed_with_non_hex(self):
         self.assertFalse(determine_case("abc123🙂🚀漢字"))
         self.assertTrue(determine_case("ABC123🙂🚀漢字"))
+
+class TestAlthexConversion(unittest.TestCase):
+    def test_long_string_round_trip(self):
+        # Generate a long string of random hexadecimal characters
+        long_hex_string = ''.join(random.choice('0123456789ABCDEF') for _ in range(10000))
+        custom_string = to_althex(long_hex_string)
+        round_trip_result = from_althex(custom_string)
+        self.assertEqual(long_hex_string, round_trip_result.upper())
 
 if __name__ == '__main__':
     unittest.main()
