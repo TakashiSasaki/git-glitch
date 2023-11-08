@@ -1,55 +1,112 @@
-// Convert standard hexadecimal string to a custom hexadecimal representation
+function determine_case(input_string) {
+  // Filter out non-hexadecimal characters
+  const hex_chars = input_string.replace(/[^0-9a-fA-F]/g, '');
+
+  // If no hex characters are present, return null
+  if (hex_chars === '') {
+    return null;
+  }
+
+  // Check if there are any letters
+  const hex_letters = hex_chars.replace(/[^a-fA-F]/g, '');
+  if (hex_letters === '') {
+    return null; // No letters means case is not applicable
+  }
+
+  // Check if the letters are all uppercase or all lowercase
+  if (hex_letters.toLowerCase() === hex_letters) {
+    return false; // All lowercase
+  } else if (hex_letters.toUpperCase() === hex_letters) {
+    return true; // All uppercase
+  } else {
+    // If there's a mix of uppercase and lowercase hex characters, throw an error
+    throw new Error("Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.");
+  }
+}
+
+
+
 function toAlthex(hexString, useUppercase) {
-  const hexToUpperAlthex = 'GHJKMNPRSTUVWXYZ';
-  const hexToLowerAlthex = 'ghjkmnprstuvwxyz';
+    const hexToUpperAlthex = 'GHJKMNPRSTUVWXYZ';
+    const hexToLowerAlthex = 'ghjkmnprstuvwxyz';
 
-  // If useUppercase is not provided (undefined), determine the case from the hexString
-  if (useUppercase === undefined) {
-    useUppercase = hexString.toUpperCase() === hexString && hexString.toLowerCase() !== hexString;
-  }
-
-  let result = '';
-  for (const char of hexString) {
-    const index = parseInt(char, 16);
-    if (!isNaN(index)) {
-      result += useUppercase ? hexToUpperAlthex[index] : hexToLowerAlthex[index];
-    } else {
-      throw new Error(`Invalid character for hexadecimal: ${char}`);
+    // Determine the case of the output based on useUppercase parameter
+    if (useUppercase === undefined) {
+        useUppercase = hexString.toUpperCase() === hexString;
     }
-  }
-  return result;
+
+    let result = '';
+    for (const char of hexString) {
+        const index = parseInt(char, 16);
+        if (!isNaN(index)) {
+            result += useUppercase ? hexToUpperAlthex[index] : hexToLowerAlthex[index];
+        } else {
+            throw new Error(`Invalid character for hexadecimal: ${char}`);
+        }
+    }
+    return result;
 }
 
 
 
-
-// Convert custom hexadecimal string back to standard hexadecimal representation
 function fromAlthex(customString, useUppercase) {
-  const althexToUpperHex = '0123456789ABCDEF';
-  const althexToLowerHex = '0123456789abcdef';
-  const upperAlthexMap = [...'GHJKMNPRSTUVWXYZ'];
-  const lowerAlthexMap = [...'ghjkmnprstuvwxyz'];
+    const althexToUpperHex = '0123456789ABCDEF';
+    const althexToLowerHex = '0123456789abcdef';
+    const upperAlthexMap = [...'GHJKMNPRSTUVWXYZ'];
+    const lowerAlthexMap = [...'ghjkmnprstuvwxyz'];
 
-  // Determine if the output should be uppercase based on the input string if useUppercase is not defined
-  if (useUppercase === undefined) {
-    useUppercase = (customString.toUpperCase() === customString);
-  }
-
-  let result = '';
-  for (const char of customString) {
-    const index = useUppercase ? upperAlthexMap.indexOf(char) : lowerAlthexMap.indexOf(char);
-    if (index !== -1) {
-      result += useUppercase ? althexToUpperHex[index] : althexToLowerHex[index];
-    } else {
-      throw new Error(`Invalid character for custom hexadecimal: ${char}`);
+    if (useUppercase === undefined) {
+        useUppercase = customString.toUpperCase() === customString;
     }
-  }
-  return result;
+
+    let result = '';
+    for (const char of customString) {
+        const index = useUppercase ? upperAlthexMap.indexOf(char.toUpperCase()) : lowerAlthexMap.indexOf(char);
+        if (index !== -1) {
+            result += useUppercase ? althexToUpperHex[index] : althexToLowerHex[index];
+        } else {
+            throw new Error(`Invalid character for custom hexadecimal: ${char}`);
+        }
+    }
+    return result;
 }
+
 
 // Example usage:
-const customHex = toAlthex('1A3F', false); // should return 'hukz'
-console.log(customHex); // Output: hukz
+const customHex = toAlthex('1A3F'); // Output should be 'HUKZ' or 'hukz' depending on the case of input
+console.log(customHex);
 
-const standardHex = fromAlthex(customHex, false); // should return '1a3f'
-console.log(standardHex); // Output: 1a3f
+const standardHex = fromAlthex(customHex); // Output should be '1A3F' or '1a3f' depending on the case of input
+console.log(standardHex);
+
+// Test cases
+function testDetermineCase() {
+  console.log("Testing determine_case...");
+
+  const testCases = [
+    { input: 'abc123', expected: false },
+    { input: 'ABC123', expected: true },
+    { input: '', expected: null },
+    { input: '1234567890', expected: null },
+    { input: 'abcdefABCDEF', expected: null, errorExpected: true },
+  ];
+
+  testCases.forEach(testCase => {
+    try {
+      const result = determine_case(testCase.input);
+      console.assert(result === testCase.expected, `Test failed: determine_case('${testCase.input}') should return ${testCase.expected}, got ${result}`);
+      console.log(`Test passed: determine_case('${testCase.input}') returned ${result}`);
+    } catch (error) {
+      if (testCase.errorExpected) {
+        console.log(`Test passed: determine_case('${testCase.input}') threw an error as expected`);
+      } else {
+        console.error(`Test failed: determine_case('${testCase.input}') threw an error: ${error.message}`);
+      }
+    }
+  });
+
+  console.log("All tests completed.");
+}
+
+// Run the test cases
+testDetermineCase();
