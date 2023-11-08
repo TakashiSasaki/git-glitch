@@ -1,3 +1,4 @@
+# TODO: prepare pydoc
 def determine_case(input_string):
     # Filter out non-hexadecimal characters
     hex_chars = ''.join(filter(lambda char: char in '0123456789abcdefABCDEF', input_string))
@@ -16,8 +17,7 @@ def determine_case(input_string):
         raise ValueError("Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.")
 
 
-
-
+# TODO: prepare pydoc
 def to_althex(hex_string, use_uppercase=None):
     # Determine if the output should be uppercase or lowercase based on the input string
     if use_uppercase is None:
