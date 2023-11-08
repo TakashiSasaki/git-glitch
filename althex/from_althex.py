@@ -23,8 +23,8 @@ def from_althex(custom_string, use_uppercase=None):
 
     # Create the translation map based on the determined case
     custom_to_hex_map = str.maketrans(
-        'GHJKMNPRSTUVWXYZ' * 2 if use_uppercase else 'ghjkmnprstuvwxyz' * 2,
-        '0123456789ABCDEF' + '0123456789abcdef'
+        'GHJKMNPRSTUVWXYZ' + 'ghjkmnprstuvwxyz',
+        '0123456789ABCDEF' * 2 if use_uppercase  else '0123456789abcdef' * 2
     )
 
     # Translate the custom hex string back to standard hex
