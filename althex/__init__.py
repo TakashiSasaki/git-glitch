@@ -1,3 +1,5 @@
+from .determine_case import is_upper_althex, is_lower_althex, is_upper_stdhex, is_lower_stdhex
+
 """
 The althex module provides functions for converting between standard hexadecimal strings and a custom hexadecimal representation. This custom representation uses a subset of the alphabet (G-Z excluding I, O, U, and V) to represent hexadecimal digits to avoid confusion and ensure readability.
 
@@ -33,51 +35,6 @@ print(standard_hex)  # Output: '1A3F'
 """
 
 # Module code follows...
-
-
-def determine_case(input_string):
-    """
-    Determines if the hexadecimal characters in a string are all in the same case.
-
-    This function filters out any non-hexadecimal characters and then checks if the remaining
-    characters are all uppercase or all lowercase. It returns `True` if all hexadecimal characters
-    are uppercase, `False` if they are all lowercase, and `None` if there are no hexadecimal characters.
-
-    Parameters:
-    input_string (str): The string to be analyzed for case of hexadecimal characters.
-
-    Returns:
-    bool: `True` if all hexadecimal characters are uppercase, `False` if they are all lowercase.
-    None: If no hexadecimal characters are present.
-
-    Raises:
-    ValueError: If the input string contains a mix of uppercase and lowercase hexadecimal characters.
-
-    Examples:
-    >>> determine_case('abc123')
-    False
-    >>> determine_case('ABC123')
-    True
-    >>> determine_case('')
-    None
-    >>> determine_case('AbC123')
-    ValueError: Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.
-    """
-    # Filter out non-hexadecimal characters
-    hex_chars = ''.join(filter(lambda char: char in '0123456789abcdefABCDEF', input_string))
-    
-    # If no hex characters are present, return None
-    if not hex_chars:
-        return None
-
-    # Check if the remaining characters are all uppercase or all lowercase
-    if hex_chars.islower():
-        return False
-    elif hex_chars.isupper():
-        return True
-    else:
-        # If there's a mix of uppercase and lowercase hex characters, raise an error
-        raise ValueError("Input string must not contain a mix of uppercase and lowercase letters for hexadecimal characters.")
 
 
 def to_althex(hex_string, use_uppercase=None):
