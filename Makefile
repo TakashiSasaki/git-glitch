@@ -1,3 +1,6 @@
+althex.html:
+	pydoc -w althex
+
 testhttp:
 	pip3 install httpimport
 	python3 althex/testhttp.py

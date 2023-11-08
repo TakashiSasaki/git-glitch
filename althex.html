@@ -1,0 +1,133 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: package althex</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>althex</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/app/althex/__init__.py">/app/althex/__init__.py</a></font></td></tr></table>
+    <p><tt>The&nbsp;althex&nbsp;module&nbsp;provides&nbsp;functions&nbsp;for&nbsp;converting&nbsp;between&nbsp;standard&nbsp;hexadecimal&nbsp;strings&nbsp;and&nbsp;a&nbsp;custom&nbsp;hexadecimal&nbsp;representation.&nbsp;This&nbsp;custom&nbsp;representation&nbsp;uses&nbsp;a&nbsp;subset&nbsp;of&nbsp;the&nbsp;alphabet&nbsp;(G-Z&nbsp;excluding&nbsp;I,&nbsp;O,&nbsp;U,&nbsp;and&nbsp;V)&nbsp;to&nbsp;represent&nbsp;hexadecimal&nbsp;digits&nbsp;to&nbsp;avoid&nbsp;confusion&nbsp;and&nbsp;ensure&nbsp;readability.<br>
+&nbsp;<br>
+The&nbsp;provided&nbsp;functions&nbsp;are:<br>
+-&nbsp;`<a href="#-to_althex">to_althex</a>(hex_string,&nbsp;use_uppercase=None)`:&nbsp;Converts&nbsp;a&nbsp;standard&nbsp;hexadecimal&nbsp;string&nbsp;to&nbsp;the&nbsp;custom&nbsp;representation.&nbsp;If&nbsp;`use_uppercase`&nbsp;is&nbsp;set&nbsp;to&nbsp;True,&nbsp;the&nbsp;output&nbsp;will&nbsp;be&nbsp;in&nbsp;uppercase&nbsp;characters.&nbsp;If&nbsp;set&nbsp;to&nbsp;False,&nbsp;the&nbsp;output&nbsp;will&nbsp;be&nbsp;in&nbsp;lowercase.&nbsp;If&nbsp;not&nbsp;set,&nbsp;the&nbsp;case&nbsp;will&nbsp;be&nbsp;determined&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;string.<br>
+-&nbsp;`<a href="#-from_althex">from_althex</a>(custom_string,&nbsp;use_uppercase=None)`:&nbsp;Converts&nbsp;a&nbsp;custom&nbsp;hexadecimal&nbsp;string&nbsp;back&nbsp;to&nbsp;the&nbsp;standard&nbsp;hexadecimal&nbsp;representation.&nbsp;The&nbsp;`use_uppercase`&nbsp;parameter&nbsp;functions&nbsp;the&nbsp;same&nbsp;as&nbsp;in&nbsp;`to_althex`.<br>
+-&nbsp;`<a href="#-determine_case">determine_case</a>(input_string)`:&nbsp;Determines&nbsp;whether&nbsp;the&nbsp;hexadecimal&nbsp;characters&nbsp;in&nbsp;the&nbsp;input&nbsp;string&nbsp;are&nbsp;uppercase&nbsp;or&nbsp;lowercase.&nbsp;Returns&nbsp;True&nbsp;for&nbsp;uppercase,&nbsp;False&nbsp;for&nbsp;lowercase,&nbsp;and&nbsp;raises&nbsp;a&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;string&nbsp;contains&nbsp;a&nbsp;mix&nbsp;of&nbsp;both.<br>
+&nbsp;<br>
+The&nbsp;custom&nbsp;hexadecimal&nbsp;representation&nbsp;excludes&nbsp;the&nbsp;characters&nbsp;I&nbsp;and&nbsp;O&nbsp;to&nbsp;avoid&nbsp;confusion&nbsp;with&nbsp;the&nbsp;digits&nbsp;1&nbsp;and&nbsp;0,&nbsp;and&nbsp;U&nbsp;and&nbsp;V&nbsp;are&nbsp;omitted&nbsp;to&nbsp;prevent&nbsp;ambiguity,&nbsp;respecting&nbsp;the&nbsp;choice&nbsp;of&nbsp;characters&nbsp;in&nbsp;Base32&nbsp;encoding.<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;is&nbsp;designed&nbsp;for&nbsp;applications&nbsp;where&nbsp;human&nbsp;readability&nbsp;of&nbsp;hexadecimal&nbsp;strings&nbsp;is&nbsp;desirable&nbsp;or&nbsp;where&nbsp;a&nbsp;more&nbsp;compact&nbsp;string&nbsp;representation&nbsp;is&nbsp;beneficial.<br>
+&nbsp;<br>
+Author:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Takashi&nbsp;Sasaki<br>
+&nbsp;<br>
+Contact:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;https://twitter.com/TakashiSasaki<br>
+&nbsp;<br>
+License:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;MIT&nbsp;License<br>
+&nbsp;<br>
+Example&nbsp;usage:<br>
+```python<br>
+from&nbsp;althex&nbsp;import&nbsp;to_althex,&nbsp;from_althex<br>
+&nbsp;<br>
+#&nbsp;Convert&nbsp;to&nbsp;custom&nbsp;hexadecimal&nbsp;representation<br>
+custom_hex&nbsp;=&nbsp;<a href="#-to_althex">to_althex</a>('1A3F')<br>
+print(custom_hex)&nbsp;&nbsp;#&nbsp;Output:&nbsp;'hukz'<br>
+&nbsp;<br>
+#&nbsp;Convert&nbsp;back&nbsp;to&nbsp;standard&nbsp;hexadecimal<br>
+standard_hex&nbsp;=&nbsp;<a href="#-from_althex">from_althex</a>(custom_hex)<br>
+print(standard_hex)&nbsp;&nbsp;#&nbsp;Output:&nbsp;'1A3F'</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Package Contents</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="althex.test.html">test</a><br>
+</td><td width="25%" valign=top><a href="althex.testhttp.html">testhttp</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-determine_case"><strong>determine_case</strong></a>(input_string)</dt><dd><tt>Determines&nbsp;if&nbsp;the&nbsp;hexadecimal&nbsp;characters&nbsp;in&nbsp;a&nbsp;string&nbsp;are&nbsp;all&nbsp;in&nbsp;the&nbsp;same&nbsp;case.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;filters&nbsp;out&nbsp;any&nbsp;non-hexadecimal&nbsp;characters&nbsp;and&nbsp;then&nbsp;checks&nbsp;if&nbsp;the&nbsp;remaining<br>
+characters&nbsp;are&nbsp;all&nbsp;uppercase&nbsp;or&nbsp;all&nbsp;lowercase.&nbsp;It&nbsp;returns&nbsp;`True`&nbsp;if&nbsp;all&nbsp;hexadecimal&nbsp;characters<br>
+are&nbsp;uppercase,&nbsp;`False`&nbsp;if&nbsp;they&nbsp;are&nbsp;all&nbsp;lowercase,&nbsp;and&nbsp;`None`&nbsp;if&nbsp;there&nbsp;are&nbsp;no&nbsp;hexadecimal&nbsp;characters.<br>
+&nbsp;<br>
+Parameters:<br>
+input_string&nbsp;(str):&nbsp;The&nbsp;string&nbsp;to&nbsp;be&nbsp;analyzed&nbsp;for&nbsp;case&nbsp;of&nbsp;hexadecimal&nbsp;characters.<br>
+&nbsp;<br>
+Returns:<br>
+bool:&nbsp;`True`&nbsp;if&nbsp;all&nbsp;hexadecimal&nbsp;characters&nbsp;are&nbsp;uppercase,&nbsp;`False`&nbsp;if&nbsp;they&nbsp;are&nbsp;all&nbsp;lowercase.<br>
+None:&nbsp;If&nbsp;no&nbsp;hexadecimal&nbsp;characters&nbsp;are&nbsp;present.<br>
+&nbsp;<br>
+Raises:<br>
+ValueError:&nbsp;If&nbsp;the&nbsp;input&nbsp;string&nbsp;contains&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;hexadecimal&nbsp;characters.<br>
+&nbsp;<br>
+Examples:<br>
+&gt;&gt;&gt;&nbsp;<a href="#-determine_case">determine_case</a>('abc123')<br>
+False<br>
+&gt;&gt;&gt;&nbsp;<a href="#-determine_case">determine_case</a>('ABC123')<br>
+True<br>
+&gt;&gt;&gt;&nbsp;<a href="#-determine_case">determine_case</a>('')<br>
+None<br>
+&gt;&gt;&gt;&nbsp;<a href="#-determine_case">determine_case</a>('AbC123')<br>
+ValueError:&nbsp;Input&nbsp;string&nbsp;must&nbsp;not&nbsp;contain&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters&nbsp;for&nbsp;hexadecimal&nbsp;characters.</tt></dd></dl>
+ <dl><dt><a name="-from_althex"><strong>from_althex</strong></a>(custom_string, use_uppercase<font color="#909090">=None</font>)</dt><dd><tt>Converts&nbsp;a&nbsp;custom&nbsp;hexadecimal&nbsp;representation&nbsp;back&nbsp;to&nbsp;a&nbsp;standard&nbsp;hexadecimal&nbsp;string.&nbsp;The&nbsp;custom&nbsp;representation<br>
+is&nbsp;where&nbsp;digits&nbsp;are&nbsp;mapped&nbsp;to&nbsp;alphabetic&nbsp;characters&nbsp;from&nbsp;G-Z&nbsp;(or&nbsp;g-z)&nbsp;based&nbsp;on&nbsp;the&nbsp;`use_uppercase`&nbsp;parameter.<br>
+If&nbsp;`use_uppercase`&nbsp;is&nbsp;not&nbsp;explicitly&nbsp;set,&nbsp;the&nbsp;function&nbsp;determines&nbsp;the&nbsp;case&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;string.<br>
+If&nbsp;the&nbsp;input&nbsp;contains&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters,&nbsp;or&nbsp;no&nbsp;letters&nbsp;at&nbsp;all,&nbsp;the&nbsp;function&nbsp;raises&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Parameters:<br>
+custom_string&nbsp;(str):&nbsp;The&nbsp;custom&nbsp;hexadecimal&nbsp;string&nbsp;to&nbsp;be&nbsp;converted&nbsp;back&nbsp;to&nbsp;standard&nbsp;hexadecimal.<br>
+use_uppercase&nbsp;(bool,&nbsp;optional):&nbsp;Determines&nbsp;the&nbsp;case&nbsp;of&nbsp;the&nbsp;output&nbsp;standard&nbsp;hexadecimal&nbsp;string.&nbsp;If&nbsp;`True`,&nbsp;the&nbsp;output&nbsp;is&nbsp;in&nbsp;uppercase.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;`False`,&nbsp;the&nbsp;output&nbsp;is&nbsp;in&nbsp;lowercase.&nbsp;If&nbsp;`None`,&nbsp;the&nbsp;case&nbsp;is&nbsp;inferred&nbsp;from&nbsp;the&nbsp;input&nbsp;string.<br>
+&nbsp;<br>
+Returns:<br>
+str:&nbsp;The&nbsp;standard&nbsp;hexadecimal&nbsp;representation&nbsp;of&nbsp;the&nbsp;input&nbsp;custom&nbsp;string.<br>
+&nbsp;<br>
+Raises:<br>
+ValueError:&nbsp;If&nbsp;the&nbsp;input&nbsp;string&nbsp;contains&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters&nbsp;for&nbsp;hexadecimal&nbsp;characters,&nbsp;or&nbsp;if&nbsp;the&nbsp;case&nbsp;cannot&nbsp;be&nbsp;determined.<br>
+&nbsp;<br>
+Examples:<br>
+&gt;&gt;&gt;&nbsp;<a href="#-from_althex">from_althex</a>('hukz')<br>
+'1a3f'<br>
+&gt;&gt;&gt;&nbsp;<a href="#-from_althex">from_althex</a>('HUKZ')<br>
+'1A3F'<br>
+&gt;&gt;&gt;&nbsp;<a href="#-from_althex">from_althex</a>('HuKz')<br>
+ValueError:&nbsp;Input&nbsp;string&nbsp;must&nbsp;not&nbsp;contain&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters.</tt></dd></dl>
+ <dl><dt><a name="-to_althex"><strong>to_althex</strong></a>(hex_string, use_uppercase<font color="#909090">=None</font>)</dt><dd><tt>Converts&nbsp;a&nbsp;standard&nbsp;hexadecimal&nbsp;string&nbsp;to&nbsp;a&nbsp;custom&nbsp;hexadecimal&nbsp;representation&nbsp;where&nbsp;digits&nbsp;are&nbsp;mapped&nbsp;to&nbsp;alphabetic&nbsp;characters.<br>
+&nbsp;<br>
+The&nbsp;function&nbsp;maps&nbsp;0-9&nbsp;and&nbsp;A-F&nbsp;(or&nbsp;a-f)&nbsp;to&nbsp;a&nbsp;set&nbsp;of&nbsp;characters&nbsp;from&nbsp;G-Z&nbsp;(or&nbsp;g-z)&nbsp;based&nbsp;on&nbsp;the&nbsp;`use_uppercase`&nbsp;parameter.<br>
+If&nbsp;`use_uppercase`&nbsp;is&nbsp;not&nbsp;explicitly&nbsp;set,&nbsp;the&nbsp;function&nbsp;determines&nbsp;the&nbsp;case&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;string.<br>
+If&nbsp;the&nbsp;input&nbsp;string&nbsp;contains&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters,&nbsp;or&nbsp;no&nbsp;letters&nbsp;at&nbsp;all,&nbsp;the&nbsp;function&nbsp;raises&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Parameters:<br>
+hex_string&nbsp;(str):&nbsp;The&nbsp;standard&nbsp;hexadecimal&nbsp;string&nbsp;to&nbsp;be&nbsp;converted.<br>
+use_uppercase&nbsp;(bool,&nbsp;optional):&nbsp;Determines&nbsp;the&nbsp;case&nbsp;of&nbsp;the&nbsp;output&nbsp;string.&nbsp;If&nbsp;`True`,&nbsp;the&nbsp;output&nbsp;is&nbsp;in&nbsp;uppercase.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;`False`,&nbsp;the&nbsp;output&nbsp;is&nbsp;in&nbsp;lowercase.&nbsp;If&nbsp;`None`,&nbsp;the&nbsp;case&nbsp;is&nbsp;inferred&nbsp;from&nbsp;the&nbsp;input&nbsp;string.<br>
+&nbsp;<br>
+Returns:<br>
+str:&nbsp;The&nbsp;custom&nbsp;hexadecimal&nbsp;representation&nbsp;of&nbsp;the&nbsp;input&nbsp;string&nbsp;with&nbsp;alphabetic&nbsp;characters.<br>
+&nbsp;<br>
+Raises:<br>
+ValueError:&nbsp;If&nbsp;the&nbsp;input&nbsp;string&nbsp;contains&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters&nbsp;for&nbsp;hexadecimal&nbsp;characters,&nbsp;or&nbsp;if&nbsp;the&nbsp;case&nbsp;cannot&nbsp;be&nbsp;determined.<br>
+&nbsp;<br>
+Examples:<br>
+&gt;&gt;&gt;&nbsp;<a href="#-to_althex">to_althex</a>('1a3f')<br>
+'hukz'<br>
+&gt;&gt;&gt;&nbsp;<a href="#-to_althex">to_althex</a>('1A3F',&nbsp;use_uppercase=True)<br>
+'HUKZ'<br>
+&gt;&gt;&gt;&nbsp;<a href="#-to_althex">to_althex</a>('1A3f')<br>
+ValueError:&nbsp;Input&nbsp;string&nbsp;must&nbsp;not&nbsp;contain&nbsp;a&nbsp;mix&nbsp;of&nbsp;uppercase&nbsp;and&nbsp;lowercase&nbsp;letters&nbsp;for&nbsp;hexadecimal&nbsp;characters.</tt></dd></dl>
+</td></tr></table>
+</body></html>
