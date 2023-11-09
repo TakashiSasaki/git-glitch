@@ -1,3 +1,5 @@
+from determine_case import is_upper_althex
+
 def from_althex(althex_string, use_uppercase=None):
     """
     Converts an althex string, where 'G'-'Z' or 'g'-'z' represent '0'-'9' and 'A'-'F', back to the standard hexadecimal format.

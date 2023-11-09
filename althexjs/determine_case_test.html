@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Determine Case Test</title>
+<script src="determine_case.js"></script>
+</head>
+<body>
+<h1>Determine Case Test Results</h1>
+<div id="test-results"></div>
+<script>
+// Test function to log and display results
+function testFunction(testName, result) {
+    const resultText = testName + ' results with ' + result;
+    console.log(resultText);
+    const resultsElement = document.getElementById('test-results');
+    const p = document.createElement('p');
+    p.textContent = resultText;
+    resultsElement.appendChild(p);
+}
+
+// Example test cases
+testFunction('isUpperAlthex with "GHIJKL"', isUpperAlthex('GHIJKL')); // Should be true
+testFunction('isLowerAlthex with "ghijkl"', isLowerAlthex('ghijkl')); // Should be true
+testFunction('isUpperStdhex with "ABCDEF"', isUpperStdhex('ABCDEF')); // Should be true
+testFunction('isLowerStdhex with "abcdef"', isLowerStdhex('abcdef')); // Should be true
+
+// Add more test cases as necessary
+</script>
+</body>
+</html>

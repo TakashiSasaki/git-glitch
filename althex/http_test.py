@@ -6,8 +6,9 @@ import random
 url = "https://althex.glitch.me/"
 
 with httpimport.remote_repo(url):
-  from althex.to_althex import to_althex
-  from althex.from_althex import from_althex
+  #from althex.to_althex import to_althex
+  #from althex.from_althex import from_althex
+  from althex import *
 
 class TestAlthexConversion(unittest.TestCase):
     def test_long_string_round_trip(self):
