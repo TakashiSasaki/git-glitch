@@ -10,6 +10,7 @@ test:
 composer:
 	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer require phpdocumentor/phpdocumentor
 	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer require phpunit/phpunit
+	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer install
 
 doc:
 	$(PHPDOC) -d . -t .
