@@ -1,2 +1,5 @@
 du:
-	du ~ | sort -n
+	du ~ | sort -n | tail
+	find ~ | wc
+
+	
