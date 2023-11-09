@@ -1,8 +1,8 @@
 import unittest
 import uuid
 import random
-from althex import to_althex, from_althex, determine_case
-
+from to_althex import to_althex
+from from_althex import from_althex
 
 class TestRoundtrip(unittest.TestCase):
     # from_althex tests
@@ -38,7 +38,6 @@ class TestRoundtrip(unittest.TestCase):
         custom_string = to_althex(long_hex_string)
         round_trip_result = from_althex(custom_string)
         self.assertEqual(long_hex_string, round_trip_result.upper())
-
 
 if __name__ == '__main__':
     unittest.main()
