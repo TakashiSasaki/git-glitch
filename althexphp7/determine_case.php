@@ -2,6 +2,12 @@
 $althex_chars = str_split('GHJKLMNOPQRSTUVWXYZghjklmnopqrstuvwxyz');
 $stdhex_chars = str_split('ABCDEFabcdef');
 
+/**
+ * Checks if a string contains only upper-case alternative hexadecimal characters.
+ *
+ * @param string $s The input string to be checked.
+ * @return bool Returns true if the string contains only upper-case alternative hexadecimal characters, false otherwise.
+ */
 function is_upper_althex(string $s) {
     global $althex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($althex_chars) {
@@ -10,6 +16,12 @@ function is_upper_althex(string $s) {
     return !empty($filtered_chars) && ctype_upper(implode('', $filtered_chars));
 }
 
+/**
+ * Checks if a string contains only lower-case alternative hexadecimal characters.
+ *
+ * @param string $s The input string to be checked.
+ * @return bool Returns true if the string contains only lower-case alternative hexadecimal characters, false otherwise.
+ */
 function is_lower_althex(string $s) {
     global $althex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($althex_chars) {
@@ -18,6 +30,12 @@ function is_lower_althex(string $s) {
     return !empty($filtered_chars) && ctype_lower(implode('', $filtered_chars));
 }
 
+/**
+ * Checks if a string contains only upper-case standard hexadecimal characters.
+ *
+ * @param string $s The input string to be checked.
+ * @return bool Returns true if the string contains only upper-case standard hexadecimal characters, false otherwise.
+ */
 function is_upper_stdhex(string $s) {
     global $stdhex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($stdhex_chars) {
@@ -26,6 +44,12 @@ function is_upper_stdhex(string $s) {
     return !empty($filtered_chars) && ctype_upper(implode('', $filtered_chars));
 }
 
+/**
+ * Checks if a string contains only lower-case standard hexadecimal characters.
+ *
+ * @param string $s The input string to be checked.
+ * @return bool Returns true if the string contains only lower-case standard hexadecimal characters, false otherwise.
+ */
 function is_lower_stdhex(string $s) {
     global $stdhex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($stdhex_chars) {

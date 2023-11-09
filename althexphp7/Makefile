@@ -1,9 +1,11 @@
+PHPUNIT=/tmp/composer-vendor-dir/bin/phpunit
 test:
-	vendor/bin/phpunit determine_case_test.php 
-	vendor/bin/phpunit to_althex_test.php 
-	vendor/bin/phpunit from_althex_test.php 
-	vendor/bin/phpunit roundtrip_test.php 
+	$(PHPUNIT) determine_case_test.php 
+	$(PHPUNIT) to_althex_test.php 
+	$(PHPUNIT) from_althex_test.php 
+	$(PHPUNIT) roundtrip_test.php 
 
 composer:
 	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer require phpunit/phpunit
+	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer require phpdocumentor/phpdocumentor
 
