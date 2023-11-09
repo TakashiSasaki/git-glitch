@@ -2,7 +2,7 @@
 $althex_chars = str_split('GHJKLMNOPQRSTUVWXYZghjklmnopqrstuvwxyz');
 $stdhex_chars = str_split('ABCDEFabcdef');
 
-function is_upper_althex($s) {
+function is_upper_althex(string $s) {
     global $althex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($althex_chars) {
         return in_array($char, $althex_chars);
@@ -10,7 +10,7 @@ function is_upper_althex($s) {
     return !empty($filtered_chars) && ctype_upper(implode('', $filtered_chars));
 }
 
-function is_lower_althex($s) {
+function is_lower_althex(string $s) {
     global $althex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($althex_chars) {
         return in_array($char, $althex_chars);
@@ -18,7 +18,7 @@ function is_lower_althex($s) {
     return !empty($filtered_chars) && ctype_lower(implode('', $filtered_chars));
 }
 
-function is_upper_stdhex($s) {
+function is_upper_stdhex(string $s) {
     global $stdhex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($stdhex_chars) {
         return in_array($char, $stdhex_chars);
@@ -26,7 +26,7 @@ function is_upper_stdhex($s) {
     return !empty($filtered_chars) && ctype_upper(implode('', $filtered_chars));
 }
 
-function is_lower_stdhex($s) {
+function is_lower_stdhex(string $s) {
     global $stdhex_chars;
     $filtered_chars = array_unique(array_filter(str_split($s), function($char) use ($stdhex_chars) {
         return in_array($char, $stdhex_chars);

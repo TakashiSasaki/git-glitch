@@ -41,6 +41,7 @@ class DetermineCaseTest extends TestCase {
      * @expectedException TypeError
      */
     public function testExceptionIsUpperAlthex() {
+        $this->expectException(TypeError::class);
         is_upper_althex(123);
     }
 
@@ -48,6 +49,7 @@ class DetermineCaseTest extends TestCase {
      * @expectedException TypeError
      */
     public function testExceptionIsLowerAlthex() {
+        $this->expectException(TypeError::class);
         is_lower_althex(123);
     }
 
@@ -55,6 +57,7 @@ class DetermineCaseTest extends TestCase {
      * @expectedException TypeError
      */
     public function testExceptionIsUpperStdhex() {
+        $this->expectException(TypeError::class);
         is_upper_stdhex(123);
     }
 
@@ -62,6 +65,7 @@ class DetermineCaseTest extends TestCase {
      * @expectedException TypeError
      */
     public function testExceptionIsLowerStdhex() {
+        $this->expectException(TypeError::class);
         is_lower_stdhex(123);
     }
 
