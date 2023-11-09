@@ -13,4 +13,4 @@ composer:
 	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer install
 
 doc:
-	$(PHPDOC) -d . -t .
+	php -d auto_prepend_file='/tmp/composer-vendor-dir/autoload.php' $(PHPDOC) -d . -t .
