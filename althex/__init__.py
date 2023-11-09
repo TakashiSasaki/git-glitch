@@ -1,7 +1,7 @@
 __all__ = ["to_althex", "from_althex"]
 from .determine_case is_upper_althex, is_lower_althex, is_upper_stdhex, is_lower_stdhex
-from to_althex import to_althex
-from from_althex import from_althex
+from .to_althex import to_althex
+from .from_althex import from_althex
 
 """
 The althex module provides functions for converting between standard hexadecimal strings and a custom hexadecimal representation. This custom representation uses a subset of the alphabet (G-Z excluding I, O, U, and V) to represent hexadecimal digits to avoid confusion and ensure readability.
