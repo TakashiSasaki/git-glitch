@@ -1,31 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Determine Case Test</title>
-<script src="determine_case.js"></script>
-</head>
-<body>
-<h1>Determine Case Test Results</h1>
-<div id="test-results"></div>
-<script>
-// Test function to log and display results
-function testFunction(testName, result) {
-    const resultText = testName + ' results with ' + result;
-    console.log(resultText);
-    const resultsElement = document.getElementById('test-results');
-    const p = document.createElement('p');
-    p.textContent = resultText;
-    resultsElement.appendChild(p);
-}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Determine Case Test</title>
+    <script src="determine_case.js"></script>
+  </head>
+  <body>
+    <h1>Determine Case Test Results</h1>
+    <div id="test-results"></div>
+    <script>
+      // Improved test function to log and display results with pass/fail status
+      function testFunction(testName, actual, expected) {
+        const passed = actual === expected;
+        const resultText = `${testName}: ${
+          passed ? "PASS" : "FAIL"
+        }. Expected: ${expected}, Actual: ${actual}`;
+        console.log(resultText);
+        const resultsElement = document.getElementById("test-results");
+        const p = document.createElement("p");
+        p.textContent = resultText;
+        p.style.color = passed ? "green" : "red"; // Pass in green, fail in red
+        resultsElement.appendChild(p);
+      }
 
-// Example test cases
-testFunction('isUpperAlthex with "GHIJKL"', isUpperAlthex('GHIJKL')); // Should be true
-testFunction('isLowerAlthex with "ghijkl"', isLowerAlthex('ghijkl')); // Should be true
-testFunction('isUpperStdhex with "ABCDEF"', isUpperStdhex('ABCDEF')); // Should be true
-testFunction('isLowerStdhex with "abcdef"', isLowerStdhex('abcdef')); // Should be true
+      // Example test cases with expected results
+      testFunction(
+        'isUpperAlthex with "GHIJKL"',
+        isUpperAlthex("GHIJKL"),
+        true
+      ); // Should be true
+      testFunction(
+        'isLowerAlthex with "ghijkl"',
+        isLowerAlthex("ghijkl"),
+        true
+      ); // Should be true
+      testFunction(
+        'isUpperStdhex with "ABCDEF"',
+        isUpperStdhex("ABCDEF"),
+        true
+      ); // Should be true
+      testFunction(
+        'isLowerStdhex with "abcdef"',
+        isLowerStdhex("abcdef"),
+        true
+      ); // Should be true
 
-// Add more test cases as necessary
-</script>
-</body>
+      // Test cases based on the Python unittest provided
+      function runTests() {
+        // is_upper_althex tests
+        testFunction(
+          'is_upper_althex with "HUKZ"',
+          isUpperAlthex("HUKZ"),
+          true
+        );
+        testFunction(
+          "is_upper_althex with uppercase althex chars",
+          isUpperAlthex("GHJKMNPRSTUVWXYZ"),
+          true
+        );
+        testFunction(
+          "is_upper_althex with lowercase althex chars",
+          isUpperAlthex("ghjkmnprstuvwxyz"),
+          false
+        );
+        testFunction(
+          "is_upper_althex with numbers",
+          isUpperAlthex("0123456789"),
+          false
+        );
+        testFunction(
+          "is_upper_althex with empty string",
+          isUpperAlthex(""),
+          false
+        );
+        testFunction(
+          "is_upper_althex with mixed case",
+          isUpperAlthex("abcABC"),
+          false
+        );
+        testFunction(
+          'is_upper_althex with mixed althex "1A3f"',
+          isUpperAlthex("1A3f"),
+          false
+        );
+
+        // is_lower_althex tests
+        testFunction(
+          "is_lower_althex with lowercase althex chars",
+          isLowerAlthex("ghjkmnprstuvwxyz"),
+          true
+        );
+        testFunction(
+          "is_lower_althex with uppercase althex chars",
+          isLowerAlthex("GHJKMNPRSTUVWXYZ"),
+          false
+        );
+        testFunction(
+          "is_lower_althex with numbers",
+          isLowerAlthex("0123456789"),
+          false
+        );
+        testFunction(
+          "is_lower_althex with empty string",
+          isLowerAlthex(""),
+          false
+        );
+        testFunction(
+          "is_lower_althex with mixed case",
+          isLowerAlthex("abcABC"),
+          false
+        );
+
+        // is_upper_stdhex tests
+        testFunction(
+          "is_upper_stdhex with uppercase stdhex chars",
+          isUpperStdhex("ABCDEF"),
+          true
+        );
+        testFunction(
+          "is_upper_stdhex with lowercase stdhex chars",
+          isUpperStdhex("abcdef"),
+          false
+        );
+        testFunction(
+          "is_upper_stdhex with numbers",
+          isUpperStdhex("0123456789"),
+          false
+        );
+        testFunction(
+          "is_upper_stdhex with empty string",
+          isUpperStdhex(""),
+          false
+        );
+        testFunction(
+          "is_upper_stdhex with lowercase althex chars",
+          isUpperStdhex("ghjkmnprstuvwxyz"),
+          false
+        );
+        testFunction(
+          'is_upper_stdhex with mixed stdhex "1A3f"',
+          isUpperStdhex("1A3f"),
+          false
+        );
+
+        // is_lower_stdhex tests
+        testFunction(
+          "is_lower_stdhex with lowercase stdhex chars",
+          isLowerStdhex("abcdef"),
+          true
+        );
+        testFunction(
+          "is_lower_stdhex with uppercase stdhex chars",
+          isLowerStdhex("ABCDEF"),
+          false
+        );
+        testFunction(
+          "is_lower_stdhex with numbers",
+          isLowerStdhex("0123456789"),
+          false
+        );
+        testFunction(
+          "is_lower_stdhex with empty string",
+          isLowerStdhex(""),
+          false
+        );
+        testFunction(
+          "is_lower_stdhex with uppercase althex chars",
+          isLowerStdhex("GHJKMNPRSTUVWXYZ"),
+          false
+        );
+        testFunction(
+          'is_lower_stdhex with mixed stdhex "1A3f"',
+          isLowerStdhex("1A3f"),
+          false
+        );
+      }
+
+      runTests(); // Execute all tests
+    </script>
+  </body>
 </html>
