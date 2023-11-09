@@ -4,33 +4,45 @@ use PHPUnit\Framework\TestCase;
 require_once 'to_althex.php';
 require_once 'from_althex.php';
 
+function uuid_create() {
+    $data = openssl_random_pseudo_bytes(16);
+    
+    // Set version to 0100 (4)
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
+    // Set bits 6-7 to 10
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
+    
+    // Output the 36 character UUID.
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
 class TestRoundtrip extends TestCase {
     // Test from_althex with lowercase expected output
     public function testFromAlthexLowercase() {
-        $this->assertEquals(from_althex("hukz"), "1a3f");
-        $this->assertEquals(from_althex("ggzz"), "00ff");
+        $this->assertEquals('1a3f', from_althex('hukz'));
+        $this->assertEquals('00ff', from_althex('ggzz'));
     }
-
+  
     // Test from_althex with uppercase expected output
     public function testFromAlthexUppercase() {
-        $this->assertEquals(from_althex("HUKZ"), "1A3F");
-        $this->assertEquals(from_althex("GGZZ"), "00FF");
+        $this->assertEquals('1A3F', from_althex('HUKZ'));
+        $this->assertEquals('00FF', from_althex('GGZZ'));
     }
 
     // Test the roundtrip conversion
     public function testRoundTrip() {
-        $hex_values = ["1A3F", "00FF", "ABCD", "1234", "FACE"];
+        $hex_values = ['1A3F', '00FF', 'ABCD', '1234', 'FACE'];
         foreach ($hex_values as $hex_value) {
             $custom_value = to_althex($hex_value);
             $round_trip_value = from_althex($custom_value);
-            $this->assertEquals($round_trip_value, $hex_value);
+            $this->assertEquals($hex_value, $round_trip_value);
         }
     }
 
     // Test the roundtrip conversion for a UUID
     public function testUuidRoundTrip() {
         // Generate a UUID
-        $original_uuid = strtoupper(uuid_create(UUID_TYPE_RANDOM));
+        $original_uuid = strtoupper(uuid_create());
         // Convert UUID to custom hex representation
         $custom_uuid = to_althex($original_uuid);
         // Convert back to original UUID
@@ -39,7 +51,7 @@ class TestRoundtrip extends TestCase {
         $this->assertEquals($original_uuid, $result_uuid);
     }
 
-    // Test the roundtrip conversion for a long random hex string
+    // Test the rundtrip conversion for a long random hex string
     public function testLongStringRoundTrip() {
         // Generate a long string of random hexadecimal characters
         $long_hex_string = '';
@@ -52,4 +64,5 @@ class TestRoundtrip extends TestCase {
         $this->assertEquals($long_hex_string, $round_trip_result);
     }
 }
+
 ?>
