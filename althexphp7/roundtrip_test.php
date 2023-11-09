@@ -16,7 +16,7 @@ function uuid_create() {
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
-class TestRoundtrip extends TestCase {
+class TestRoundtripTestCase extends TestCase {
     // Test from_althex with lowercase expected output
     public function testFromAlthexLowercase() {
         $this->assertEquals('1a3f', from_althex('hukz'));
