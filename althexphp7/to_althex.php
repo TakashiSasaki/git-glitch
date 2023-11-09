@@ -5,33 +5,27 @@ function to_althex($hex_string, $use_uppercase = null) {
     if ($use_uppercase === null) {
         $use_uppercase = is_upper_stdhex($hex_string);
     }
-
+    
+    // Determine the case of the output based on the input or the use_uppercase parameter
     $upper_map = 'GHJKMNPRSTUVWXYZ';
     $lower_map = 'ghjkmnprstuvwxyz';
+    $std_hex = '0123456789ABCDEF';
     $custom_map = $use_uppercase ? $upper_map : $lower_map;
-
-    $result = '';
+    
+    $translated_string = '';
+    // Translate each character of the hex string
     for ($i = 0; $i < strlen($hex_string); $i++) {
         $char = $hex_string[$i];
-        if (is_numeric($char)) {
-            $index = intval($char) + 6;
-            if ($index < strlen($custom_map)) {
-                $result .= $custom_map[$index];
-            } else {
-                // エラーハンドリング: インデックスが範囲外です
-            }
+        $pos = stripos($std_hex, strtoupper($char)); // stripos is case-insensitive
+        if ($pos !== false) {
+            $translated_string .= $custom_map[$pos];
         } else {
-            $offset = ctype_upper($char) ? ord('A') : ord('a');
-            $index = ord(strtolower($char)) - $offset + 16;
-            if ($index < strlen($custom_map)) {
-                $result .= $custom_map[$index];
-            } else {
-                // エラーハンドリング: インデックスが範囲外です
-            }
+            // If character is not in standard hex, keep it as it is (or handle the error as needed)
+            $translated_string .= $char;
         }
     }
-
-    return $result;
+    
+    return $translated_string;
 }
 
 ?>
