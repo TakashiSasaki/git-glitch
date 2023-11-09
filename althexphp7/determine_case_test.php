@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+ini_set('assert.exception', '1');
+
 use PHPUnit\Framework\TestCase;
 require 'determine_case.php'; // Assume this is the name of your PHP file containing the functions
 
