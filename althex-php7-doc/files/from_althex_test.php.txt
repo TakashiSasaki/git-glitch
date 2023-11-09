@@ -1,1 +1,59 @@
+<?php
+use PHPUnit\Framework\TestCase;
+
+require 'from_althex.php'; // Assuming this contains the from_althex function
+
+class TestFromAlthex extends TestCase {
+    public function testUppercaseInput() {
+        $input_str = 'HUKZ';
+        $expected_output = '1A3F';
+        $this->assertEquals($expected_output, from_althex($input_str));
+        $this->assertEquals(strlen($input_str), strlen($expected_output));
+    }
+
+    public function testLowercaseInput() {
+        $input_str = 'hukz';
+        $expected_output = '1a3f';
+        $this->assertEquals($expected_output, from_althex($input_str));
+        $this->assertEquals(strlen($input_str), strlen($expected_output));
+    }
+
+    public function testExplicitUppercaseOutput() {
+        $input_str = 'hukz';
+        $expected_output = '1A3F';
+        $this->assertEquals($expected_output, from_althex($input_str, true));
+        $this->assertEquals(strlen($input_str), strlen($expected_output));
+    }
+
+    public function testExplicitLowercaseOutput() {
+        $input_str = 'HUKZ';
+        $expected_output = '1a3f';
+        $this->assertEquals($expected_output, from_althex($input_str, false));
+        $this->assertEquals(strlen($input_str), strlen($expected_output));
+    }
+
+    public function testEmptyString() {
+        $this->assertEquals('', from_althex(''));
+    }
+
+    public function testInvalidInput() {
+        $input_str = "invalid";
+        $this->assertEquals(strlen($input_str), strlen(from_althex($input_str)));
+    }
+
+    public function testEmojiInput() {
+        $input_str = '🙂😉😊';
+        // Emojis should be output as they are
+        $this->assertEquals($input_str, from_althex($input_str));
+        $this->assertEquals(strlen($input_str), strlen(from_althex($input_str)));
+    }
+
+    public function testKanjiInput() {
+        $input_str = '漢字';
+        // Kanji should also be output as they are
+        $this->assertEquals($input_str, from_althex($input_str));
+        $this->assertEquals(strlen($input_str), strlen(from_althex($input_str)));
+    }
+}
+?>
 

@@ -3,5 +3,8 @@
   <settings>
     <graphs enabled="false"/>
   </settings>
+  <paths>
+    <cache-folder>/tmp/phpdoc-cache</cache-folder>
+  </paths>
 </phpdocumentor>
 

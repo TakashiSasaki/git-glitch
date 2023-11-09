@@ -13,7 +13,7 @@ composer:
 	COMPOSER_CACHE_DIR=/tmp/composer-cache-dir/ composer install
 
 doc:
-	$(PHPDOC) -c phpdoc.xml -d . -t ../althex-php7-doc/ 
+	$(PHPDOC) -c phpdoc.xml -d . -t ../althex-php7-doc/  --cache-folder /tmp/phpdoc-cache --force --sourcecode
 
 du:
 	cd ~ ; make du
