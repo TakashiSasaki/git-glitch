@@ -1,8 +1,0 @@
-/vendor
-/run-tests-tmp
-/extract
-/.abc
-/.pear
-/build
-/composer.phar
-.phpunit.result.cache
