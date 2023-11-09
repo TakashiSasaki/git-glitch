@@ -1,6 +1,5 @@
 <?php
 use PHPUnit\Framework\TestCase;
-
 require 'determine_case.php'; // Assume this is the name of your PHP file containing the functions
 
 class DetermineCaseTest extends TestCase {
