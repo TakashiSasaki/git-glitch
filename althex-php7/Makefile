@@ -16,4 +16,4 @@ doc:
 	$(PHPDOC) -d . -t .
 
 du:
-	du ~ | sort -n 
+	cd ~ ; make du
