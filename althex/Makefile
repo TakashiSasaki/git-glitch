@@ -1,11 +1,12 @@
 test:
-	python3 althex/determine_case_test.py
-	python3 althex/to_althex_test.py
-	python3 althex/from_althex_test.py
-	python3 althex/roundtrip_test.py
-	pip3 install httpimport
-	python3 althex/http_test.py
+	python3 determine_case_test.py
+	python3 to_althex_test.py
+	python3 from_althex_test.py
+	python3 roundtrip_test.py
+	PIP_CACHE_DIR=/tmp/pip_cache pip3 install httpimport
+	python3 http_test.py
 
-althex.html:
-	pydoc -w althex
+doc:
+	PIP_CACHE_DIR=/tmp/pip_cache pip3 install sphinx
+	#pydoc -w althex
 

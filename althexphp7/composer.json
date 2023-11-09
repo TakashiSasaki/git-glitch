@@ -2,4 +2,7 @@
   "require": {
     "phpunit/phpunit": "^6.5"
   },
+  "config": {
+    "vendor-dir": "/tmp/composer-vendor-dir"
+  }
 }
