@@ -1,0 +1,2 @@
+du:
+	du ~ | sort -n
