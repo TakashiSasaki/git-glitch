@@ -1,6 +1,7 @@
 {
   "require": {
-    "phpunit/phpunit": "^6.5"
+    "phpunit/phpunit": "^6.5",
+    "phpdocumentor/phpdocumentor": "^2.9"
   },
   "config": {
     "vendor-dir": "/tmp/composer-vendor-dir"
