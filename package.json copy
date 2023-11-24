@@ -1,9 +1,10 @@
 {
   "name": "glitch-hello-eleventy",
   "version": "0.1.0",
-  "description": "A simple blog, set up with Eleventy. xxx",
+  "description": "A simple blog, set up with Eleventy.",
   "scripts": {
-    "start": "eleventy --serve"
+    "start": "eleventy --serve",
+    "build": "NODE_ENV=production eleventy"
   },
   "dependencies": {
     "eleventy-plugin-seo": "0.5.2",
