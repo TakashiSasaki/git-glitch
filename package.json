@@ -6,9 +6,6 @@
     "projectType": "generated_static"
   },
   "scripts": {
-    "start": "echo hogehoge"
-  },
-  "devDependencies": {
-    "vite": "^4.0.0"
+    "start": "node start"
   }
 }
