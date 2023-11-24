@@ -1,11 +1,12 @@
 {
   "name": "althex",
   "version": "0.1.1",
-  "main": "blank.html",
+  "main": "index.html",
   "glitch": {
     "projectType": "generated_static"
   },
-  "scripts": {
-    "start": "touch index.html"
+
+  "devDependencies": {
+    "vite": "^4.0.0"
   }
 }
