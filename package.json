@@ -4,7 +4,17 @@
   "glitch": {
     "projectType": "generated_static"
   },
+  "engines": {
+    "node": "14"
+  },
   "scripts": {
-    "start": "echo hoge"
+    "start": "eleventy --serve"
+  },
+  "dependencies": {
+    "eleventy-plugin-seo": "0.5.2",
+    "luxon": "^3.4.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0"
   }
 }
