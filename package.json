@@ -1,7 +1,6 @@
 {
   "name": "althex",
   "version": "0.1.2",
-  "main": "index.html",
   "glitch": {
     "projectType": "generated_static"
   },
