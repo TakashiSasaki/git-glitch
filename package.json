@@ -1,8 +1,14 @@
 {
   "name": "althex",
   "version": "0.1.1",
-  "main": "index.html",
+  "main": "blank.html",
   "engines": {
     "node": "14.x"
+  },
+  "glitch": {
+    "projectType": "generated_static"
+  },
+  "scripts": {
+    "start": "touch index.html"
   }
 }
