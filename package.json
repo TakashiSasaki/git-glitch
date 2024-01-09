@@ -1,0 +1,13 @@
+{
+  "name": "korenani",
+  "version": "0.1.0.20240109",
+  "glitch": {
+    "projectType": "generated_static"
+  },
+  "engines": {
+    "node": "14"
+  },
+  "scripts": {
+    "start": "while true; do { echo -e 'HTTP/1.1 200 OK\r\n'; date; } | nc -l 8080; done"
+  }
+}
