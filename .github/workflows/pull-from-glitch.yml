@@ -12,9 +12,7 @@ jobs:
 
     steps:
       - name: Checkout Glitch Repository
-        uses: actions/checkout@v2
-        with:
-          repository: 'https://dc7336a4-3887-4118-b631-a722e48b350a@api.glitch.com/git/korenani'
+        run: git pull 'https://dc7336a4-3887-4118-b631-a722e48b350a@api.glitch.com/git/korenani'
 
       # 必要な操作の実行
       - name: Run Scripts
