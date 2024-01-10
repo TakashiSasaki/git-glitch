@@ -13,13 +13,21 @@ class ToggleComponent extends HTMLElement {
     background-color: #f8f8f8;
   }
 
+  #toggleButton.active {
+    box-shadow: -4px -4px 8px rgba(0, 0, 0, 0.2); /* 左辺と上辺にシャドウを追加 */
+  }
+
   #toggleContent {
     display: none;
     margin-top: 0;
-    margin-bottom: 0.1em;
+    margin-bottom: 1em;
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f8f8f8;
+  }
+  
+  #toggleContent.active {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* 右辺と下辺にシャドウを追加 */
   }
             </style>
             <button id="toggleButton">表示/非表示</button>
@@ -64,6 +72,13 @@ class ToggleComponent extends HTMLElement {
 
   updateButtonText(isVisible) {
     this.button.textContent = isVisible ? this.hideText : this.showText;
+    if (isVisible) {
+      this.button.classList.add("active"); // ボタンにシャドウを表示
+      this.content.classList.add("active"); // コンテンツエリアにシャドウを表示
+    } else {
+      this.button.classList.remove("active"); // ボタンのシャドウを非表示
+      this.content.classList.remove("active"); // コンテンツエリアのシャドウを非表示
+    }
   }
 }
 
