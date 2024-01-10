@@ -2,7 +2,14 @@ class PageMetadataElement extends HTMLElement {
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: "open" });
-    this.updateMetadata(); // 初期メタデータを表示
+    this.createUpdateButton();
+  }
+
+  createUpdateButton() {
+    const button = document.createElement("button");
+    button.textContent = "Update Metadata";
+    button.addEventListener("click", this.updateMetadata);
+    this.shadow.appendChild(button);
   }
 
   getMetadata() {
@@ -21,7 +28,7 @@ class PageMetadataElement extends HTMLElement {
     ];
   }
 
-  updateMetadata() {
+  updateMetadata = () => {
     const metadata = this.getMetadata();
     this.shadow.innerHTML = `
             <style>
@@ -43,6 +50,7 @@ class PageMetadataElement extends HTMLElement {
                 }
             </style>
         `;
+    //TODO: updateMetadata を明示的に呼び出すボタンを付ける
 
     metadata.forEach((item) => {
       const container = document.createElement("div");
@@ -62,7 +70,7 @@ class PageMetadataElement extends HTMLElement {
       container.appendChild(input);
       this.shadow.appendChild(container);
     });
-  }
+  };
 
   connectedCallback() {
     this.updateMetadata(); // 初期メタデータを表示
