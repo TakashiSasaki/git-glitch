@@ -12,10 +12,9 @@ class ToggleComponent extends HTMLElement {
                 padding: 10px;
               }
             </style>
-            <!-- TODO: 非表示になっているときには「Show Debug Messagesと-->
             <button id="toggleButton">表示/非表示</button>
             <div id="toggleContent">
-              sample debug message
+              <slot></slot>  <!-- スロットを追加 -->
             </div>
           `;
 
@@ -27,12 +26,20 @@ class ToggleComponent extends HTMLElement {
     const isContentVisible =
       localStorage.getItem("isContentVisible") === "true";
     this.content.style.display = isContentVisible ? "block" : "none";
+    this.updateButtonText(isContentVisible);
 
     this.button.addEventListener("click", () => {
       const isVisible = this.content.style.display === "block";
       this.content.style.display = isVisible ? "none" : "block";
       localStorage.setItem("isContentVisible", !isVisible);
+      this.updateButtonText(!isVisible);
     });
+  }
+
+  updateButtonText(isVisible) {
+    this.button.textContent = isVisible
+      ? "Hide Debug Messages"
+      : "Show Debug Messages";
   }
 }
 
