@@ -1,0 +1,22 @@
+name: Pull from Glitch
+
+on:
+  # トリガーの設定（例：毎日午前3時）
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  pull-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Glitch Repository
+        run: git pull https://dc7336a4-3887-4118-b631-a722e48b350a@api.glitch.com/git/korenani
+
+      # 必要な操作の実行
+      - name: Run Scripts
+        run: |
+          echo "スクリプトやコマンドをここに追加"
+
+
