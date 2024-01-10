@@ -5,12 +5,22 @@ class ToggleComponent extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
             <style>
-              #toggleContent {
-                display: none;
-                margin-top: 10px;
-                border: 1px solid #ddd;
-                padding: 10px;
-              }
+  #toggleButton {
+    margin-top: 0.1em;
+    margin-bottom: 0px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+  }
+
+  #toggleContent {
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0.1em;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f8f8f8;
+  }
             </style>
             <button id="toggleButton">表示/非表示</button>
             <div id="toggleContent">
@@ -22,12 +32,10 @@ class ToggleComponent extends HTMLElement {
     this.content = this.shadowRoot.querySelector("#toggleContent");
   }
 
-  // 属性の変更を監視するための関数
   static get observedAttributes() {
     return ["show-text", "hide-text"];
   }
 
-  // 属性が変更されたときに呼ばれる関数
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "show-text") {
       this.showText = newValue;
