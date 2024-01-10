@@ -4,6 +4,7 @@ on:
   # トリガーの設定（例：毎日午前3時）
   schedule:
     - cron: '0 3 * * *'
+  workflow_dispatch:
 
 jobs:
   pull-changes:
