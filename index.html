@@ -40,12 +40,22 @@
                         const decoder = new TextDecoder();
                         let output = '';
 
-                        // タグIDを表示
+                        // Display Tag ID
                         const tagID = event.serialNumber;
                         output += `Tag ID: ${tagID}\n`;
 
+                        // Display all event properties
+                        output += `\nAll event properties:\n`;
+                        for (const key in event) {
+                            try {
+                                output += `${key}: ${JSON.stringify(event[key])}\n`;
+                            } catch (e) {
+                                output += `${key}: [Unserializable]\n`;
+                            }
+                        }
+
                         for (const record of event.message.records) {
-                            output += `Record type: ${record.recordType}\n`;
+                            output += `\nRecord type: ${record.recordType}\n`;
                             output += `MIME type: ${record.mediaType}\n`;
                             output += `Record id: ${record.id}\n`;
                             output += `Record data: ${decoder.decode(record.data)}\n`;
