@@ -48,3 +48,26 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+/* Screenshots Styles */
+.screenshots {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+.screenshots img {
+    max-width: 25%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Store Image Styles */
+.store-image {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+}
