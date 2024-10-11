@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gist Writer - GitHub Gistの管理アシスタント</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+        }
+        h1, h2 {
+            color: #444;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gist Writer</h1>
+    <p>GitHub Gistsの作成と管理を簡単にするアシスタント</p>
+</header>
+
+<main>
+    <h2>Gist Writerとは？</h2>
+    <p>Gist Writerは、GitHub Gistを効率的に管理するためのアシスタントです。Gist Writerを使えば、以下の操作が簡単に行えます:</p>
+    <ul>
+        <li>Gistの作成と編集</li>
+        <li>Gistの削除</li>
+        <li>Gistの内容取得</li>
+        <li>Gistのリスト表示</li>
+    </ul>
+    <p>さらに、ファイル名やファイル形式が指定されない場合、自動的にMarkdown形式でファイルを作成します。</p>
+    
+    <h2>使い方</h2>
+    <p>以下のテキストエリアに入力し、Gistの操作を開始します。Gist Writerは、入力された内容に基づいてGistを作成したり、編集したりすることができます。</p>
+    
+    <textarea placeholder="ここにGistの内容を入力..."></textarea>
+    
+    <p>Gist Writerは、REST APIを利用して直接GitHubと通信し、操作を実行します。使い方は簡単で、特に詳細な技術知識がなくてもすぐに利用できます。</p>
+</main>
+
+<footer>
+    <p>&copy; 2024 Gist Writer. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
