@@ -26,6 +26,16 @@ It visually logs and compares the types, sizes, and contents of data retrieved t
 Visit the live page here:
 **[https://paste-event-vs-clipboard-api.glitch.me](https://paste-event-vs-clipboard-api.glitch.me)**
 
+⚠️ **Note**: The Clipboard API (`navigator.clipboard.read()` and `readText()`) **will not work inside the Glitch editor interface** (`glitch.com/edit`) due to browser-enforced [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy).
+
+Specifically:
+
+* The Glitch editor embeds your app inside an `<iframe>`
+* Clipboard access requires top-level document context and secure HTTPS
+* As a result, API access will be blocked with a `NotAllowedError`
+
+Always open the live project URL directly (outside of the Glitch editor) to test Clipboard API features.
+
 ## 🧪 How to Test
 
 1. Copy rich text or images from a webpage or an image editor
@@ -38,6 +48,7 @@ Visit the live page here:
 * `ClipboardEvent.clipboardData.items` often includes `File` objects (for images) and full `text/html` with wrappers (via CF\_HTML)
 * `navigator.clipboard.read()` returns `ClipboardItem` objects, each of which exposes data as `Blob` (not `File`), and may return more sanitized HTML
 * Character vs. byte length differences may result from newline normalization (`\r\n` → `\n`) and HTML sanitization
+* Images appear as `File` via `paste` and `Blob` via `read()`, with identical binary content but different metadata
 
 ## 📁 Files
 
