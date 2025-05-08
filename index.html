@@ -1,165 +1,174 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>Clipboard Comparison Tester</title>
-  <style>
-    /* Layout */
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      padding: 1rem;
-      background: #333;
-      color: #fff;
-      text-align: center;
-    }
-    .container {
-      flex: 1;
-      display: flex;
-      gap: 1rem;
-      padding: 1rem;
-      box-sizing: border-box;
-    }
-    .panel {
-      flex: 1;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      background: #fafafa;
-      overflow: hidden;
-    }
-    .panel h2 {
-      margin-top: 0;
-    }
-    .editable {
-      flex: none;
-      width: 100%;
-      height: 100px;
-      border: 1px dashed #888;
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-      outline: none;
-      overflow-y: auto;
-    }
-    .controls {
-      flex: none;
-      margin-bottom: 0.5rem;
-    }
-    .controls button {
-      margin-right: 0.5rem;
-    }
-    .log {
-      flex: 1;
-      background: #222;
-      color: #0f0;
-      padding: 0.5rem;
-      font-family: monospace;
-      font-size: 0.9rem;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Clipboard Comparison Tester</h1>
-  </header>
-  <div class="container">
-    <!-- Left panel: Paste Event investigation -->
-    <div class="panel" id="paste-panel">
-      <h2>Paste Event</h2>
-      <p>Paste here (Ctrl+V or right-click → Paste):</p>
-      <div id="pasteArea" class="editable" contenteditable="true"></div>
-      <div id="pasteLog" class="log"></div>
-    </div>
-
-    <!-- Right panel: Clipboard API investigation -->
-    <div class="panel" id="api-panel">
-      <h2>Clipboard API</h2>
-      <div class="controls">
-        <button id="readTextBtn">Read Text</button>
-        <button id="readBtn">Read Items</button>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clipboard Comparison Tester</title>
+    <style>
+      /* Layout */
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 1rem;
+        background: #333;
+        color: #fff;
+        text-align: center;
+      }
+      .container {
+        flex: 1;
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      .panel {
+        flex: 1;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        background: #fafafa;
+        overflow: hidden;
+      }
+      .panel h2 {
+        margin-top: 0;
+      }
+      .editable {
+        flex: none;
+        width: 100%;
+        height: 100px;
+        border: 1px dashed #888;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        outline: none;
+        overflow-y: auto;
+      }
+      .controls {
+        flex: none;
+        margin-bottom: 0.5rem;
+      }
+      .controls button {
+        margin-right: 0.5rem;
+      }
+      .log {
+        flex: 1;
+        background: #222;
+        color: #0f0;
+        padding: 0.5rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Clipboard Comparison Tester</h1>
+    </header>
+    <div class="container">
+      <!-- Left panel: Paste Event investigation -->
+      <div class="panel" id="paste-panel">
+        <h2>Paste Event</h2>
+        <p>Paste here (Ctrl+V or right-click → Paste):</p>
+        <div id="pasteArea" class="editable" contenteditable="true"></div>
+        <div id="pasteLog" class="log"></div>
       </div>
-      <div id="apiLog" class="log"></div>
+
+      <!-- Right panel: Clipboard API investigation -->
+      <div class="panel" id="api-panel">
+        <h2>Clipboard API</h2>
+        <div class="controls">
+          <button id="readTextBtn">Read Text</button>
+          <button id="readBtn">Read Items</button>
+        </div>
+        <div id="apiLog" class="log"></div>
+      </div>
     </div>
-  </div>
 
-  <script>
-    // Paste Event handler
-    const pasteArea = document.getElementById('pasteArea');
-    const pasteLog  = document.getElementById('pasteLog');
+    <script>
+      // --- Paste Event handler ---
+      const pasteArea = document.getElementById("pasteArea");
+      const pasteLog = document.getElementById("pasteLog");
 
-    pasteArea.addEventListener('paste', async (event) => {
-      event.preventDefault();
-      pasteLog.textContent = '';  // Clear previous log
+      pasteArea.addEventListener("paste", async (event) => {
+        event.preventDefault();
+        pasteLog.textContent = "";
 
-      const items = event.clipboardData.items;
-      for (const item of items) {
-        const kind = item.kind;
-        const type = item.type;
-        pasteLog.textContent += `Item - kind: ${kind}, type: ${type}\n`;
+        const items = Array.from(event.clipboardData.items);
+        // 文字列アイテムのPromise化
+        const tasks = items.map((item, i) => {
+          const info = [`Item ${i}: MIME type = ${item.type}`];
+          if (item.kind === "file") {
+            const file = item.getAsFile();
+            info.push(`  [File] name=${file.name}, size=${file.size} bytes`);
+            return Promise.resolve(info.join("\n"));
+          } else {
+            // string は Promise で包む
+            return new Promise((resolve) => {
+              item.getAsString((text) => {
+                const blob = new Blob([text], { type: item.type });
+                info.push(
+                  `  [String] length=${text.length} chars, size=${blob.size} bytes`
+                );
+                resolve(info.join("\n"));
+              });
+            });
+          }
+        });
 
-        if (kind === 'string') {
-          // Retrieve plain text or HTML
-          item.getAsString(text => {
-            pasteLog.textContent += `String data:\n${text}\n\n`;
-          });
-        } else if (kind === 'file') {
-          // Retrieve file blobs (images, etc.)
-          const file = item.getAsFile();
-          pasteLog.textContent += `File: name=${file.name}, size=${file.size} bytes\n\n`;
+        // 全部揃うまで待ってから一度に表示
+        const lines = await Promise.all(tasks);
+        pasteLog.textContent = lines.join("\n\n");
+      });
+
+      // --- Clipboard API handlers ---
+      const readTextBtn = document.getElementById("readTextBtn");
+      const readBtn = document.getElementById("readBtn");
+      const apiLog = document.getElementById("apiLog");
+
+      // readText() demonstration
+      readTextBtn.addEventListener("click", async () => {
+        apiLog.textContent = "";
+        try {
+          const text = await navigator.clipboard.readText();
+          apiLog.textContent = `readText() →\n${text}`;
+        } catch (err) {
+          apiLog.textContent = `Error reading text: ${err}`;
         }
-      }
-    });
+      });
 
-    // Clipboard API handlers
-    const readTextBtn = document.getElementById('readTextBtn');
-    const readBtn     = document.getElementById('readBtn');
-    const apiLog      = document.getElementById('apiLog');
-
-    // readText() demonstration
-    readTextBtn.addEventListener('click', async () => {
-      apiLog.textContent = '';
-      try {
-        const text = await navigator.clipboard.readText();
-        apiLog.textContent = `readText() →\n${text}`;
-      } catch (err) {
-        apiLog.textContent = `Error reading text: ${err}`;
-      }
-    });
-
-    // read() demonstration (MIME types, blobs)
-    readBtn.addEventListener('click', async () => {
-      apiLog.textContent = '';
-      if (!navigator.clipboard.read) {
-        apiLog.textContent = 'navigator.clipboard.read() is not supported in this browser.';
-        return;
-      }
-      try {
-        const items = await navigator.clipboard.read();
-        for (const item of items) {
-          for (const type of item.types) {
-            apiLog.textContent += `Item type: ${type}\n`;
-            const blob = await item.getType(type);
-            if (type.startsWith('text/')) {
-              const text = await blob.text();
-              apiLog.textContent += `Text (${type}):\n${text}\n\n`;
-            } else {
-              apiLog.textContent += `Blob: type=${blob.type}, size=${blob.size} bytes\n\n`;
+      // read() demonstration (MIME types, blobs)
+      readBtn.addEventListener("click", async () => {
+        apiLog.textContent = "";
+        if (!navigator.clipboard.read) {
+          apiLog.textContent =
+            "navigator.clipboard.read() is not supported in this browser.";
+          return;
+        }
+        try {
+          const items = await navigator.clipboard.read();
+          for (const [idx, item] of items.entries()) {
+            for (const type of item.types) {
+              apiLog.textContent += `Item ${idx}: type=${type}\n`;
+              const blob = await item.getType(type);
+              if (type.startsWith("text/")) {
+                const text = await blob.text();
+                apiLog.textContent += `  [Text] length=${text.length} chars, size=${blob.size} bytes\n\n`;
+              } else {
+                apiLog.textContent += `  [Blob] size=${blob.size} bytes\n\n`;
+              }
             }
           }
+        } catch (err) {
+          apiLog.textContent = `Error reading items: ${err}`;
         }
-      } catch (err) {
-        apiLog.textContent = `Error reading items: ${err}`;
-      }
-    });
-  </script>
-</body>
+      });
+    </script>
+  </body>
 </html>
