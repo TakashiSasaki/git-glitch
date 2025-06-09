@@ -22,12 +22,14 @@ $projects = @(
     #"moukaeritai-fastify",
     #"hello-pocket",
     #"euvc-pr-ehime-u",
-    "extract-text-by-cheerio",
-    "uuid-moukaeritai-work",
-    "firebaseui-web",
-    "start-me-json",
+    #"extract-text-by-cheerio",
+    #"uuid-moukaeritai-work",
+    #"firebaseui-web",
+    #"start-me-json",
     "purl-ts-terms",
-    "microdata-rdf-streaming-parser"
+    "microdata-rdf-streaming-parser",
+    "localhost-moukaeritai-work",
+    "dot-voting-view"
 )
 
 foreach ($project in $projects) {
