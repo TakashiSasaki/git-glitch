@@ -16,7 +16,9 @@ $projects = @(
     "hello-llama-index",
     "hello-google-keep-api",
     "streaming-parser-playground",
-    "flatte"
+    "flatte",
+    "moukaeritai-static",
+    "moukaeritai-express"
 )
 
 foreach ($project in $projects) {
