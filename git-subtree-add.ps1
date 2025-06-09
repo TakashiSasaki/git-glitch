@@ -26,11 +26,13 @@ $projects = @(
     #"uuid-moukaeritai-work",
     #"firebaseui-web",
     #"start-me-json",
-    "purl-ts-terms",
-    "microdata-rdf-streaming-parser",
-    "localhost-moukaeritai-work",
+    #"purl-ts-terms",
+    #"microdata-rdf-streaming-parser",
+    #"localhost-moukaeritai-work",
     "dot-voting-view",
-    "azure-moukaeritai-work"
+    "azure-moukaeritai-work",
+    "moukaeritai-appengine",
+    "moukaeritai-sqlite"
 )
 
 foreach ($project in $projects) {
