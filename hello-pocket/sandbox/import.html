@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <style>
+      textarea {
+        width: 90%;
+        height: 20em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea>test</textarea>
+    <script type="module">
+      navigator.serviceWorker.register("./js");
+    </script>
+    <script type="module">
+      window.addEventListener("error", (event) => {
+        const textarea = document.querySelector("textarea");
+        textarea.value += event.message + "\n";
+      });
+    </script>
+    <script type="module">
+      undefinedFunction1();
+      undefinedFunction2();
+    </script>
+    <script type="module">
+      undefinedFunction3();
+    </script>
+    <script type="module" src="./import.js"></script>
+  </body>
+</html>

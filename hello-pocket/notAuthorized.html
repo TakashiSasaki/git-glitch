@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+  </head>
+
+  <body>
+    <form action="https://getpocket.com/v3/oauth/authorize" method="POST">
+      <input id="authorizationCode" value="<?= authorizationCode?>" />
+      <input id="consumerKey" value="<?= consumerKey?>" />
+      <button type="submit"></button>
+    </form>
+    <button>get access token</button>
+    <script type="module">
+      const authorizationCode =
+        document.querySelector("#authorizationCode").value;
+      const consumerKey = document.querySelector("#consumerKey").value;
+      document.querySelector("button").addEventListener("click", (event) => {
+        fetch("https://getpocket.com/v3/oauth/authorize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-Accept": "application/x-www-form-urlencoded",
+          },
+          body: `consumer_key=${consumerKey}&code=${authorizationCode}`,
+        })
+          .then((x) => x.text())
+          .then((text) => alert(text));
+      });
+    </script>
+  </body>
+</html>

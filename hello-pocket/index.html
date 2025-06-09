@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <style>
+      #authorizeA {
+        display: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="authorizeButton">Authorize</button>
+    <script type="module">
+      window.addEventListener("load", (event) => {
+        document
+          .querySelector("#authorizeButton")
+          .addEventListener("click", (event) => {
+            google.script.run
+              .withSuccessHandler((authorizationUrl) => {
+                const a = document.querySelector("#authorizeA");
+                a.style.display = "inline";
+                a.setAttribute("href", authorizationUrl);
+              })
+              .getAuthorizationUrl();
+          });
+      });
+    </script>
+    <a id="authorizeA">Authorize</a>
+  </body>
+</html>
