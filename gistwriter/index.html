@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gist Writer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .screenshot-thumb {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gist Writer for ChatGPT</h1>
+        <p>A tool to simplify sharing and managing code snippets</p>
+    </header>
+    
+    <section>
+        <h2>Overview</h2>
+        <p>Gist Writer is a custom GPT that runs on the OpenAI ChatGPT platform. It allows you to create Gists directly from within ChatGPT and load Gist files into your conversation. This helps you organize and share information without interrupting the flow of conversation.</p>
+        <p>Gist Writer uses the GitHub REST API to interact with GitHub Gists. It supports the following operations:</p>
+        <ul>
+            <li>Retrieve a list of Gists created by the user account</li>
+            <li>Create a new Gist (defaulting to private settings)</li>
+            <li>Retrieve the content of a specific Gist by its ID</li>
+            <li>Modify the content of an existing Gist by specifying its ID</li>
+            <li>Delete a Gist based on its ID</li>
+        </ul>
+        <p>When a new Gist is created, the generated Gist ID and URL are displayed for easy access. If a Gist URL is provided, Gist Writer extracts the Gist ID from the URL and performs the requested action. If no filename or content is specified, default settings are used.</p>
+        
+        <h2>How to use Gist Writer</h2>
+        <p><a href="https://chatgpt.com/g/g-EJnDg5v36-gist-writer" target="_blank">Open Gist Writer</a></p>
+        <img src="https://cdn.glitch.global/43209cbe-59bb-4d94-84c6-b64dd4aeb300/store.png?v=1728648206823" alt="GPT Store Image" class="store-image">
+        
+        <h2>Screenshots</h2>
+        <div class="screenshots">
+            <img src="https://cdn.glitch.global/43209cbe-59bb-4d94-84c6-b64dd4aeb300/image1.png" alt="Screenshot of usage 1" class="screenshot-thumb">
+            <img src="https://cdn.glitch.global/43209cbe-59bb-4d94-84c6-b64dd4aeb300/image2.png" alt="Screenshot of usage 2" class="screenshot-thumb">
+            <img src="https://cdn.glitch.global/43209cbe-59bb-4d94-84c6-b64dd4aeb300/image3.png" alt="Screenshot of usage 3" class="screenshot-thumb">
+        </div>
+    </section>
+    
+    <footer>
+        <p>Contact: <a href="https://x.com/TakashiSasaki" target="_blank">x.com/TakashiSasaki</a></p>
+        <p>&copy; 2024 Takashi Sasaki. All rights reserved.</p>
+    </footer>
+    <script>
+        document.querySelectorAll('.screenshot-thumb').forEach(img => {
+            img.addEventListener('click', function (event) {
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                overlay.style.display = 'flex';
+                overlay.style.alignItems = 'center';
+                overlay.style.justifyContent = 'center';
+                overlay.style.zIndex = '1000';
+
+                const fullImage = document.createElement('img');
+                fullImage.src = img.src;
+                fullImage.style.maxWidth = '90%';
+                fullImage.style.maxHeight = '90%';
+                fullImage.style.borderRadius = '10px';
+
+                overlay.appendChild(fullImage);
+
+                overlay.addEventListener('click', function () {
+                    document.body.removeChild(overlay);
+                });
+
+                document.body.appendChild(overlay);
+            });
+        });
+    </script>
+</body>
+</html>
