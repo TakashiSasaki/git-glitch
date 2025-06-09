@@ -20,7 +20,8 @@ $projects = @(
     #"moukaeritai-static",
     #"moukaeritai-express",
     "moukaeritai-fastify",
-    "hello-pocket"
+    "hello-pocket",
+    "euvc-pr-ehime-u"
 )
 
 foreach ($project in $projects) {
