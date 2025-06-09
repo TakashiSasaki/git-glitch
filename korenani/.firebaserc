@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "moukaeritaid"
+  },
+  "targets": {
+    "moukaeritaid": {
+      "hosting": {
+        "korenani": [
+          "korenani"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
