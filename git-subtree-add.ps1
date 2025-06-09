@@ -21,7 +21,9 @@ $projects = @(
     #"moukaeritai-express",
     "moukaeritai-fastify",
     "hello-pocket",
-    "euvc-pr-ehime-u"
+    "euvc-pr-ehime-u",
+    "extract-text-by-cheerio",
+    "uuid-moukaeritai-work"
 )
 
 foreach ($project in $projects) {
