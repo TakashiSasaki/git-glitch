@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+      integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+      crossorigin="anonymous"
+    />
+    <style>
+      iframe {
+        width: 98%;
+        border: 1px;
+        margin: 0px;
+        padidng: 0px;
+        height: 100%;
+      }
+      #buttons {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pure-g">
+      <div class="pure-u-1-5">
+        <p>
+          This page shows a demo of Blockly running on Glitch. For more details,
+          please see the following Github page.
+          <a
+            target="blockly-samples"
+            href="https://github.com/google/blockly-samples/tree/master/examples"
+            >https://github.com/google/blockly-samples/tree/master/examples</a
+          >
+        </p>
+        <div id="buttons">
+          <button data-example-name="custom-dialogs-demo" />
+          <button data-example-name="fixed-demo" />
+          <button data-example-name="graph-demo" />
+          <button data-example-name="headless-demo" />
+          <button data-example-name="interpreter-demo" />
+          <button data-example-name="max-blocks-demo" />
+          <button data-example-name="mirror-demo" />
+          <button data-example-name="pitch-field-demo" />
+          <!--<button data-example-name="plane-demo"/>-->
+          <button data-example-name="resizable-demo" />
+          <button data-example-name="rtl-demo" />
+          <button data-example-name="single-direction-scroll-demo" />
+          <button data-example-name="toolbox-demo" />
+          <button data-example-name="turtle-field-demo" />
+        </div>
+        <p>
+          The source code for this Glitch project can be viewed at the following
+          URL.<a href="https://glitch.com/edit/#!/blockly-demo-examples">
+            https://glitch.com/edit/#!/blockly-demo-examples</a
+          >
+        </p>
+        <a
+          href="https://twitter.com/intent/tweet?screen_name=TakashiSasaki&ref_src=twsrc%5Etfw"
+          class="twitter-mention-button"
+          data-show-count="false"
+          >Tweet to @TakashiSasaki</a
+        ><!--<script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charset="utf-8"
+        ></script>-->
+      </div>
+      <div class="pure-u-4-5">
+        <iframe></iframe>
+      </div>
+    </div>
+    <script>
+      const buttons = document.querySelectorAll("BUTTON");
+      for (var i = 0; i < buttons.length; ++i) {
+        buttons[i].addEventListener("click", x => {
+          const exampleName = x.target.dataset["exampleName"];
+          document
+            .querySelector("IFRAME")
+            .setAttribute("src", exampleName + "/index.html");
+        });
+        buttons[i].innerText = buttons[i].dataset["exampleName"];
+      }
+
+      document.querySelector("IFRAME").style.height =
+        document.body.scrollHeight;
+    </script>
+  </body>
+</html>
