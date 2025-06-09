@@ -1,0 +1,45 @@
+<?php
+use PHPUnit\Framework\TestCase;
+
+// PHPのto_althex関数を含むファイルをインクルード
+require_once 'to_althex.php';
+
+class TestToAltHex extends TestCase {
+    // to_althex lowercase tests
+    public function testToAltHexLowercase() {
+        $input = "1a3f";
+        $expected = "hukz";
+        $actual = to_althex($input);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testToAltHexLowercase2() {
+        $input = "00ff";
+        $expected = "ggzz";
+        $actual = to_althex($input);
+        $this->assertEquals($expected, $actual);
+    }
+    
+    // to_althex mixed case tests
+    public function testToAltHexMixed() {
+        $input = "1A3f";
+        $expected = "hukz";
+        $actual = to_althex($input);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testToAltHexMixed2() {
+        $input = "00fF";
+        $expected = "ggzz";
+        $actual = to_althex($input);
+        $this->assertEquals($expected, $actual);
+    }
+    
+    // to_althex uppercase tests
+    public function testToAltHexUppercase() {
+        $this->assertEquals("HUKZ", to_althex("1A3F", true)); // Uppercase output forced
+        $this->assertEquals("GGZZ", to_althex("00FF", true)); // Uppercase output forced
+    }
+}
+
+?>
