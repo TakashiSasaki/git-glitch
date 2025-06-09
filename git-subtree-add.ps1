@@ -14,7 +14,9 @@ $projects = @(
     #"rdfa-streaming-parser",
     #"bald-hazel-screw",
     "hello-llama-index",
-    "hello-google-keep-api"
+    "hello-google-keep-api",
+    "streaming-parser-playground",
+    "flatte"
 )
 
 foreach ($project in $projects) {
