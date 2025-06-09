@@ -29,7 +29,8 @@ $projects = @(
     "purl-ts-terms",
     "microdata-rdf-streaming-parser",
     "localhost-moukaeritai-work",
-    "dot-voting-view"
+    "dot-voting-view",
+    "azure-moukaeritai-work"
 )
 
 foreach ($project in $projects) {
