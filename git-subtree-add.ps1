@@ -32,7 +32,8 @@ $projects = @(
     "dot-voting-view",
     "azure-moukaeritai-work",
     "moukaeritai-appengine",
-    "moukaeritai-sqlite"
+    "moukaeritai-sqlite",
+    "moukaeritai-aws"
 )
 
 foreach ($project in $projects) {
