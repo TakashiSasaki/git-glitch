@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title></title>
+    <script src="//moukaeritai-static.glitch.me/min.js"></script>
+    <style>
+      body > div {
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1em;
+      }
+      iframe {
+        width: 90%;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      This project is developed on Glitch, with the expectation of deployment on
+      Google App Engine. When you access it through glitch.me, the code runs in
+      a Glitch container. If accessed via appspot.com, the code runs on the App
+      Engine's Node.js runtime. In the Glitch container, session management is
+      handled in-memory; as a result, session information is lost upon a
+      container reboot. However, when running on App Engine, session information
+      is saved to Datastore, preserving session information for the duration of
+      the cookie's validity. While I have extensively used Python as a runtime
+      for App Engine in the past, I have opted for Node.js considering its
+      compatibility with Glitch.
+    </div>
+    <div class="color1">
+      <h1>Glitch</h1>
+      <a href="https://moukaeritai-appengine.glitch.me/"></a>
+      <a href="https://moukaeritai-appengine.glitch.me/json"></a>
+    </div>
+    <div class="color2">
+      <h1>App Engine</h1>
+      <a href="https://moukaeritaid.dt.r.appspot.com/"></a>
+      <a href="https://moukaeritaid.dt.r.appspot.com/json"></a>
+    </div>
+    <div>
+      <p>
+        The following iframe is an example of using fastify's session module. In
+        this example, the server code server.js uses volatile session store, so
+        the session information is lost when the container terminates. count1 is
+        counted up by preHandler. count2 is counted up only when /count is
+        accessed. count2 is counted up only when /count is accessed.
+      </p>
+      <p>
+        This iframe reloads the path "/count" every 5 seconds. Reloading iframes
+        does not work properly when previewing in Glitch's preview pane. The
+        page must be opened as a separate window.
+      </p>
+      <iframe src="count"></iframe>
+    </div>
+
+    <script>
+      function reloadIframe() {
+        dq("iframe").contentWindow.location.reload();
+        setTimeout(() => reloadIframe(), 5000);
+      }
+      wal((event) => {
+        reloadIframe();
+      });
+    </script>
+  </body>
+</html>
