@@ -24,4 +24,5 @@ $projects = @(
 
 foreach ($project in $projects) {
     git subtree add --prefix=$project "$glitch_base_url$project" main
+    git subtree add --prefix=$project "$glitch_base_url$project" master
 }
