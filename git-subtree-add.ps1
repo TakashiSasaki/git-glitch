@@ -19,7 +19,8 @@ $projects = @(
     #"flatte",
     #"moukaeritai-static",
     #"moukaeritai-express",
-    "moukaeritai-fastify"
+    "moukaeritai-fastify",
+    "hello-pocket"
 )
 
 foreach ($project in $projects) {
