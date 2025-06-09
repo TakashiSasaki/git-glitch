@@ -23,7 +23,10 @@ $projects = @(
     "hello-pocket",
     "euvc-pr-ehime-u",
     "extract-text-by-cheerio",
-    "uuid-moukaeritai-work"
+    "uuid-moukaeritai-work",
+    "firebaseui-web",
+    "start-me-json",
+    "purl-ts-terms"
 )
 
 foreach ($project in $projects) {
