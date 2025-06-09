@@ -1,0 +1,6 @@
+composer install
+Loading composer repositories with package information
+Warning from https://packagist.org: Support for Composer 1 is deprecated and some packages will not be available. You should upgrade to Composer 2. See https://blog.packagist.com/deprecating-composer-1-support/
+Updating dependencies (including require-dev)
+Makefile:31: recipe for target 'composer' failed
+make: *** [composer] Terminated

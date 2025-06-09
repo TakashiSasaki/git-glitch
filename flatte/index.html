@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>flatte - flatten and unflatten JSON</title>
+    <style>
+      /* ベースとなるスタイリング */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 5px;
+        padding: 5px;
+        background-color: #f9f9f9;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      /* コード部分のスタイリング */
+      pre {
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      code {
+        font-family: "Courier New", monospace;
+      }
+    </style>
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.0/components/prism-python.min.js"></script>
+    <script type="module">
+      fetch("header.html")
+        .then((response) => response.text())
+        .then(
+          (text) => (document.getElementById("common-header").innerHTML = text)
+        );
+    </script>
+  </head>
+  <body>
+    <div id="common-header"></div>
+    <h1>flatte: A Python Module for Flattening and Unflattening JSON</h1>
+    <p>
+      The <strong>flatte</strong> module provides Python functions to flatten
+      nested JSON-like structures into a list of tuples and to unflatten them
+      back to their original structure. This is particularly useful for easily
+      manipulating or analyzing deeply nested JSON data.
+    </p>
+
+    <h2>Using flatte via httpimport</h2>
+    <p>
+      You can easily use the <strong>flatte</strong> module via
+      <strong>httpimport</strong>. This allows you to import Python modules from
+      a web server directly. Below are some examples demonstrating how to use
+      the <strong>flatten</strong> and <strong>unflatten</strong> functions.
+    </p>
+    <pre>
+    <code class="language-python">
+from httpimport import remote_repo
+with remote_repo("https://flatte.glitch.me/"):
+  import flatte
+</code>
+    </pre>
+    <h3>Example: Using flatten</h3>
+    <pre><code class="language-python">
+print(flatte.flatten("abc"))
+&gt;&gt;&gt; [('', 'abc')]
+</code>
+    </pre>
+    <h3>Example: Using unflatten</h3>
+    <pre><code class="language-python">
+&gt;&gt;&gt; print(flatte.unflatten([('', 'abc')]))    
+abc
+</code></pre>
+    <footer
+      style="margin-top: 50px; padding-top: 10px; border-top: 1px solid #ccc"
+    >
+      <p>
+        Created by Takashi Sasaki | Follow on Twitter:
+        <a href="https://twitter.com/TakashiSasaki" target="_blank"
+          >@TakashiSasaki</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>
