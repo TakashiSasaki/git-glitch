@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <title>microdata-rdf-streaming-parser.webpack.js</title>
+    <link type="manifest" href="./manifest.json" />
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/6b24e0e1-6ff5-4d1f-b67a-033177bd884c/favicon.png"
+    />
+    <script src="./microdata-rdf-streaming-parser.webpack.js"></script>
+    <style>
+      pre {
+        padding: 10px;
+        border: 2px solid #ccc;
+        background-color: #f9f9f9;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      textarea {
+        width: 99%;
+        height: 30em;
+      }
+    </style>
+    <script type="module">
+      navigator.serviceWorker.register("/sw.js", { scope: "/" });
+    </script>
+  </head>
+  <body>
+    <h1>microdata-rdf-streaming-parser.webpack.js</h1>
+
+    <p>
+      This page, hosted by
+      <a href="https://glitch.com/edit/#!/microdata-rdf-streaming-parser"
+        >Glitch</a
+      >, provides
+      <a href="./microdata-rdf-streaming-parser.webpack.js"
+        >microdata-rdf-streaming-parser.webpack.js</a
+      >, a webpacked file of
+      <a href="https://github.com/rubensworks/microdata-rdf-streaming-parser.js"
+        >microdata-rdf-streaming-parser.js</a
+      >. microdata-rdf-streaming-parser.js is a great library written by
+      <a href="https://github.com/rubensworks/">Ruben Taelman</a> and published
+      under the MIT License on GitHub.
+    </p>
+    <h1>Usage</h1>
+    <h2>In HTML document</h2>
+    <pre><code>&lt;script src="https://microdata-rdf-streaming-parser.glitch.me/microdata-rdf-streaming-parser.webpack.js"&gt;&lt;/script&gt;</code></pre>
+    <h2>In JavaScript code</h2>
+    <p>
+      The original code is from
+      <a
+        href="https://github.com/rubensworks/microdata-rdf-streaming-parser.js/blob/bc2fce70c62a06fafd51c10518ef18b599e97392/test/MicrodataRdfParser-test.ts"
+        >MicrodataRdfParser-test.ts</a
+      >
+      of
+      <a href="https://github.com/rubensworks/microdata-rdf-streaming-parser.js"
+        >microdata-rdf-streaming-parser.js</a
+      >
+    </p>
+
+    <script type="module">
+      fetch("./index.js")
+        .then((response) => response.text())
+        .then((text) => {
+          document.querySelector("#indexJsCode").innerText = text;
+        });
+    </script>
+    <pre><code id="indexJsCode"></code></pre>
+
+    <h2>Result</h2>
+    <p>
+      The code above emits two <a href="#noteH1">Quads</a> in the textarea
+      below. The content displayed in the textarea is the actual result executed
+      in your browser. Therefore, if the script is not working properly, nothing
+      may be displayed in the textarea, or an error message may appear.
+    </p>
+
+    <script type="module" src="./index.js"></script>
+    <textarea readonly></textarea>
+    <h1>webpack.config.js</h1>
+    <p>I changed original webpack.config.js as follows.</p>
+    <script type="module">
+      fetch("./upstream/webpack.config.js")
+        .then((response) => response.text())
+        .then(
+          (text) =>
+            (document.querySelector("#webpackConfigJsCode").innerText = text)
+        );
+    </script>
+    <pre><code id="webpackConfigJsCode"></code></pre>
+
+    <h1>Related page(s)</h1>
+    <ul>
+      <li>
+        <a href="https://rdfa-streaming-parser.glitch.me"
+          >rdfa-streaming-parser.webpack.js</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://streaming-parser-playground.glitch.me"
+          target="streaming-parser-playground"
+          >Streaming paraser playground</a
+        >
+      </li>
+    </ul>
+    <h1>About me</h1>
+    <div>
+      <a href="https://twitter.com/TakashiSasaki">Takashi Sasaki</a>
+    </div>
+  </body>
+</html>
