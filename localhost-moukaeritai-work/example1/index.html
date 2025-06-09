@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <script src="/v1.js"></script>
+    <title>example1</title>
+    <meta name="generator" content="c3c140b0-053c-48fc-9acf-402ae0cc7e97" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+    />
+    <style>
+      script {
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <meta-name-contents></meta-name-contents>
+    <p>
+      このページでは script 要素の src 属性、object 要素の data 属性、iframe
+      要素の src 属性により JSONが書かれた外部のファイルを読み込み、JSON
+      で書かれたデータを JavaScript から利用できるか調査した。
+      その結果、同一のドメインから iframe で読み取った場合に限り、 その DOM
+      にアクセスできることがわかった。 それ以外の2つの方法で読み込んだ JSON
+      にはアクセスできないこともわかった。
+    </p>
+    <script class="c3c140b0-053c-48fc-9acf-402ae0cc7e97"></script>
+    { "test1": 111, "test2": "222" }
+    <script type="application/json">
+      { "test3": 111, "test4": "222" }
+    </script>
+    <div class="column is-flex">
+      <div class="card">
+        <div class="title">SCRIPT要素１</div>
+        この次からscript要素開始
+        <script
+          id="json1"
+          src=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+        ></script>
+        この前でscript要素終了
+      </div>
+    </div>
+    <div class="card">
+      この次からscript要素開始
+      <script
+        id="json2"
+        src="c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+      ></script>
+      この前でscript要素終了
+    </div>
+    <iframe
+      id="iframe1"
+      src=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></iframe>
+    <iframe
+      id="iframe2"
+      src="c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></iframe>
+    <object
+      id="object1"
+      data=".c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></object>
+    <object
+      id="object2"
+      data="c3c140b0-053c-48fc-9acf-402ae0cc7e97.json"
+    ></object>
+    <script>
+      window.addEventListener("load", (event) => {
+        const iframe1 = document
+          .querySelector("#iframe1")
+          .contentDocument.querySelector("body pre").innerHTML;
+        const iframe2 = document
+          .querySelector("#iframe2")
+          .contentDocument.querySelector("body pre").innerHTML;
+      });
+    </script>
+    <button onclick="location.reload()">Reload Page</button>
+  </body>
+</html>
