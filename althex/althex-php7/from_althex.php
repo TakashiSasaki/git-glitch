@@ -1,0 +1,57 @@
+<?php
+require_once 'determine_case.php'; // Assuming this contains is_upper_althex function
+
+/**
+ * Converts a string from an alternative hexadecimal representation to its standard hexadecimal form.
+ *
+ * The alternative hexadecimal string is expected to use 'G' to 'Z' and 'g' to 'z' (excluding 'I', 'L', 'O', 'Q') instead of 'A' to 'F' and 'a' to 'f'.
+ * If the `$use_uppercase` parameter is not set, the case of the output string will be determined by the case of the input string.
+ * If `$use_uppercase` is explicitly set to true or false, the output will be in upper or lower case respectively.
+ *
+ * Usage:
+ *   - To convert an alternative hex string to standard hex: `from_althex('G1HJ')`.
+ *   - To convert and ensure the output is in uppercase: `from_althex('G1HJ', true)`.
+ *   - To convert and ensure the output is in lowercase: `from_althex('G1HJ', false)`.
+ *
+ * @param string $althex_string The alternative hexadecimal string to convert.
+ * @param bool|null $use_uppercase Optional. Whether to output the standard hexadecimal string in uppercase. If null, the case is inferred from the input string.
+ * @return string The standard hexadecimal representation of the input string.
+ *
+ * Examples:
+ *   - `from_althex('G1HJ')` will return 'A1BC' assuming the input string is in uppercase.
+ *   - `from_althex('g1hj', true)` will return 'A1BC'.
+ *   - `from_althex('G1hj', false)` will return 'a1bc'.
+ */
+function from_althex($althex_string, $use_uppercase = null) {
+    // Determine the case from the input string if use_uppercase is not set
+    if ($use_uppercase === null) {
+        $use_uppercase = is_upper_althex($althex_string);
+    }
+
+    // Create the translation maps
+    $upper_map = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F');
+    $lower_map = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+    $custom_map_upper = array('G', 'H', 'J', 'K', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+    $custom_map_lower = array('g', 'h', 'j', 'k', 'm', 'n', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+    
+    // Create an associative array for translation
+    $custom_to_hex_map = [];
+    for ($i = 0; $i < count($upper_map); $i++) {
+        $custom_to_hex_map[$custom_map_upper[$i]] = $upper_map[$i];
+        $custom_to_hex_map[$custom_map_lower[$i]] = $lower_map[$i];
+    }
+
+    // Translate the custom hex string back to standard hex
+    $result = '';
+    for ($i = 0; $i < strlen($althex_string); $i++) {
+        $char = $althex_string[$i];
+        if (isset($custom_to_hex_map[$char])) {
+            $result .= $use_uppercase ? strtoupper($custom_to_hex_map[$char]) : strtolower($custom_to_hex_map[$char]);
+        } else {
+            $result .= $char;
+        }
+    }
+
+    return $result;
+}
+?>

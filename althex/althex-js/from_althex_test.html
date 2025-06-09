@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>From Althex Test</title>
+    <script src="from_althex.js"></script>
+  </head>
+  <body>
+    <h1>From Althex Test Results</h1>
+    <div id="test-results"></div>
+    <script>
+      // Test function to log and display results with expected outcomes
+      function testFunction(testName, actual, expected) {
+        const passOrFail = actual === expected ? "PASS" : "FAIL";
+        const resultText = `${testName}: ${passOrFail}. Expected: ${expected}, Actual: ${actual}`;
+        console.log(resultText);
+        const resultsElement = document.getElementById("test-results");
+        const p = document.createElement("p");
+        p.textContent = resultText;
+        resultsElement.appendChild(p);
+        p.style.color = passOrFail === "PASS" ? "green" : "red";
+      }
+
+      // Example test cases with expected results
+      testFunction('fromAlthex with "HUKZ"', fromAlthex("HUKZ"), "1A3F"); // Expected '1A3F'
+      testFunction('fromAlthex with "hukz"', fromAlthex("hukz"), "1a3f"); // Expected '1a3f'
+      testFunction(
+        'fromAlthex with "HUKZ", true',
+        fromAlthex("HUKZ", true),
+        "1A3F"
+      ); // Expected '1A3F'
+      testFunction(
+        'fromAlthex with "hukz", false',
+        fromAlthex("hukz", false),
+        "1a3f"
+      ); // Expected '1a3f'
+      testFunction('fromAlthex with "HuKz"', fromAlthex("HuKz"), "1a3f"); // Expected '1a3f'
+
+      <!-- Additional test cases based on the Python unit tests provided -->
+      testFunction(
+        'fromAlthex with uppercase input "HUKZ"',
+        fromAlthex("HUKZ"),
+        "1A3F"
+      ); // Expected '1A3F'
+      testFunction(
+        'Length test for uppercase input "HUKZ"',
+        fromAlthex("HUKZ").length,
+        "1A3F".length
+      );
+
+      testFunction(
+        'fromAlthex with lowercase input "hukz"',
+        fromAlthex("hukz"),
+        "1a3f"
+      ); // Expected '1a3f'
+      testFunction(
+        'Length test for lowercase input "hukz"',
+        fromAlthex("hukz").length,
+        "1a3f".length
+      );
+
+      testFunction(
+        "fromAlthex with explicit uppercase output",
+        fromAlthex("hukz", true),
+        "1A3F"
+      ); // Expected '1A3F'
+      testFunction(
+        "Length test for explicit uppercase output",
+        fromAlthex("hukz", true).length,
+        "1A3F".length
+      );
+
+      testFunction(
+        "fromAlthex with explicit lowercase output",
+        fromAlthex("HUKZ", false),
+        "1a3f"
+      ); // Expected '1a3f'
+      testFunction(
+        "Length test for explicit lowercase output",
+        fromAlthex("HUKZ", false).length,
+        "1a3f".length
+      );
+
+      testFunction("fromAlthex with empty string", fromAlthex(""), ""); // Expected ''
+
+      testFunction(
+        'fromAlthex with invalid input "invalid"',
+        fromAlthex("invalid").length,
+        "invalid".length
+      );
+
+      testFunction(
+        'fromAlthex with emoji input "🙂😉😊"',
+        fromAlthex("🙂😉😊"),
+        "🙂😉😊"
+      ); // Expected the same emoji string
+      testFunction(
+        'Length test for emoji input "🙂😉😊"',
+        fromAlthex("🙂😉😊").length,
+        "🙂😉😊".length
+      );
+
+      testFunction(
+        'fromAlthex with kanji input "漢字"',
+        fromAlthex("漢字"),
+        "漢字"
+      ); // Expected the same kanji string
+      testFunction(
+        'Length test for kanji input "漢字"',
+        fromAlthex("漢字").length,
+        "漢字".length
+      );
+    </script>
+  </body>
+</html>
