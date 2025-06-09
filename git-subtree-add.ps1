@@ -13,12 +13,13 @@ $projects = @(
     #"thoughtful-shorthaired-avocado",
     #"rdfa-streaming-parser",
     #"bald-hazel-screw",
-    "hello-llama-index",
-    "hello-google-keep-api",
-    "streaming-parser-playground",
-    "flatte",
-    "moukaeritai-static",
-    "moukaeritai-express"
+    #"hello-llama-index",
+    #hello-google-keep-api",
+    #"streaming-parser-playground",
+    #"flatte",
+    #"moukaeritai-static",
+    #"moukaeritai-express",
+    "moukaeritai-fastify"
 )
 
 foreach ($project in $projects) {
