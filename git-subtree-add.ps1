@@ -34,7 +34,8 @@ $projects = @(
     #"moukaeritai-appengine",
     #"moukaeritai-sqlite",
     #"moukaeritai-aws",
-    "abnf"
+    #"abnf",
+    "moukaeritai-vite"
 )
 
 foreach ($project in $projects) {
