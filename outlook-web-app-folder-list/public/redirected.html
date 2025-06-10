@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>redirected</title>
+    <style>
+      textarea {
+        width: 99%;
+        height: 11.1em;
+      }
+      input {
+        max-width: 99%;
+        width: 99%;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="location"></textarea>
+    <div>
+      <label>Authentication Code<input id="code"/></label>
+    </div>
+    <div>
+      <label>Session State<input id="session_state"/></label>
+    </div>
+    <a href=""></a>
+    <script>
+      setTimeout(x => {
+        document.querySelector("#location").value = location.href;
+        const url = document.querySelector("#location").value;
+        const queryPart = url.split("?")[1];
+        const params = queryPart.split("&");
+        const paramsObject = {};
+        for (var i = 0; i < params.length; ++i) {
+          const kv = params[i].split("=");
+          paramsObject[kv[0]] = kv[1];
+        }
+        console.log(paramsObject);
+        document.querySelector("#code").value = paramsObject["code"];
+        document.querySelector("#session_state").value =
+          paramsObject["session_state"];
+
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "POST",
+          "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+          true
+        );
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.onreadystatechange = function(e) {
+          if (this.readyState == "4") {
+            if (this.status === 200) {
+              alert(JSON.parse(this.response));
+            } else {
+              alert(this.response);
+            }
+          }
+        };
+        xhr.send(
+          "grant_type=authorization_code&code=" +
+            paramsObject["code"] +
+            "&client_id=908a2d13-cbf0-48a4-b5d1-3413ff8ebe60"
+        );
+      }, 10);
+    </script>
+  </body>
+</html>
