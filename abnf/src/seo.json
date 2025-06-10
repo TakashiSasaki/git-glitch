@@ -1,0 +1,8 @@
+{
+  "glitch-help-instructions": "For a custom domain, change the 'url' parameter from 'glitch-default' to your domain _without_ a traling slash, like 'https://www.example.com'",
+  "title": "APG Demo (unofficial)",
+  "description": "APG is an ABNF parser generator developed by Lowell D. Thomas. This web site shows browser-ready demos included in the original APG package. THX for releasing such useful library, @ldthomas.",
+  "url": "glitch-default",
+  "image": "https://sabnf.com/wp-content/uploads/2021/02/apg-trans.png",
+  "type": "website"
+}
