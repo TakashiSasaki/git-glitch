@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>unicode-echo</title>
+    <!-- <style>
+      textarea {min-width: 50%; max-width:99%; height: 15em;}
+      pre {border-width: 1px}
+    </style> -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="panel">
+      <div class="label label-primary">Name</div>
+      <div class="panel-body">name-name-name</div>
+    </div>
+    <div class="panel">
+      <div class="label label-primary">Description</div>
+      <div class="panel-body">
+        Just decode Base64-encoded-UTF8 and return it.
+      </div>
+    </div>
+    <div class="panel">
+      <div class="label label-primary">Parameter(s)</div>
+      <div class="label label-secondary">
+        base64utf8
+        <div class="label label-success">GET</div>
+      </div>
+      <div class="panel-body">Base64 encoded UTF-8 string.</div>
+    </div>
+    <div class="panel">
+      
+    </div>
+    <h2>base64utf8</h2>
+    <p></p>
+    <h1>Example(s):</h1>
+    <h2>n=30</h2>
+    <p>
+      <a target="_blank"></a>
+    </p>
+    <textarea readonly> </textarea>
+    <script id="example">
+      function main() {
+        const textEncoder = new TextEncoder();
+        const uint8Array = textEncoder.encode("こんにちは💛💓");
+        const binaryStringArray = Array.from(uint8Array, (x) =>
+          String.fromCharCode(x)
+        );
+        const binaryString = binaryStringArray.join("");
+        const base64utf8 = btoa(binaryString);
+        //const base64utf8 = btoa(textEncoder.encode("Hello!!"));
+        const href = baseUrl + "?base64utf8=" + encodeURIComponent(base64utf8);
+        document.querySelector("A").setAttribute("href", href);
+        document.querySelector("A").innerText = href;
+      }
+    </script>
+    <script>
+      const baseUrl =
+        window.location.protocol + "//" + window.location.host + "/";
+      window.onload = function () {
+        const exampleCode = document.querySelector("#example").innerText;
+        document.querySelector("TEXTAREA").value = exampleCode;
+        main();
+      };
+    </script>
+    <h1>working code</h1>
+
+    <pre>
+    const textEncoder = new TextEncoder();
+    const textDecoder = new TextDecoder();
+    const input = "💛💓";
+    const roundtrip = textDecoder.decode(
+                        Uint8Array.from(
+                          atob(
+                            btoa(
+                              Array.from(
+                                textEncoder.encode(input),
+                                x=>String.fromCharCode(x)
+                              ).join("")
+                            )
+                          ),
+                          x=>x.charCodeAt(0)
+                        )
+                      )
+    console.log("roundtrip = " + roundtrip);
+    </pre>
+  </body>
+</html>
