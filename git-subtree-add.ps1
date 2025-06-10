@@ -35,7 +35,8 @@ $projects = @(
     #"moukaeritai-sqlite",
     #"moukaeritai-aws",
     #"abnf",
-    "moukaeritai-vite"
+    "moukaeritai-vite",
+    "http-request-reflector"
 )
 
 foreach ($project in $projects) {
