@@ -1,0 +1,13 @@
+index.html
+script.js
+firebase.js
+firebase-config.js
+firebaseConfig.js
+firebase-app.js
+hello-firestore.html
+credentials
+adc.json
+.boto
+credentials.db
+init.js
+app.js
