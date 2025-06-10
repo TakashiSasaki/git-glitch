@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>client-side-check</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 1px;
+      }
+      textarea {
+        width: 99%;
+        height: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WebAuthnが利用可能か？</h1>
+    <p>
+      <code>window.PublicKeyCredential</code>があれば WebAuthnが利用可能である。
+    </p>
+    <textarea id="textareaPublicKeyCredential" readonly>a</textarea>
+    <script>
+      setTimeout(() => {
+        document.querySelector("#textareaPublicKeyCredential").value =
+          window.PublicKeyCredential;
+      }, 100);
+    </script>
+
+    <h1>生体認証器が利用可能か？</h1>
+    <p>
+      <code
+        >PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()</code
+      >の 返すPromiseがtrueを返すなら生体認証器が利用可能。
+    </p>
+    <textarea id="textareaUVPAA" readonly></textarea>
+    <script>
+      setTimeout(() => {
+        window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(
+          (x) => (document.querySelector("#textareaUVPAA").value = x)
+        );
+      }, 100);
+    </script>
+  </body>
+</html>
