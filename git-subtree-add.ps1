@@ -29,11 +29,12 @@ $projects = @(
     #"purl-ts-terms",
     #"microdata-rdf-streaming-parser",
     #"localhost-moukaeritai-work",
-    "dot-voting-view",
-    "azure-moukaeritai-work",
-    "moukaeritai-appengine",
-    "moukaeritai-sqlite",
-    "moukaeritai-aws"
+    #"dot-voting-view",
+    #"azure-moukaeritai-work",
+    #"moukaeritai-appengine",
+    #"moukaeritai-sqlite",
+    #"moukaeritai-aws",
+    "abnf"
 )
 
 foreach ($project in $projects) {
