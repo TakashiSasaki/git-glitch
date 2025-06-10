@@ -36,7 +36,16 @@ $projects = @(
     #"moukaeritai-aws",
     #"abnf",
     "moukaeritai-vite",
-    "http-request-reflector"
+    "http-request-reflector",
+    "gtd-workflow",
+    "firebase-moukaeritai-work",
+    "ehime-u",
+    "outlook-web-app-folder-list",
+    "webauthn-codelab-3",
+    "webauthn-fastify",
+    "universal-dented-atrociraptor",
+    "highfalutin-hospitable-vest",
+    "swanky-strong-catmint"
 )
 
 foreach ($project in $projects) {
