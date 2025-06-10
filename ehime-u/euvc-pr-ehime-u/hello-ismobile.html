@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <script type="module" src="/isMobile.js"></script>
+  </head>
+  <body>
+    <label
+      >isMobile() =
+      <input id="isMobile" reaonly />
+    </label>
+    <script>
+      window.addEventListener("load", (loadEvent) => {
+        setTimeout(() => {
+          document.querySelector("#isMobile").value = isMobile();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

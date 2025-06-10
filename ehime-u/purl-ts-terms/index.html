@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  prefix="ts: https://purl.org/ts/# rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# xsd: http://www.w3.org/2001/XMLSchema# owl: http://www.w3.org/2002/07/owl#"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocabulary Definitions</title>
+    <base href="https://purl.org/ts/" />
+    <link rel="canonical" href="https://purl.org/ts/" />
+    <script src="https://rdfa-streaming-parser.glitch.me/rdfa-streaming-parser.webpack.js"></script>
+    <script type="module" async>
+      navigator.serviceWorker.register(
+        "https://purl-ts-terms.glitch.me/sw.js",
+        { scope: "https://purl-ts-terms.glitch.me/" }
+      );
+    </script>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/24ccdc30-220b-4578-a211-8cf3f3e1bcff/favicon.png?v=1692564673448"
+    />
+    <link rel="manifest" href="https://purl-ts-terms.glitch.me/manifest.json" />
+    <script
+      type="module"
+      src="https://purl-ts-terms.glitch.me/index.js"
+    ></script>
+    <link rel="stylesheet" href="https://purl-ts-terms.glitch.me/index.css" />
+  </head>
+  <body>
+    <h1>Vocabulary Definitions</h1>
+
+    <!-- RDFa Explanation -->
+    <p>
+      This document is encoded using
+      <a href="https://www.w3.org/TR/rdfa-primer/" target="_blank">RDFa</a>, a
+      W3C standard for embedding RDF information in HTML. It allows both
+      human-readable presentation and machine-readable metadata. RDFa-enabled
+      parsers can extract semantic information from this document.
+    </p>
+
+    <section
+      id="randAlpha8"
+      about="ts:randAlpha8"
+      typeof="rdf:Property owl:DatatypeProperty"
+    >
+      <h2 property="rdfs:label">randAlpha8</h2>
+      <p property="rdfs:comment">
+        Represents a string of 8 uppercase alphabetic characters generated based
+        on cryptographically secure random numbers.
+      </p>
+      <p>
+        <strong>Range:</strong>
+        <span property="rdfs:range" resource="ts:RandAlpha8String"
+          >RandAlpha8String</span
+        >
+        (a datatype with pattern restriction
+        <code property="xsd:pattern">^[A-Z]{8}$</code>)
+      </p>
+    </section>
+    <section
+      about="https://purl.org/ts/terms/#designativeKeyword"
+      typeof="rdf:Property rdfs:DatatypeProperty"
+    >
+      <h2 property="rdfs:label">designativeKeyword</h2>
+      <p property="rdfs:comment">
+        This property represents a keyword that directly designates a specific
+        subject. Designative keywords are used to emphasize the essential
+        identity of the subject, independent of its attributes or
+        characteristics. This concept is contrasted with descriptive keywords,
+        and specifies the particular designative keyword for a resource.
+      </p>
+      <link rel="rdfs:subPropertyOf" href="http://purl.org/dc/terms/subject" />
+      <link rel="rdfs:range" href="xsd:string" />
+    </section>
+
+    <section
+      about="https://purl.org/ts/terms/#descriptiveKeyword"
+      typeof="rdf:Property rdfs:DatatypeProperty"
+    >
+      <h2 property="rdfs:label">descriptiveKeyword</h2>
+      <p property="rdfs:comment">
+        This property represents a keyword that describes a specific attribute,
+        characteristic, or aspect of a subject. Descriptive keywords are used to
+        provide detailed information about the subject, emphasizing its
+        particular features. This concept contrasts with designative keywords,
+        which directly indicate a specific subject.
+      </p>
+      <link rel="rdfs:subPropertyOf" href="http://purl.org/dc/terms/subject" />
+      <link rel="rdfs:range" href="xsd:string" />
+    </section>
+
+    <section id="parsedSection">
+      <h1>Parsed result of this document as RDFa</h1>
+      <div id="parsedDiv"></div>
+    </section>
+    <!-- Additional vocabulary definitions can be added in separate section elements -->
+    <section>
+    <h1>
+      Related resources
+      </h1>
+      <ul>
+        <a href="5a0146b7-8744-49cc-a69d-b38fad10b940.bat">5a0146b7-8744-49cc-a69d-b38fad10b940.bat</a>
+      </ul>
+    </section>
+  </body>
+</html>

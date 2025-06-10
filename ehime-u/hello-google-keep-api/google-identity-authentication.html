@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+  </head>
+  <body>
+    <div
+      id="g_id_onload"
+      data-client_id="1042140630327-gnc1i0ai9ph8p5m3k3erris7sa5e2d6d.apps.googleusercontent.com"
+      data-context="signin"
+      data-ux_mode="popup"
+      data-callback="loginCallback"
+      data-itp_support="false"
+    ></div>
+
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="rectangular"
+      data-theme="outline"
+      data-text="signin_with"
+      data-size="large"
+      data-locale="en-US"
+      data-logo_alignment="left"
+    ></div>
+    <script>
+      function loginCallback(x) {
+        console.log(x);
+      }
+    </script>
+  </body>
+</html>

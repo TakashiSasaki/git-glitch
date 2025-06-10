@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Reader</title>
+    <style>
+        #output {
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NFC Tag Reader</h1>
+    <button id="scanButton">Scan NFC Tag</button>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('scanButton').addEventListener('click', async () => {
+            if ('NDEFReader' in window) {
+                const outputDiv = document.getElementById('output');
+                const log = message => {
+                    const time = new Date().toLocaleTimeString();
+                    outputDiv.innerText += `[${time}] ${message}\n`;
+                };
+
+                try {
+                    const ndef = new NDEFReader();
+                    log("Starting NFC scan...");
+                    await ndef.scan();
+                    log("NFC scan started successfully.");
+
+                    ndef.onreadingstart = event => {
+                        log("Reading NFC tag started.");
+                    };
+
+                    ndef.onreading = event => {
+                        log("NFC tag read successfully.");
+                        const decoder = new TextDecoder();
+                        let output = '';
+
+                        // Display Tag ID
+                        const tagID = event.serialNumber;
+                        output += `Tag ID: ${tagID}\n`;
+
+                        // Display all event properties
+                        output += `\nAll event properties:\n`;
+                        for (const key in event) {
+                            try {
+                                output += `${key}: ${JSON.stringify(event[key])}\n`;
+                            } catch (e) {
+                                output += `${key}: [Unserializable]\n`;
+                            }
+                        }
+
+                        for (const record of event.message.records) {
+                            output += `\nRecord type: ${record.recordType}\n`;
+                            output += `MIME type: ${record.mediaType}\n`;
+                            output += `Record id: ${record.id}\n`;
+                            output += `Record data: ${decoder.decode(record.data)}\n`;
+                        }
+
+                        log(`NFC tag data: \n${output}`);
+                    };
+
+                    ndef.onreadingerror = event => {
+                        log("Error reading NFC tag.");
+                    };
+
+                } catch (error) {
+                    log(`Error! Scan failed to start: ${error}.`);
+                }
+            } else {
+                document.getElementById('output').innerText = "Web NFC API is not supported in this browser.";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <label>email:<input id="emailInput" /></label
+    ><label>password:<input id="passwordInput" /></label>
+    <button id="signInWithEmailAndPasswordButton">
+      signInWithEmailAndPassword
+    </button>
+    <label
+      >userCredential<textarea id="userCredentialTextarea"></textarea>
+    </label>
+    <label>error<textarea id="errorTextarea"></textarea></label>
+    <script>
+      const dq = (x) => document.querySelector(x);
+    </script>
+    <script type="module">
+      dq("#signInWithEmailAndPasswordButton").addEventListener(
+        "click",
+        (clickEvent) => {
+          const email = dq("#emailInput").value;
+          const password = dq("#passwordInput").value;
+          console.log(email, password);
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              dq("#userCredentialTextarea").value = userCredential;
+              var user = userCredential.user;
+              console.log(user);
+              dq("#userTextarea").value = user;
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(errorCode, errorMessage);
+              dq("#errorTextarea").value = error;
+              // ..
+            });
+        }
+      );
+    </script>
+    <script type="module" src="firebase-user.js"></script>
+    <firebase-user autoRefresh></firebase-user>
+  </body>
+</html>

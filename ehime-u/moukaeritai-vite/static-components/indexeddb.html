@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Hello indexedDB</title>
+    <style>
+      textarea {
+        width: 99%;
+        min-height: 3em;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const VERSION = 4;
+      const request = window.indexedDB.open("MyTestDatabase", VERSION);
+      request.onerror = (event) =>
+        (document.querySelector("#onerror").value = event.target.error);
+      request.onsuccess = (event) =>
+        (document.querySelector("#onsuccess").value = event.target.result);
+      request.onupgradeneeded = (event) => {
+        document.querySelector("#onupgradeneeded").value = event;
+        const objectStore = db.createObjectStore("MyTestStore");
+      };
+    </script>
+    <textarea id="onerror" readonly></textarea>
+    <input id="onsuccess" readonly />
+    <textarea id="onupgradeneeded" readonly></textarea>
+  </body>
+</html>

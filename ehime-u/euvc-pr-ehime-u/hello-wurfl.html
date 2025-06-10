@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <script src="//wurfl.io/wurfl.js"></script>
+    <script src="/modernizr-webgl.js"></script>
+    <style>
+      label {
+        display: block;
+      }
+      textarea {
+        width: 99%;
+        height: 18.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>モバイル環境からの閲覧か判定したい</h1>
+    <h2>WURFL.js</h2>
+    <label>WURFL.is_mobile <input id="isMobileInput" readonly /></label>
+    <label>WURFL.from_factor <input id="formFactorInput" readonly /></label>
+    <label
+      >WURFL.complete_device_name <input id="completeDeviceNameInput" readonly
+    /></label>
+    <script type="module">
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").then(
+            function (registration) {
+              // Registration was successful
+              console.log(
+                "ServiceWorker registration successful with scope: ",
+                registration.scope
+              );
+            },
+            function (err) {
+              // registration failed :(
+              console.log("ServiceWorker registration failed: ", err);
+            }
+          );
+        });
+      }
+    </script>
+    <script type="module">
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("#isMobileInput").value = WURFL.is_mobile;
+        document.querySelector("#formFactorInput").value = WURFL.form_factor;
+        document.querySelector("#completeDeviceNameInput").value =
+          WURFL.complete_device_name;
+      });
+    </script>
+
+    <h2>navigator.connection</h2>
+    <label
+      >navigator.connection.downlink
+      <input id="navigatorConnectionDownlinkInput"
+    /></label>
+    <label
+      >navigator.connection.rtt <input id="navigatorConnectionRttInput"
+    /></label>
+    <label
+      >navigator.connection.saveData
+      <input id="navigatorConnectionSaveDataInput"
+    /></label>
+    <label
+      >navigator.connection.type <input id="navigatorConnectionTypeInput"
+    /></label>
+    <label
+      >navigator.connection.effectiveType
+      <input id="navigatorConnectionEffectiveTypeInput"
+    /></label>
+    <script type="module">
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("#navigatorConnectionDownlinkInput").value =
+          navigator.connection.downlink;
+        document.querySelector("#navigatorConnectionRttInput").value =
+          navigator.connection.rtt;
+        document.querySelector("#navigatorConnectionSaveDataInput").value =
+          navigator.connection.saveData;
+        document.querySelector("#navigatorConnectionTypeInput").value =
+          navigator.connection.type;
+        document.querySelector("#navigatorConnectionEffectiveTypeInput").value =
+          navigator.connection.effectiveType;
+      });
+    </script>
+
+    <h2>メディアクエリ</h2>
+    <label>Media query <input id="mediaQueryInput" readonly /></label>
+    <script type="module">
+      function isNarrow() {
+        if (
+          window.matchMedia &&
+          window.matchMedia("(max-width: 767px)").matches
+        ) {
+          return true;
+        } else {
+          return false;
+        } //if
+      } //isNarrow
+
+      window.addEventListener("load", (loadEvent) => {
+        if (isNarrow()) {
+          document.querySelector("#mediaQueryInput").value = "narrow";
+        } else {
+          document.querySelector("#mediaQueryInput").value = "wide";
+        } //if
+      });
+    </script>
+
+    <h2>Modernizr</h2>
+    <label>
+      Modernizr.webgl
+      <input id="modernizrWebglInput" />
+    </label>
+    <label>
+      Modernizr.webglextensions
+      <input id="modernizrWebglExtensionsInput"
+    /></label>
+    <label>
+      Modernizr.webglextensions
+      <textarea id="modernizrWebglExtensionsTextarea"></textarea>
+    </label>
+    <script type="module">
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("#modernizrWebglInput").value = Modernizr.webgl;
+        document.querySelector("#modernizrWebglExtensionsInput").value =
+          Modernizr.webglextensions;
+        document.querySelector("#modernizrWebglExtensionsTextarea").innerText =
+          Object.keys(Modernizr.webglextensions);
+      });
+    </script>
+
+    <h2>ユーザーエージェント クライアントヒント</h2>
+    <label
+      >navigator.userAgentData.mobile
+      <input id="userAgentDataMobile" />
+    </label>
+    <label
+      >navigator.userAgentData.brands
+      <input id="userAgentDataBrands" />
+    </label>
+    <label
+      >navigator.userAgentData.platform
+      <input id="userAgentDataPlatform" />
+    </label>
+    <script>
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("input#userAgentDataMobile").value =
+          navigator.userAgentData.mobile;
+        document.querySelector("input#userAgentDataBrands").value =
+          JSON.stringify(navigator.userAgentData.brands);
+        document.querySelector("input#userAgentDataPlatform").value =
+          navigator.userAgentData.platform;
+      });
+    </script>
+
+    <h2>isMobileの結果</h2>
+    <label
+      >isMobile() =
+      <input id="isMobileTotallyInput" />
+    </label>
+    <script>
+      function isMobile() {
+        if (typeof WURFL !== "undefined") {
+          if (WURFL.is_mobile || WURFL.form_factor !== "Desktop") return true;
+        }
+        if (typeof navigator.connection !== "undefined") {
+          if (
+            navigator.connection.downlink < 8 ||
+            navigator.connection.rtt > 100 ||
+            navigator.connection.saveData ||
+            navigator.connection.effectiveType !== "4g"
+          )
+            return true;
+        }
+
+        if (typeof Modernizr !== "undefined") {
+          if (!Modernizr.webgl || !Modernizr.webglextensions) return true;
+        }
+        if (typeof isNarrow !== "undefined") {
+          if (isNarrow()) return true;
+        }
+        return false;
+      }
+
+      window.addEventListener("load", (loadEvent) => {
+        document.querySelector("#isMobileTotallyInput").value = isMobile();
+      });
+    </script>
+
+    <h1>関連ページ</h1>
+    <ul>
+      <li>
+        <a target="_blank" href="https://blog.w0s.jp/537">
+          JavaScript で navigator.connection を使ってネットワーク情報を取得する
+          富永日記帳</a
+        >
+      </li>
+      <li>
+        <a target="_blank" href="https://codepen.io/SaekiTominaga/pen/Oxrdvx"
+          >上記ページからのリンク</a
+        >
+      </li>
+    </ul>
+  </body>
+</html>

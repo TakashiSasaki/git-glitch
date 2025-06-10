@@ -1,0 +1,11 @@
+{
+  "engines": {
+    "node": "18.x.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
