@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>01touroku.html</title>
+    <style>
+      textarea {
+        width: 99%;
+        min-height: 5em;
+      }
+      h1 {
+        font-size: small;
+      }
+    </style>
+  </head>
+  <body>
+    <p>これが最初に実行する画面。 ユーザーの初期登録画面。</p>
+    <div>
+      <label for="username">username</label>
+      <input id="username" />
+    </div>
+    <button>POST username to /auth/username</button>
+    <label for="response">response body</label>
+    <textarea id="response"></textarea>
+    <h1>サーバ側で登録されるユーザー情報</h1>
+    <pre>
+      user = {
+        username: username,
+        id: base64url.encode(crypto.randomBytes(32)),
+        credentials: [],
+      };</pre
+    >
+    <div>
+      <a href="02password.html">02password.html</a>
+    </div>
+    <script src="01touroku.js"></script>
+  </body>
+</html>
