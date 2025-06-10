@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpdocumentor>
+  <settings>
+    <graphs enabled="false"/>
+  </settings>
+  <paths>
+    <cache-folder>/tmp/phpdoc-cache</cache-folder>
+  </paths>
+</phpdocumentor>
+

@@ -1,0 +1,21 @@
+{
+  "install": {
+    "include": [
+      "^package\\.json$"
+    ],
+    "exclude": []
+  },
+  "restart": {
+    "include": [
+      "public/playground.html",
+      "^\\.env$",
+      "^backend/"
+    ],
+    "exclude": [
+      "public/styles/",
+      "vite.config.js",
+      "settings.json"
+    ]
+  },
+  "noSavedEvents": true
+}

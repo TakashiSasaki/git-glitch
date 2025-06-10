@@ -1,0 +1,94 @@
+/* Global layout */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  background: #333;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+header button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.panel {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.editable {
+  flex: none;
+  width: 100%;
+  height: 100px;
+  border: 1px dashed #888;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  outline: none;
+  overflow-y: auto;
+}
+
+.controls button {
+  margin-right: 0.5rem;
+}
+
+.log {
+  flex: 1;
+  background: #222;
+  color: #0f0;
+  padding: 0.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+#readmeView {
+  display: none;
+  padding: 1rem;
+  overflow-y: auto;
+  background: white;
+}
+
+#readmeContent {
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+#readmeContent h1,
+#readmeContent h2 {
+  border-bottom: 1px solid #ccc;
+}

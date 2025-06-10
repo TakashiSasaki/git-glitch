@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "build",
+    "target": "korenani",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

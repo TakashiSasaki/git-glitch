@@ -1,0 +1,18 @@
+{
+  "name": "korenani",
+  "version": "0.1.4",
+  "glitch": {
+    "projectType": "generated_static"
+  },
+  "scripts": {
+    "build": "touch build/index.html",
+    "start": "while true; do { echo -e 'HTTP/1.1 200 OK\r\n'; cat /app/build/index.html; } | nc -l 8080; done"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/korenani"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "firebase-tools": "^13.0.2"
+  }
+}

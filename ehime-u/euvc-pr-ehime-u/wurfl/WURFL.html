@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <script src="//wurfl.io/wurfl.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      window.addEventListener("load", (loadEvent) => {
+        window.addEventListener("message", (messageEvent) => {
+          messageEvent.postMessage(WURFL);
+        });
+      });
+    </script>
+  </body>
+</html>

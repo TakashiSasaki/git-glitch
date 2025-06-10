@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Clipboard Comparison Tester</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Clipboard Comparison Tester</h1>
+    <button id="toggleReadmeBtn">📖 View README</button>
+  </header>
+
+  <!-- Experiment View -->
+  <div id="experimentView" class="container">
+    <div class="panel" id="paste-panel">
+      <h2>Paste Event</h2>
+      <p>Paste here (Ctrl+V or right-click → Paste):</p>
+      <div id="pasteArea" class="editable" contenteditable="true"></div>
+      <div id="pasteLog" class="log"></div>
+    </div>
+
+    <div class="panel" id="api-panel">
+      <h2>Clipboard API</h2>
+      <div class="controls">
+        <button id="readTextBtn">Read Text</button>
+        <button id="readBtn">Read Items</button>
+      </div>
+      <div id="apiLog" class="log"></div>
+    </div>
+  </div>
+
+  <!-- README View -->
+  <div id="readmeView">
+    <div id="readmeContent">Loading README.md...</div>
+  </div>
+
+  <!-- dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
