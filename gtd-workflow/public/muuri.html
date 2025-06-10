@@ -1,0 +1,158 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script> -->
+    <link rel="manifest" href="/manifest.json">
+    <script src="/pwa.js"></script>
+    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://unpkg.com/muuri@0.7.1/dist/muuri.min.js"></script>      
+    <!--<script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js" ></script>-->
+    <script src="/firebase-5.8.0.js" ></script>
+    <script src="/firebase-config.js"></script>
+    <script src="/firebase-app.js"></script>
+    <script src="/localStorage.js"></script>
+    <!--<link rel="stylesheet" href="https://unpkg.com/bootstrap@4.3.1/dist/css/bootstrap-reboot.css" type="text/css">-->
+    <!--<link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css"/>-->
+  　<!--<link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">-->
+    <!--<link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla-framework-version-1.8.1.min.css" />-->
+    <link rel="stylesheet" href="/style.css" type="text/css">
+  </head>
+  <html>
+    <div class="grid">
+      <div class="item" id="div1">
+        <div class="item-content">
+              div1
+        </div>
+      </div>
+      <div class="item" id="div2">
+        <div class="item-content">
+              div2
+        </div>
+      </div>
+      <div class="item" id="div3">
+        <div class="item-content">
+              div3
+        </div>
+      </div>
+      <div class="item" id="div4">
+        <div class="item-content">
+              div4
+        </div>
+      </div>
+    </div>
+    <script>
+      if (location.protocol != 'https:') {
+       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
+    <script>
+      function loadDocument(url, callback){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.responseType = "document";
+        xhr.onload = ()=>{
+          var documentFragment = xhr.responseXML.querySelector("body :first-child");
+          documentFragment.classList.add("item");
+          var itemElement = grid.add(documentFragment)[0].getElement();
+          if(callback){
+            callback(itemElement);
+          }
+        };
+        xhr.send();
+      }//loadDocument
+    </script>
+    <script>
+      var grid = new Muuri(".grid" , {
+        dragEnabled: true, 
+        dragSortInterval: 70,
+        sortData: {
+          default: (item, element) => {
+            if(element.id) {
+              var k = "muuriOrder:"+element.id;
+              var v = window.localStorage.getItem(k);
+              console.log("sort order for " + k + " is " + v);
+              return parseFloat(v);
+            }//if
+            return 100;
+          }//default
+        }
+      });
+      grid.on("dragEnd", function(item, event){
+        var items = grid.getItems();
+        for(i in items){
+          var element = items[i].getElement();
+          if(element.id) {
+            var k = "muuriOrder:"+element.id;
+            window.localStorage.setItem(k, i);
+            console.log("setting " + k + " to " + i);
+          }
+        }
+      });
+
+      loadDocument("/item/firebase-signin-button.html", (itemElement)=>{
+        grid.sort("default");
+        var img = document.querySelector("img");
+        var displayName = itemElement.querySelector("[name='displayName']");
+        var email = itemElement.querySelector("[name='email']");
+        var uid = itemElement.querySelector("[name='uid']");
+        var idToken = itemElement.querySelector("[name='idToken']");
+        firebase.auth().onAuthStateChanged((x)=>{
+          if(x){
+            displayName.value = x.displayName;
+            email.value = x.email;
+            x.getIdToken().then((y)=>{
+              idToken.value = y;
+            },(error)=>{
+              idToken.value = error;
+            });
+            img.setAttribute("src", firebase.auth().currentUser.photoURL);
+            uid.value = firebase.auth().currentUser.uid;
+            grid.refreshItems();
+            grid.layout();
+          } else {
+            img.setAttribute("src", "https://tnckb94959.i.lithium.com/skins/images/3AB578B02FD7B257A7B52D5E05139FE9/atlassian_community/images/icon_anonymous_profile.png");
+            uid.value = "NOT LOGGED IN";
+            idToken.value = "NOT LOGGED IN";
+            displayName.value = "NOT LOGGED IN";
+            email.value = "NOT LOGGED IN";            
+            grid.refreshItems();
+            grid.layout();
+          }//if
+        });//onAuthStateChanged
+      });//loadDocument
+      
+      loadDocument("/item/hello.html", (itemElement)=>{
+        firebase.database().ref("appConfig/helloMessage").on("value", (snapshot)=>{
+          var v = snapshot.val();
+          itemElement.querySelector("[name='helloMessage']").innerHTML = v;
+          grid.refreshItems();
+          grid.layout();
+        });
+        firebase.database().ref("appConfig/helloTitle").on("value", (snapshot)=>{
+          var v = snapshot.val();
+          itemElement.querySelector("[name='helloTitle']").innerHTML = v;
+          grid.refreshItems();
+          grid.layout();
+        });
+      });
+      
+      loadDocument("/item/userData.html", (itemElement)=>{
+      });
+      
+      loadDocument("/item/localStorage.html", (itemElement)=>{
+        window.addEventListener("setItem", (event)=>{
+          itemElement.querySelector('[name="lastModified"]').value = new Date();
+          itemElement.querySelector("[name='key']").value = event.key;
+          itemElement.querySelector("[name='oldValue']").value = event.oldValue;
+          itemElement.querySelector("[name='newValue']").value = event.newValue;
+        });
+        //window.localStorage.setItem("random", Math.random());
+      });
+      
+      loadDocument("/item/admin.html");
+      loadDocument("/item/memopad.html");
+      
+    </script>
+  </html>
+</html>
